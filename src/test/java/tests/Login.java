@@ -38,5 +38,29 @@ public class Login extends Base {
 	    	
 	    	System.out.println("User Logged in Successfully.Test case passed.");
 	    }
+	    
+	    
+	    @Test(priority=2)
+	    public void loginWithValidUsernameInvalidPassword() {
+	    	
+	    	loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
+	    	loginPage.enterPasswordField(prop.getProperty("invalidpassworddev"));
+	    	loginPage.clickOnSubmitButton();
+	    	
+	    	System.out.println("User not able to Login.Test Case Passed");
+	    	
+	    }
+	    
+	    @Test(priority=3)
+	    public void loginWithInvalidUsernameValidPassword() {
+	    	
+	    	loginPage.enterUsernameField(prop.getProperty("invalidusernamedev"));
+	    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+	    	loginPage.clickOnSubmitButton();
+	    	
+	    	System.out.println("User not able to Login.Test Case Passed");
+	    	
+	    }
+	    
 
 }
