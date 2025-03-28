@@ -16,11 +16,17 @@ import com.aventstack.extentreports.Status;
 
 import util.ExtentReporter;
 import util.Utilities;
+import java.lang.reflect.Field;
+
+
+
 
 public class MyListeners implements ITestListener {
 	
 	ExtentReports extentReport = null;
 	ExtentTest extentTest = null;
+	
+	
 
 	@Override
 	public void onStart (ITestContext context) {
@@ -36,6 +42,28 @@ public class MyListeners implements ITestListener {
 
 	@Override
 	public void onTestFailure(ITestResult result) {
+		WebDriver driver = null;
+
+		// Retrieve the test class instance
+		Object testInstance = result.getInstance();
+		try {
+			// Try to get the 'driver' field
+			Field field = testInstance.getClass().getSuperclass().getDeclaredField("driver");
+			field.setAccessible(true); // Allow access to private fields
+			driver = (WebDriver) field.get(testInstance);
+		} catch (NoSuchFieldException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+
+		if (driver == null) {
+			System.out.println("Driver is null. Cannot capture screenshot.");
+		} else {
+			System.out.println("Driver retrieved successfully.");
+		}
+
+		extentTest.fail(result.getName() + " test got failed");
+	}
+	/*public void onTestFailure(ITestResult result) {
 		// TODO Auto-generated method stub
 		WebDriver driver = null; // Making it global
 		try {
@@ -49,6 +77,7 @@ public class MyListeners implements ITestListener {
 		extentTest.addScreenCaptureFromPath(screenshotFilePath);
 		extentTest.fail(result.getName()+" test got failed");
 	}
+	*/
 
 	@Override
 	public void onTestSkipped(ITestResult result) {

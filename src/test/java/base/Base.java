@@ -45,5 +45,11 @@ public class Base {
 		
 		return driver;
 	}
-
+	
+	// New Code as on 27/03/2025
+	public WebDriver getDriver() {
+		return driver;
+	}
+	
+	
 }

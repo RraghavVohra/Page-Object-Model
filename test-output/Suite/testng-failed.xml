@@ -12,13 +12,6 @@
           <include name="test_TC_PN_001_takenToPushNotificationsScreen"/>
         </methods>
       </class> <!-- tests.PushNotification -->
-      <class name="tests.Login">
-        <methods>
-          <include name="loginWithValidCredentials"/>
-          <include name="tearDown"/>
-          <include name="setUp"/>
-        </methods>
-      </class> <!-- tests.Login -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

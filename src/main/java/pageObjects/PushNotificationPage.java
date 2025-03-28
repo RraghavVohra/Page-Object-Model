@@ -54,9 +54,11 @@ public class PushNotificationPage {
 	
 	public void clickOnNotifications() {
 		
+		
 		// Dev Server : //a[normalize-space()='New Push Notification']
 		// Preprod Server : //a[normalize-space()='Notification']
-		Notifications = driver.findElement(By.xpath("//a[normalize-space()='New Push Notification']"));
+		// Notifications = driver.findElement(By.xpath("//a[normalize-space()='New Push Notification']"));
+		Notifications = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[normalize-space()='New Push Notification']")));
 		Notifications.click();
 	}
 	
