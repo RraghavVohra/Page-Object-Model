@@ -1,59 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="4" passed="4" failed="0" skipped="0">
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-03-28T15:35:22 IST" name="Suite" finished-at="2025-03-28T15:37:10 IST" duration-ms="108422">
+  <suite started-at="2025-04-19T11:52:57 IST" name="Default suite" finished-at="2025-04-19T11:53:35 IST" duration-ms="37969">
     <groups>
     </groups>
-    <test started-at="2025-03-28T15:35:22 IST" name="Test" finished-at="2025-03-28T15:37:10 IST" duration-ms="108422">
-      <class name="tests.Login">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.Login@4c12331b]" started-at="2025-03-28T15:35:22 IST" name="setUp" finished-at="2025-03-28T15:35:50 IST" duration-ms="27454" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method signature="loginWithValidCredentials()[pri:1, instance:tests.Login@4c12331b]" started-at="2025-03-28T15:35:50 IST" name="loginWithValidCredentials" finished-at="2025-03-28T15:35:54 IST" duration-ms="3892" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- loginWithValidCredentials -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.Login@4c12331b]" started-at="2025-03-28T15:35:54 IST" name="tearDown" finished-at="2025-03-28T15:35:57 IST" duration-ms="3447" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.Login@4c12331b]" started-at="2025-03-28T15:35:57 IST" name="setUp" finished-at="2025-03-28T15:36:08 IST" duration-ms="11348" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method signature="loginWithValidUsernameInvalidPassword()[pri:2, instance:tests.Login@4c12331b]" started-at="2025-03-28T15:36:08 IST" name="loginWithValidUsernameInvalidPassword" finished-at="2025-03-28T15:36:12 IST" duration-ms="3840" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- loginWithValidUsernameInvalidPassword -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.Login@4c12331b]" started-at="2025-03-28T15:36:12 IST" name="tearDown" finished-at="2025-03-28T15:36:16 IST" duration-ms="3396" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.Login@4c12331b]" started-at="2025-03-28T15:36:16 IST" name="setUp" finished-at="2025-03-28T15:36:25 IST" duration-ms="9175" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method signature="loginWithInvalidUsernameValidPassword()[pri:3, instance:tests.Login@4c12331b]" started-at="2025-03-28T15:36:25 IST" name="loginWithInvalidUsernameValidPassword" finished-at="2025-03-28T15:36:29 IST" duration-ms="3843" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- loginWithInvalidUsernameValidPassword -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.Login@4c12331b]" started-at="2025-03-28T15:36:29 IST" name="tearDown" finished-at="2025-03-28T15:36:32 IST" duration-ms="3394" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-      </class> <!-- tests.Login -->
+    <test started-at="2025-04-19T11:52:57 IST" name="Default test" finished-at="2025-04-19T11:53:35 IST" duration-ms="37969">
       <class name="tests.PushNotification">
-        <test-method signature="test_TC_PN_001_takenToPushNotificationsScreen()[pri:1, instance:tests.PushNotification@5dda768f]" started-at="2025-03-28T15:36:32 IST" name="test_TC_PN_001_takenToPushNotificationsScreen" finished-at="2025-03-28T15:37:10 IST" duration-ms="37503" status="PASS">
+        <test-method signature="test_TC_PN_07_fillsAllTheFieldsExceptNotificationName()[pri:3, instance:tests.PushNotification@327514f]" started-at="2025-04-19T11:52:58 IST" name="test_TC_PN_07_fillsAllTheFieldsExceptNotificationName" finished-at="2025-04-19T11:53:35 IST" duration-ms="37327" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- test_TC_PN_001_takenToPushNotificationsScreen -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.PushNotification@5dda768f]" started-at="2025-03-28T15:37:10 IST" name="tearDown" finished-at="2025-03-28T15:37:10 IST" duration-ms="466" status="PASS">
+        </test-method> <!-- test_TC_PN_07_fillsAllTheFieldsExceptNotificationName -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.PushNotification@327514f]" started-at="2025-04-19T11:53:35 IST" name="tearDown" finished-at="2025-04-19T11:53:35 IST" duration-ms="538" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
       </class> <!-- tests.PushNotification -->
-    </test> <!-- Test -->
-  </suite> <!-- Suite -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
 </testng-results>

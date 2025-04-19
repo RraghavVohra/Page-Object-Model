@@ -59,8 +59,12 @@ public class MyListeners implements ITestListener {
 			System.out.println("Driver is null. Cannot capture screenshot.");
 		} else {
 			System.out.println("Driver retrieved successfully.");
+			// Capture screenshot
+	        String screenshotFilePath = Utilities.captureScreenshot(driver, result.getName());
+	        extentTest.addScreenCaptureFromPath(screenshotFilePath);
 		}
-
+		 // Log the exception and mark as failed
+	    extentTest.log(Status.INFO, result.getThrowable());
 		extentTest.fail(result.getName() + " test got failed");
 	}
 	/*public void onTestFailure(ITestResult result) {

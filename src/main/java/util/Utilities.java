@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -49,6 +50,14 @@ public class Utilities {
 		}
 		
 		return prop;
+	}
+	
+	
+
+	public static void scrollToTop(WebDriver driver) {
+		// TODO Auto-generated method stub
+		 JavascriptExecutor js = (JavascriptExecutor) driver;
+	     js.executeScript("window.scrollTo(0, 0);");
 	}
 
 }

@@ -41,6 +41,15 @@ public class PushNotificationPage {
 	private WebElement enterLinkTextfield;
 	private WebElement schedulingDateTime;
 	private WebElement submitButton;
+	private WebElement cropButton;
+	// Dev Server has Crop button. But Preprod does not have
+	private WebElement searchTextfield;
+	private WebElement profileIcon;
+	private WebElement logOutOption;
+	private WebElement logoutButton;
+	
+	
+	
 	
 	
 	public void clickOnCommunicationTab() {
@@ -113,21 +122,36 @@ public class PushNotificationPage {
 	
 	public void attachPhoto(String imagePath) {
 		
-		addPhotoButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@name='image_url']")));
+		addPhotoButton = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@name='image_url']")));
         addPhotoButton.sendKeys(imagePath);
+        
+	}
+	
+	public void scrollToCategoryDropdown() {
+		
+		 JavascriptExecutor js = (JavascriptExecutor) driver;
+         js.executeScript("arguments[0].scrollIntoView(true);",categoryDropdown);
 	}
 	
 	public void clickOnTargetCategory() {
 		
-		targetCategory = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@class='mt-checkbox mt-checkbox-single mt-checkbox-outline']/input[@title='Raj2024']")));
+		
+		targetCategory = wait.until(ExpectedConditions.visibilityOfElementLocated
+		(By.xpath("//label[normalize-space()='Raj2024']")));                            
+		//label[contains(@class, 'mt-checkbox')]/input[@title='Raj2024']")));
         // Using JavaScript to Click the element
+		//((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);",targetCategory);
+		//targetCategory.click();
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", targetCategory);
         
-        
-        // Use Actions to click at an offset position (blank space)
-        Actions actions = new Actions(driver);
-        actions.moveByOffset(50,150).click().perform();
 	}
+	
+	// Clicking on Blank space after selecting the target category so that the dialog box closes
+	public void clickOnBlankSpace() {
+	    Actions actions = new Actions(driver);
+	    actions.moveByOffset(50, 150).click().perform();
+	}
+
 	
 	public void clickOnCustomLinkButton() {
 		
@@ -170,6 +194,48 @@ public class PushNotificationPage {
 		submitButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@type='submit']")));
         submitButton.click();
 	}
+	
+	public void clickOnCropButton() {
+		
+		cropButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@type='button'][text()='Crop']")));
+        cropButton.click();
+		
+	}
+	
+	public void enterIntoSearchTextfield() {
+		
+		searchTextfield = driver.findElement(By.xpath("//input[@placeholder='Search']"));
+		searchTextfield.sendKeys("Raj2024");
+	}
+	
+	public void clickOnProfileIcon() {
+		
+		 profileIcon = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span/i[@class='text-primary fas fa-user-circle']")));
+         profileIcon.click();
+	}
+	
+	public void clickOnLogoutOption() {
+		
+		logOutOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//span[@class='ms-2'])[3]")));
+        logOutOption.click();
+	}
+	
+	public void clickOnLogoutButton() {
+		
+		logoutButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@class='btn btn-primary']")));
+        logoutButton.click();
+	}
+	
+	
+	// This is a really important method. Since i am grabbing the message from the tool tip
+	public String getValidationMessageForNotificationName() {
+	    WebElement inputField = driver.findElement(By.id("pushnotify_name"));
+	    JavascriptExecutor js = (JavascriptExecutor) driver;
+	    return (String) js.executeScript("return arguments[0].validationMessage;", inputField);
+	}
+
+	
+	
 	
 	
 	
