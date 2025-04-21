@@ -1,6 +1,8 @@
 package pageObjects;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -47,6 +49,11 @@ public class PushNotificationPage {
 	private WebElement profileIcon;
 	private WebElement logOutOption;
 	private WebElement logoutButton;
+	private WebElement pushNotificationRadioButton;
+	private WebElement whatsAppRadioButton;
+	private WebElement uploadListRadioButton;
+	
+	
 	
 	
 	
@@ -168,26 +175,28 @@ public class PushNotificationPage {
 	public void enterSchedulingDateTime(String date, String time) {
 		
 		schedulingDateTime = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='col-md-4']/input[@name='pushnotify_time']")));
-		// Scroll to the element
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollIntoView(true);", schedulingDateTime);
-        
-        // Write the code in order to select the date and then time
-        // Use JavaScript to bring the element into focus and remove any interfering elements if necessary. 
-        // Instead of click(), focus the element using JavaScript.
-        // Below line of code was written to remove ClickInterceptionException
-        js.executeScript("arguments[0].focus();", schedulingDateTime);
-        schedulingDateTime.sendKeys(date);
+		// Convert to proper format
+	    String formattedDateTime = formatToDateTimeLocal(date, time);
 
-        // Simulate pressing the Tab key to move to the time input
-        schedulingDateTime.sendKeys(Keys.TAB);
-
-        // Enter the time
-        schedulingDateTime.sendKeys(time);
+	    // Set the value using JavaScript
+	    JavascriptExecutor js = (JavascriptExecutor) driver;
+	    js.executeScript("arguments[0].scrollIntoView(true);", schedulingDateTime);
+	    js.executeScript("arguments[0].setAttribute('value', arguments[1])", schedulingDateTime, formattedDateTime);
         
-        schedulingDateTime.sendKeys(Keys.ARROW_UP);
         
 	}
+	
+	
+	// HELPER METHOD
+	private String formatToDateTimeLocal(String date, String time) {
+	    // Input: "22/04/2025", "11:30"
+	    String[] parts = date.split("/");
+	    String day = parts[0];
+	    String month = parts[1];
+	    String year = parts[2];
+	    return year + "-" + month + "-" + day + "T" + time;
+	}
+
 	
 	public void clickOnSubmitButton() {
 		
@@ -233,6 +242,98 @@ public class PushNotificationPage {
 	    JavascriptExecutor js = (JavascriptExecutor) driver;
 	    return (String) js.executeScript("return arguments[0].validationMessage;", inputField);
 	}
+	
+	// This is a really important method. Since i am grabbing the message from the tool tip
+	public String getValidationMessageForNotificationMessage() {
+		
+		WebElement inputField = driver.findElement(By.id("pushnotify_msg"));
+	    JavascriptExecutor js = (JavascriptExecutor) driver;
+	    return (String) js.executeScript("return arguments[0].validationMessage;", inputField);
+		
+	}
+	
+	public String getValidationMessageForParnterCategoryNotSelected() {
+		
+		// CURRENTLY WE DO NOT SEE THIS MESSAGE AS IT NEEDS TO BE FIXED
+		WebElement inputField = driver.findElement(By.id("pushnotify_msg"));
+	    JavascriptExecutor js = (JavascriptExecutor) driver;
+	    return (String) js.executeScript("return arguments[0].validationMessage;", inputField);
+	}
+	
+	public String getValidationMessageForCustomLinkTextfield() {
+		
+		WebElement belowcustomLinkTextfield = wait.until(ExpectedConditions.visibilityOfElementLocated
+		(By.xpath("//span[@id='customlink_error']")));
+		 return belowcustomLinkTextfield.getText().trim(); 
+		// (By.xpath("//span[@id='customlink_error' and text()='Please enter Custom Link to proceed']")));
+	    // JavascriptExecutor js = (JavascriptExecutor) driver;
+	   //  return (String) js.executeScript("return arguments[0].validationMessage;", belowcustomLinkTextfield);
+		
+	}
+	
+	public List<String> getActionMenuOptions() {
+	    List<String> optionsText = new ArrayList<>();
+	    // List<WebElement> options = driver.findElements(By.xpath("//a[@class='menu-link px-3']"));
+	    
+	    for (int i = 1; i <= 3; i++) {
+	        WebElement option = driver.findElement(By.xpath("(//a[@class='menu-link px-3'])[" + i + "]"));
+	        optionsText.add(option.getText().trim());
+	    }
+
+	    return optionsText;
+	}
+	
+	public void clickOnPushNotificationRadioButton() {
+		
+		pushNotificationRadioButton = driver.findElement(By.xpath("//input[@name='channel'][@value='1']")); 
+		pushNotificationRadioButton.click();
+		// Wait until the Push Notification radio button is selected
+	    new WebDriverWait(driver, Duration.ofSeconds(5))
+	    .until(ExpectedConditions.elementToBeSelected(pushNotificationRadioButton));
+	}
+	
+	public void clickOnWhatsAppRadioButton() {
+		
+		whatsAppRadioButton = driver.findElement(By.xpath("//input[@name='channel'][@value='2']"));
+		whatsAppRadioButton.click();
+		// Wait until the WhatsApp radio button is selected
+	    new WebDriverWait(driver, Duration.ofSeconds(5))
+	    .until(ExpectedConditions.elementToBeSelected(whatsAppRadioButton));
+	}
+	
+	public boolean isPushNotificationSelected() {
+        return driver.findElement(By.xpath("//input[@name='channel'][@value='1']")).isSelected();
+    }
+
+    public boolean isWhatsAppSelected() {
+        return driver.findElement(By.xpath("//input[@name='channel'][@value='2']")).isSelected();
+    }
+    
+    public void clickOnUploadListRadioButton() {
+    	
+    	uploadListRadioButton = driver.findElement(By.xpath("//input[@name='send_to'][@value='upload_list']"));
+    	uploadListRadioButton.click();
+    	new WebDriverWait(driver, Duration.ofSeconds(5))
+	    .until(ExpectedConditions.elementToBeSelected(uploadListRadioButton));
+    	
+    }
+    
+    public boolean isUploadListRadioButtonSelected() {
+    	
+    	return driver.findElement(By.xpath("//input[@name='send_to'][@value='upload_list']")).isSelected();
+    		
+    }
+    
+    public boolean isPartnerCategoryRadioButton() {
+    	
+    	return driver.findElement(By.id("partner_category")).isSelected();
+    	
+    }
+    
+    
+
+	
+	
 
 	
 	
