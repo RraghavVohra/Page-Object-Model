@@ -15,6 +15,8 @@ import org.testng.Assert;
 import pageObjects.LoginPage;
 import pageObjects.PushNotificationPage;
 import util.Utilities;
+import static org.junit.Assert.assertTrue;
+
 
 
 public class PushNotification extends Base {
@@ -441,9 +443,110 @@ public class PushNotification extends Base {
         
     }
 
+    @Test(priority=10)
+	public void test_TC_PN_015_selectAllOptionInPartnerCategoryDropdown() throws InterruptedException {
+		
+        driver = openBrowserAndApplication(prop.getProperty("browser"));
+		
+        loginPage = new LoginPage(driver);
+		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
+    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+    	loginPage.clickOnSubmitButton();
+    	System.out.println("User Logged in Successfully.");
+    	
+    	pushNotifyPage = new PushNotificationPage(driver);
+    	pushNotifyPage.clickOnCommunicationTab();
+    	pushNotifyPage.clickOnNotifications();
+    	pushNotifyPage.clickOnActionsButton();
+    	pushNotifyPage.clickOnCreateAppNotification();
+    	
+    	String actualURL = driver.getCurrentUrl();
+        String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
+        Assert.assertEquals(actualURL,expectedURL);
+        
+        pushNotifyPage.enterNotificationName("notificationnameText");
+        pushNotifyPage.enterNotificationMessage(prop.getProperty("notificationmessageText"));
+        pushNotifyPage.clickOnCategoryDropdown();
+        pushNotifyPage.scrollToCategoryDropdown();
+        // pushNotifyPage.enterIntoSearchTextfield();
+        Thread.sleep(2000);      
+        pushNotifyPage.clickOnSelectAllButton();
+        String totalCategoriesText = pushNotifyPage.getTotalCategoriesText();
+        System.out.println("The Total Number of Categories are: " + totalCategoriesText);
+        // Optionally add an assertion
+        Assert.assertNotNull("Total Categories text is null!", totalCategoriesText);
+        // Clicking on Blank space after selecting the target category so that the dialog box closes
+        pushNotifyPage.clickOnBlankSpace();
+        Thread.sleep(2000);
+       
+        pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
+        Thread.sleep(2000);
+        pushNotifyPage.clickOnCropButton();
+        pushNotifyPage.clickOnCustomLinkButton();
+        pushNotifyPage.enterValueLinkTextfield(prop.getProperty("customlinkfield"));
+        pushNotifyPage.enterSchedulingDateTime(prop.getProperty("schedulingDate"),prop.getProperty("schedulingTime"));
+        
+        pushNotifyPage.clickOnSubmitButton();
+        
+        // As i wanted to scroll to the top, so i defined the method in Utilities class
+        Utilities.scrollToTop(driver);// You already have the driver in your test
+        
+        
+        
+        
+        // Only printed if the assertion passes
+        System.out.println("✅ All the Categories name were displayed.");
+        
+        pushNotifyPage.clickOnProfileIcon();
+        pushNotifyPage.clickOnLogoutOption();
+        pushNotifyPage.clickOnLogoutButton();
+    	
+		
+	}
 
+    @Test(priority=11)
+    public void test_TC_PN_016_verifyTheSearchTextfield() throws InterruptedException {
+    	
+    	driver = openBrowserAndApplication(prop.getProperty("browser"));
+ 		
+        loginPage = new LoginPage(driver);
+ 		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
+     	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+     	loginPage.clickOnSubmitButton();
+     	System.out.println("User Logged in Successfully.");
+     	
+     	pushNotifyPage = new PushNotificationPage(driver);
+     	pushNotifyPage.clickOnCommunicationTab();
+     	pushNotifyPage.clickOnNotifications();
+     	pushNotifyPage.clickOnActionsButton();
+     	pushNotifyPage.clickOnCreateAppNotification();
+     	
+     	String actualURL = driver.getCurrentUrl();
+        String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
+        Assert.assertEquals(actualURL,expectedURL);
+         
+        pushNotifyPage.enterNotificationName("notificationnameText");
+        pushNotifyPage.enterNotificationMessage(prop.getProperty("notificationmessageText"));
+        pushNotifyPage.clickOnCategoryDropdown();
+        pushNotifyPage.scrollToCategoryDropdown();
+        // pushNotifyPage.enterIntoSearchTextfield();
+        Thread.sleep(2000); 
+        
+        String searchValue = "Raj2024";
+        boolean searchMatched = pushNotifyPage.searchAndValidateOption(searchValue);
+        assertTrue("No matching option was found for the search value!", searchMatched);
+        
+        // Only printed if the assertion passes
+        System.out.println("✅ TC_PN_016 is passed.The searched text was found.");
+        
+        pushNotifyPage.clickOnProfileIcon();
+        pushNotifyPage.clickOnLogoutOption();
+        pushNotifyPage.clickOnLogoutButton();
+        
 
-
+    	
+    	
+    }
 
 
 

@@ -52,6 +52,7 @@ public class PushNotificationPage {
 	private WebElement pushNotificationRadioButton;
 	private WebElement whatsAppRadioButton;
 	private WebElement uploadListRadioButton;
+	private WebElement selectAllButton;
 	
 	
 	
@@ -330,19 +331,50 @@ public class PushNotificationPage {
     	
     }
     
+    public void clickOnSelectAllButton() {
+    	
+    	selectAllButton = driver.findElement(By.xpath("//a[@class='ms-selectall global']"));
+        selectAllButton.click();
+    }
     
+    // Method to get total categories text
+    public String getTotalCategoriesText() {
+        return driver.findElement(By.xpath("//button[@id='btn_ptr_category']")).getText();
+    }
+    
+    
+    public boolean searchAndValidateOption(String searchValue) {
+    	
+        WebElement searchTextfield = driver.findElement(By.xpath("//input[@placeholder='Search']"));
+        searchTextfield.clear(); // good practice
+        searchTextfield.sendKeys(searchValue);
 
-	
-	
+        List<WebElement> displayedCheckboxes = wait.until(
+        ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//input[@type='checkbox']")));
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
+        for (WebElement checkbox : displayedCheckboxes) {
+            String optionText = checkbox.getDomAttribute("title");
+            System.out.println("Displayed Option: " + optionText);
+            if (optionText.equals(searchValue)) {
+                return true;
+            }
+        }
 
+        return false;
+    }
 }
+
+
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
