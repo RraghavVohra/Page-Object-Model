@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -53,6 +52,12 @@ public class PushNotificationPage {
 	private WebElement whatsAppRadioButton;
 	private WebElement uploadListRadioButton;
 	private WebElement selectAllButton;
+	private WebElement toastMessageLocator; 
+	private WebElement closeToastButtonLocator;
+	private WebElement contentLinkButton;
+	private WebElement contentLinkDropdown;
+	private WebElement contentSelection;
+	private WebElement uploadCsvButtonLocator;
 	
 	
 	
@@ -362,6 +367,87 @@ public class PushNotificationPage {
 
         return false;
     }
+    
+    public void hoverOverAddPhotoButton() {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(addPhotoButton).perform();
+    }
+    
+ // Returns true if Crop button is displayed
+    public boolean isCropButtonDisplayed() {
+    	
+    	cropButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@type='button'][text()='Crop']")));
+        return cropButton.isDisplayed();
+    }
+
+    // Returns the text of Crop button
+    public String getCropButtonText() {
+        return cropButton.getText();
+    }
+    
+    
+    // Method to get toast message text
+    public String getToastMessageText() {
+        
+    	toastMessageLocator = driver.findElement(By.xpath("//span[@class='mssg_content']"));
+        return toastMessageLocator.getText();
+    }
+    
+    
+    // Method to close the toast
+    public void closeToastMessage() {
+       
+    	closeToastButtonLocator = driver.findElement(By.xpath(("//span[@onclick='close_success_mssg()']")));
+    	closeToastButtonLocator.click();
+    }
+    
+    public void clickOnContentLinkButton() {
+    	
+    	contentLinkButton = driver.findElement(By.xpath("//label[@for='content-link']"));
+    	contentLinkButton.click();
+    	
+    }
+    
+    public void clickOnContentLinkDropdown() {
+    	
+    	contentLinkDropdown = driver.findElement(By.id("select2-contentLinkDropdown-container"));
+    	contentLinkDropdown.click();
+    }
+    
+    
+    public void clickOnContentSelection() {
+    	
+    	contentSelection = driver.findElement(By.xpath("(//li[@class='select2-results__option select2-results__option--selectable'])[1]"));
+    	contentSelection.click();
+    }
+    
+    public void uploadCsvFile(String filePath) {
+        
+    	uploadCsvButtonLocator = driver.findElement(By.xpath("//input[@id='upload_csv']"));
+    	uploadCsvButtonLocator.sendKeys(filePath);
+    }
+    
+    
+    // This is a really important method. Since i am grabbing the message from the tool tip
+ 	public String getValidationMessageForUploadCSVButton() {
+ 		
+ 		uploadCsvButtonLocator = driver.findElement(By.xpath("//input[@id='upload_csv']"));
+ 	    JavascriptExecutor js = (JavascriptExecutor) driver;
+ 	    return (String) js.executeScript("return arguments[0].validationMessage;", uploadCsvButtonLocator);
+ 		
+ 	}
+    
+    
+    
+    
+   
+    
+    
+    
+    
+    
+    
+    
 }
 
 

@@ -30,12 +30,14 @@ public class LoginPage {
 		
 		Thread.sleep(4000);
 		usernameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
+		usernameField.clear();
 		usernameField.sendKeys(usernameText);
 	}
 	
 	public void enterPasswordField(String passwordText) {
 		
 		passwordField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("password")));
+		passwordField.clear();
 		passwordField.sendKeys(passwordText);
 	}
 	

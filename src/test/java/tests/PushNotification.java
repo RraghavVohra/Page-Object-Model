@@ -8,8 +8,6 @@ import base.Base;
 import java.util.Arrays;
 import java.util.List;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import pageObjects.LoginPage;
@@ -548,9 +546,459 @@ public class PushNotification extends Base {
     	
     }
 
+    @Test(priority=12)
+    public void test_TC_PN_09_verifyImageUpload() throws InterruptedException {
+    	
+       driver = openBrowserAndApplication(prop.getProperty("browser"));
+ 		
+        loginPage = new LoginPage(driver);
+ 		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
+     	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+     	loginPage.clickOnSubmitButton();
+     	System.out.println("User Logged in Successfully.");
+     	
+     	pushNotifyPage = new PushNotificationPage(driver);
+     	pushNotifyPage.clickOnCommunicationTab();
+     	pushNotifyPage.clickOnNotifications();
+     	pushNotifyPage.clickOnActionsButton();
+     	pushNotifyPage.clickOnCreateAppNotification();
+     	
+     	String actualURL = driver.getCurrentUrl();
+        String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
+        Assert.assertEquals(actualURL,expectedURL);
+        
+        pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
+        Assert.assertTrue(pushNotifyPage.isCropButtonDisplayed(), "Crop window did not appear!");
+        Assert.assertEquals(pushNotifyPage.getCropButtonText(), "Crop", "Crop button text does not match!");
+        pushNotifyPage.clickOnCropButton();
+        
+        
+        Thread.sleep(3000);
+        
+        pushNotifyPage.hoverOverAddPhotoButton();
+        
+        Thread.sleep(3000);
+        
+        
+        System.out.println("✅ TC_PN_09 is passed.The Crop functionality is working.");
+        
+        pushNotifyPage.clickOnProfileIcon();
+        pushNotifyPage.clickOnLogoutOption();
+        pushNotifyPage.clickOnLogoutButton();
+        
+        
+        
+    	
+    }
+
+    @Test(priority=13)
+    public void test_TC_PN_023_verifyNotificationStatus() throws InterruptedException {
+    	
+        driver = openBrowserAndApplication(prop.getProperty("browser"));
+		
+        loginPage = new LoginPage(driver);
+		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
+    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+    	loginPage.clickOnSubmitButton();
+    	System.out.println("User Logged in Successfully.");
+    	
+    	pushNotifyPage = new PushNotificationPage(driver);
+    	pushNotifyPage.clickOnCommunicationTab();
+    	pushNotifyPage.clickOnNotifications();
+    	pushNotifyPage.clickOnActionsButton();
+    	pushNotifyPage.clickOnCreateAppNotification();
+    	
+    	String actualURL = driver.getCurrentUrl();
+        String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
+        Assert.assertEquals(actualURL,expectedURL);
+        
+        pushNotifyPage.enterNotificationName(prop.getProperty("notificationnameText"));
+        pushNotifyPage.enterNotificationMessage(prop.getProperty("notificationmessageText"));
+        pushNotifyPage.clickOnCategoryDropdown();
+        pushNotifyPage.scrollToCategoryDropdown();
+        pushNotifyPage.enterIntoSearchTextfield();
+        Thread.sleep(2000);      
+        pushNotifyPage.clickOnTargetCategory();
+        // Clicking on Blank space after selecting the target category so that the dialog box closes
+        pushNotifyPage.clickOnBlankSpace();
+        Thread.sleep(2000);
+       
+        pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
+        Thread.sleep(2000);
+        pushNotifyPage.clickOnCropButton();
+        pushNotifyPage.clickOnCustomLinkButton();
+        pushNotifyPage.enterValueLinkTextfield(prop.getProperty("customlinkfield"));
+        pushNotifyPage.enterSchedulingDateTime(prop.getProperty("schedulingDate"),prop.getProperty("schedulingTime"));
+        
+        pushNotifyPage.clickOnSubmitButton();
+        
+        Thread.sleep(3000);
+        //AFTER SUBMITTING I WILL BE TAKEN TO THE NEW SCREEN
+        
+        String actualURL2 = driver.getCurrentUrl();
+        String expectedURL2 = prop.getProperty("redirectionURL");
+        Assert.assertEquals(actualURL2,expectedURL2);
+        Thread.sleep(3000);
+        
+        String actualMessage = pushNotifyPage.getToastMessageText();
+        String expectedMessage = "Push Notification Saved.";
+        Assert.assertEquals(actualMessage, expectedMessage, "Toast message doesn't match!");
+        
+        // Close the toast
+        pushNotifyPage.closeToastMessage();
+        
+        System.out.println("test_TC_PN_023 is passed");
+        
+        Thread.sleep(3000);
+        
+        pushNotifyPage.clickOnProfileIcon();
+        pushNotifyPage.clickOnLogoutOption();
+        pushNotifyPage.clickOnLogoutButton();
+    	
+    }
+
+    @Test(priority=14)
+    public void test_TC_PN_020_verifyContentLink() throws InterruptedException {
+    	
+        driver = openBrowserAndApplication(prop.getProperty("browser"));
+		
+        loginPage = new LoginPage(driver);
+		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
+    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+    	loginPage.clickOnSubmitButton();
+    	System.out.println("User Logged in Successfully.");
+    	
+    	pushNotifyPage = new PushNotificationPage(driver);
+    	pushNotifyPage.clickOnCommunicationTab();
+    	pushNotifyPage.clickOnNotifications();
+    	pushNotifyPage.clickOnActionsButton();
+    	pushNotifyPage.clickOnCreateAppNotification();
+    	
+    	String actualURL = driver.getCurrentUrl();
+        String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
+        Assert.assertEquals(actualURL,expectedURL);
+        
+        pushNotifyPage.enterNotificationName(prop.getProperty("notificationnameText"));
+        pushNotifyPage.enterNotificationMessage(prop.getProperty("notificationmessageText"));
+        pushNotifyPage.clickOnCategoryDropdown();
+        pushNotifyPage.scrollToCategoryDropdown();
+        pushNotifyPage.enterIntoSearchTextfield();
+        Thread.sleep(2000);      
+        pushNotifyPage.clickOnTargetCategory();
+        // Clicking on Blank space after selecting the target category so that the dialog box closes
+        pushNotifyPage.clickOnBlankSpace();
+        Thread.sleep(2000);
+       
+        pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
+        Thread.sleep(2000);
+        pushNotifyPage.clickOnCropButton();
+        pushNotifyPage.clickOnContentLinkButton();
+        Thread.sleep(2000);
+        pushNotifyPage.clickOnContentLinkDropdown();
+        Thread.sleep(2000);
+        pushNotifyPage.clickOnContentSelection();
+        pushNotifyPage.enterSchedulingDateTime(prop.getProperty("schedulingDate"),prop.getProperty("schedulingTime"));
+        
+        
+        
+        pushNotifyPage.clickOnSubmitButton();
+        
+        Thread.sleep(3000);
+        //AFTER SUBMITTING I WILL BE TAKEN TO THE NEW SCREEN
+        
+        String actualURL2 = driver.getCurrentUrl();
+        String expectedURL2 = prop.getProperty("redirectionURL");
+        Assert.assertEquals(actualURL2,expectedURL2);
+        Thread.sleep(3000);
+        
+        String actualMessage = pushNotifyPage.getToastMessageText();
+        String expectedMessage = "Push Notification Saved.";
+        Assert.assertEquals(actualMessage, expectedMessage, "Toast message doesn't match!");
+        
+        // Close the toast
+        pushNotifyPage.closeToastMessage();
+        
+        System.out.println("test_TC_PN_020 is passed");
+        
+        Thread.sleep(3000);
+        
+        pushNotifyPage.clickOnProfileIcon();
+        pushNotifyPage.clickOnLogoutOption();
+        pushNotifyPage.clickOnLogoutButton();
+        
+        
+    	
+    }
+
+    @Test(priority=15)
+    public void test_TC_PN_012_imagesInDifferentFormat() throws InterruptedException {
+    	
+        driver = openBrowserAndApplication(prop.getProperty("browser"));
+		
+        loginPage = new LoginPage(driver);
+		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
+    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+    	loginPage.clickOnSubmitButton();
+    	System.out.println("User Logged in Successfully.");
+    	
+    	pushNotifyPage = new PushNotificationPage(driver);
+    	pushNotifyPage.clickOnCommunicationTab();
+    	pushNotifyPage.clickOnNotifications();
+    	pushNotifyPage.clickOnActionsButton();
+    	pushNotifyPage.clickOnCreateAppNotification();
+    	
+    	String actualURL = driver.getCurrentUrl();
+        String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
+        Assert.assertEquals(actualURL,expectedURL);
+        
+        pushNotifyPage.enterNotificationName(prop.getProperty("notificationnameText"));
+        pushNotifyPage.enterNotificationMessage(prop.getProperty("notificationmessageText"));
+        pushNotifyPage.clickOnCategoryDropdown();
+        pushNotifyPage.scrollToCategoryDropdown();
+        pushNotifyPage.enterIntoSearchTextfield();
+        Thread.sleep(2000);      
+        pushNotifyPage.clickOnTargetCategory();
+        // Clicking on Blank space after selecting the target category so that the dialog box closes
+        pushNotifyPage.clickOnBlankSpace();
+        Thread.sleep(2000);
+       
+        pushNotifyPage.attachPhoto(prop.getProperty("imagePathpng"));
+        Thread.sleep(2000);
+        pushNotifyPage.clickOnCropButton();
+        pushNotifyPage.clickOnContentLinkButton();
+        Thread.sleep(2000);
+        pushNotifyPage.clickOnContentLinkDropdown();
+        Thread.sleep(2000);
+        pushNotifyPage.clickOnContentSelection();
+        pushNotifyPage.enterSchedulingDateTime(prop.getProperty("schedulingDate"),prop.getProperty("schedulingTime"));
+        
+        
+        
+        pushNotifyPage.clickOnSubmitButton();
+        
+        Thread.sleep(3000);
+        //AFTER SUBMITTING I WILL BE TAKEN TO THE NEW SCREEN
+        
+        String actualURL2 = driver.getCurrentUrl();
+        String expectedURL2 = prop.getProperty("redirectionURL");
+        Assert.assertEquals(actualURL2,expectedURL2);
+        Thread.sleep(3000);
+        
+        String actualMessage = pushNotifyPage.getToastMessageText();
+        String expectedMessage = "Push Notification Saved.";
+        Assert.assertEquals(actualMessage, expectedMessage, "Toast message doesn't match!");
+        
+        // Close the toast
+        pushNotifyPage.closeToastMessage();
+        
+        System.out.println("TC_PN_12 is passed. User was able to upload image in png format");
+        
+        Thread.sleep(3000);
+        
+        pushNotifyPage.clickOnProfileIcon();
+        pushNotifyPage.clickOnLogoutOption();
+        pushNotifyPage.clickOnLogoutButton();
+    	
+    }
+
+    @Test(priority=16)
+    public void test_TC_PN_049_pushNotificationWithSpecialCharacter() throws InterruptedException {
+    
+        driver = openBrowserAndApplication(prop.getProperty("browser"));
+		
+        loginPage = new LoginPage(driver);
+		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
+    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+    	loginPage.clickOnSubmitButton();
+    	System.out.println("User Logged in Successfully.");
+    	
+    	pushNotifyPage = new PushNotificationPage(driver);
+    	pushNotifyPage.clickOnCommunicationTab();
+    	pushNotifyPage.clickOnNotifications();
+    	pushNotifyPage.clickOnActionsButton();
+    	pushNotifyPage.clickOnCreateAppNotification();
+    	
+    	String actualURL = driver.getCurrentUrl();
+        String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
+        Assert.assertEquals(actualURL,expectedURL);
+        
+        pushNotifyPage.enterNotificationName(prop.getProperty("notificationnameTextspecial"));
+        pushNotifyPage.enterNotificationMessage(prop.getProperty("notificationmessageTextspecial"));
+        pushNotifyPage.clickOnCategoryDropdown();
+        pushNotifyPage.scrollToCategoryDropdown();
+        pushNotifyPage.enterIntoSearchTextfield();
+        Thread.sleep(2000);      
+        pushNotifyPage.clickOnTargetCategory();
+        // Clicking on Blank space after selecting the target category so that the dialog box closes
+        pushNotifyPage.clickOnBlankSpace();
+        Thread.sleep(2000);
+       
+        pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
+        Thread.sleep(2000);
+        pushNotifyPage.clickOnCropButton();
+        pushNotifyPage.clickOnCustomLinkButton();
+        pushNotifyPage.enterValueLinkTextfield(prop.getProperty("customlinkfield"));
+        pushNotifyPage.enterSchedulingDateTime(prop.getProperty("schedulingDate"),prop.getProperty("schedulingTime"));
+        
+        pushNotifyPage.clickOnSubmitButton();
+        
+        Thread.sleep(3000);
+        //AFTER SUBMITTING I WILL BE TAKEN TO THE NEW SCREEN
+        
+        String actualURL2 = driver.getCurrentUrl();
+        String expectedURL2 = prop.getProperty("redirectionURL");
+        Assert.assertEquals(actualURL2,expectedURL2);
+        Thread.sleep(3000);
+        
+        String actualMessage = pushNotifyPage.getToastMessageText();
+        String expectedMessage = "Push Notification Saved.";
+        Assert.assertEquals(actualMessage, expectedMessage, "Toast message doesn't match!");
+        
+        // Close the toast
+        pushNotifyPage.closeToastMessage();
+        
+        System.out.println("TC_PN_49 is passed. User was able to upload with special characters");
+        
+        Thread.sleep(3000);
+        
+        pushNotifyPage.clickOnProfileIcon();
+        pushNotifyPage.clickOnLogoutOption();
+        pushNotifyPage.clickOnLogoutButton();
+    	
+    }
+
+    @Test(priority=17)
+    public void test_TC_PN_036_pushNotificationWithCsvUpload() throws InterruptedException {
+    	
+        driver = openBrowserAndApplication(prop.getProperty("browser"));
+		
+        loginPage = new LoginPage(driver);
+		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
+    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+    	loginPage.clickOnSubmitButton();
+    	System.out.println("User Logged in Successfully.");
+    	
+    	pushNotifyPage = new PushNotificationPage(driver);
+    	pushNotifyPage.clickOnCommunicationTab();
+    	pushNotifyPage.clickOnNotifications();
+    	pushNotifyPage.clickOnActionsButton();
+    	pushNotifyPage.clickOnCreateAppNotification();
+    	
+    	String actualURL = driver.getCurrentUrl();
+        String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
+        Assert.assertEquals(actualURL,expectedURL);
+        
+        pushNotifyPage.enterNotificationName(prop.getProperty("notificationnameText"));
+        pushNotifyPage.enterNotificationMessage(prop.getProperty("notificationmessageText"));
+        pushNotifyPage.clickOnPartnerListRadioButton();
+        Thread.sleep(2000);
+        pushNotifyPage.uploadCsvFile(prop.getProperty("filepathcsv"));
+        Thread.sleep(5000);
+        
+        pushNotifyPage.clickOnBlankSpace();
+        Thread.sleep(2000);
+       
+        pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
+        Thread.sleep(2000);
+        pushNotifyPage.clickOnCropButton();
+        pushNotifyPage.clickOnCustomLinkButton();
+        pushNotifyPage.enterValueLinkTextfield(prop.getProperty("customlinkfield"));
+        pushNotifyPage.enterSchedulingDateTime(prop.getProperty("schedulingDate"),prop.getProperty("schedulingTime"));
+        
+        pushNotifyPage.clickOnSubmitButton();
+        
+        Thread.sleep(3000);
+        //AFTER SUBMITTING I WILL BE TAKEN TO THE NEW SCREEN
+        
+        String actualURL2 = driver.getCurrentUrl();
+        String expectedURL2 = prop.getProperty("redirectionURL");
+        Assert.assertEquals(actualURL2,expectedURL2);
+        Thread.sleep(3000);
+        
+        String actualMessage = pushNotifyPage.getToastMessageText();
+        String expectedMessage = "Push Notification Saved.";
+        Assert.assertEquals(actualMessage, expectedMessage, "Toast message doesn't match!");
+        
+        // Close the toast
+        pushNotifyPage.closeToastMessage();
+        
+        System.out.println("TC_PN_36 is passed. User was able to upload with the help of CSV");
+        
+        Thread.sleep(3000);
+        
+        pushNotifyPage.clickOnProfileIcon();
+        pushNotifyPage.clickOnLogoutOption();
+        pushNotifyPage.clickOnLogoutButton();
+    	
+    	
+    }
+
+    @Test(priority=18)
+    public void test_TC_PN_050_pushNotificationWithoutCsvUpload() throws InterruptedException {
+    	
+        driver = openBrowserAndApplication(prop.getProperty("browser"));
+		
+        loginPage = new LoginPage(driver);
+		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
+    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+    	loginPage.clickOnSubmitButton();
+    	System.out.println("User Logged in Successfully.");
+    	
+    	pushNotifyPage = new PushNotificationPage(driver);
+    	pushNotifyPage.clickOnCommunicationTab();
+    	pushNotifyPage.clickOnNotifications();
+    	pushNotifyPage.clickOnActionsButton();
+    	pushNotifyPage.clickOnCreateAppNotification();
+    	
+    	String actualURL = driver.getCurrentUrl();
+        String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
+        Assert.assertEquals(actualURL,expectedURL);
+        
+        pushNotifyPage.enterNotificationName(prop.getProperty("notificationnameText"));
+        pushNotifyPage.enterNotificationMessage(prop.getProperty("notificationmessageText"));
+        pushNotifyPage.clickOnPartnerListRadioButton();
+        Thread.sleep(2000);
+        
+        pushNotifyPage.clickOnBlankSpace();
+        Thread.sleep(2000);
+       
+        pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
+        Thread.sleep(2000);
+        pushNotifyPage.clickOnCropButton();
+        pushNotifyPage.clickOnCustomLinkButton();
+        pushNotifyPage.enterValueLinkTextfield(prop.getProperty("customlinkfield"));
+        pushNotifyPage.enterSchedulingDateTime(prop.getProperty("schedulingDate"),prop.getProperty("schedulingTime"));
+        
+        pushNotifyPage.clickOnSubmitButton();
+        
+        Thread.sleep(3000);
+        
+        String validationMsg = pushNotifyPage.getValidationMessageForUploadCSVButton();
+        Assert.assertEquals(validationMsg, "Please select a file.");
+        // Only printed if the assertion passes
+        System.out.println("✅ Upload CSV Button showed the correct validation message.");
+        
+        
+        System.out.println("TC_PN_50 is passed. User was not able to do it without CSV");
+        
+        Thread.sleep(3000);
+        
+        pushNotifyPage.clickOnProfileIcon();
+        pushNotifyPage.clickOnLogoutOption();
+        pushNotifyPage.clickOnLogoutButton();
+    }
+
+
+
+
+
+
+
+
 
 
 
 
 
 }
+

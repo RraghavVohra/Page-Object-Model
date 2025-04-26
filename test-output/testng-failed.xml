@@ -5,8 +5,8 @@
     <classes>
       <class name="tests.PushNotification">
         <methods>
+          <include name="test_TC_PN_050_pushNotificationWithoutCsvUpload"/>
           <include name="tearDown"/>
-          <include name="test_TC_PN_013_sendTOOptionsSelection"/>
         </methods>
       </class> <!-- tests.PushNotification -->
     </classes>
