@@ -39,6 +39,7 @@ public class DocumentLibraryPage {
 	private WebElement doc_name;
 	private WebElement thumbnail_button;
 	private WebElement apply_button;
+	private WebElement descriptionTextField;
 	
 	
     public void clickOnCommunicationTab() {
@@ -115,6 +116,7 @@ public class DocumentLibraryPage {
 	   doc_name.sendKeys(documentName);
    }
    
+   // This is a really important method. Since i am grabbing the message from the tool tip
    public String getValidationMessageForDocumentNameField() {
 	   
 	    doc_name = driver.findElement(By.xpath("//input[@id='document_name']"));
@@ -152,11 +154,137 @@ public class DocumentLibraryPage {
 	}
    
    
-    public void attachThumbnail() {
+   public void uploadDocumentInPngFormatUsingAutoIt() throws IOException, InterruptedException {
+	    WebElement fileInput = driver.findElement(By.id("document_file"));
+	    Actions actions = new Actions(driver);
+	    actions.moveToElement(fileInput).click().perform();
+	    Thread.sleep(3000);
+
+	    File autoItScript = new File("C:\\Users\\admin\\Desktop\\EXE FILES\\pngimagefortest.exe");
+	    if (!autoItScript.exists()) {
+	        System.out.println("AutoIt script not found: " + autoItScript.getAbsolutePath());
+	    } else {
+	        ProcessBuilder processBuilder = new ProcessBuilder(autoItScript.getAbsolutePath());
+	        Process process = processBuilder.start();
+	        int exitCode = process.waitFor();
+	        System.out.println("AutoIt script exited with code: " + exitCode);
+	    }
+
+	    Thread.sleep(2000);
+
+	    // THE BELOW LINE OF CODE WORKED FOR PDF TYPE FILES BUT NOT FOR PNG/JPEG FILES
+	    //JavascriptExecutor js = (JavascriptExecutor) driver;
+	    //js.executeScript("arguments[0].dispatchEvent(new Event('change', { bubbles: true }))", fileInput);
+	    //js.executeScript("arguments[0].dispatchEvent(new Event('input', { bubbles: true }))", fileInput);
+
+	    //actions.moveByOffset(100, 100).click().perform();
+	    //Thread.sleep(2000);
+
+	    String uploadedFileName = fileInput.getDomProperty("value");
+	    System.out.println("Uploaded File: " + uploadedFileName);
+	}
+   
+    public void uploadDocumentInJPGFormatUsingAutoIt() throws InterruptedException, IOException {
+    	
+    	 WebElement fileInput = driver.findElement(By.id("document_file"));
+ 	    Actions actions = new Actions(driver);
+ 	    actions.moveToElement(fileInput).click().perform();
+ 	    Thread.sleep(3000);
+
+ 	    File autoItScript = new File("C:\\Users\\admin\\Desktop\\EXE FILES\\jpgimagefortest.exe");
+ 	    if (!autoItScript.exists()) {
+ 	        System.out.println("AutoIt script not found: " + autoItScript.getAbsolutePath());
+ 	    } else {
+ 	        ProcessBuilder processBuilder = new ProcessBuilder(autoItScript.getAbsolutePath());
+ 	        Process process = processBuilder.start();
+ 	        int exitCode = process.waitFor();
+ 	        System.out.println("AutoIt script exited with code: " + exitCode);
+ 	    }
+
+ 	    Thread.sleep(2000);
+ 	    
+ 	    // THE BELOW LINE OF CODE WORKED FOR PDF TYPE FILES BUT NOT FOR PNG/JPEG FILES
+	    //JavascriptExecutor js = (JavascriptExecutor) driver;
+	    //js.executeScript("arguments[0].dispatchEvent(new Event('change', { bubbles: true }))", fileInput);
+	    //js.executeScript("arguments[0].dispatchEvent(new Event('input', { bubbles: true }))", fileInput);
+
+	    //actions.moveByOffset(100, 100).click().perform();
+	    //Thread.sleep(2000);
+ 	    
+ 	   String uploadedFileName = fileInput.getDomProperty("value");
+	   System.out.println("Uploaded File: " + uploadedFileName);
+    	
+    }
+    
+    public void uploadDocumentInCSVFormatUsingAutoIt() throws InterruptedException, IOException {
+    	
+   	 WebElement fileInput = driver.findElement(By.id("document_file"));
+	    Actions actions = new Actions(driver);
+	    actions.moveToElement(fileInput).click().perform();
+	    Thread.sleep(3000);
+
+	    File autoItScript = new File("C:\\Users\\admin\\Desktop\\EXE FILES\\csvfilefortest.exe");
+	    if (!autoItScript.exists()) {
+	        System.out.println("AutoIt script not found: " + autoItScript.getAbsolutePath());
+	    } else {
+	        ProcessBuilder processBuilder = new ProcessBuilder(autoItScript.getAbsolutePath());
+	        Process process = processBuilder.start();
+	        int exitCode = process.waitFor();
+	        System.out.println("AutoIt script exited with code: " + exitCode);
+	    }
+
+	    Thread.sleep(2000);
+	    
+	    // THE BELOW LINE OF CODE WORKED FOR PDF TYPE FILES BUT NOT FOR PNG/JPEG/CSV FILES
+	    //JavascriptExecutor js = (JavascriptExecutor) driver;
+	    //js.executeScript("arguments[0].dispatchEvent(new Event('change', { bubbles: true }))", fileInput);
+	    //js.executeScript("arguments[0].dispatchEvent(new Event('input', { bubbles: true }))", fileInput);
+
+	    //actions.moveByOffset(100, 100).click().perform();
+	    //Thread.sleep(2000);
+	    
+	   String uploadedFileName = fileInput.getDomProperty("value");
+	   System.out.println("Uploaded File: " + uploadedFileName);
+   	
+   }
+    
+    public void uploadDocumentInXLSXFormatUsingAutoIt() throws InterruptedException, IOException {
+    	
+      	 WebElement fileInput = driver.findElement(By.id("document_file"));
+   	    Actions actions = new Actions(driver);
+   	    actions.moveToElement(fileInput).click().perform();
+   	    Thread.sleep(3000);
+
+   	    File autoItScript = new File("C:\\Users\\admin\\Desktop\\EXE FILES\\xlsxfilefortest.exe");
+   	    if (!autoItScript.exists()) {
+   	        System.out.println("AutoIt script not found: " + autoItScript.getAbsolutePath());
+   	    } else {
+   	        ProcessBuilder processBuilder = new ProcessBuilder(autoItScript.getAbsolutePath());
+   	        Process process = processBuilder.start();
+   	        int exitCode = process.waitFor();
+   	        System.out.println("AutoIt script exited with code: " + exitCode);
+   	    }
+
+   	    Thread.sleep(2000);
+   	    
+   	    // THE BELOW LINE OF CODE WORKED FOR PDF TYPE FILES BUT NOT FOR PNG/JPEG/CSV/XLSX FILES
+   	    //JavascriptExecutor js = (JavascriptExecutor) driver;
+   	    //js.executeScript("arguments[0].dispatchEvent(new Event('change', { bubbles: true }))", fileInput);
+   	    //js.executeScript("arguments[0].dispatchEvent(new Event('input', { bubbles: true }))", fileInput);
+
+   	    //actions.moveByOffset(100, 100).click().perform();
+   	    //Thread.sleep(2000);
+   	    
+   	   String uploadedFileName = fileInput.getDomProperty("value");
+   	   System.out.println("Uploaded File: " + uploadedFileName);
+      	
+      }
+   
+   
+    public void attachThumbnail(String thumbnailAttach) {
     	
     	thumbnail_button = driver.findElement(By.id("img_validate"));
-		String filePathTwo = Paths.get("C:\\Users\\admin\\Downloads\\PushNotificationImage.png").toString();
-		thumbnail_button.sendKeys(filePathTwo);
+		thumbnail_button.sendKeys(thumbnailAttach);
     }
     
     public void resizeCroppingArea() {
@@ -175,6 +303,27 @@ public class DocumentLibraryPage {
     	apply_button = driver.findElement(By.xpath("//a[@class='btn yes yellow-gold pull-right']"));
 		apply_button.click();
     }
+    
+    public void enterValueInDescriptionField(String descriptionText) {
+    	
+    	descriptionTextField = driver.findElement(By.xpath("//textarea[@class='form-control h150']"));
+    	JavascriptExecutor js = (JavascriptExecutor) driver;
+	    js.executeScript("arguments[0].scrollIntoView(true);", descriptionTextField);
+	    descriptionTextField.sendKeys(descriptionText);
+    }
+    
+    public void scrollToElementToUploadButton() {
+    	
+    	uploadButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='share_button']")));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView(true);",uploadButton);
+        
+    }
+    
+    
+   
+ 	
+    
 
    
     

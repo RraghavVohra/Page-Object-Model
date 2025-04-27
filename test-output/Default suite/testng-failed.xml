@@ -3,12 +3,12 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="tests.PushNotification">
+      <class name="tests.DocumentLibrary">
         <methods>
-          <include name="test_TC_PN_050_pushNotificationWithoutCsvUpload"/>
           <include name="tearDown"/>
+          <include name="test_TC_DL_22_2_UploadingDocumentInCsvFormat"/>
         </methods>
-      </class> <!-- tests.PushNotification -->
+      </class> <!-- tests.DocumentLibrary -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -2,16 +2,16 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-04-26T17:52:37 IST" name="Default suite" finished-at="2025-04-26T17:53:14 IST" duration-ms="37283">
+  <suite started-at="2025-04-27T10:48:19 IST" name="Default suite" finished-at="2025-04-27T10:49:15 IST" duration-ms="55232">
     <groups>
     </groups>
-    <test started-at="2025-04-26T17:52:37 IST" name="Default test" finished-at="2025-04-26T17:53:14 IST" duration-ms="37283">
+    <test started-at="2025-04-27T10:48:19 IST" name="Default test" finished-at="2025-04-27T10:49:15 IST" duration-ms="55232">
       <class name="tests.DocumentLibrary">
-        <test-method signature="test_TC_DL_06_fillsNothingInAnyOfTheField()[pri:4, instance:tests.DocumentLibrary@3b69e7d1]" started-at="2025-04-26T17:52:37 IST" name="test_TC_DL_06_fillsNothingInAnyOfTheField" finished-at="2025-04-26T17:53:13 IST" duration-ms="36378" status="PASS">
+        <test-method signature="test_TC_DL_22_3_UploadingDocumentInXlsxFormat()[pri:10, instance:tests.DocumentLibrary@7e6f74c]" started-at="2025-04-27T10:48:20 IST" name="test_TC_DL_22_3_UploadingDocumentInXlsxFormat" finished-at="2025-04-27T10:49:14 IST" duration-ms="54519" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- test_TC_DL_06_fillsNothingInAnyOfTheField -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.DocumentLibrary@3b69e7d1]" started-at="2025-04-26T17:53:13 IST" name="tearDown" finished-at="2025-04-26T17:53:14 IST" duration-ms="763" status="PASS">
+        </test-method> <!-- test_TC_DL_22_3_UploadingDocumentInXlsxFormat -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.DocumentLibrary@7e6f74c]" started-at="2025-04-27T10:49:14 IST" name="tearDown" finished-at="2025-04-27T10:49:15 IST" duration-ms="607" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
