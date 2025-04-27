@@ -5,8 +5,9 @@
     <classes>
       <class name="tests.DocumentLibrary">
         <methods>
+          <include name="test_TC_DL_34_fillsAllTheFieldsWithHashtag"/>
+          <include name="test_TC_DL_040_updatingTheAccessOfTheContent"/>
           <include name="tearDown"/>
-          <include name="test_TC_DL_22_2_UploadingDocumentInCsvFormat"/>
         </methods>
       </class> <!-- tests.DocumentLibrary -->
     </classes>
