@@ -1137,7 +1137,7 @@ public class DocumentLibrary extends Base {
     }
 
     @Test(priority=23,dependsOnMethods={"test_TC_DL_34_fillsAllTheFieldsWithHashtag"})
-	public void test_TC_DL_040_updatingTheAccessOfTheContent() throws InterruptedException {
+	public void test_TC_DL_40_updatingTheAccessOfTheContent() throws InterruptedException {
     	
         driver = openBrowserAndApplication(prop.getProperty("browser"));
  		
