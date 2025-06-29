@@ -5,8 +5,8 @@
     <classes>
       <class name="tests.SocialAutoPostTest">
         <methods>
+          <include name="test_TC_PN_03_whenPostedWithVideo"/>
           <include name="tearDown"/>
-          <include name="test_TC_PN_01_whenPostedWithPngImageWithCobranding"/>
         </methods>
       </class> <!-- tests.SocialAutoPostTest -->
     </classes>

@@ -41,7 +41,7 @@ public class SocialAutoPostPage {
 	 private WebElement profileIcon;
 	 private WebElement logOutOption;
 	 private WebElement logoutButton;
-	 
+	 private WebElement uploadThumbnail;
 	 
 	 
 	 
@@ -79,7 +79,7 @@ public class SocialAutoPostPage {
 		 createPostButton.click();
 	 }
 	 
-	 public void uploadFileUsingAutoIt() throws IOException, InterruptedException {
+	 public void uploadFileInPNGUsingAutoIt() throws IOException, InterruptedException {
 	       
 	        fileInput = driver.findElement(By.id("file-upload"));
 	        Actions actions = new Actions(driver);
@@ -97,6 +97,71 @@ public class SocialAutoPostPage {
 	            System.out.println("AutoIt script exited with code: " + exitCode);
 	        }
 	    }
+	 
+
+
+	 public void uploadFileInJPGUsingAutoIt() throws IOException, InterruptedException {
+	       
+	        fileInput = driver.findElement(By.id("file-upload"));
+	        Actions actions = new Actions(driver);
+	        actions.moveToElement(fileInput).click().perform();
+
+	        Thread.sleep(3000); // Replace with WebDriverWait for real-world usage
+
+	        File autoItScript = new File("C:\\Users\\admin\\Desktop\\EXE FILES\\pushnotificationjpg.exe");
+	        if (!autoItScript.exists()) {
+	            System.out.println("AutoIt script not found: " + autoItScript.getAbsolutePath());
+	        } else {
+	            ProcessBuilder processBuilder = new ProcessBuilder(autoItScript.getAbsolutePath());
+	            Process process = processBuilder.start();
+	            int exitCode = process.waitFor();
+	            System.out.println("AutoIt script exited with code: " + exitCode);
+	        }
+	    }
+	 
+	 
+	 public void uploadFileInMP4UsingAutoIt() throws IOException, InterruptedException {
+	       
+	        fileInput = driver.findElement(By.id("file-upload"));
+	        Actions actions = new Actions(driver);
+	        actions.moveToElement(fileInput).click().perform();
+
+	        Thread.sleep(3000); // Replace with WebDriverWait for real-world usage
+
+	        File autoItScript = new File("C:\\Users\\admin\\Desktop\\EXE FILES\\pushnotificationvideo.exe");
+	        if (!autoItScript.exists()) {
+	            System.out.println("AutoIt script not found: " + autoItScript.getAbsolutePath());
+	        } else {
+	            ProcessBuilder processBuilder = new ProcessBuilder(autoItScript.getAbsolutePath());
+	            Process process = processBuilder.start();
+	            int exitCode = process.waitFor();
+	            System.out.println("AutoIt script exited with code: " + exitCode);
+	        }
+	    }
+	 
+	 public void uploadFileForMP4FileWithThumbnailInJPGformat() throws InterruptedException, IOException {
+		 
+		    uploadThumbnail = driver.findElement(By.xpath("//input[@id='social_tumbnail']"));
+	        Actions actions = new Actions(driver);
+	        actions.moveToElement(uploadThumbnail).click().perform();
+
+	        Thread.sleep(3000); // Replace with WebDriverWait for real-world usage
+
+	        File autoItScript = new File("C:\\Users\\admin\\Desktop\\EXE FILES\\pushnotificationjpg.exe");
+	        if (!autoItScript.exists()) {
+	            System.out.println("AutoIt script not found: " + autoItScript.getAbsolutePath());
+	        } else {
+	            ProcessBuilder processBuilder = new ProcessBuilder(autoItScript.getAbsolutePath());
+	            Process process = processBuilder.start();
+	            int exitCode = process.waitFor();
+	            System.out.println("AutoIt script exited with code: " + exitCode);
+	        }
+		 
+	 }
+	 
+	 
+	 
+	 
 	 
 	 
 	public void clickOnEnableCobrandingButton() {

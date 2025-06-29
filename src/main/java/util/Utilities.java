@@ -67,6 +67,13 @@ public class Utilities {
 		
 	}
 	
+    public static void scrollDownByFourHundred(WebDriver driver) {
+		
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("window.scrollBy(0,400);");
+		
+	}
+	
 	public static void scrollToBottom(WebDriver driver) {
 		
 		JavascriptExecutor js = (JavascriptExecutor) driver;

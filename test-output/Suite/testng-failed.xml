@@ -8,6 +8,7 @@
     <classes>
       <class name="tests.Login">
         <methods>
+          <include name="loginWithValidCredentials"/>
           <include name="tearDown"/>
           <include name="loginByEnteringNothinginBothTheFields"/>
           <include name="setUp"/>
