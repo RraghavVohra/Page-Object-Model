@@ -1,129 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="4" passed="4" failed="0" skipped="0">
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-06-29T12:06:43 IST" name="Suite" finished-at="2025-06-29T12:07:56 IST" duration-ms="72957">
+  <suite started-at="2025-07-20T12:21:05 IST" name="Default suite" finished-at="2025-07-20T12:21:45 IST" duration-ms="40198">
     <groups>
     </groups>
-    <test started-at="2025-06-29T12:06:43 IST" name="Test" finished-at="2025-06-29T12:07:56 IST" duration-ms="72957">
-      <class name="tests.Login">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.Login@477b4cdf]" started-at="2025-06-29T12:06:44 IST" name="setUp" finished-at="2025-06-29T12:06:58 IST" duration-ms="14755" status="PASS">
+    <test started-at="2025-07-20T12:21:05 IST" name="Default test" finished-at="2025-07-20T12:21:45 IST" duration-ms="40198">
+      <class name="tests.Search">
+        <test-method signature="test_TC_SA_05_verifyFilteringWithBothDraftAndPublishedOption()[pri:5, instance:tests.Search@815b41f]" started-at="2025-07-20T12:21:05 IST" name="test_TC_SA_05_verifyFilteringWithBothDraftAndPublishedOption" finished-at="2025-07-20T12:21:44 IST" duration-ms="39470" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method signature="loginWithVariousCredentials(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:tests.Login@477b4cdf]" started-at="2025-06-29T12:06:58 IST" name="loginWithVariousCredentials" data-provider="loginData" finished-at="2025-06-29T12:07:03 IST" duration-ms="4995" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[prem.chandra@bizight.com]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[Sbtest@123]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[valid]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- loginWithVariousCredentials -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.Login@477b4cdf]" started-at="2025-06-29T12:07:03 IST" name="tearDown" finished-at="2025-06-29T12:07:07 IST" duration-ms="3893" status="PASS">
+        </test-method> <!-- test_TC_SA_05_verifyFilteringWithBothDraftAndPublishedOption -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.Search@815b41f]" started-at="2025-07-20T12:21:44 IST" name="tearDown" finished-at="2025-07-20T12:21:45 IST" duration-ms="619" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.Login@477b4cdf]" started-at="2025-06-29T12:07:07 IST" name="setUp" finished-at="2025-06-29T12:07:14 IST" duration-ms="6850" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method signature="loginWithVariousCredentials(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:tests.Login@477b4cdf]" started-at="2025-06-29T12:07:14 IST" name="loginWithVariousCredentials" data-provider="loginData" finished-at="2025-06-29T12:07:19 IST" duration-ms="4848" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[prem.chandra@bizight.com]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[WrongPass123]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[invalid]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- loginWithVariousCredentials -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.Login@477b4cdf]" started-at="2025-06-29T12:07:19 IST" name="tearDown" finished-at="2025-06-29T12:07:23 IST" duration-ms="3907" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.Login@477b4cdf]" started-at="2025-06-29T12:07:23 IST" name="setUp" finished-at="2025-06-29T12:07:31 IST" duration-ms="8359" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method signature="loginWithVariousCredentials(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:tests.Login@477b4cdf]" started-at="2025-06-29T12:07:31 IST" name="loginWithVariousCredentials" data-provider="loginData" finished-at="2025-06-29T12:07:36 IST" duration-ms="4793" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[invaliduser@example.com]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[Sbtest@123]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[invalid]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- loginWithVariousCredentials -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.Login@477b4cdf]" started-at="2025-06-29T12:07:36 IST" name="tearDown" finished-at="2025-06-29T12:07:39 IST" duration-ms="3454" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.Login@477b4cdf]" started-at="2025-06-29T12:07:39 IST" name="setUp" finished-at="2025-06-29T12:07:47 IST" duration-ms="8007" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method signature="loginWithVariousCredentials(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:tests.Login@477b4cdf]" started-at="2025-06-29T12:07:47 IST" name="loginWithVariousCredentials" data-provider="loginData" finished-at="2025-06-29T12:07:52 IST" duration-ms="4619" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[invalid]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- loginWithVariousCredentials -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.Login@477b4cdf]" started-at="2025-06-29T12:07:52 IST" name="tearDown" finished-at="2025-06-29T12:07:56 IST" duration-ms="3641" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-      </class> <!-- tests.Login -->
-    </test> <!-- Test -->
-  </suite> <!-- Suite -->
+      </class> <!-- tests.Search -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
 </testng-results>

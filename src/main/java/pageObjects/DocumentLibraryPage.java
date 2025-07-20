@@ -3,6 +3,7 @@ package pageObjects;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +58,9 @@ public class DocumentLibraryPage {
 	private WebElement partnerCategoryButton;
 	private WebElement clickOnTheCategory;
 	private WebElement updateAccessButton;
+	private WebElement logoutButtonTwo;
+	private WebElement contentUpdate;
+	private WebElement dateElement;
 	
 	
     public void clickOnCommunicationTab() {
@@ -111,8 +115,18 @@ public class DocumentLibraryPage {
    
    public void clickOnLogoutButton() {
 	   
-	   logoutButton = driver.findElement(By.xpath("//button[normalize-space()='Yes']"));
-	   logoutButton.click();
+	   logoutButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[normalize-space()='Yes' and contains(@class,'btn-primary')]")));
+	   JavascriptExecutor js = (JavascriptExecutor) driver;
+	   js.executeScript("arguments[0].click();", logoutButton);
+	  
+   }
+   
+   public void clickOnLogoutButtonTwo() {
+	   
+	   logoutButtonTwo = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[normalize-space()='Yes' and contains(@class, 'btn-primary')]")));
+	   JavascriptExecutor js = (JavascriptExecutor) driver;
+	   js.executeScript("arguments[0].click();", logoutButtonTwo);
+	  
    }
    
    public void clickOnUploadOption() {
@@ -449,14 +463,14 @@ public class DocumentLibraryPage {
     
     public void enterIntoSearchBox(String texts) {
     	
-    	searchBox = driver.findElement(By.xpath("//input[@id='keywords']"));
+    	searchBox = driver.findElement(By.xpath("//input[@type='search' and @placeholder='Search']"));
         searchBox.sendKeys(texts);
     }
    
     // Method to get the search result text and THIS WILL DIFFER FOR ALL THE SERVERS
     public String getSearchResultText() {
     	
-    	searchResult = driver.findElement(By.xpath("//td[normalize-space()='Life SWAG Pension']"));
+    	searchResult = driver.findElement(By.xpath("//td[normalize-space()='ewewew test']"));
     	return searchResult.getText();
     	
     	
@@ -470,7 +484,7 @@ public class DocumentLibraryPage {
     
     public void clickOnOkButton() {
     	
-    	clickOnOkButton = driver.findElement(By.xpath("//button[normalize-space()='OK']"));
+    	clickOnOkButton = driver.findElement(By.xpath("//button[@type='button' and @class='btn btn-primary bootbox-accept' and text()='OK']"));
 		clickOnOkButton.click();
     }
     
@@ -485,14 +499,14 @@ public class DocumentLibraryPage {
     
     public void clickOnCheckBoxOption() {
     	
-    	checkboxOption = driver.findElement(By.xpath("(//label[contains(@class, 'mt-checkbox')]//span)[2]"));       
+    	checkboxOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='document_content'])[1]")));     
         checkboxOption.click();
     }
     
     
     public String getDynamicText() {
     	
-    	dynamicElement = driver.findElement(By.xpath("(//tr/td[@class='wBreak hidden-xs hidden-sm'])[1]"));
+    	dynamicElement = driver.findElement(By.xpath("(//td[@class='wBreak d-none d-md-table-cell' and @style='cursor: no-drop;'])[1]"));
         String dynamicText = dynamicElement.getText();
         System.out.println("Dynamic Text: " + dynamicText); // Optional
         return dynamicText;
@@ -501,14 +515,14 @@ public class DocumentLibraryPage {
     
     public String noRecordsElementMethod() {
     	
-    	noRecordsElement = driver.findElement(By.xpath("//tr[@class='no-records-found']/td"));
+    	noRecordsElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[@class='dataTables_empty' and text()='No matching records found']")));
         String noRecordsText = noRecordsElement.getText();
         return noRecordsText;
     }
     
     public void clickOnAccessOption() {
     	
-    	accessOption = driver.findElement(By.id("add_synd"));
+    	accessOption = driver.findElement(By.xpath("//a[@id='add_synd']"));
 		accessOption.click();
     }
     
@@ -536,6 +550,25 @@ public class DocumentLibraryPage {
     	
     	updateAccessButton = driver.findElement(By.xpath("//input[@id='synd_update_id']"));
 		updateAccessButton.click();
+    }
+    
+    public void clickOnContentUpdate() {
+    	
+    	contentUpdate = driver.findElement(By.xpath("//input[@id='start_date' and @name='start_date' and @type='text']"));
+    	contentUpdate.click();
+    }
+    
+    // Method to select today's date from calendar
+    public void selectTodayInCalendar() {
+        String today = String.valueOf(LocalDate.now().getDayOfMonth());
+        // ✅ Debug print — this shows what date it's going to click
+        System.out.println("Today: " + today);
+        
+        // Wait for the calendar popup to become visible
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.xdsoft_datetimepicker[style*='display: block']")));
+        dateElement = wait.until(ExpectedConditions.elementToBeClickable(
+        By.xpath("//td[contains(@class, 'xdsoft_date')]//div[text()='" + today + "']")));
+        dateElement.click();
     }
     
 

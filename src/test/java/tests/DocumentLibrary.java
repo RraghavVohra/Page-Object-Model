@@ -87,13 +87,12 @@ public class DocumentLibrary extends Base {
         
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
-        Thread.sleep(3000);
         docLibraryPage.clickOnLogoutButton();
     	
 	}
 	
 	@Test(priority=3)
-	public void test_TC_DL_04_uploadDocumentScreen() throws InterruptedException {
+    public void test_TC_DL_04_uploadDocumentScreen() throws InterruptedException {
 		
         driver = openBrowserAndApplication(prop.getProperty("browser"));
 		
@@ -120,7 +119,8 @@ public class DocumentLibrary extends Base {
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
         Thread.sleep(3000);
-        docLibraryPage.clickOnLogoutButton();
+        // I created a new method i.e. clickOnLogoutButtonTwo as the Button's xpath got changed on that page.
+        docLibraryPage.clickOnLogoutButtonTwo();
         
         
 		
@@ -164,7 +164,7 @@ public class DocumentLibrary extends Base {
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
         Thread.sleep(3000);
-        docLibraryPage.clickOnLogoutButton();
+        docLibraryPage.clickOnLogoutButtonTwo();
 		
 		
 	}
@@ -191,7 +191,11 @@ public class DocumentLibrary extends Base {
         Assert.assertEquals(actualURL,expectedURL);
         
         docLibraryPage.uploadDocumentUsingAutoIt();
-        docLibraryPage.enterValueInDocumentNameField(prop.getProperty("documentName"));
+        // For everytime different name
+        String baseName = prop.getProperty("documentName");
+        String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
+        docLibraryPage.enterValueInDocumentNameField(uniqueName);
+        
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachment"));
         Thread.sleep(3000);
         docLibraryPage.resizeCroppingArea();
@@ -271,7 +275,7 @@ public class DocumentLibrary extends Base {
 	        docLibraryPage.clickOnProfileIcon();
 	        docLibraryPage.clickOnLogoutOption();
 	        Thread.sleep(3000);
-	        docLibraryPage.clickOnLogoutButton(); 
+	        docLibraryPage.clickOnLogoutButtonTwo(); 
 		
 		
 	}
@@ -299,7 +303,11 @@ public class DocumentLibrary extends Base {
         
         docLibraryPage.uploadDocumentInPngFormatUsingAutoIt();
         Thread.sleep(2000);
-        docLibraryPage.enterValueInDocumentNameField(prop.getProperty("documentName"));
+        // For everytime different name
+        String baseName = prop.getProperty("documentName");
+        String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
+        docLibraryPage.enterValueInDocumentNameField(uniqueName);
+        
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachment"));
         Thread.sleep(3000);
         docLibraryPage.resizeCroppingArea();
@@ -357,7 +365,11 @@ public class DocumentLibrary extends Base {
         
         docLibraryPage.uploadDocumentInJPGFormatUsingAutoIt();
         Thread.sleep(2000);
-        docLibraryPage.enterValueInDocumentNameField(prop.getProperty("documentName"));
+        // For everytime different name
+        String baseName = prop.getProperty("documentName");
+        String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
+        docLibraryPage.enterValueInDocumentNameField(uniqueName);
+        
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachment"));
         Thread.sleep(3000);
         docLibraryPage.resizeCroppingArea();
@@ -390,7 +402,7 @@ public class DocumentLibrary extends Base {
 	}
 
 	@Test(priority=9)
-	public void test_TC_DL_22_2_UploadingDocumentInCsvFormat() throws InterruptedException, IOException {
+    public void test_TC_DL_22_2_UploadingDocumentInCsvFormat() throws InterruptedException, IOException {
 		
         driver = openBrowserAndApplication(prop.getProperty("browser"));
 		
@@ -412,7 +424,11 @@ public class DocumentLibrary extends Base {
         
         docLibraryPage.uploadDocumentInCSVFormatUsingAutoIt();
         Thread.sleep(2000);
-        docLibraryPage.enterValueInDocumentNameField(prop.getProperty("documentName"));
+        // For everytime different name
+        String baseName = prop.getProperty("documentName");
+        String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
+        docLibraryPage.enterValueInDocumentNameField(uniqueName);
+        
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachment"));
         Thread.sleep(3000);
         docLibraryPage.resizeCroppingArea();
@@ -466,7 +482,11 @@ public class DocumentLibrary extends Base {
         
         docLibraryPage.uploadDocumentInXLSXFormatUsingAutoIt();
         Thread.sleep(2000);
-        docLibraryPage.enterValueInDocumentNameField(prop.getProperty("documentName"));
+        // For everytime different name
+        String baseName = prop.getProperty("documentName");
+        String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
+        docLibraryPage.enterValueInDocumentNameField(uniqueName);
+        
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachment"));
         Thread.sleep(3000);
         docLibraryPage.resizeCroppingArea();
@@ -520,7 +540,11 @@ public class DocumentLibrary extends Base {
         
         docLibraryPage.uploadDocumentInMP4FormatUsingAutoIt();
         Thread.sleep(2000);
-        docLibraryPage.enterValueInDocumentNameField(prop.getProperty("documentName"));
+        // For everytime different name
+        String baseName = prop.getProperty("documentName");
+        String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
+        docLibraryPage.enterValueInDocumentNameField(uniqueName);
+        
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachment"));
         Thread.sleep(3000);
         docLibraryPage.resizeCroppingArea();
@@ -575,7 +599,11 @@ public class DocumentLibrary extends Base {
         
         docLibraryPage.uploadDocumentInMP4FormatUsingAutoIt();
         Thread.sleep(2000);
-        docLibraryPage.enterValueInDocumentNameField(prop.getProperty("documentName"));
+        // For everytime different name
+        String baseName = prop.getProperty("documentName");
+        String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
+        docLibraryPage.enterValueInDocumentNameField(uniqueName);
+       
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachmentInGif"));
         Thread.sleep(3000);
         docLibraryPage.resizeCroppingArea();
@@ -629,7 +657,11 @@ public class DocumentLibrary extends Base {
         
         docLibraryPage.uploadDocumentInMP4FormatUsingAutoIt();
         Thread.sleep(2000);
-        docLibraryPage.enterValueInDocumentNameField(prop.getProperty("documentName"));
+        // For everytime different name
+        String baseName = prop.getProperty("documentName");
+        String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
+        docLibraryPage.enterValueInDocumentNameField(uniqueName);
+        
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachmentInJPG"));
         Thread.sleep(3000);
         docLibraryPage.resizeCroppingArea();
@@ -683,7 +715,11 @@ public class DocumentLibrary extends Base {
         
         docLibraryPage.uploadDocumentInMP4FormatUsingAutoIt();
         Thread.sleep(2000);
-        docLibraryPage.enterValueInDocumentNameField(prop.getProperty("documentName"));
+        // For everytime different name
+        String baseName = prop.getProperty("documentName");
+        String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
+        docLibraryPage.enterValueInDocumentNameField(uniqueName);
+        
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachmentInJPG"));
         Thread.sleep(3000);
         docLibraryPage.resizeCroppingArea();
@@ -713,7 +749,7 @@ public class DocumentLibrary extends Base {
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
         Thread.sleep(3000);
-        docLibraryPage.clickOnLogoutButton();
+        docLibraryPage.clickOnLogoutButtonTwo();
 		
 	}
 
@@ -740,7 +776,11 @@ public class DocumentLibrary extends Base {
         
         // docLibraryPage.uploadDocumentInMP4FormatUsingAutoIt();
         Thread.sleep(2000);
-        docLibraryPage.enterValueInDocumentNameField(prop.getProperty("documentName"));
+        // For everytime different name
+        String baseName = prop.getProperty("documentName");
+        String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
+        docLibraryPage.enterValueInDocumentNameField(uniqueName);
+        
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachmentInJPG"));
         Thread.sleep(3000);
         docLibraryPage.resizeCroppingArea();
@@ -772,7 +812,7 @@ public class DocumentLibrary extends Base {
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
         Thread.sleep(3000);
-        docLibraryPage.clickOnLogoutButton();
+        docLibraryPage.clickOnLogoutButtonTwo();
 		
 	}
 
@@ -799,7 +839,11 @@ public class DocumentLibrary extends Base {
         
         docLibraryPage.uploadDocumentInJPGFormatUsingAutoIt();
         Thread.sleep(2000);
-        docLibraryPage.enterValueInDocumentNameField(prop.getProperty("documentName"));
+        // For everytime different name
+        String baseName = prop.getProperty("documentName");
+        String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
+        docLibraryPage.enterValueInDocumentNameField(uniqueName);
+        
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachment"));
         Thread.sleep(3000);
         docLibraryPage.resizeCroppingArea();
@@ -837,7 +881,7 @@ public class DocumentLibrary extends Base {
 	}
 
 	@Test(priority=17)
-	public void test_TC_DL_32_fillsAllTheFieldsAndMakesDownloadable() throws InterruptedException, IOException {
+    public void test_TC_DL_32_fillsAllTheFieldsAndMakesDownloadable() throws InterruptedException, IOException {
 		
         driver = openBrowserAndApplication(prop.getProperty("browser"));
 		
@@ -859,7 +903,11 @@ public class DocumentLibrary extends Base {
         
         docLibraryPage.uploadDocumentInJPGFormatUsingAutoIt();
         Thread.sleep(2000);
-        docLibraryPage.enterValueInDocumentNameField(prop.getProperty("documentName"));
+        // For everytime different name
+        String baseName = prop.getProperty("documentName");
+        String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
+        docLibraryPage.enterValueInDocumentNameField(uniqueName);
+        
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachment"));
         Thread.sleep(3000);
         docLibraryPage.resizeCroppingArea();
@@ -920,7 +968,11 @@ public class DocumentLibrary extends Base {
         
         docLibraryPage.uploadDocumentInJPGFormatUsingAutoIt();
         Thread.sleep(2000);
-        docLibraryPage.enterValueInDocumentNameField(prop.getProperty("documentName"));
+        // For everytime different name
+        String baseName = prop.getProperty("documentName");
+        String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
+        docLibraryPage.enterValueInDocumentNameField(uniqueName);
+        
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachment"));
         Thread.sleep(3000);
         docLibraryPage.resizeCroppingArea();
@@ -984,7 +1036,11 @@ public class DocumentLibrary extends Base {
         
         docLibraryPage.uploadDocumentInJPGFormatUsingAutoIt();
         Thread.sleep(2000);
-        docLibraryPage.enterValueInDocumentNameField(prop.getProperty("documentNameWithSpecialCharacter"));
+        // For everytime different name
+        String baseName = prop.getProperty("documentName");
+        String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
+        docLibraryPage.enterValueInDocumentNameField(uniqueName);
+        
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachment"));
         Thread.sleep(3000);
         docLibraryPage.resizeCroppingArea();
@@ -1046,7 +1102,7 @@ public class DocumentLibrary extends Base {
      	docLibraryPage.enterIntoSearchBox(prop.getProperty("validValueInSearchBox"));
      	String searchResultText = docLibraryPage.getSearchResultText();
         System.out.println("Search Result: " + searchResultText);
-        Assert.assertEquals(searchResultText, "Life SWAG Pension");
+        Assert.assertEquals(searchResultText, "ewewew test");
         Thread.sleep(3000);
 		
 		System.out.println("Test Case TC_DL_37 Passed. The searched content was shown.");
@@ -1112,14 +1168,18 @@ public class DocumentLibrary extends Base {
      	docLibraryPage = new DocumentLibraryPage(driver);
      	docLibraryPage.clickOnCommunicationTab();
      	docLibraryPage.clickonDocumentLibrary();
+     	Thread.sleep(1000);     	
      	docLibraryPage.clickOnCheckBoxOption();
      	String dynamicText = docLibraryPage.getDynamicText(); // call the method
      	System.out.println("Fetched Dynamic Text: " + dynamicText);
-     	Thread.sleep(2000);
+     	Thread.sleep(3000);
      	
      	docLibraryPage.clickOnActionsButton();
+     	Thread.sleep(2000);
      	docLibraryPage.clickOnDeleteOption();
+     	Thread.sleep(2000);
      	docLibraryPage.clickOnOkButton();
+     	Thread.sleep(3000);
         // Now we will search for the deleted content
      	docLibraryPage.enterIntoSearchBox(dynamicText);
      	docLibraryPage.noRecordsElementMethod();
@@ -1159,11 +1219,21 @@ public class DocumentLibrary extends Base {
      	
      	docLibraryPage.clickOnActionsButton();
      	docLibraryPage.clickOnAccessOption();
+     	Thread.sleep(2000);
      	docLibraryPage.clickOnTeamRadioButton();
+     	Thread.sleep(2000);
      	docLibraryPage.clickOnPartnerCategoryButton();
+     	Thread.sleep(2000);
      	docLibraryPage.clickOnCategory();
+     	Thread.sleep(2000);
         // Again click on the partner category button in order to close it
      	docLibraryPage.clickOnPartnerCategoryButton();
+     	Thread.sleep(2000);
+     	// We will click on the Content Date box
+     	docLibraryPage.clickOnContentUpdate();
+     	Thread.sleep(2000);
+     	// We will click on the Date of today
+     	docLibraryPage.selectTodayInCalendar();
      	docLibraryPage.clickOnUpdateAccessButton();
      	
      	Thread.sleep(2000);

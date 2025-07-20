@@ -67,7 +67,7 @@ public class SocialAutoPostPage {
 	 
 	 public void clickOnActionsButton() {
 		 
-		 actionsButton = driver.findElement(By.xpath("//*[name()='svg']"));
+		 actionsButton = driver.findElement(By.xpath("//div[contains(@class, 'btn-group')]//a[@data-bs-toggle='dropdown']//*[name()='svg']"));
 		 Actions actions = new Actions(driver);
 		 actions.moveToElement(actionsButton).click().perform();
 		 
