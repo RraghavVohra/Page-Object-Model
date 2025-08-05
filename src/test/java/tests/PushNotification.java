@@ -176,7 +176,10 @@ public class PushNotification extends Base {
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
         Assert.assertEquals(actualURL,expectedURL);
         
-        pushNotifyPage.enterNotificationName(prop.getProperty("notificationnameText"));
+        
+        String dynamicNotificationName = "Push's_Notification_" + System.currentTimeMillis();
+        pushNotifyPage.enterNotificationName(dynamicNotificationName);
+        // pushNotifyPage.enterNotificationName(prop.getProperty("notificationnameText"));
         pushNotifyPage.clickOnCategoryDropdown();
         pushNotifyPage.scrollToCategoryDropdown();
         pushNotifyPage.enterIntoSearchTextfield();
@@ -230,7 +233,9 @@ public class PushNotification extends Base {
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
         Assert.assertEquals(actualURL,expectedURL);
         
-        pushNotifyPage.enterNotificationName(prop.getProperty("notificationnameText"));
+        String dynamicNotificationName = "Push's_Notification_" + System.currentTimeMillis();
+        pushNotifyPage.enterNotificationName(dynamicNotificationName);
+        // pushNotifyPage.enterNotificationName(prop.getProperty("notificationnameText"));
         pushNotifyPage.enterNotificationMessage(prop.getProperty("notificationmessageText"));
         
         pushNotifyPage.clickOnCategoryDropdown();
@@ -287,7 +292,9 @@ public class PushNotification extends Base {
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
         Assert.assertEquals(actualURL,expectedURL);
         
-        pushNotifyPage.enterNotificationName(prop.getProperty("notificationnameText"));
+        String dynamicNotificationName = "Push's_Notification_" + System.currentTimeMillis();
+        pushNotifyPage.enterNotificationName(dynamicNotificationName);
+        // pushNotifyPage.enterNotificationName(prop.getProperty("notificationnameText"));
         pushNotifyPage.enterNotificationMessage(prop.getProperty("notificationmessageText"));
         
         pushNotifyPage.clickOnCategoryDropdown();
@@ -462,7 +469,9 @@ public class PushNotification extends Base {
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
         Assert.assertEquals(actualURL,expectedURL);
         
-        pushNotifyPage.enterNotificationName("notificationnameText");
+        String dynamicNotificationName = "Push's_Notification_" + System.currentTimeMillis();
+        pushNotifyPage.enterNotificationName(dynamicNotificationName);
+        // pushNotifyPage.enterNotificationName("notificationnameText");
         pushNotifyPage.enterNotificationMessage(prop.getProperty("notificationmessageText"));
         pushNotifyPage.clickOnCategoryDropdown();
         pushNotifyPage.scrollToCategoryDropdown();
@@ -522,8 +531,10 @@ public class PushNotification extends Base {
      	String actualURL = driver.getCurrentUrl();
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
         Assert.assertEquals(actualURL,expectedURL);
-         
-        pushNotifyPage.enterNotificationName("notificationnameText");
+        
+        String dynamicNotificationName = "Push's_Notification_" + System.currentTimeMillis();
+        pushNotifyPage.enterNotificationName(dynamicNotificationName);
+        // pushNotifyPage.enterNotificationName("notificationnameText");
         pushNotifyPage.enterNotificationMessage(prop.getProperty("notificationmessageText"));
         pushNotifyPage.clickOnCategoryDropdown();
         pushNotifyPage.scrollToCategoryDropdown();
@@ -612,7 +623,9 @@ public class PushNotification extends Base {
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
         Assert.assertEquals(actualURL,expectedURL);
         
-        pushNotifyPage.enterNotificationName(prop.getProperty("notificationnameText"));
+        String dynamicNotificationName = "Push's_Notification_" + System.currentTimeMillis();
+        pushNotifyPage.enterNotificationName(dynamicNotificationName);
+        // pushNotifyPage.enterNotificationName(prop.getProperty("notificationnameText"));
         pushNotifyPage.enterNotificationMessage(prop.getProperty("notificationmessageText"));
         pushNotifyPage.clickOnCategoryDropdown();
         pushNotifyPage.scrollToCategoryDropdown();
@@ -678,7 +691,9 @@ public class PushNotification extends Base {
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
         Assert.assertEquals(actualURL,expectedURL);
         
-        pushNotifyPage.enterNotificationName(prop.getProperty("notificationnameText"));
+        String dynamicNotificationName = "Push's_Notification_" + System.currentTimeMillis();
+        pushNotifyPage.enterNotificationName(dynamicNotificationName);
+        // pushNotifyPage.enterNotificationName(prop.getProperty("notificationnameText"));
         pushNotifyPage.enterNotificationMessage(prop.getProperty("notificationmessageText"));
         pushNotifyPage.clickOnCategoryDropdown();
         pushNotifyPage.scrollToCategoryDropdown();
@@ -751,7 +766,9 @@ public class PushNotification extends Base {
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
         Assert.assertEquals(actualURL,expectedURL);
         
-        pushNotifyPage.enterNotificationName(prop.getProperty("notificationnameText"));
+        String dynamicNotificationName = "Push's_Notification_" + System.currentTimeMillis();
+        pushNotifyPage.enterNotificationName(dynamicNotificationName);
+        // pushNotifyPage.enterNotificationName(prop.getProperty("notificationnameText"));
         pushNotifyPage.enterNotificationMessage(prop.getProperty("notificationmessageText"));
         pushNotifyPage.clickOnCategoryDropdown();
         pushNotifyPage.scrollToCategoryDropdown();
@@ -822,7 +839,9 @@ public class PushNotification extends Base {
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
         Assert.assertEquals(actualURL,expectedURL);
         
-        pushNotifyPage.enterNotificationName(prop.getProperty("notificationnameTextspecial"));
+        String dynamicNotificationName = "Push's_Notification_" + System.currentTimeMillis();
+        pushNotifyPage.enterNotificationName(dynamicNotificationName);
+        // pushNotifyPage.enterNotificationName(prop.getProperty("notificationnameTextspecial"));
         pushNotifyPage.enterNotificationMessage(prop.getProperty("notificationmessageTextspecial"));
         pushNotifyPage.clickOnCategoryDropdown();
         pushNotifyPage.scrollToCategoryDropdown();
@@ -888,7 +907,9 @@ public class PushNotification extends Base {
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
         Assert.assertEquals(actualURL,expectedURL);
         
-        pushNotifyPage.enterNotificationName(prop.getProperty("notificationnameText"));
+        String dynamicNotificationName = "Push's_Notification_" + System.currentTimeMillis();
+        pushNotifyPage.enterNotificationName(dynamicNotificationName);
+        // pushNotifyPage.enterNotificationName(prop.getProperty("notificationnameText"));
         pushNotifyPage.enterNotificationMessage(prop.getProperty("notificationmessageText"));
         pushNotifyPage.clickOnPartnerListRadioButton();
         Thread.sleep(2000);
@@ -954,7 +975,9 @@ public class PushNotification extends Base {
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
         Assert.assertEquals(actualURL,expectedURL);
         
-        pushNotifyPage.enterNotificationName(prop.getProperty("notificationnameText"));
+        String dynamicNotificationName = "Push's_Notification_" + System.currentTimeMillis();
+        pushNotifyPage.enterNotificationName(dynamicNotificationName);
+        // pushNotifyPage.enterNotificationName(prop.getProperty("notificationnameText"));
         pushNotifyPage.enterNotificationMessage(prop.getProperty("notificationmessageText"));
         pushNotifyPage.clickOnPartnerListRadioButton();
         Thread.sleep(2000);

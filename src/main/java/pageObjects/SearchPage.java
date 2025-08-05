@@ -203,6 +203,10 @@ public class SearchPage {
 	        return asset.findElements(By.xpath(".//*[name()='svg' and contains(@class, 'asset-bookmark')]"));
 	    }
 	    
+	    public List<WebElement> getAllBookmarkIconsOnPage() {
+	        return driver.findElements(By.xpath(".//*[name()='svg' and contains(@class, 'asset-bookmark')]"));
+	    }
+	    
 	    
 	    
 	    public List<WebElement> getMicrositeInAsset(WebElement asset){
