@@ -558,18 +558,53 @@ public class DocumentLibraryPage {
     	contentUpdate.click();
     }
     
-    // Method to select today's date from calendar
     public void selectTodayInCalendar() {
-        String today = String.valueOf(LocalDate.now().getDayOfMonth());
-        // ✅ Debug print — this shows what date it's going to click
-        System.out.println("Today: " + today);
-        
-        // Wait for the calendar popup to become visible
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.xdsoft_datetimepicker[style*='display: block']")));
-        dateElement = wait.until(ExpectedConditions.elementToBeClickable(
-        By.xpath("//td[contains(@class, 'xdsoft_date')]//div[text()='" + today + "']")));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        // 1. Ensure the calendar is visible
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+            By.xpath("//div[contains(@class, 'xdsoft_datetimepicker') and contains(@style, 'display: block')]")));
+
+        // 2. Wait for today's date element with class 'xdsoft_today'
+        WebElement todayElement = wait.until(ExpectedConditions.presenceOfElementLocated(
+            By.xpath("//td[contains(@class, 'xdsoft_date') and contains(@class, 'xdsoft_today')]")));
+
+        // 3. Try to click it; use JS fallback if standard click fails
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(todayElement)).click();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", todayElement);
+        }
+    }
+    
+    public void selectDateOfYourChoice(int day, int month, int year) {
+        // Wait for the calendar to be visible
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+            By.xpath("//div[contains(@class, 'xdsoft_datetimepicker') and contains(@style, 'display: block')]")));
+
+        // Open year dropdown and select correct year
+        WebElement yearLabel = driver.findElement(By.xpath("//div[contains(@class,'xdsoft_label') and contains(@class,'xdsoft_year')]/span"));
+        yearLabel.click();
+
+        WebElement yearOption = wait.until(ExpectedConditions.elementToBeClickable(
+            By.xpath("//div[contains(@class,'xdsoft_yearselect')]//div[@data-value='" + year + "']")));
+        yearOption.click();
+
+        // Open month dropdown and select correct month (January = 0, December = 11)
+        WebElement monthLabel = driver.findElement(By.xpath("//div[contains(@class,'xdsoft_label') and contains(@class,'xdsoft_month')]/span"));
+        monthLabel.click();
+
+        WebElement monthOption = wait.until(ExpectedConditions.elementToBeClickable(
+            By.xpath("//div[contains(@class,'xdsoft_monthselect')]//div[@data-value='" + (month - 1) + "']")));
+        monthOption.click();
+
+        // Select the date (day of month)
+        WebElement dateElement = wait.until(ExpectedConditions.elementToBeClickable(
+            By.xpath("//td[contains(@class,'xdsoft_date') and not(contains(@class,'xdsoft_disabled')) and @data-date='" + day + "']")));
+
         dateElement.click();
     }
+    
     
 
    

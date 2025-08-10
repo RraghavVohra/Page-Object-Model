@@ -268,6 +268,14 @@ public class SearchPage {
 
             return buttons;
         }
+        
+        public List<WebElement> getPublishOrPublishedButtonsThree(WebElement card) {
+            return card.findElements(By.xpath(
+                ".//button[@type='button' and " +
+                "((contains(@class, 'btn-outline-info') and normalize-space(text())='Publish') " +
+                "or (contains(@class, 'btn-secondary') and @disabled and normalize-space(text())='Published'))]"
+            ));
+        }
 
         
         
@@ -284,6 +292,45 @@ public class SearchPage {
 	        }
 	    }
 	    
+	    /*public List<WebElement> getAssetCardsWithPublishOrPublishedButtons() {
+	        List<WebElement> allCards = driver.findElements(By.xpath("//div[contains(@class,'asset-card')]"));
+	        List<WebElement> matchingCards = new ArrayList<>();
+
+	        for (WebElement card : allCards) {
+	            boolean hasPublish = !getPublishButtonsInAsset(card).isEmpty();
+	            boolean hasPublished = !getPublishedButtonsInAsset(card).isEmpty();
+
+	            if (hasPublish || hasPublished) {
+	                matchingCards.add(card);
+	            }
+	        }
+
+	        return matchingCards;
+	    }
+	    */
+	    /*public List<WebElement> getAssetCardsWithPublishOrPublishedButtons() {
+	        List<WebElement> allCards = driver.findElements(By.xpath("//div[contains(@class,'asset-card')]"));
+	        List<WebElement> matchingCards = new ArrayList<>();
+
+	        for (WebElement card : allCards) {
+	            boolean hasButton = !card.findElements(By.xpath(".//button[text()='Publish' or text()='Published']")).isEmpty();
+	            if (hasButton) {
+	                matchingCards.add(card);
+	            }
+	        }
+	        return matchingCards;
+	    }
+	    */
+	    
+	    
+	    public List<WebElement> getAssetCardsWithPublishOrPublishedButtons() {
+	        // Directly locate only those asset cards that contain Publish or Published buttons
+	        List<WebElement> matchingCards = driver.findElements(By.xpath(
+	            "//div[contains(@class,'asset-card')]" +
+	            "[.//button[normalize-space()='Publish' or normalize-space()='Published']]"
+	        ));
+	        return matchingCards;
+	    }
 	    
 	    
 	    

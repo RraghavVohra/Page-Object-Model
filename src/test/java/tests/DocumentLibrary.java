@@ -1232,8 +1232,13 @@ public class DocumentLibrary extends Base {
      	// We will click on the Content Date box
      	docLibraryPage.clickOnContentUpdate();
      	Thread.sleep(2000);
+     	
      	// We will click on the Date of today
-     	docLibraryPage.selectTodayInCalendar();
+     	// docLibraryPage.selectTodayInCalendar();
+     	
+     	// If you want to select DATE OF YOUR CHOICE
+     	docLibraryPage.selectDateOfYourChoice(8, 8, 2025);
+     	
      	docLibraryPage.clickOnUpdateAccessButton();
      	
      	Thread.sleep(2000);
