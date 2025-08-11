@@ -1230,15 +1230,26 @@ public class DocumentLibrary extends Base {
      	docLibraryPage.clickOnPartnerCategoryButton();
      	Thread.sleep(2000);
      	// We will click on the Content Date box
-     	docLibraryPage.clickOnContentUpdate();
+     	//docLibraryPage.clickOnContentUpdate();
+     	//Thread.sleep(2000);
+     	
+     	// Click on the Schedule checkbox
+     	docLibraryPage.clickOnScheduleCheckbox();
      	Thread.sleep(2000);
+     	docLibraryPage.clickOnScheduleCheckbox();
+     	Thread.sleep(2000);
+     	docLibraryPage.clickOnScheduleTextbox();
+     	Thread.sleep(2000);
+     	
+     	docLibraryPage.selectCurrentActiveTimeThree();
      	
      	// We will click on the Date of today
      	// docLibraryPage.selectTodayInCalendar();
      	
      	// If you want to select DATE OF YOUR CHOICE
-     	docLibraryPage.selectDateOfYourChoice(8, 8, 2025);
+     	// docLibraryPage.selectDateOfYourChoice(10, 8, 2025);
      	
+     	Thread.sleep(2000);
      	docLibraryPage.clickOnUpdateAccessButton();
      	
      	Thread.sleep(2000);
@@ -1253,6 +1264,7 @@ public class DocumentLibrary extends Base {
      	
     	
     }
-
+    
+   
 
 }

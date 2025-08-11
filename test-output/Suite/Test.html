@@ -55,11 +55,11 @@ function toggleAllBoxes() {
 <body>
 <h2 align='center'>Test</h2><table border='1' align="center">
 <tr>
-<td>Tests passed/Failed/Skipped:</td><td>21/1/0</td>
+<td>Tests passed/Failed/Skipped:</td><td>3/1/0</td>
 </tr><tr>
-<td>Started on:</td><td>Tue Aug 05 19:53:11 IST 2025</td>
+<td>Started on:</td><td>Mon Aug 11 15:33:28 IST 2025</td>
 </tr>
-<tr><td>Total time:</td><td>762 seconds (762880 ms)</td>
+<tr><td>Total time:</td><td>72 seconds (72932 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -76,19 +76,52 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='tests.PushNotification.test_TC_PN_017_fillsAllTheFieldsExceptCategoryField()'><b>test_TC_PN_017_fillsAllTheFieldsExceptCategoryField</b><br>Test class: tests.PushNotification</td>
-<td><div><pre>java.lang.AssertionError: expected [Please fill out this field.] but found []
-	at tests.PushNotification.test_TC_PN_017_fillsAllTheFieldsExceptCategoryField(PushNotification.java:264)
+<td title='tests.Login.loginWithVariousCredentials()'><b>loginWithVariousCredentials</b><br>Test class: tests.Login<br>Parameters: invaliduser@example.com, Sbtest@123, invalid</td>
+<td><div><pre>org.openqa.selenium.ElementNotInteractableException: element not interactable
+  (Session info: chrome=138.0.7204.184)
+Build info: version: &apos;4.27.0&apos;, revision: &apos;d6e718d134&apos;
+System info: os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;23.0.2&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [c9c848aebe577688ad941fc203342783, sendKeysToElement {id=f.53A7B4F375C911089D88956CE9D26A77.d.AF49373C94EABA812A449214FD686281.e.14, value=[Ljava.lang.CharSequence;@29314cc9}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 138.0.7204.184, chrome: {chromedriverVersion: 137.0.7151.69 (0b41cf178df5..., userDataDir: C:\Users\admin\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:54137}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:54137/devtoo..., se:cdpVersion: 138.0.7204.184, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on windows (c9c848aebe577688ad941fc203342783)] -&gt; id: username]
+Session ID: c9c848aebe577688ad941fc203342783
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:190)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:545)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:223)
+	at org.openqa.selenium.remote.RemoteWebElement.sendKeys(RemoteWebElement.java:110)
+	at pageObjects.LoginPage.enterUsernameField(LoginPage.java:34)
+	at tests.Login.loginWithVariousCredentials(Login.java:52)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
-... Removed 31 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace504538534", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace504538534'><pre>java.lang.AssertionError: expected [Please fill out this field.] but found []
-	at org.testng.Assert.fail(Assert.java:111)
-	at org.testng.Assert.failNotEquals(Assert.java:1578)
-	at org.testng.Assert.assertEqualsImpl(Assert.java:150)
-	at org.testng.Assert.assertEquals(Assert.java:132)
-	at org.testng.Assert.assertEquals(Assert.java:656)
-	at org.testng.Assert.assertEquals(Assert.java:666)
-	at tests.PushNotification.test_TC_PN_017_fillsAllTheFieldsExceptCategoryField(PushNotification.java:264)
+... Removed 28 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1970856042", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1970856042'><pre>org.openqa.selenium.ElementNotInteractableException: element not interactable
+  (Session info: chrome=138.0.7204.184)
+Build info: version: &apos;4.27.0&apos;, revision: &apos;d6e718d134&apos;
+System info: os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;23.0.2&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [c9c848aebe577688ad941fc203342783, sendKeysToElement {id=f.53A7B4F375C911089D88956CE9D26A77.d.AF49373C94EABA812A449214FD686281.e.14, value=[Ljava.lang.CharSequence;@29314cc9}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 138.0.7204.184, chrome: {chromedriverVersion: 137.0.7151.69 (0b41cf178df5..., userDataDir: C:\Users\admin\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:54137}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:54137/devtoo..., se:cdpVersion: 138.0.7204.184, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on windows (c9c848aebe577688ad941fc203342783)] -&gt; id: username]
+Session ID: c9c848aebe577688ad941fc203342783
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:485)
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:190)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:545)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:223)
+	at org.openqa.selenium.remote.RemoteWebElement.sendKeys(RemoteWebElement.java:110)
+	at pageObjects.LoginPage.enterUsernameField(LoginPage.java:34)
+	at tests.Login.loginWithVariousCredentials(Login.java:52)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
@@ -116,8 +149,8 @@ function toggleAllBoxes() {
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
 </pre></div></td>
-<td>31</td>
-<td>tests.PushNotification@2002fc1d</td></tr>
+<td>6</td>
+<td>tests.Login@49438269</td></tr>
 </table><p>
 <table width='100%' border='1' class='invocation-passed'>
 <tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
@@ -128,110 +161,20 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='tests.PushNotification.test_TC_PN_03_clicksOnActionMenuButton()'><b>test_TC_PN_03_clicksOnActionMenuButton</b><br>Test class: tests.PushNotification</td>
-<td></td>
-<td>28</td>
-<td>tests.PushNotification@2002fc1d</td></tr>
-<tr>
-<td title='tests.Login.loginWithVariousCredentials()'><b>loginWithVariousCredentials</b><br>Test class: tests.Login<br>Parameters: invaliduser@example.com, Sbtest@123, invalid</td>
+<td title='tests.Login.loginWithVariousCredentials()'><b>loginWithVariousCredentials</b><br>Test class: tests.Login<br>Parameters: , , invalid</td>
 <td></td>
 <td>4</td>
-<td>tests.Login@1a677343</td></tr>
+<td>tests.Login@49438269</td></tr>
 <tr>
-<td title='tests.PushNotification.test_TC_PN_023_verifyNotificationStatus()'><b>test_TC_PN_023_verifyNotificationStatus</b><br>Test class: tests.PushNotification</td>
+<td title='tests.Login.loginWithVariousCredentials()'><b>loginWithVariousCredentials</b><br>Test class: tests.Login<br>Parameters: prem.chandra@bizight.com, WrongPass123, invalid</td>
 <td></td>
-<td>43</td>
-<td>tests.PushNotification@2002fc1d</td></tr>
-<tr>
-<td title='tests.PushNotification.test_TC_PN_036_pushNotificationWithCsvUpload()'><b>test_TC_PN_036_pushNotificationWithCsvUpload</b><br>Test class: tests.PushNotification</td>
-<td></td>
-<td>50</td>
-<td>tests.PushNotification@2002fc1d</td></tr>
-<tr>
-<td title='tests.PushNotification.test_TC_PN_050_pushNotificationWithoutCsvUpload()'><b>test_TC_PN_050_pushNotificationWithoutCsvUpload</b><br>Test class: tests.PushNotification</td>
-<td></td>
-<td>38</td>
-<td>tests.PushNotification@2002fc1d</td></tr>
-<tr>
-<td title='tests.PushNotification.test_TC_PN_09_verifyImageUpload()'><b>test_TC_PN_09_verifyImageUpload</b><br>Test class: tests.PushNotification</td>
-<td></td>
-<td>32</td>
-<td>tests.PushNotification@2002fc1d</td></tr>
+<td>7</td>
+<td>tests.Login@49438269</td></tr>
 <tr>
 <td title='tests.Login.loginWithVariousCredentials()'><b>loginWithVariousCredentials</b><br>Test class: tests.Login<br>Parameters: prem.chandra@bizight.com, Sbtest@123, valid</td>
 <td></td>
 <td>5</td>
-<td>tests.Login@1a677343</td></tr>
-<tr>
-<td title='tests.PushNotification.test_TC_PN_019_fillsAllTheFieldsExceptCustomLinkField()'><b>test_TC_PN_019_fillsAllTheFieldsExceptCustomLinkField</b><br>Test class: tests.PushNotification</td>
-<td></td>
-<td>44</td>
-<td>tests.PushNotification@2002fc1d</td></tr>
-<tr>
-<td title='tests.PushNotification.test_TC_PN_012_imagesInDifferentFormat()'><b>test_TC_PN_012_imagesInDifferentFormat</b><br>Test class: tests.PushNotification</td>
-<td></td>
-<td>45</td>
-<td>tests.PushNotification@2002fc1d</td></tr>
-<tr>
-<td title='tests.PushNotification.test_TC_PN_01_takenToPushNotificationsScreen()'><b>test_TC_PN_01_takenToPushNotificationsScreen</b><br>Test class: tests.PushNotification</td>
-<td></td>
-<td>34</td>
-<td>tests.PushNotification@2002fc1d</td></tr>
-<tr>
-<td title='tests.PushNotification.test_TC_PN_04_takentoCreateAppNotificationScreen()'><b>test_TC_PN_04_takentoCreateAppNotificationScreen</b><br>Test class: tests.PushNotification</td>
-<td></td>
-<td>31</td>
-<td>tests.PushNotification@2002fc1d</td></tr>
-<tr>
-<td title='tests.Login.loginWithVariousCredentials()'><b>loginWithVariousCredentials</b><br>Test class: tests.Login<br>Parameters: , , invalid</td>
-<td></td>
-<td>4</td>
-<td>tests.Login@1a677343</td></tr>
-<tr>
-<td title='tests.PushNotification.test_TC_PN_06_notificationChannelSelection()'><b>test_TC_PN_06_notificationChannelSelection</b><br>Test class: tests.PushNotification</td>
-<td></td>
-<td>31</td>
-<td>tests.PushNotification@2002fc1d</td></tr>
-<tr>
-<td title='tests.PushNotification.test_TC_PN_049_pushNotificationWithSpecialCharacter()'><b>test_TC_PN_049_pushNotificationWithSpecialCharacter</b><br>Test class: tests.PushNotification</td>
-<td></td>
-<td>45</td>
-<td>tests.PushNotification@2002fc1d</td></tr>
-<tr>
-<td title='tests.PushNotification.test_TC_PN_013_sendTOOptionsSelection()'><b>test_TC_PN_013_sendTOOptionsSelection</b><br>Test class: tests.PushNotification</td>
-<td></td>
-<td>28</td>
-<td>tests.PushNotification@2002fc1d</td></tr>
-<tr>
-<td title='tests.PushNotification.test_TC_PN_015_selectAllOptionInPartnerCategoryDropdown()'><b>test_TC_PN_015_selectAllOptionInPartnerCategoryDropdown</b><br>Test class: tests.PushNotification</td>
-<td></td>
-<td>38</td>
-<td>tests.PushNotification@2002fc1d</td></tr>
-<tr>
-<td title='tests.PushNotification.test_TC_PN_07_fillsAllTheFieldsExceptNotificationName()'><b>test_TC_PN_07_fillsAllTheFieldsExceptNotificationName</b><br>Test class: tests.PushNotification</td>
-<td></td>
-<td>35</td>
-<td>tests.PushNotification@2002fc1d</td></tr>
-<tr>
-<td title='tests.PushNotification.test_TC_PN_016_verifyTheSearchTextfield()'><b>test_TC_PN_016_verifyTheSearchTextfield</b><br>Test class: tests.PushNotification</td>
-<td></td>
-<td>30</td>
-<td>tests.PushNotification@2002fc1d</td></tr>
-<tr>
-<td title='tests.PushNotification.test_TC_PN_08_fillsAllTheFieldsExceptNotificationMessage()'><b>test_TC_PN_08_fillsAllTheFieldsExceptNotificationMessage</b><br>Test class: tests.PushNotification</td>
-<td></td>
-<td>34</td>
-<td>tests.PushNotification@2002fc1d</td></tr>
-<tr>
-<td title='tests.PushNotification.test_TC_PN_020_verifyContentLink()'><b>test_TC_PN_020_verifyContentLink</b><br>Test class: tests.PushNotification</td>
-<td></td>
-<td>45</td>
-<td>tests.PushNotification@2002fc1d</td></tr>
-<tr>
-<td title='tests.Login.loginWithVariousCredentials()'><b>loginWithVariousCredentials</b><br>Test class: tests.Login<br>Parameters: prem.chandra@bizight.com, WrongPass123, invalid</td>
-<td></td>
-<td>4</td>
-<td>tests.Login@1a677343</td></tr>
+<td>tests.Login@49438269</td></tr>
 </table><p>
 </body>
 </html>

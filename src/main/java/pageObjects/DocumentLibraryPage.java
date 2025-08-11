@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -61,6 +63,8 @@ public class DocumentLibraryPage {
 	private WebElement logoutButtonTwo;
 	private WebElement contentUpdate;
 	private WebElement dateElement;
+	private WebElement clickOnTheSchedule;
+	private WebElement clickOnScheduleTextfield;
 	
 	
     public void clickOnCommunicationTab() {
@@ -578,32 +582,128 @@ public class DocumentLibraryPage {
     }
     
     public void selectDateOfYourChoice(int day, int month, int year) {
-        // Wait for the calendar to be visible
-        wait.until(ExpectedConditions.visibilityOfElementLocated(
-            By.xpath("//div[contains(@class, 'xdsoft_datetimepicker') and contains(@style, 'display: block')]")));
+        // Ensure calendar popup is open before interacting
+        try {
+            WebElement calendarPopup = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//div[contains(@class, 'xdsoft_datetimepicker') and contains(@style, 'display: block')]")));
+            System.out.println("✅ Calendar popup is visible.");
+        } catch (TimeoutException e) {
+            System.out.println("❌ Calendar popup did not appear. Cannot proceed with date selection.");
+            return;
+        }
 
-        // Open year dropdown and select correct year
-        WebElement yearLabel = driver.findElement(By.xpath("//div[contains(@class,'xdsoft_label') and contains(@class,'xdsoft_year')]/span"));
-        yearLabel.click();
+        // YEAR SELECTION
+        try {
+            WebElement yearLabel = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//div[contains(@class,'xdsoft_label') and contains(@class,'xdsoft_year')]/span")));
+            yearLabel.click();
+            System.out.println("ℹ️ Year dropdown clicked.");
 
-        WebElement yearOption = wait.until(ExpectedConditions.elementToBeClickable(
-            By.xpath("//div[contains(@class,'xdsoft_yearselect')]//div[@data-value='" + year + "']")));
-        yearOption.click();
+            WebElement yearOption = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//div[contains(@class,'xdsoft_yearselect')]//div[@data-value='" + year + "']")));
+            yearOption.click();
+            System.out.println("✅ Year selected: " + year);
+        } catch (TimeoutException e) {
+            System.out.println("❌ Could not find year label or year option.");
+            return;
+        }
 
-        // Open month dropdown and select correct month (January = 0, December = 11)
-        WebElement monthLabel = driver.findElement(By.xpath("//div[contains(@class,'xdsoft_label') and contains(@class,'xdsoft_month')]/span"));
-        monthLabel.click();
+        // MONTH SELECTION
+        try {
+            WebElement monthLabel = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//div[contains(@class,'xdsoft_label') and contains(@class,'xdsoft_month')]/span")));
+            monthLabel.click();
+            System.out.println("ℹ️ Month dropdown clicked.");
 
-        WebElement monthOption = wait.until(ExpectedConditions.elementToBeClickable(
-            By.xpath("//div[contains(@class,'xdsoft_monthselect')]//div[@data-value='" + (month - 1) + "']")));
-        monthOption.click();
+            WebElement monthOption = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//div[contains(@class,'xdsoft_monthselect')]//div[@data-value='" + (month - 1) + "']")));
+            monthOption.click();
+            System.out.println("✅ Month selected: " + month);
+        } catch (TimeoutException e) {
+            System.out.println("❌ Could not find month label or month option.");
+            return;
+        }
 
-        // Select the date (day of month)
-        WebElement dateElement = wait.until(ExpectedConditions.elementToBeClickable(
-            By.xpath("//td[contains(@class,'xdsoft_date') and not(contains(@class,'xdsoft_disabled')) and @data-date='" + day + "']")));
+        // DATE SELECTION
+        try {
+            WebElement dateElement = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//td[contains(@class,'xdsoft_date') and not(contains(@class,'xdsoft_disabled')) and @data-date='" + day + "']")));
+            dateElement.click();
+            System.out.println("✅ Date selected: " + day);
+        } catch (TimeoutException e) {
+            System.out.println("❌ Could not find date element: " + day);
+            return;
+        }
 
-        dateElement.click();
+        // TIME SELECTION (like your working method)
+        try {
+            WebElement activeTime = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//div[contains(@class,'xdsoft_time') and contains(@class,'xdsoft_current')]")));
+            activeTime.click();
+            System.out.println("✅ Active time clicked.");
+        } catch (TimeoutException e) {
+            System.out.println("⚠️ Active time not found, clicking first available time.");
+            try {
+                WebElement firstTime = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.xpath("(//div[contains(@class,'xdsoft_time')])[1]")));
+                firstTime.click();
+                System.out.println("✅ First available time clicked.");
+            } catch (TimeoutException ex) {
+                System.out.println("❌ No time options available.");
+            }
+        }
     }
+
+    
+    
+
+    public void selectCurrentActiveTimeThree() {
+        System.out.println("Attempting to select the current active time...");
+
+        // 1️⃣ Wait for calendar popup to be visible
+        WebElement calendarPopup = wait.until(ExpectedConditions.visibilityOfElementLocated(
+            By.xpath("//div[contains(@class, 'xdsoft_datetimepicker') and contains(@style,'display: block')]")));
+        System.out.println("✅ Calendar popup is visible.");
+
+        // 2️⃣ Wait for time picker section inside the visible calendar
+        WebElement timePicker = wait.until(ExpectedConditions.visibilityOfElementLocated(
+            By.xpath("//div[contains(@class, 'xdsoft_datetimepicker') and contains(@style,'display: block')]//div[contains(@class, 'xdsoft_timepicker')]")));
+        System.out.println("✅ Time picker section is visible.");
+
+        try {
+            // 3️⃣ Try to find and click the active (highlighted) time
+            WebElement activeTime = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//div[contains(@class,'xdsoft_datetimepicker') and contains(@style,'display: block')]//div[contains(@class,'xdsoft_time') and contains(@class,'xdsoft_current')]")));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", activeTime);
+            activeTime.click();
+            System.out.println("✅ Clicked on the currently active time.");
+        } catch (TimeoutException e) {
+            System.out.println("⚠ No active time found! Clicking the first available time instead...");
+
+            // 4️⃣ Fallback: Click the first time slot
+            WebElement firstTime = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("(//div[contains(@class,'xdsoft_datetimepicker') and contains(@style,'display: block')]//div[contains(@class,'xdsoft_time')])[1]")));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", firstTime);
+            firstTime.click();
+            System.out.println("✅ Clicked on the first available time slot.");
+        }
+
+        System.out.println("🎯 Time selection complete.");
+    }
+
+    
+    public void clickOnScheduleCheckbox() {
+    	
+    	clickOnTheSchedule = driver.findElement(By.xpath("//input[@id='schedule']"));
+		clickOnTheSchedule.click();
+    }
+    
+    public void clickOnScheduleTextbox() {
+    	
+    	clickOnScheduleTextfield = driver.findElement(By.xpath("//input[@id='schedule_synd']"));
+    	clickOnScheduleTextfield.click();
+    }
+
     
     
 

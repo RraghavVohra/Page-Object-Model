@@ -25,7 +25,7 @@
       <span class="top-banner-title-font">Test results</span>
       <button id="button" class="button">Switch Retro Theme</button> <!-- button -->
       <br/>
-      <span class="top-banner-font-1">1 suite</span>
+      <span class="top-banner-font-1">1 suite, 1 failed test</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -39,7 +39,7 @@
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
             <a href="#" panel-name="suite-Default_suite" class="navigator-link">
-              <span class="suite-name border-passed">Default suite</span>
+              <span class="suite-name border-failed">Default suite</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -50,7 +50,7 @@
               <ul>
                 <li>
                   <a href="#" panel-name="test-xml-Default_suite" class="navigator-link ">
-                    <span>C:\Users\admin\AppData\Local\Temp\testng-eclipse--1354732050\testng-customsuite.xml</span>
+                    <span>C:\Users\admin\AppData\Local\Temp\testng-eclipse--1785814811\testng-customsuite.xml</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
@@ -92,7 +92,21 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">1 method,   1 passed</span>
+                    <span class="method-stats">2 methods, 1 failed,   1 passed</span>
+                  </li>
+                  <li>
+                    <span class="method-list-title failed">Failed methods</span>
+                    <span class="show-or-hide-methods failed">
+                      <a href="#" panel-name="suite-Default_suite" class="hide-methods failed suite-Default_suite"> (hide)</a> <!-- hide-methods failed suite-Default_suite -->
+                      <a href="#" panel-name="suite-Default_suite" class="show-methods failed suite-Default_suite"> (show)</a> <!-- show-methods failed suite-Default_suite -->
+                    </span>
+                    <div class="method-list-content failed suite-Default_suite">
+                      <span>
+                        <img src="failed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="tests.DocumentLibrary" class="method navigator-link" hash-for-method="test_TC_DL_41_updatingTheAccessOfTheContent">test_TC_DL_41_updatingTheAccessOfTheContent</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                    </div> <!-- method-list-content failed suite-Default_suite -->
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -103,7 +117,7 @@
                     <div class="method-list-content passed suite-Default_suite">
                       <span>
                         <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Default_suite" title="tests.Search" class="method navigator-link" hash-for-method="test_TC_SA_33_verifyDraftAndPublishedWithBookmarkQuickFilter">test_TC_SA_33_verifyDraftAndPublishedWithBookmarkQuickFilter</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-Default_suite" title="tests.DocumentLibrary" class="method navigator-link" hash-for-method="test_TC_DL_34_fillsAllTheFieldsWithHashtag">test_TC_DL_34_fillsAllTheFieldsWithHashtag</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-Default_suite -->
@@ -118,17 +132,83 @@
     <div class="wrapper">
       <div class="main-panel-root">
         <div panel-name="suite-Default_suite" class="panel Default_suite">
-          <div class="suite-Default_suite-class-passed">
+          <div class="suite-Default_suite-class-failed">
             <div class="main-panel-header rounded-window-top">
-              <img src="passed.png"/>
-              <span class="class-name">tests.Search</span>
+              <img src="failed.png"/>
+              <span class="class-name">tests.DocumentLibrary</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="test_TC_SA_33_verifyDraftAndPublishedWithBookmarkQuickFilter">
-                  </a> <!-- test_TC_SA_33_verifyDraftAndPublishedWithBookmarkQuickFilter -->
-                  <span class="method-name">test_TC_SA_33_verifyDraftAndPublishedWithBookmarkQuickFilter</span>
+                  <a name="test_TC_DL_41_updatingTheAccessOfTheContent">
+                  </a> <!-- test_TC_DL_41_updatingTheAccessOfTheContent -->
+                  <span class="method-name">test_TC_DL_41_updatingTheAccessOfTheContent</span>
+                  <div class="stack-trace">org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element &lt;i class=&quot;fa fa-user-circle&quot;&gt;&lt;/i&gt; is not clickable at point (1168, 39). Other element would receive the click: &lt;div class=&quot;bootbox modal fade bootbox-alert show&quot; tabindex=&quot;-1&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; style=&quot;padding-right: 15px; display: block;&quot;&gt;...&lt;/div&gt;
+  (Session info: chrome=138.0.7204.184)
+Build info: version: &apos;4.27.0&apos;, revision: &apos;d6e718d134&apos;
+System info: os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;23.0.2&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [acbefd3a4a0de1a83981a59bed94f226, clickElement {id=f.4F1C54150F850B501EE0A0E6A9E81669.d.3ABB34AE92A773DEFC133779C31E7083.e.366}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 138.0.7204.184, chrome: {chromedriverVersion: 137.0.7151.69 (0b41cf178df5..., userDataDir: C:\Users\admin\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:54483}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:54483/devtoo..., se:cdpVersion: 138.0.7204.184, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on windows (acbefd3a4a0de1a83981a59bed94f226)] -&gt; xpath: //i[@class=&apos;fa fa-user-circle&apos;]]
+Session ID: acbefd3a4a0de1a83981a59bed94f226
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:485)
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:190)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:545)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:223)
+	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:76)
+	at pageObjects.DocumentLibraryPage.clickOnProfileIcon(DocumentLibraryPage.java:110)
+	at tests.DocumentLibrary.test_TC_DL_41_updatingTheAccessOfTheContent(DocumentLibrary.java:1327)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
+
+</div> <!-- stack-trace -->
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Default_suite-class-failed -->
+          <div class="suite-Default_suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">tests.DocumentLibrary</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="test_TC_DL_34_fillsAllTheFieldsWithHashtag">
+                  </a> <!-- test_TC_DL_34_fillsAllTheFieldsWithHashtag -->
+                  <span class="method-name">test_TC_DL_34_fillsAllTheFieldsWithHashtag</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -136,7 +216,7 @@
         </div> <!-- panel Default_suite -->
         <div panel-name="test-xml-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">C:\Users\admin\AppData\Local\Temp\testng-eclipse--1354732050\testng-customsuite.xml</span>
+            <span class="header-content">C:\Users\admin\AppData\Local\Temp\testng-eclipse--1785814811\testng-customsuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -145,11 +225,12 @@
 &lt;suite name=&quot;Default suite&quot; guice-stage=&quot;DEVELOPMENT&quot;&gt;
   &lt;test thread-count=&quot;5&quot; name=&quot;Default test&quot; verbose=&quot;2&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;tests.Search&quot;&gt;
+      &lt;class name=&quot;tests.DocumentLibrary&quot;&gt;
         &lt;methods&gt;
-          &lt;include name=&quot;test_TC_SA_33_verifyDraftAndPublishedWithBookmarkQuickFilter&quot;/&gt;
+          &lt;include name=&quot;test_TC_DL_41_updatingTheAccessOfTheContent&quot;/&gt;
+          &lt;include name=&quot;test_TC_DL_34_fillsAllTheFieldsWithHashtag&quot;/&gt;
         &lt;/methods&gt;
-      &lt;/class&gt; &lt;!-- tests.Search --&gt;
+      &lt;/class&gt; &lt;!-- tests.DocumentLibrary --&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Default test --&gt;
 &lt;/suite&gt; &lt;!-- Default suite --&gt;
@@ -189,16 +270,20 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(1);
+data.addRows(2);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'test_TC_SA_33_verifyDraftAndPublishedWithBookmarkQuickFilter')
-data.setCell(0, 2, 'tests.Search')
-data.setCell(0, 3, 33303);
+data.setCell(0, 1, 'test_TC_DL_34_fillsAllTheFieldsWithHashtag')
+data.setCell(0, 2, 'tests.DocumentLibrary')
+data.setCell(0, 3, 92714);
+data.setCell(1, 0, 1)
+data.setCell(1, 1, 'test_TC_DL_41_updatingTheAccessOfTheContent')
+data.setCell(1, 2, 'tests.DocumentLibrary')
+data.setCell(1, 3, 59833);
 window.suiteTableData['Default_suite']= { tableData: data, tableDiv: 'times-div-Default_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 33 seconds</span>
+              <span class="suite-total-time">Total running time: 2 minutes</span>
               <div id="times-div-Default_suite">
               </div> <!-- times-div-Default_suite -->
             </div> <!-- times-div -->
@@ -213,73 +298,55 @@ return data;
         </div> <!-- panel -->
         <div panel-name="ignored-methods-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">31 ignored methods</span>
+            <span class="header-content">22 ignored methods</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="ignored-class-div">
-              <span class="ignored-class-name">tests.Search</span>
+              <span class="ignored-class-name">tests.DocumentLibrary</span>
               <div class="ignored-methods-div">
-                <span class="ignored-method-name">test_TC_SA_08_verifyFilteringWithBothPublishedAndDraftOptionsWithoutSearching</span>
+                <span class="ignored-method-name">test_TC_DL_37_searchFunctionality</span>
                 <br/>
-                <span class="ignored-method-name">test_TC_SA_06_verifyFilteringWithOnlyDraftOptionWithoutSearching</span>
+                <span class="ignored-method-name">test_TC_DL_06_fillsNothingInAnyOfTheField</span>
                 <br/>
-                <span class="ignored-method-name">test_TC_SA_07_verifyFilteringWithOnlyPublishedOptionWithoutSearching</span>
+                <span class="ignored-method-name">test_TC_DL_17_allMandatoryFields</span>
                 <br/>
-                <span class="ignored-method-name">test_TC_SA_14_verifyPublishedContentWithVideoQuickFilter</span>
+                <span class="ignored-method-name">test_TC_DL_18_allMandatoryFieldsExceptDocumentName</span>
                 <br/>
-                <span class="ignored-method-name">test_TC_SA_04_verifyFilteringWithOnlyPublishedOption</span>
+                <span class="ignored-method-name">test_TC_DL_28_fillsAllTheFieldsExceptDocumentOption</span>
                 <br/>
-                <span class="ignored-method-name">test_TC_SA_32_verifyDraftAndPublishedWithSocialPostsQuickFilter</span>
+                <span class="ignored-method-name">test_TC_DL_04_uploadDocumentScreen</span>
                 <br/>
-                <span class="ignored-method-name">test_TC_SA_32_1_verifyDraftAndPublishedWithEmailQuickFilter</span>
+                <span class="ignored-method-name">test_TC_DL_22_1_UploadingDocumentInjpgFormat</span>
                 <br/>
-                <span class="ignored-method-name">test_TC_SA_27_verifyDraftAndPublishedWithBookmarkedQuickFilter</span>
+                <span class="ignored-method-name">test_TC_DL_39_deleteTheContentAndSearchIt</span>
                 <br/>
-                <span class="ignored-method-name">test_TC_SA_15_verifyPublishedContentWithBrochureQuickFilter</span>
+                <span class="ignored-method-name">test_TC_DL_22_UploadingDocumentInPngFormat</span>
                 <br/>
-                <span class="ignored-method-name">test_TC_SA_12_verifyPublishedContentWithBookmarkedQuickFilter</span>
+                <span class="ignored-method-name">test_TC_DL_30_fillsAllTheMandatoryAndDocumentOptions</span>
                 <br/>
-                <span class="ignored-method-name">test_TC_SA_18_verifyPublishedContentWithEmailQuickFilter</span>
+                <span class="ignored-method-name">test_TC_DL_32_fillsAllTheFieldsAndMakesDownloadable</span>
                 <br/>
-                <span class="ignored-method-name">test_TC_SA_13_verifyPublishedContentWithMicrositeQuickFilter</span>
+                <span class="ignored-method-name">test_TC_DL_22_3_UploadingDocumentInXlsxFormat</span>
                 <br/>
-                <span class="ignored-method-name">test_TC_SA_24_verifyDraftContentWithBannersQuickFilter</span>
+                <span class="ignored-method-name">test_TC_DL_22_4_UploadingDocumentInMp4Format</span>
                 <br/>
-                <span class="ignored-method-name">test_TC_SA_17_verifyPublishedContentWithSocialPostsQuickFilter</span>
+                <span class="ignored-method-name">test_TC_DL_25_fillsAllMandatoryFieldsExceptDescription</span>
                 <br/>
-                <span class="ignored-method-name">test_TC_SA_23_verifyDraftContentWithBrochureQuickFilter</span>
+                <span class="ignored-method-name">test_TC_DL_22_6_UploadingJpgImageForThumbnail</span>
                 <br/>
-                <span class="ignored-method-name">test_TC_SA_20_verifyDraftContentWithBookmarkedQuickFilter</span>
+                <span class="ignored-method-name">test_TC_DL_40_updatingTheAccessOfTheContent</span>
                 <br/>
-                <span class="ignored-method-name">test_TC_SA_05_verifyFilteringWithBothDraftAndPublishedOption</span>
+                <span class="ignored-method-name">test_TC_DL_38_clickDeleteWithoutSelectingAnyContent</span>
                 <br/>
-                <span class="ignored-method-name">test_TC_SA_11_verifySearchFunctionalityWhenInvalidValueEntered</span>
+                <span class="ignored-method-name">test_TC_DL_08_specialCharacterInNameAndFillingAllMandatoryFields</span>
                 <br/>
-                <span class="ignored-method-name">test_TC_SA_01_searchfunctionality</span>
+                <span class="ignored-method-name">test_TC_DL_03_actionsMenuButton</span>
                 <br/>
-                <span class="ignored-method-name">test_TC_SA_31_verifyDraftAndPublishedWithBannerQuickFilter</span>
+                <span class="ignored-method-name">test_TC_DL_22_2_UploadingDocumentInCsvFormat</span>
                 <br/>
-                <span class="ignored-method-name">test_TC_SA_29_verifyDraftAndPublishedWithVideoQuickFilter</span>
+                <span class="ignored-method-name">test_TC_DL_22_5_UploadingGifImageForThumbnail</span>
                 <br/>
-                <span class="ignored-method-name">test_TC_SA_03_verifyFilteringWithOnlyDraftOption</span>
-                <br/>
-                <span class="ignored-method-name">test_TC_SA_21_verifyDraftContentWithMicrositeQuickFilter</span>
-                <br/>
-                <span class="ignored-method-name">test_TC_SA_30_verifyDraftAndPublishedWithBrochureQuickFilter</span>
-                <br/>
-                <span class="ignored-method-name">test_TC_SA_02_verifyalltheOptionsOfDropdowns</span>
-                <br/>
-                <span class="ignored-method-name">test_TC_SA_25_verifyDraftContentWithSocialPostsQuickFilter</span>
-                <br/>
-                <span class="ignored-method-name">test_TC_SA_26_verifyDraftContentWithEmailQuickFilter</span>
-                <br/>
-                <span class="ignored-method-name">test_TC_SA_19_verifyDraftContentWithAllQuickFilter</span>
-                <br/>
-                <span class="ignored-method-name">test_TC_SA_16_verifyPublishedContentWithBannersQuickFilter</span>
-                <br/>
-                <span class="ignored-method-name">test_TC_SA_22_verifyDraftContentWithVideoQuickFilter</span>
-                <br/>
-                <span class="ignored-method-name">test_TC_SA_28_verifyDraftAndPublishedWithMicrositeQuickFilter</span>
+                <span class="ignored-method-name">test_TC_DL_01_takenToDocumentLibraryScreen</span>
                 <br/>
               </div> <!-- ignored-methods-div -->
             </div> <!-- ignored-class-div -->
@@ -291,14 +358,24 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">tests.Search</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">tests.DocumentLibrary</div> <!-- chronological-class-name -->
               <div class="test-method">
-                <span class="method-name">test_TC_SA_33_verifyDraftAndPublishedWithBookmarkQuickFilter</span>
+                <span class="method-name">test_TC_DL_34_fillsAllTheFieldsWithHashtag</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDown</span>
-                <span class="method-start">33318 ms</span>
+                <span class="method-start">92735 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="test-method">
+                <img src="failed.png">
+                </img>
+                <span class="method-name">test_TC_DL_41_updatingTheAccessOfTheContent</span>
+                <span class="method-start">93280 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">153132 ms</span>
               </div> <!-- configuration-method after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
