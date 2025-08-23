@@ -45,24 +45,37 @@ public class SocialAutoPostTest extends Base {
     	socialautopostpage.clickOnActionsButton();
     	socialautopostpage.clickOnCreatePostButton();
     	socialautopostpage.uploadFileInPNGUsingAutoIt();
+    	Thread.sleep(2000); 
+    	Utilities.scrollDownByTwoHundred(driver);
     	socialautopostpage.clickOnEnableCobrandingButton();
-    	socialautopostpage.enterInTitleTextfield(prop.getProperty("Titletextfield"));
+    	// For Everytime different Name
+    	String baseName = prop.getProperty("Titletextfield");
+        String uniqueName = baseName + "_" + System.currentTimeMillis();
+        socialautopostpage.enterInTitleTextfield(uniqueName);
     	socialautopostpage.enterValueInDescriptionTextfield(prop.getProperty("Descriptiontextfield"));
-    	
-    	Thread.sleep(2000);
-    	
+    
+    	Thread.sleep(2000);   	
     	// Scroll down by 500 pixels
 	    Utilities.scrollDownByFiveHundred(driver);
+	    Thread.sleep(2000);
 	    socialautopostpage.clickOnPartnerCategoryButton();
 	    socialautopostpage.clickOnSelectPartnerCategory();
+	    Thread.sleep(2000);
 	    socialautopostpage.clickOnStaticText();
+	    Thread.sleep(2000);
+	    socialautopostpage.clickOnTwitter();
+	    Thread.sleep(2000);
+	    socialautopostpage.clickOnLinkedIn();
+	    Thread.sleep(2000);
+	    socialautopostpage.clickOnFacebook();
+	    Thread.sleep(2000);
+	    Utilities.scrollDownByTwoHundred(driver);
 	    socialautopostpage.ClickOnOpenDateTimePicker();
 	    
 	    Thread.sleep(7000);
 	    
-	    socialautopostpage.selectFutureDate("8", "May 2025");
-	    socialautopostpage.selectHour("8");
-	    socialautopostpage.selectMinute("8", "30");
+	    socialautopostpage.selectFutureDateTwo("24", "August 2025");
+	    socialautopostpage.selectTimeThree("10", "30"); 
 	    socialautopostpage.verifySelection();
 	    
 	    socialautopostpage.clickOnSchedulePostButton();
@@ -105,7 +118,11 @@ public class SocialAutoPostTest extends Base {
     	socialautopostpage.clickOnCreatePostButton();
     	socialautopostpage.uploadFileInJPGUsingAutoIt();
     	socialautopostpage.clickOnEnableCobrandingButton();
-    	socialautopostpage.enterInTitleTextfield(prop.getProperty("Titletextfield"));
+    	
+    	// For Everytime different Name
+    	String baseName = prop.getProperty("Titletextfield");
+        String uniqueName = baseName + "_" + System.currentTimeMillis();
+    	socialautopostpage.enterInTitleTextfield(prop.getProperty(uniqueName));
     	socialautopostpage.enterValueInDescriptionTextfield(prop.getProperty("Descriptiontextfield"));
     	
     	Thread.sleep(2000);
@@ -164,7 +181,10 @@ public class SocialAutoPostTest extends Base {
     	Thread.sleep(3000);
     	socialautopostpage.uploadFileForMP4FileWithThumbnailInJPGformat();
     	socialautopostpage.clickOnEnableCobrandingButton();
-    	socialautopostpage.enterInTitleTextfield(prop.getProperty("Titletextfield"));
+    	// For Everytime different Name
+    	String baseName = prop.getProperty("Titletextfield");
+        String uniqueName = baseName + "_" + System.currentTimeMillis();
+    	socialautopostpage.enterInTitleTextfield(prop.getProperty(uniqueName));
     	socialautopostpage.enterValueInDescriptionTextfield(prop.getProperty("Descriptiontextfield"));
     	
     	Thread.sleep(2000);
@@ -223,7 +243,10 @@ public class SocialAutoPostTest extends Base {
     	socialautopostpage.clickOnCreatePostButton();
     	socialautopostpage.uploadFileInJPGUsingAutoIt();
     	socialautopostpage.clickOnEnableCobrandingButton();
-    	socialautopostpage.enterInTitleTextfield(prop.getProperty("Titletextfield"));
+    	// For Everytime different Name
+    	String baseName = prop.getProperty("Titletextfield");
+        String uniqueName = baseName + "_" + System.currentTimeMillis();
+    	socialautopostpage.enterInTitleTextfield(prop.getProperty(uniqueName));
     	socialautopostpage.enterValueInDescriptionTextfield(prop.getProperty("Descriptiontextfield"));
     	
     	Thread.sleep(2000);

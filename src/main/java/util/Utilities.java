@@ -73,6 +73,15 @@ public class Utilities {
 		js.executeScript("window.scrollBy(0,400);");
 		
 	}
+    
+    public static void scrollDownByTwoHundred(WebDriver driver) {
+		
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("window.scrollBy(0,200);");
+		
+	}
+    
+    
 	
 	public static void scrollToBottom(WebDriver driver) {
 		

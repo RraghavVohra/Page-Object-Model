@@ -42,8 +42,9 @@ public class SocialAutoPostPage {
 	 private WebElement logOutOption;
 	 private WebElement logoutButton;
 	 private WebElement uploadThumbnail;
-	 
-	 
+	 private WebElement twitterCheckbox;
+	 private WebElement linkedinCheckbox;
+	 private WebElement FacebookCheckbox;
 	 
 	 
 	 
@@ -166,7 +167,7 @@ public class SocialAutoPostPage {
 	 
 	public void clickOnEnableCobrandingButton() {
 		
-		enableCoBrandingButton = driver.findElement(By.xpath("//span[@class='bootstrap-switch-handle-off bootstrap-switch-default']"));		 
+		enableCoBrandingButton = driver.findElement(By.xpath("//input[@id='videobrand']"));		 
 		enableCoBrandingButton.click();
 	}
 	
@@ -184,7 +185,7 @@ public class SocialAutoPostPage {
 	
 	public void clickOnPartnerCategoryButton() {
 		
-		parnterCategoryButton = driver.findElement(By.xpath("//button[@title='None selected']"));
+		parnterCategoryButton = driver.findElement(By.xpath("//button[contains(@class,'multiselect') and contains(@class,'dropdown-toggle')]"));
 		parnterCategoryButton.click();
 	}
 	
@@ -196,9 +197,29 @@ public class SocialAutoPostPage {
 	
 	public void clickOnStaticText() {
 		
-		staticText = driver.findElement(By.xpath("//label[contains(text(), 'Partner Category')]"));	
+		staticText = driver.findElement(By.xpath("//span[@class='multiselect-selected-text']"));	
 		staticText.click();
 	}
+	
+	public void clickOnTwitter() {
+		
+		twitterCheckbox = driver.findElement(By.xpath("//label[input[@value='twitter']]"));
+		twitterCheckbox.click();
+	}
+	
+	public void clickOnLinkedIn() {
+		
+		linkedinCheckbox = driver.findElement(By.xpath("//label[input[@value='linkedin']]")); 
+		linkedinCheckbox.click();
+	}
+	
+	public void clickOnFacebook() {
+		
+		FacebookCheckbox = driver.findElement(By.xpath("//label[input[@value='facebook']]")); 
+		FacebookCheckbox.click();
+	}
+	
+	
 	
 	public void ClickOnOpenDateTimePicker() throws InterruptedException {
         dateTimeButton = driver.findElement(By.xpath("//input[contains(@class, 'form_datetime')]"));
@@ -217,13 +238,13 @@ public class SocialAutoPostPage {
 				    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 
 				    while (attempt < maxAttempts) { 
-				        String displayedMonthYear = driver.findElement(By.xpath("(//th[@class='switch'])[3]")).getText().trim();
+				        String displayedMonthYear = driver.findElement(By.xpath("//div[contains(@class,'xdsoft_label')]/span")).getText().trim();
 				        System.out.println("Currently displayed month & year: " + displayedMonthYear);
 
 				        if (displayedMonthYear.equals(expectedMonthYear)) {
 				            try {
 				                // Wait for the correct date to be visible
-				                WebElement dateElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[@class='day' and text()='" + expectedDay + "']")));
+				                WebElement dateElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(@class,'xdsoft_date') and @data-date='" + expectedDay + "']")));
 				                
 				                // Scroll into view and click the date
 				                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", dateElement);
@@ -239,7 +260,7 @@ public class SocialAutoPostPage {
 				        } else {
 				            try {
 				                // Click the "Next" button to go to the next month
-				                WebElement nextButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//th[@class='next']")));
+				                WebElement nextButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@class,'xdsoft_next')]")));
 				                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", nextButton);
 				                nextButton.click();
 
@@ -256,6 +277,58 @@ public class SocialAutoPostPage {
 				        throw new RuntimeException("Exceeded max attempts. Could not find the correct month: " + expectedMonthYear);
 				    }
 				}
+	
+	
+	public void selectFutureDateTwo(String expectedDay, String expectedMonthYear) {
+	    int maxAttempts = 24; // allow up to 2 years of navigation
+	    int attempt = 0;
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+	    JavascriptExecutor js = (JavascriptExecutor) driver;
+
+	    while (attempt < maxAttempts) {
+	        // Read current month and year separately
+	        String displayedMonth = driver.findElement(
+	            By.xpath("//div[@class='xdsoft_label xdsoft_month']/span")
+	        ).getText().trim();
+	        String displayedYear = driver.findElement(
+	            By.xpath("//div[@class='xdsoft_label xdsoft_year']/span")
+	        ).getText().trim();
+	        String displayedMonthYear = displayedMonth + " " + displayedYear;
+	        System.out.println("Currently displayed month & year: " + displayedMonthYear);
+
+	        if (displayedMonthYear.equals(expectedMonthYear)) {
+	            try {
+	                WebElement dateElement = wait.until(
+	                    ExpectedConditions.visibilityOfElementLocated(
+	                        By.xpath("//td[contains(@class,'xdsoft_date') and @data-date='" + expectedDay + "' and not(contains(@class,'xdsoft_disabled'))]")
+	                    )
+	                );
+	                js.executeScript("arguments[0].scrollIntoView(true);", dateElement);
+	                dateElement.click();
+	                Thread.sleep(1000);
+	                return; // done
+	            } catch (Exception e) {
+	                throw new RuntimeException("Could not find or select the date: " + expectedDay + " in " + expectedMonthYear, e);
+	            }
+	        } else {
+	            try {
+	                WebElement nextButton = wait.until(
+	                    ExpectedConditions.elementToBeClickable(
+	                        By.xpath("//button[contains(@class,'xdsoft_next')]")
+	                    )
+	                );
+	                js.executeScript("arguments[0].scrollIntoView(true);", nextButton);
+	                nextButton.click();
+	                Thread.sleep(500);
+	            } catch (Exception e) {
+	                throw new RuntimeException("Next button not found or not clickable", e);
+	            }
+	        }
+	        attempt++;
+	    }
+	    throw new RuntimeException("Exceeded max attempts. Could not find the correct month: " + expectedMonthYear);
+	}
+
 
 			 
 			 public void selectHour(String expectedHour) {
@@ -272,6 +345,30 @@ public class SocialAutoPostPage {
 				        throw new RuntimeException("Could not find or select the hour: " + expectedHour);
 				    }
 				}
+			 
+			 public void selectHourTwo(String expectedHour) {
+				    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+				    try {
+				        // Example: expectedHour = "8" or "08"
+				        int hourInt = Integer.parseInt(expectedHour);
+				        
+				        // Wait until the time picker is visible
+				        wait.until(ExpectedConditions.visibilityOfElementLocated(
+				            By.cssSelector(".xdsoft_timepicker.active .xdsoft_time_variant")
+				        ));
+
+				        // Locate element by data-hour
+				        WebElement hourElement = wait.until(ExpectedConditions.elementToBeClickable(
+				            By.xpath("//div[@class='xdsoft_time' and @data-hour='" + hourInt + "']")
+				        ));
+
+				        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", hourElement);
+				        hourElement.click();
+				    } catch (Exception e) {
+				        throw new RuntimeException("Could not find or select the hour: " + expectedHour, e);
+				    }
+				}
+
 
 			 
 			 
@@ -295,6 +392,55 @@ public class SocialAutoPostPage {
 				        throw new RuntimeException("Could not find or select the time: " + expectedHour + ":" + expectedMinute);
 				    }
 				}
+			 
+			 public void selectMinuteTwo(String expectedHour, String expectedMinute) {
+				    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+				    try {
+				        int hourInt = Integer.parseInt(expectedHour);
+				        int minuteInt = Integer.parseInt(expectedMinute);
+
+				        wait.until(ExpectedConditions.visibilityOfElementLocated(
+				            By.cssSelector(".xdsoft_timepicker.active .xdsoft_time_variant")
+				        ));
+
+				        WebElement timeElement = wait.until(ExpectedConditions.elementToBeClickable(
+				            By.xpath("//div[@class='xdsoft_time' and @data-hour='" + hourInt + "' and @data-minute='" + minuteInt + "']")
+				        ));
+
+				        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", timeElement);
+				        timeElement.click();
+				    } catch (Exception e) {
+				        throw new RuntimeException("Could not find or select the time: " + expectedHour + ":" + expectedMinute, e);
+				    }
+				}
+			 
+			 public void selectTimeThree(String hour, String minute) {
+				    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+				    JavascriptExecutor js = (JavascriptExecutor) driver;
+
+				    try {
+				        // First, wait for ANY time options to appear
+				        wait.until(ExpectedConditions.presenceOfElementLocated(
+				            By.cssSelector("div.xdsoft_time")
+				        ));
+
+				        // Now build the exact XPath for hour + minute
+				        String xpath = "//div[contains(@class,'xdsoft_time') and @data-hour='" + hour + "' and @data-minute='" + minute + "']";
+
+				        WebElement timeElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+
+				        // Scroll into view (important if it's outside visible area)
+				        js.executeScript("arguments[0].scrollIntoView(true);", timeElement);
+
+				        // Ensure clickable before clicking
+				        wait.until(ExpectedConditions.elementToBeClickable(timeElement)).click();
+
+				    } catch (Exception e) {
+				        throw new RuntimeException("Could not find or select the time: " + hour + ":" + minute, e);
+				    }
+				}
+
+
 
 
 			 
@@ -333,7 +479,7 @@ public class SocialAutoPostPage {
 			 
 			 public void clickOnLogoutButton() {
 				 
-				 logoutButton = driver.findElement(By.xpath("//button[normalize-space()='Yes']"));
+				 logoutButton = driver.findElement(By.xpath("//a[@class='btn btn-primary' and text()='Yes']"));
 				 logoutButton.click();
 			 }
 			 
