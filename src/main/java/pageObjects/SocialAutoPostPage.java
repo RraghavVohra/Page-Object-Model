@@ -45,6 +45,8 @@ public class SocialAutoPostPage {
 	 private WebElement twitterCheckbox;
 	 private WebElement linkedinCheckbox;
 	 private WebElement FacebookCheckbox;
+	 private WebElement customUrl;
+	 private WebElement customlink;
 	 
 	 
 	 
@@ -78,6 +80,19 @@ public class SocialAutoPostPage {
 		 
 		 createPostButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[normalize-space()='Create Post']")));
 		 createPostButton.click();
+	 }
+	 
+	 public void clickOnCustomURLRadioButton() {
+		 
+		 customUrl = driver.findElement(By.xpath("//input[@type='radio' and @id='C']"));
+		 JavascriptExecutor js = (JavascriptExecutor) driver;
+		 js.executeScript("arguments[0].click();", customUrl);
+	 }
+	 
+	 public void enterCustomURL() {
+		 
+		 customlink = driver.findElement(By.xpath("//input[@name='custom_url']"));
+		 customlink.sendKeys("https://www.salespanda.com");
 	 }
 	 
 	 public void uploadFileInPNGUsingAutoIt() throws IOException, InterruptedException {
@@ -219,6 +234,13 @@ public class SocialAutoPostPage {
 		FacebookCheckbox.click();
 	}
 	
+	public void clickOnNoneRadioButton() {
+		
+		customUrl = driver.findElement(By.xpath("//input[@type='radio' and @id='N']"));
+		 JavascriptExecutor js = (JavascriptExecutor) driver;
+		 js.executeScript("arguments[0].click();", customUrl);
+	}
+	
 	
 	
 	public void ClickOnOpenDateTimePicker() throws InterruptedException {
@@ -231,52 +253,7 @@ public class SocialAutoPostPage {
     }
 	
 	
-	// Methods for Date & Time Selection
-	public void selectFutureDate(String expectedDay, String expectedMonthYear) {
-				    int maxAttempts = 12; // Prevent infinite loop
-				    int attempt = 0;
-				    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-
-				    while (attempt < maxAttempts) { 
-				        String displayedMonthYear = driver.findElement(By.xpath("//div[contains(@class,'xdsoft_label')]/span")).getText().trim();
-				        System.out.println("Currently displayed month & year: " + displayedMonthYear);
-
-				        if (displayedMonthYear.equals(expectedMonthYear)) {
-				            try {
-				                // Wait for the correct date to be visible
-				                WebElement dateElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(@class,'xdsoft_date') and @data-date='" + expectedDay + "']")));
-				                
-				                // Scroll into view and click the date
-				                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", dateElement);
-				                dateElement.click();
-				                
-				                // Small delay to ensure time picker appears
-				                Thread.sleep(2000);
-				                
-				                break;
-				            } catch (Exception e) {
-				                throw new RuntimeException("Could not find or select the date: " + expectedDay + " in " + expectedMonthYear);
-				            }
-				        } else {
-				            try {
-				                // Click the "Next" button to go to the next month
-				                WebElement nextButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@class,'xdsoft_next')]")));
-				                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", nextButton);
-				                nextButton.click();
-
-				            } catch (Exception e) {
-				                System.out.println("Next button not clickable, trying JavaScript click...");
-				                WebElement nextButton = driver.findElement(By.xpath("//th[@class='next']"));
-				                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", nextButton);
-				            }
-				        }
-				        attempt++; 
-				    }
-
-				    if (attempt >= maxAttempts) {
-				        throw new RuntimeException("Exceeded max attempts. Could not find the correct month: " + expectedMonthYear);
-				    }
-				}
+	
 	
 	
 	public void selectFutureDateTwo(String expectedDay, String expectedMonthYear) {
@@ -331,88 +308,7 @@ public class SocialAutoPostPage {
 
 
 			 
-			 public void selectHour(String expectedHour) {
-				    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-
-				    try {
-				        // Wait for the hour picker to be visible
-				        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'datetimepicker-hours') and contains(@style, 'display: block')]")));
-				        
-				        // Select the correct hour
-				        WebElement hourElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(@class, 'hour') and text()='" + expectedHour + "']")));
-				        hourElement.click();
-				    } catch (Exception e) {
-				        throw new RuntimeException("Could not find or select the hour: " + expectedHour);
-				    }
-				}
 			 
-			 public void selectHourTwo(String expectedHour) {
-				    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-				    try {
-				        // Example: expectedHour = "8" or "08"
-				        int hourInt = Integer.parseInt(expectedHour);
-				        
-				        // Wait until the time picker is visible
-				        wait.until(ExpectedConditions.visibilityOfElementLocated(
-				            By.cssSelector(".xdsoft_timepicker.active .xdsoft_time_variant")
-				        ));
-
-				        // Locate element by data-hour
-				        WebElement hourElement = wait.until(ExpectedConditions.elementToBeClickable(
-				            By.xpath("//div[@class='xdsoft_time' and @data-hour='" + hourInt + "']")
-				        ));
-
-				        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", hourElement);
-				        hourElement.click();
-				    } catch (Exception e) {
-				        throw new RuntimeException("Could not find or select the hour: " + expectedHour, e);
-				    }
-				}
-
-
-			 
-			 
-			 public void selectMinute(String expectedHour, String expectedMinute) {
-				    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-
-				    try {
-				        // Wait until the time picker is visible
-				        WebElement timePicker = wait.until(ExpectedConditions.visibilityOfElementLocated(
-				            By.xpath("//div[contains(@class, 'datetimepicker')]")));
-
-				        // Create the full time format (e.g., "8:30")
-				        String fullTime = expectedHour + ":" + expectedMinute;
-
-				        // Locate and select the correct time option
-				        WebElement timeElement = wait.until(ExpectedConditions.elementToBeClickable(
-				            By.xpath("//span[normalize-space()='" + fullTime + "']")));
-				        timeElement.click();
-
-				    } catch (Exception e) {
-				        throw new RuntimeException("Could not find or select the time: " + expectedHour + ":" + expectedMinute);
-				    }
-				}
-			 
-			 public void selectMinuteTwo(String expectedHour, String expectedMinute) {
-				    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-				    try {
-				        int hourInt = Integer.parseInt(expectedHour);
-				        int minuteInt = Integer.parseInt(expectedMinute);
-
-				        wait.until(ExpectedConditions.visibilityOfElementLocated(
-				            By.cssSelector(".xdsoft_timepicker.active .xdsoft_time_variant")
-				        ));
-
-				        WebElement timeElement = wait.until(ExpectedConditions.elementToBeClickable(
-				            By.xpath("//div[@class='xdsoft_time' and @data-hour='" + hourInt + "' and @data-minute='" + minuteInt + "']")
-				        ));
-
-				        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", timeElement);
-				        timeElement.click();
-				    } catch (Exception e) {
-				        throw new RuntimeException("Could not find or select the time: " + expectedHour + ":" + expectedMinute, e);
-				    }
-				}
 			 
 			 public void selectTimeThree(String hour, String minute) {
 				    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));

@@ -6,7 +6,7 @@
       <class name="tests.SocialAutoPostTest">
         <methods>
           <include name="tearDown"/>
-          <include name="test_TC_PN_01_whenPostedWithPngImageWithCobranding"/>
+          <include name="test_TC_PN_06_whenPostedOnAllSocialMediaWithNoneOption"/>
         </methods>
       </class> <!-- tests.SocialAutoPostTest -->
     </classes>

@@ -116,29 +116,39 @@ public class SocialAutoPostTest extends Base {
     	
     	socialautopostpage.clickOnActionsButton();
     	socialautopostpage.clickOnCreatePostButton();
-    	socialautopostpage.uploadFileInJPGUsingAutoIt();
+        socialautopostpage.uploadFileInJPGUsingAutoIt();
+        
+        Thread.sleep(2000); 
+    	Utilities.scrollDownByTwoHundred(driver);
     	socialautopostpage.clickOnEnableCobrandingButton();
-    	
     	// For Everytime different Name
     	String baseName = prop.getProperty("Titletextfield");
         String uniqueName = baseName + "_" + System.currentTimeMillis();
-    	socialautopostpage.enterInTitleTextfield(prop.getProperty(uniqueName));
+        socialautopostpage.enterInTitleTextfield(uniqueName);
     	socialautopostpage.enterValueInDescriptionTextfield(prop.getProperty("Descriptiontextfield"));
-    	
-    	Thread.sleep(2000);
-    	
+    
+    	Thread.sleep(2000);   	
     	// Scroll down by 500 pixels
 	    Utilities.scrollDownByFiveHundred(driver);
+	    Thread.sleep(2000);
 	    socialautopostpage.clickOnPartnerCategoryButton();
 	    socialautopostpage.clickOnSelectPartnerCategory();
+	    Thread.sleep(2000);
 	    socialautopostpage.clickOnStaticText();
+	    Thread.sleep(2000);
+	    socialautopostpage.clickOnTwitter();
+	    Thread.sleep(2000);
+	    socialautopostpage.clickOnLinkedIn();
+	    Thread.sleep(2000);
+	    socialautopostpage.clickOnFacebook();
+	    Thread.sleep(2000);
+	    Utilities.scrollDownByTwoHundred(driver);
 	    socialautopostpage.ClickOnOpenDateTimePicker();
 	    
 	    Thread.sleep(7000);
 	    
-	    socialautopostpage.selectFutureDate("8", "May 2025");
-	    socialautopostpage.selectHour("8");
-	    socialautopostpage.selectMinute("8", "30");
+	    socialautopostpage.selectFutureDateTwo("24", "August 2025");
+	    socialautopostpage.selectTimeThree("10", "30"); 
 	    socialautopostpage.verifySelection();
 	    
 	    socialautopostpage.clickOnSchedulePostButton();
@@ -180,27 +190,33 @@ public class SocialAutoPostTest extends Base {
     	socialautopostpage.uploadFileInMP4UsingAutoIt();
     	Thread.sleep(3000);
     	socialautopostpage.uploadFileForMP4FileWithThumbnailInJPGformat();
+    	Thread.sleep(2000); 
+    	Utilities.scrollDownByTwoHundred(driver);
     	socialautopostpage.clickOnEnableCobrandingButton();
     	// For Everytime different Name
     	String baseName = prop.getProperty("Titletextfield");
         String uniqueName = baseName + "_" + System.currentTimeMillis();
-    	socialautopostpage.enterInTitleTextfield(prop.getProperty(uniqueName));
+        socialautopostpage.enterInTitleTextfield(uniqueName);
     	socialautopostpage.enterValueInDescriptionTextfield(prop.getProperty("Descriptiontextfield"));
-    	
-    	Thread.sleep(2000);
-    	
-    	// Scroll down by 400 pixels
-	    Utilities.scrollDownByFourHundred(driver);
+    
+    	Thread.sleep(2000);   	
+    	// Scroll down by 500 pixels
+	    Utilities.scrollDownByFiveHundred(driver);
+	    Thread.sleep(2000);
 	    socialautopostpage.clickOnPartnerCategoryButton();
 	    socialautopostpage.clickOnSelectPartnerCategory();
+	    Thread.sleep(2000);
 	    socialautopostpage.clickOnStaticText();
+	    Thread.sleep(2000);
+	    // socialautopostpage.clickOnFacebook();
+	    // Thread.sleep(2000);
+	    Utilities.scrollDownByTwoHundred(driver);
 	    socialautopostpage.ClickOnOpenDateTimePicker();
 	    
 	    Thread.sleep(7000);
 	    
-	    socialautopostpage.selectFutureDate("10", "May 2025");
-	    socialautopostpage.selectHour("8");
-	    socialautopostpage.selectMinute("8", "30");
+	    socialautopostpage.selectFutureDateTwo("24", "August 2025");
+	    socialautopostpage.selectTimeThree("10", "30"); 
 	    socialautopostpage.verifySelection();
 	    
 	    socialautopostpage.clickOnSchedulePostButton();
@@ -241,28 +257,39 @@ public class SocialAutoPostTest extends Base {
     	
     	socialautopostpage.clickOnActionsButton();
     	socialautopostpage.clickOnCreatePostButton();
-    	socialautopostpage.uploadFileInJPGUsingAutoIt();
+        socialautopostpage.uploadFileInJPGUsingAutoIt();
+        
+        Thread.sleep(2000); 
+    	Utilities.scrollDownByTwoHundred(driver);
     	socialautopostpage.clickOnEnableCobrandingButton();
     	// For Everytime different Name
     	String baseName = prop.getProperty("Titletextfield");
         String uniqueName = baseName + "_" + System.currentTimeMillis();
-    	socialautopostpage.enterInTitleTextfield(prop.getProperty(uniqueName));
+        socialautopostpage.enterInTitleTextfield(uniqueName);
     	socialautopostpage.enterValueInDescriptionTextfield(prop.getProperty("Descriptiontextfield"));
-    	
-    	Thread.sleep(2000);
-    	
+    
+    	Thread.sleep(2000);   	
     	// Scroll down by 500 pixels
 	    Utilities.scrollDownByFiveHundred(driver);
+	    Thread.sleep(2000);
 	    socialautopostpage.clickOnPartnerCategoryButton();
 	    socialautopostpage.clickOnSelectPartnerCategory();
+	    Thread.sleep(2000);
 	    socialautopostpage.clickOnStaticText();
+	    Thread.sleep(2000);
+	    socialautopostpage.clickOnTwitter();
+	    Thread.sleep(2000);
+	    socialautopostpage.clickOnLinkedIn();
+	    Thread.sleep(2000);
+	    socialautopostpage.clickOnFacebook();
+	    Thread.sleep(2000);
+	    Utilities.scrollDownByTwoHundred(driver);
 	    socialautopostpage.ClickOnOpenDateTimePicker();
 	    
 	    Thread.sleep(7000);
 	    
-	    socialautopostpage.selectFutureDate("8", "May 2025");
-	    socialautopostpage.selectHour("8");
-	    socialautopostpage.selectMinute("8", "30");
+	    socialautopostpage.selectFutureDateTwo("24", "August 2025");
+	    socialautopostpage.selectTimeThree("10", "30"); 
 	    socialautopostpage.verifySelection();
 	    
 	    socialautopostpage.clickOnSchedulePostButton();
@@ -277,15 +304,169 @@ public class SocialAutoPostTest extends Base {
 	    socialautopostpage.clickOnLogoutOption();
 	      
 	    Thread.sleep(5000);
-	    socialautopostpage.clickOnLogoutButton();
+	    socialautopostpage.clickOnLogoutButton();    
 		
 		
 	}
 
 	@Test(priority=5)
-	public void test_TC_PN_05_whenPostedOnAllSocialMedia() {
+	public void test_TC_PN_05_whenPostedOnAllSocialMediaWithCustomUrl() throws InterruptedException, IOException	{
+		
+        driver = openBrowserAndApplication(prop.getProperty("browser"));
+		
+        loginPage = new LoginPage(driver);
+        Thread.sleep(2000);
+		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
+    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+    	loginPage.clickOnSubmitButton();
+    	System.out.println("User Logged in Successfully.");
+    	
+    	socialautopostpage =  new SocialAutoPostPage(driver);
+    	socialautopostpage.clickOnAutomationTab();
+    	socialautopostpage.clickOnSocialOption();
+    	socialautopostpage.clickOnAutoPostTab();
+    	
+    	Thread.sleep(2000);
+    	
+    	socialautopostpage.clickOnActionsButton();
+    	socialautopostpage.clickOnCreatePostButton();
+        socialautopostpage.uploadFileInJPGUsingAutoIt();
+        
+        Thread.sleep(2000); 
+    	Utilities.scrollDownByTwoHundred(driver);
+    	socialautopostpage.clickOnEnableCobrandingButton();
+    	// For Everytime different Name
+    	String baseName = prop.getProperty("Titletextfield");
+        String uniqueName = baseName + "_" + System.currentTimeMillis();
+        socialautopostpage.enterInTitleTextfield(uniqueName);
+    	socialautopostpage.enterValueInDescriptionTextfield(prop.getProperty("Descriptiontextfield"));
+    
+    	Thread.sleep(2000);   	
+    	// Scroll down by 500 pixels
+	    Utilities.scrollDownByFiveHundred(driver);
+	    Thread.sleep(2000);
+	    socialautopostpage.clickOnPartnerCategoryButton();
+	    socialautopostpage.clickOnSelectPartnerCategory();
+	    Thread.sleep(2000);
+	    socialautopostpage.clickOnStaticText();
+	    Thread.sleep(2000);
+	    socialautopostpage.clickOnCustomURLRadioButton();
+	    Thread.sleep(2000);
+	    socialautopostpage.enterCustomURL();
+	    Thread.sleep(2000);
+	    socialautopostpage.clickOnTwitter();
+	    Thread.sleep(2000);
+	    socialautopostpage.clickOnLinkedIn();
+	    Thread.sleep(2000);
+	    socialautopostpage.clickOnFacebook();
+	    Thread.sleep(2000);
+	    Utilities.scrollDownByTwoHundred(driver);
+	    socialautopostpage.ClickOnOpenDateTimePicker();
+	    
+	    Thread.sleep(7000);
+	    
+	    socialautopostpage.selectFutureDateTwo("24", "August 2025");
+	    socialautopostpage.selectTimeThree("10", "30"); 
+	    socialautopostpage.verifySelection();
+	    
+	    socialautopostpage.clickOnSchedulePostButton();
+	    
+	    Thread.sleep(3000);
+        
+        System.out.println("Test Case TC_PN_05 is passed!");
+        
+        Thread.sleep(3000);
+	      
+	    socialautopostpage.clickOnProfileIcon();
+	    socialautopostpage.clickOnLogoutOption();
+	      
+	    Thread.sleep(5000);
+	    socialautopostpage.clickOnLogoutButton();
 		
 		
 		
 	}
+	
+    @Test(priority=6)	
+    public void test_TC_PN_06_whenPostedOnAllSocialMediaWithNoneOption() throws InterruptedException, IOException	{
+		
+        driver = openBrowserAndApplication(prop.getProperty("browser"));
+		
+        loginPage = new LoginPage(driver);
+        Thread.sleep(2000);
+		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
+    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+    	loginPage.clickOnSubmitButton();
+    	System.out.println("User Logged in Successfully.");
+    	
+    	socialautopostpage =  new SocialAutoPostPage(driver);
+    	socialautopostpage.clickOnAutomationTab();
+    	socialautopostpage.clickOnSocialOption();
+    	socialautopostpage.clickOnAutoPostTab();
+    	
+    	Thread.sleep(2000);
+    	
+    	socialautopostpage.clickOnActionsButton();
+    	socialautopostpage.clickOnCreatePostButton();
+        socialautopostpage.uploadFileInJPGUsingAutoIt();
+        
+        Thread.sleep(2000); 
+    	Utilities.scrollDownByTwoHundred(driver);
+    	socialautopostpage.clickOnEnableCobrandingButton();
+    	// For Everytime different Name
+    	String baseName = prop.getProperty("Titletextfield");
+        String uniqueName = baseName + "_" + System.currentTimeMillis();
+        socialautopostpage.enterInTitleTextfield(uniqueName);
+    	socialautopostpage.enterValueInDescriptionTextfield(prop.getProperty("Descriptiontextfield"));
+    
+    	Thread.sleep(2000);   	
+    	// Scroll down by 500 pixels
+	    Utilities.scrollDownByFiveHundred(driver);
+	    Thread.sleep(2000);
+	    socialautopostpage.clickOnPartnerCategoryButton();
+	    socialautopostpage.clickOnSelectPartnerCategory();
+	    Thread.sleep(2000);
+	    socialautopostpage.clickOnStaticText();
+	    Thread.sleep(2000);
+	    socialautopostpage.clickOnNoneRadioButton();
+	    Thread.sleep(2000);
+	    socialautopostpage.clickOnTwitter();
+	    Thread.sleep(2000);
+	    socialautopostpage.clickOnLinkedIn();
+	    Thread.sleep(2000);
+	    socialautopostpage.clickOnFacebook();
+	    Thread.sleep(2000);
+	    Utilities.scrollDownByTwoHundred(driver);
+	    socialautopostpage.ClickOnOpenDateTimePicker();
+	    
+	    Thread.sleep(7000);
+	    
+	    socialautopostpage.selectFutureDateTwo("24", "August 2025");
+	    socialautopostpage.selectTimeThree("10", "30"); 
+	    socialautopostpage.verifySelection();
+	    
+	    socialautopostpage.clickOnSchedulePostButton();
+	    
+	    Thread.sleep(3000);
+        
+        System.out.println("Test Case TC_PN_06 is passed!");
+        
+        Thread.sleep(3000);
+	      
+	    socialautopostpage.clickOnProfileIcon();
+	    socialautopostpage.clickOnLogoutOption();
+	      
+	    Thread.sleep(5000);
+	    socialautopostpage.clickOnLogoutButton();
+		
+		
+		
+	}
+	
+	
+
+    
+
+
+
 }
