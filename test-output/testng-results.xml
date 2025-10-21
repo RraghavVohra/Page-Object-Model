@@ -2,20 +2,20 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-08-24T00:10:47 IST" name="Default suite" finished-at="2025-08-24T00:12:10 IST" duration-ms="83732">
+  <suite started-at="2025-10-21T22:42:54 IST" name="Default suite" finished-at="2025-10-21T22:43:45 IST" duration-ms="50212">
     <groups>
     </groups>
-    <test started-at="2025-08-24T00:10:47 IST" name="Default test" finished-at="2025-08-24T00:12:10 IST" duration-ms="83732">
-      <class name="tests.SocialAutoPostTest">
-        <test-method signature="test_TC_PN_06_whenPostedOnAllSocialMediaWithNoneOption()[pri:6, instance:tests.SocialAutoPostTest@4c402120]" started-at="2025-08-24T00:10:47 IST" name="test_TC_PN_06_whenPostedOnAllSocialMediaWithNoneOption" finished-at="2025-08-24T00:12:10 IST" duration-ms="82929" status="PASS">
+    <test started-at="2025-10-21T22:42:54 IST" name="Default test" finished-at="2025-10-21T22:43:45 IST" duration-ms="50212">
+      <class name="tests.Search">
+        <test-method signature="test_TC_SA_03_verifyFilteringWithOnlyDraftOption()[pri:3, instance:tests.Search@7dcf94f8]" started-at="2025-10-21T22:42:55 IST" name="test_TC_SA_03_verifyFilteringWithOnlyDraftOption" finished-at="2025-10-21T22:43:44 IST" duration-ms="49626" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- test_TC_PN_06_whenPostedOnAllSocialMediaWithNoneOption -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.SocialAutoPostTest@4c402120]" started-at="2025-08-24T00:12:10 IST" name="tearDown" finished-at="2025-08-24T00:12:10 IST" duration-ms="691" status="PASS">
+        </test-method> <!-- test_TC_SA_03_verifyFilteringWithOnlyDraftOption -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.Search@7dcf94f8]" started-at="2025-10-21T22:43:44 IST" name="tearDown" finished-at="2025-10-21T22:43:45 IST" duration-ms="474" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-      </class> <!-- tests.SocialAutoPostTest -->
+      </class> <!-- tests.Search -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

@@ -10,7 +10,6 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
-
 import base.Base;
 import pageObjects.LoginPage;
 import pageObjects.SearchPage;
@@ -49,7 +48,7 @@ public class Search extends Base {
 
 	        String actualSearch = "Lacoste's 1980";
 	        // ✅ Safe check: don't throw if element not found
-	        // Here we had an apostrophe so we wrrote the below xpath like that i.e. \"" + actualSearch + "\"
+	        // Here we had an apostrophe so we wrote the below xpath like that i.e. \"" + actualSearch + "\"
 	        List<WebElement> resultElements = driver.findElements(By.xpath("//a/p[contains(text(), \"" + actualSearch + "\")]"));
 
 	        if (!resultElements.isEmpty()) {
@@ -127,8 +126,8 @@ public class Search extends Base {
 	        searchPage = new SearchPage(driver);
 	        JavascriptExecutor js = (JavascriptExecutor) driver;
 
-	        searchPage.enterValueIntoSearchTextfield(prop.getProperty("enterValueTwoInSearchTextfield"));
-	        searchPage.clickOnSearchIcon();
+	        //searchPage.enterValueIntoSearchTextfield(prop.getProperty("enterValueTwoInSearchTextfield"));
+	        //searchPage.clickOnSearchIcon();
 
 	        Thread.sleep(3000);
 	        js.executeScript("window.scrollBy(0,300)");
@@ -550,20 +549,9 @@ public class Search extends Base {
 
 	 }
 	 
-	 public void test_TC_SA_09_verifyDraftOptionByRefreshingThePage() {
-     	
-     	// Here first select the dropdown and then refresh the page
-     	// Check the Assets shown on the page only have Publish Button in them
-     }
-     
-     public void test_TC_SA_10_verifyPublishedOptionByRefreshingThePage() {
-     	
-     	// Here first select the dropdown and then refresh the page
-     	// Check the Assets shown on the page only have Published Button in them
-     }
-    
-     @Test(priority=11)
-     public void test_TC_SA_11_verifySearchFunctionalityWhenInvalidValueEntered() throws InterruptedException {
+	
+     @Test(priority=9)
+     public void test_TC_SA_09_verifySearchFunctionalityWhenInvalidValueEntered() throws InterruptedException {
     	 
     	    driver = openBrowserAndApplication(prop.getProperty("browser"));
 		    
@@ -596,7 +584,7 @@ public class Search extends Base {
 	            System.out.println("❌ 'No Data' message not found.");
 	        }
 	       
-	        System.out.println("Test Case TC_SA_11 got passed");
+	        System.out.println("Test Case TC_SA_09 got passed");
 	        Thread.sleep(3000);
 	        
 	        searchPage.clickOnProfileIconAfterSearch();
@@ -607,8 +595,8 @@ public class Search extends Base {
     	 
      }
 	 
-     @Test(priority=12)
-     public void test_TC_SA_12_verifyPublishedContentWithBookmarkedQuickFilter() throws InterruptedException {
+     @Test(priority=10)
+     public void test_TC_SA_10_verifyPublishedContentWithBookmarkedQuickFilter() throws InterruptedException {
     	 
     	    driver = openBrowserAndApplication(prop.getProperty("browser"));
 			
@@ -687,8 +675,8 @@ public class Search extends Base {
 	    }
      
      
-     @Test(priority=13)
-     public void test_TC_SA_13_verifyPublishedContentWithMicrositeQuickFilter() throws InterruptedException {
+     @Test(priority=11)
+     public void test_TC_SA_11_verifyPublishedContentWithMicrositeQuickFilter() throws InterruptedException {
     	 
     	    driver = openBrowserAndApplication(prop.getProperty("browser"));
 			
@@ -756,7 +744,7 @@ public class Search extends Base {
 	            System.out.println("❌ Test failed: Some cards are missing required elements.");
 	        }
 	        
-	        System.out.println("Test Case TC_SA_13 got passed");
+	        System.out.println("Test Case TC_SA_11 got passed");
 	        Thread.sleep(3000);
 
 	        // Step 6: Logout
@@ -767,8 +755,8 @@ public class Search extends Base {
 	    }
      
      
-     @Test(priority=14)
-     public void test_TC_SA_14_verifyPublishedContentWithVideoQuickFilter() throws InterruptedException {
+     @Test(priority=12)
+     public void test_TC_SA_12_verifyPublishedContentWithVideoQuickFilter() throws InterruptedException {
     	 
     	    driver = openBrowserAndApplication(prop.getProperty("browser"));
 			
@@ -837,7 +825,7 @@ public class Search extends Base {
 	            System.out.println("❌ Test failed: Some cards are missing required elements.");
 	        }
 	        
-	        System.out.println("Test Case TC_SA_14 got passed");
+	        System.out.println("Test Case TC_SA_12 got passed");
 	        Thread.sleep(3000);
 
 	        // Step 6: Logout
@@ -848,8 +836,8 @@ public class Search extends Base {
     	 
      }
 	        
-     @Test(priority=15)
-     public void test_TC_SA_15_verifyPublishedContentWithBrochureQuickFilter() throws InterruptedException {
+     @Test(priority=13)
+     public void test_TC_SA_13_verifyPublishedContentWithBrochureQuickFilter() throws InterruptedException {
     	 
     	    driver = openBrowserAndApplication(prop.getProperty("browser"));
 			
@@ -918,7 +906,7 @@ public class Search extends Base {
 	            System.out.println("❌ Test failed: Some cards are missing required elements.");
 	        }
 	        
-	        System.out.println("Test Case TC_SA_15 got passed");
+	        System.out.println("Test Case TC_SA_13 got passed");
 	        Thread.sleep(3000);
 
 	        // Step 6: Logout
@@ -929,8 +917,8 @@ public class Search extends Base {
     	 
      }
     	
-     @Test(priority=16)
-     public void test_TC_SA_16_verifyPublishedContentWithBannersQuickFilter() throws InterruptedException {
+     @Test(priority=14)
+     public void test_TC_SA_14_verifyPublishedContentWithBannersQuickFilter() throws InterruptedException {
 
     	
     	    driver = openBrowserAndApplication(prop.getProperty("browser"));
@@ -999,7 +987,7 @@ public class Search extends Base {
 	            System.out.println("❌ Test failed: Some cards are missing required elements.");
 	        }
 	        
-	        System.out.println("Test Case TC_SA_16 got passed");
+	        System.out.println("Test Case TC_SA_14 got passed");
 	        Thread.sleep(3000);
 
 	        // Step 6: Logout
@@ -1010,8 +998,8 @@ public class Search extends Base {
     	 
      }
      
-     @Test(priority=17)
-     public void test_TC_SA_17_verifyPublishedContentWithSocialPostsQuickFilter() throws InterruptedException {
+     @Test(priority=15)
+     public void test_TC_SA_15_verifyPublishedContentWithSocialPostsQuickFilter() throws InterruptedException {
     	 
     	    driver = openBrowserAndApplication(prop.getProperty("browser"));
 			
@@ -1080,7 +1068,7 @@ public class Search extends Base {
 	            System.out.println("❌ Test failed: Some cards are missing required elements.");
 	        }
 	        
-	        System.out.println("Test Case TC_SA_17 got passed");
+	        System.out.println("Test Case TC_SA_15 got passed");
 	        Thread.sleep(3000);
 
 	        // Step 6: Logout
@@ -1091,8 +1079,8 @@ public class Search extends Base {
     	 
      }
 
-     @Test(priority=18)
-     public void test_TC_SA_18_verifyPublishedContentWithEmailQuickFilter() throws InterruptedException {
+     @Test(priority=16)
+     public void test_TC_SA_16_verifyPublishedContentWithEmailQuickFilter() throws InterruptedException {
     	 
     	    driver = openBrowserAndApplication(prop.getProperty("browser"));
 			
@@ -1160,7 +1148,7 @@ public class Search extends Base {
 	            System.out.println("❌ Test failed: Some cards are missing required elements.");
 	        }
 	        
-	        System.out.println("Test Case TC_SA_18 got passed");
+	        System.out.println("Test Case TC_SA_16 got passed");
 	        Thread.sleep(3000);
 
 	        // Step 6: Logout
@@ -1171,8 +1159,8 @@ public class Search extends Base {
     	 
      }
 
-     @Test(priority=19)
-     public void test_TC_SA_19_verifyDraftContentWithAllQuickFilter() throws InterruptedException {
+     @Test(priority=17)
+     public void test_TC_SA_17_verifyDraftContentWithAllQuickFilter() throws InterruptedException {
     	 
     	    driver = openBrowserAndApplication(prop.getProperty("browser"));
 			
@@ -1240,7 +1228,7 @@ public class Search extends Base {
 	            System.out.println("❌ Test failed: Some cards are missing required elements.");
 	        }
 	        
-	        System.out.println("Test Case TC_SA_19 got passed");
+	        System.out.println("Test Case TC_SA_17 got passed");
 	        Thread.sleep(3000);
 
 	        // Step 6: Logout
@@ -1253,8 +1241,8 @@ public class Search extends Base {
     	 
      }
 
-     @Test(priority=20)
-     public void test_TC_SA_20_verifyDraftContentWithBookmarkedQuickFilter() throws InterruptedException {
+     @Test(priority=18)
+     public void test_TC_SA_18_verifyDraftContentWithBookmarkedQuickFilter() throws InterruptedException {
     	 
     	    driver = openBrowserAndApplication(prop.getProperty("browser"));
 			
@@ -1323,7 +1311,7 @@ public class Search extends Base {
 	            System.out.println("❌ Test failed: Some cards are missing required elements.");
 	        }
 	        
-	        System.out.println("Test Case TC_SA_20 got passed");
+	        System.out.println("Test Case TC_SA_18 got passed");
 	        Thread.sleep(3000);
 
 	        // Step 6: Logout
@@ -1334,8 +1322,8 @@ public class Search extends Base {
     	 
      }
 
-     @Test(priority=21)
-     public void test_TC_SA_21_verifyDraftContentWithMicrositeQuickFilter() throws InterruptedException {
+     @Test(priority=19)
+     public void test_TC_SA_19_verifyDraftContentWithMicrositeQuickFilter() throws InterruptedException {
     	 
     	    driver = openBrowserAndApplication(prop.getProperty("browser"));
 			
@@ -1404,7 +1392,7 @@ public class Search extends Base {
 	            System.out.println("❌ Test failed: Some cards are missing required elements.");
 	        }
 	        
-	        System.out.println("Test Case TC_SA_21 got passed");
+	        System.out.println("Test Case TC_SA_19 got passed");
 	        Thread.sleep(3000);
 
 	        // Step 6: Logout
@@ -1415,8 +1403,8 @@ public class Search extends Base {
     	 
      }
 
-     @Test(priority=22)
-     public void test_TC_SA_22_verifyDraftContentWithVideoQuickFilter() throws InterruptedException {
+     @Test(priority=20)
+     public void test_TC_SA_20_verifyDraftContentWithVideoQuickFilter() throws InterruptedException {
     	 
     	    driver = openBrowserAndApplication(prop.getProperty("browser"));
 			
@@ -1483,7 +1471,7 @@ public class Search extends Base {
 	            System.out.println("❌ Test failed: Some cards are missing required elements.");
 	        }
 	        
-	        System.out.println("Test Case TC_SA_22 got passed");
+	        System.out.println("Test Case TC_SA_20 got passed");
 	        Thread.sleep(3000);
 
 	        // Step 6: Logout
@@ -1493,8 +1481,8 @@ public class Search extends Base {
 	        searchPage.clickOnLogoutButton();
      }
 
-     @Test(priority=23)
-     public void test_TC_SA_23_verifyDraftContentWithBrochureQuickFilter() throws InterruptedException {
+     @Test(priority=21)
+     public void test_TC_SA_21_verifyDraftContentWithBrochureQuickFilter() throws InterruptedException {
     	 
     	    driver = openBrowserAndApplication(prop.getProperty("browser"));
 			
@@ -1561,7 +1549,7 @@ public class Search extends Base {
 	            System.out.println("❌ Test failed: Some cards are missing required elements.");
 	        }
 	        
-	        System.out.println("Test Case TC_SA_23 got passed");
+	        System.out.println("Test Case TC_SA_21 got passed");
 	        Thread.sleep(3000);
 
 	        // Step 6: Logout
@@ -1571,8 +1559,8 @@ public class Search extends Base {
 	        searchPage.clickOnLogoutButton();
      }
 
-     @Test(priority=24)
-     public void test_TC_SA_24_verifyDraftContentWithBannersQuickFilter() throws InterruptedException {
+     @Test(priority=22)
+     public void test_TC_SA_22_verifyDraftContentWithBannersQuickFilter() throws InterruptedException {
     	 
     	    driver = openBrowserAndApplication(prop.getProperty("browser"));
 			
@@ -1639,7 +1627,7 @@ public class Search extends Base {
 	            System.out.println("❌ Test failed: Some cards are missing required elements.");
 	        }
 	        
-	        System.out.println("Test Case TC_SA_24 got passed");
+	        System.out.println("Test Case TC_SA_22 got passed");
 	        Thread.sleep(3000);
 
 	        // Step 6: Logout
@@ -1650,8 +1638,8 @@ public class Search extends Base {
     	 
      }
 
-     @Test(priority=25)
-     public void test_TC_SA_25_verifyDraftContentWithSocialPostsQuickFilter() throws InterruptedException {
+     @Test(priority=23)
+     public void test_TC_SA_23_verifyDraftContentWithSocialPostsQuickFilter() throws InterruptedException {
     	 
     	    driver = openBrowserAndApplication(prop.getProperty("browser"));
 			
@@ -1719,7 +1707,7 @@ public class Search extends Base {
 	            System.out.println("❌ Test failed: Some cards are missing required elements.");
 	        }
 	        
-	        System.out.println("Test Case TC_SA_25 got passed");
+	        System.out.println("Test Case TC_SA_23 got passed");
 	        Thread.sleep(3000);
 
 	        // Step 6: Logout
@@ -1730,8 +1718,8 @@ public class Search extends Base {
     	 
      }
 
-     @Test(priority=26)
-     public void test_TC_SA_26_verifyDraftContentWithEmailQuickFilter() throws InterruptedException {
+     @Test(priority=24)
+     public void test_TC_SA_24_verifyDraftContentWithEmailQuickFilter() throws InterruptedException {
     	 
     	    driver = openBrowserAndApplication(prop.getProperty("browser"));
 			
@@ -1798,7 +1786,7 @@ public class Search extends Base {
 	            System.out.println("❌ Test failed: Some cards are missing required elements.");
 	        }
 	        
-	        System.out.println("Test Case TC_SA_26 got passed");
+	        System.out.println("Test Case TC_SA_24 got passed");
 	        Thread.sleep(3000);
 
 	        // Step 6: Logout
@@ -1810,8 +1798,8 @@ public class Search extends Base {
      }
      
      
-     @Test(priority=27)
-     public void test_TC_SA_27_verifyDraftAndPublishedWithBookmarkQuickFilter() throws InterruptedException {
+     @Test(priority=25)
+     public void test_TC_SA_25_verifyDraftAndPublishedWithBookmarkQuickFilter() throws InterruptedException {
     	 
          driver = openBrowserAndApplication(prop.getProperty("browser"));
 
@@ -1884,7 +1872,7 @@ public class Search extends Base {
              Assert.fail("One or more cards missing Publish/Published button or Bookmark icon.");
          }
 
-         System.out.println("Test Case TC_SA_27 got passed");
+         System.out.println("Test Case TC_SA_25 got passed");
          Thread.sleep(2000);
 
          // Logout
@@ -1894,8 +1882,8 @@ public class Search extends Base {
 }
 
      
-     @Test(priority=28)
-     public void test_TC_SA_28_verifyDraftAndPublishedWithMicrositeQuickFilter() throws InterruptedException {
+     @Test(priority=26)
+     public void test_TC_SA_26_verifyDraftAndPublishedWithMicrositeQuickFilter() throws InterruptedException {
     	 
      driver = openBrowserAndApplication(prop.getProperty("browser"));
 
@@ -1968,7 +1956,7 @@ public class Search extends Base {
          Assert.fail("One or more cards missing Publish/Published button or Microsite icon.");
      }
 
-     System.out.println("Test Case TC_SA_28 got passed");
+     System.out.println("Test Case TC_SA_26 got passed");
      Thread.sleep(2000);
 
      // Logout
@@ -1977,8 +1965,8 @@ public class Search extends Base {
      searchPage.clickOnLogoutButton();
  }
      
-     @Test(priority=29)
-     public void test_TC_SA_29_verifyDraftAndPublishedWithVideoQuickFilter() throws InterruptedException {
+     @Test(priority=27)
+     public void test_TC_SA_27_verifyDraftAndPublishedWithVideoQuickFilter() throws InterruptedException {
     	 
          driver = openBrowserAndApplication(prop.getProperty("browser"));
 
@@ -2051,7 +2039,7 @@ public class Search extends Base {
              Assert.fail("One or more cards missing Publish/Published button or Video icon.");
          }
 
-         System.out.println("Test Case TC_SA_29 got passed");
+         System.out.println("Test Case TC_SA_27 got passed");
          Thread.sleep(2000);
 
          // Logout
@@ -2060,8 +2048,8 @@ public class Search extends Base {
          searchPage.clickOnLogoutButton();
      }
      
-     @Test(priority=30)
-     public void test_TC_SA_30_verifyDraftAndPublishedWithBrochureQuickFilter() throws InterruptedException {
+     @Test(priority=28)
+     public void test_TC_SA_28_verifyDraftAndPublishedWithBrochureQuickFilter() throws InterruptedException {
     	 
          driver = openBrowserAndApplication(prop.getProperty("browser"));
 
@@ -2134,7 +2122,7 @@ public class Search extends Base {
              Assert.fail("One or more cards missing Publish/Published button or Brochure icon.");
          }
 
-         System.out.println("Test Case TC_SA_30 got passed");
+         System.out.println("Test Case TC_SA_28 got passed");
          Thread.sleep(2000);
 
          // Logout
@@ -2143,8 +2131,8 @@ public class Search extends Base {
          searchPage.clickOnLogoutButton();
      }
      
-     @Test(priority=31)
-     public void test_TC_SA_31_verifyDraftAndPublishedWithBannerQuickFilter() throws InterruptedException {
+     @Test(priority=29)
+     public void test_TC_SA_29_verifyDraftAndPublishedWithBannerQuickFilter() throws InterruptedException {
     	 
          driver = openBrowserAndApplication(prop.getProperty("browser"));
 
@@ -2217,7 +2205,7 @@ public class Search extends Base {
              Assert.fail("One or more cards missing Publish/Published button or Banner icon.");
          }
 
-         System.out.println("Test Case TC_SA_31 got passed");
+         System.out.println("Test Case TC_SA_29 got passed");
          Thread.sleep(2000);
 
          // Logout
@@ -2226,8 +2214,8 @@ public class Search extends Base {
          searchPage.clickOnLogoutButton();
      }
      
-     @Test(priority=32)
-     public void test_TC_SA_32_verifyDraftAndPublishedWithSocialPostsQuickFilter() throws InterruptedException {
+     @Test(priority=30)
+     public void test_TC_SA_30_verifyDraftAndPublishedWithSocialPostsQuickFilter() throws InterruptedException {
     	 
          driver = openBrowserAndApplication(prop.getProperty("browser"));
 
@@ -2301,7 +2289,7 @@ public class Search extends Base {
              Assert.fail("One or more cards missing Publish/Published button or Social/Whatsapp icon.");
          }
 
-         System.out.println("Test Case TC_SA_32 got passed");
+         System.out.println("Test Case TC_SA_30 got passed");
          Thread.sleep(2000);
 
          // Logout
@@ -2310,8 +2298,8 @@ public class Search extends Base {
          searchPage.clickOnLogoutButton();
      }
      
-     @Test(priority=33)
-     public void test_TC_SA_33_verifyDraftAndPublishedWithEmailQuickFilter() throws InterruptedException {
+     @Test(priority=31)
+     public void test_TC_SA_31_verifyDraftAndPublishedWithEmailQuickFilter() throws InterruptedException {
     	 
          driver = openBrowserAndApplication(prop.getProperty("browser"));
 
@@ -2384,7 +2372,7 @@ public class Search extends Base {
              Assert.fail("One or more cards missing Publish/Published button or Email icon.");
          }
 
-         System.out.println("Test Case TC_SA_33 got passed");
+         System.out.println("Test Case TC_SA_31 got passed");
          Thread.sleep(2000);
 
          // Logout
