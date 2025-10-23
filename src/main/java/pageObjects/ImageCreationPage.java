@@ -29,8 +29,8 @@ public class ImageCreationPage  {
 	 
 	 private WebElement addNewAssetButton;
 	 private WebElement socialPostButton;
-	 private WebElement attachButton;
-	 private String filePath = "C:\\Users\\admin\\Desktop\\Test Videos\\ICC Champs.png";
+	 private WebElement attachBtn;
+	 private String filePath = "C:\\Users\\admin\\Downloads\\PushNotificationImage.png";
 	 private WebElement nextButton;
 	 private WebElement nameField;
 	 private WebElement categoriesField;
@@ -52,6 +52,7 @@ public class ImageCreationPage  {
 	 private WebElement hashtagField;
 	 private WebElement hashtagOption;
 	 private WebElement hashtagsStaticText;
+	 private WebElement longTextField;
 	 
 	 
 	 public void clickOnAddNewAssetButton() {
@@ -67,7 +68,8 @@ public class ImageCreationPage  {
 	 }
 	 
 	 public void attachFile() throws Exception {
-	        WebElement attachBtn = wait.until(ExpectedConditions.elementToBeClickable(attachButton));
+		 
+	        attachBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[normalize-space()='Attach']")));
 
 	        // Scroll to element
 	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", attachBtn);
@@ -196,6 +198,7 @@ public class ImageCreationPage  {
         	
         	saveAndProceedButtonTwo = driver.findElement(By.xpath("//button[normalize-space()='Save & Proceed']"));
 		    saveAndProceedButtonTwo.click();
+		
         }
         
         public void clickOnPublishStaticText() {
@@ -276,7 +279,13 @@ public class ImageCreationPage  {
         }
 
 		
-        
+        public void clickOnLongTextField() {
+        	
+        	longTextField = driver.findElement(By.xpath("//textarea[@id='formTextarea']"));
+        	longTextField.sendKeys("This is for testing only so let's do it now.");
+        	
+        	
+        }
         
         
         

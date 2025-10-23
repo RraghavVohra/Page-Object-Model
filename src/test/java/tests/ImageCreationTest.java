@@ -1,5 +1,6 @@
 package tests;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
@@ -31,22 +32,29 @@ public class ImageCreationTest extends Base {
 	    System.out.println("User Logged in Successfully.");
 	    
 	    imageCreationPage = new ImageCreationPage(driver);
+	    Thread.sleep(3000);
 	    imageCreationPage.clickOnAddNewAssetButton();
 	    imageCreationPage.clickOnSocialPostButton();
 	    Thread.sleep(7000);
 	    
+	    JavascriptExecutor js = (JavascriptExecutor) driver;
+	    js.executeScript("window.scrollBy(0,300)");
+	    Thread.sleep(2000);	
+	    
 	    imageCreationPage.attachFile();
-	    Thread.sleep(3000);	
+	    Thread.sleep(3000);
+	    js.executeScript("window.scrollBy(0,200)");
+	    Thread.sleep(2000);
 	    imageCreationPage.clickOnNextButton();
 	    Thread.sleep(9000);	
 	    
 	    imageCreationPage.enterTextIntoNameTextfield(prop.getProperty("NameText"));
         imageCreationPage.scrollToElement();
         Thread.sleep(2000);
-        imageCreationPage.clickOnCategoryField();
-        imageCreationPage.clickOnCategoryOption();
-        imageCreationPage.clickOnCategoriesStaticText();
-        Thread.sleep(2000);
+        //imageCreationPage.clickOnCategoryField();
+        //imageCreationPage.clickOnCategoryOption();
+        //imageCreationPage.clickOnCategoriesStaticText();
+        //Thread.sleep(2000);
         
         imageCreationPage.clickOnHashtagField();
         imageCreationPage.clickOnHashtag();
@@ -57,6 +65,44 @@ public class ImageCreationTest extends Base {
         // Scrolling down more
         imageCreationPage.scrollToPageBottom();
         Thread.sleep(2000);
+        
+        imageCreationPage.clickOnLongTextField();
+        Thread.sleep(3000);
+        
+        imageCreationPage.clickOnSaveAndProceed();
+        Thread.sleep(2000);
+        
+        // Now we come to the Page number 2
+        
+        imageCreationPage.uploadImage();
+        Thread.sleep(4000);
+        
+        js.executeScript("window.scrollBy(0,400)");
+        
+        imageCreationPage.clickOnSaveAndProceedButton();
+        Thread.sleep(2000);
+        
+        // Now we are on the Publish Page
+        imageCreationPage.clickOnWhatsappCheckbox();
+        Thread.sleep(2000);
+        imageCreationPage.selectPartnersDropdown();
+        Thread.sleep(2000);
+        imageCreationPage.selectPartnerOption();
+        Thread.sleep(2000);
+        
+        imageCreationPage.closePartnerOptionDialogBox();
+        Thread.sleep(2000);
+        
+        imageCreationPage.clickOnCobrandingToggle();
+        imageCreationPage.clickOnPushNotificationToggle();
+        imageCreationPage.clickOnEmailNotificationToggle();
+        
+        Thread.sleep(2000);
+        imageCreationPage.clickOnPublishButton();
+        
+        
+        
+        
         
         
         
