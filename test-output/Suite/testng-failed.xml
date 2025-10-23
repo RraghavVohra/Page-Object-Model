@@ -4,15 +4,16 @@
   <listeners>
     <listener class-name="listeners.MyListeners"/>
   </listeners>
-  <test thread-count="5" name="Test(failed)">
+  <test thread-count="5" name="Search Functionality Tests(failed)">
     <classes>
-      <class name="tests.Login">
+      <class name="tests.Search">
         <methods>
           <include name="tearDown"/>
-          <include name="setUp"/>
-          <include name="loginWithVariousCredentials" invocation-numbers="2"/>
+          <include name="test_TC_SA_31_verifyDraftAndPublishedWithEmailQuickFilter"/>
+          <include name="test_TC_SA_19_verifyDraftContentWithMicrositeQuickFilter"/>
+          <include name="test_TC_SA_17_verifyDraftContentWithAllQuickFilter"/>
         </methods>
-      </class> <!-- tests.Login -->
+      </class> <!-- tests.Search -->
     </classes>
-  </test> <!-- Test(failed) -->
+  </test> <!-- Search Functionality Tests(failed) -->
 </suite> <!-- Failed suite [Suite] -->

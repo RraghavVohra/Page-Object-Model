@@ -6,7 +6,7 @@
       <class name="tests.Search">
         <methods>
           <include name="tearDown"/>
-          <include name="test_TC_SA_09_verifyDraftOptionByRefreshingThePage"/>
+          <include name="test_TC_SA_31_verifyDraftAndPublishedWithEmailQuickFilter"/>
         </methods>
       </class> <!-- tests.Search -->
     </classes>

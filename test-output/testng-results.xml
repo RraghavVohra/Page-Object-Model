@@ -2,16 +2,16 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-10-21T22:42:54 IST" name="Default suite" finished-at="2025-10-21T22:43:45 IST" duration-ms="50212">
+  <suite started-at="2025-10-23T14:04:20 IST" name="Default suite" finished-at="2025-10-23T14:05:03 IST" duration-ms="42574">
     <groups>
     </groups>
-    <test started-at="2025-10-21T22:42:54 IST" name="Default test" finished-at="2025-10-21T22:43:45 IST" duration-ms="50212">
+    <test started-at="2025-10-23T14:04:20 IST" name="Default test" finished-at="2025-10-23T14:05:03 IST" duration-ms="42574">
       <class name="tests.Search">
-        <test-method signature="test_TC_SA_03_verifyFilteringWithOnlyDraftOption()[pri:3, instance:tests.Search@7dcf94f8]" started-at="2025-10-21T22:42:55 IST" name="test_TC_SA_03_verifyFilteringWithOnlyDraftOption" finished-at="2025-10-21T22:43:44 IST" duration-ms="49626" status="PASS">
+        <test-method signature="test_TC_SA_31_verifyDraftAndPublishedWithEmailQuickFilter()[pri:31, instance:tests.Search@7dcf94f8]" started-at="2025-10-23T14:04:20 IST" name="test_TC_SA_31_verifyDraftAndPublishedWithEmailQuickFilter" finished-at="2025-10-23T14:05:02 IST" duration-ms="41958" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- test_TC_SA_03_verifyFilteringWithOnlyDraftOption -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.Search@7dcf94f8]" started-at="2025-10-21T22:43:44 IST" name="tearDown" finished-at="2025-10-21T22:43:45 IST" duration-ms="474" status="PASS">
+        </test-method> <!-- test_TC_SA_31_verifyDraftAndPublishedWithEmailQuickFilter -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.Search@7dcf94f8]" started-at="2025-10-23T14:05:02 IST" name="tearDown" finished-at="2025-10-23T14:05:03 IST" duration-ms="529" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->

@@ -1,0 +1,477 @@
+<html>
+<head>
+<title>TestNG:  Search Functionality Tests</title>
+<link href="../testng.css" rel="stylesheet" type="text/css" />
+<link href="../my-testng.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+.log { display: none;} 
+.stack-trace { display: none;} 
+</style>
+<script type="text/javascript">
+<!--
+function flip(e) {
+  current = e.style.display;
+  if (current == 'block') {
+    e.style.display = 'none';
+    return 0;
+  }
+  else {
+    e.style.display = 'block';
+    return 1;
+  }
+}
+
+function toggleBox(szDivId, elem, msg1, msg2)
+{
+  var res = -1;  if (document.getElementById) {
+    res = flip(document.getElementById(szDivId));
+  }
+  else if (document.all) {
+    // this is the way old msie versions work
+    res = flip(document.all[szDivId]);
+  }
+  if(elem) {
+    if(res == 0) elem.innerHTML = msg1; else elem.innerHTML = msg2;
+  }
+
+}
+
+function toggleAllBoxes() {
+  if (document.getElementsByTagName) {
+    d = document.getElementsByTagName('div');
+    for (i = 0; i < d.length; i++) {
+      if (d[i].className == 'log') {
+        flip(d[i]);
+      }
+    }
+  }
+}
+
+// -->
+</script>
+
+</head>
+<body>
+<h2 align='center'>Search Functionality Tests</h2><table border='1' align="center">
+<tr>
+<td>Tests passed/Failed/Skipped:</td><td>28/3/0</td>
+</tr><tr>
+<td>Started on:</td><td>Thu Oct 23 12:44:01 IST 2025</td>
+</tr>
+<tr><td>Total time:</td><td>1103 seconds (1103259 ms)</td>
+</tr><tr>
+<td>Included groups:</td><td></td>
+</tr><tr>
+<td>Excluded groups:</td><td></td>
+</tr>
+</table><p/>
+<small><i>(Hover the method name to see the test class name)</i></small><p/>
+<table width='100%' border='1' class='invocation-failed'>
+<tr><td colspan='4' align='center'><b>FAILED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td><b>Attribute(s)</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='tests.Search.test_TC_SA_31_verifyDraftAndPublishedWithEmailQuickFilter()'><b>test_TC_SA_31_verifyDraftAndPublishedWithEmailQuickFilter</b><br>Test class: tests.Search</td>
+<td><div><pre>org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element is not clickable at point (207, 605)
+  (Session info: chrome=141.0.7390.108)
+Build info: version: &apos;4.27.0&apos;, revision: &apos;d6e718d134&apos;
+System info: os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;23.0.2&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [c4b8b9d88d7452e2b2f999b04d1ddce7, clickElement {id=f.DCD94C82AEF1B6BADD70C46A2067207B.d.C7E6C02539F12614F79A09CE1A59BF12.e.99}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 141.0.7390.108, chrome: {chromedriverVersion: 141.0.7390.78 (2b53b0e231fc..., userDataDir: C:\Users\admin\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:62621}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:62621/devtoo..., se:cdpVersion: 141.0.7390.108, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on windows (c4b8b9d88d7452e2b2f999b04d1ddce7)] -&gt; xpath: (//a[@data-rr-ui-event-key=&apos;42&apos; and contains(text(), &apos;Email&apos;)])[1]]
+Session ID: c4b8b9d88d7452e2b2f999b04d1ddce7
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:190)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:545)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:223)
+	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:76)
+	at pageObjects.SearchPage.clickOnEmailQuickFilter(SearchPage.java:124)
+	at tests.Search.test_TC_SA_31_verifyDraftAndPublishedWithEmailQuickFilter(Search.java:2328)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+... Removed 28 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace2107109044", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace2107109044'><pre>org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element is not clickable at point (207, 605)
+  (Session info: chrome=141.0.7390.108)
+Build info: version: &apos;4.27.0&apos;, revision: &apos;d6e718d134&apos;
+System info: os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;23.0.2&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [c4b8b9d88d7452e2b2f999b04d1ddce7, clickElement {id=f.DCD94C82AEF1B6BADD70C46A2067207B.d.C7E6C02539F12614F79A09CE1A59BF12.e.99}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 141.0.7390.108, chrome: {chromedriverVersion: 141.0.7390.78 (2b53b0e231fc..., userDataDir: C:\Users\admin\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:62621}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:62621/devtoo..., se:cdpVersion: 141.0.7390.108, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on windows (c4b8b9d88d7452e2b2f999b04d1ddce7)] -&gt; xpath: (//a[@data-rr-ui-event-key=&apos;42&apos; and contains(text(), &apos;Email&apos;)])[1]]
+Session ID: c4b8b9d88d7452e2b2f999b04d1ddce7
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:485)
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:190)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:545)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:223)
+	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:76)
+	at pageObjects.SearchPage.clickOnEmailQuickFilter(SearchPage.java:124)
+	at tests.Search.test_TC_SA_31_verifyDraftAndPublishedWithEmailQuickFilter(Search.java:2328)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
+</pre></div></td>
+<td>24</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_19_verifyDraftContentWithMicrositeQuickFilter()'><b>test_TC_SA_19_verifyDraftContentWithMicrositeQuickFilter</b><br>Test class: tests.Search</td>
+<td><div><pre>org.openqa.selenium.StaleElementReferenceException: stale element reference: stale element not found in the current frame
+  (Session info: chrome=141.0.7390.108)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Build info: version: &apos;4.27.0&apos;, revision: &apos;d6e718d134&apos;
+System info: os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;23.0.2&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [ffdddc8b6746a62a21798001b22c99c3, clearElement {id=f.E920CDA756903D3C6DE81C63B9418ECD.d.1D179F08D899C215A1DB5192BDCF7B8B.e.12}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 141.0.7390.108, chrome: {chromedriverVersion: 141.0.7390.78 (2b53b0e231fc..., userDataDir: C:\Users\admin\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:62063}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:62063/devtoo..., se:cdpVersion: 141.0.7390.108, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on windows (ffdddc8b6746a62a21798001b22c99c3)] -&gt; id: username]
+Session ID: ffdddc8b6746a62a21798001b22c99c3
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:190)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:545)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:223)
+	at org.openqa.selenium.remote.RemoteWebElement.clear(RemoteWebElement.java:129)
+	at pageObjects.LoginPage.enterUsernameField(LoginPage.java:33)
+	at tests.Search.test_TC_SA_19_verifyDraftContentWithMicrositeQuickFilter(Search.java:1331)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+... Removed 28 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1886891676", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1886891676'><pre>org.openqa.selenium.StaleElementReferenceException: stale element reference: stale element not found in the current frame
+  (Session info: chrome=141.0.7390.108)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Build info: version: &apos;4.27.0&apos;, revision: &apos;d6e718d134&apos;
+System info: os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;23.0.2&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [ffdddc8b6746a62a21798001b22c99c3, clearElement {id=f.E920CDA756903D3C6DE81C63B9418ECD.d.1D179F08D899C215A1DB5192BDCF7B8B.e.12}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 141.0.7390.108, chrome: {chromedriverVersion: 141.0.7390.78 (2b53b0e231fc..., userDataDir: C:\Users\admin\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:62063}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:62063/devtoo..., se:cdpVersion: 141.0.7390.108, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on windows (ffdddc8b6746a62a21798001b22c99c3)] -&gt; id: username]
+Session ID: ffdddc8b6746a62a21798001b22c99c3
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:485)
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:190)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:545)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:223)
+	at org.openqa.selenium.remote.RemoteWebElement.clear(RemoteWebElement.java:129)
+	at pageObjects.LoginPage.enterUsernameField(LoginPage.java:33)
+	at tests.Search.test_TC_SA_19_verifyDraftContentWithMicrositeQuickFilter(Search.java:1331)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
+</pre></div></td>
+<td>7</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_17_verifyDraftContentWithAllQuickFilter()'><b>test_TC_SA_17_verifyDraftContentWithAllQuickFilter</b><br>Test class: tests.Search</td>
+<td><div><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //select[@aria-label=&apos;select-status&apos;] (tried for 10 second(s) with 500 milliseconds interval)
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+	at pageObjects.SearchPage.clickOnDraftAndPublishedDropdown(SearchPage.java:60)
+	at tests.Search.test_TC_SA_17_verifyDraftContentWithAllQuickFilter(Search.java:1181)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//select[@aria-label=&apos;select-status&apos;]&quot;}
+  (Session info: chrome=141.0.7390.108)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Build info: version: &apos;4.27.0&apos;, revision: &apos;d6e718d134&apos;
+System info: os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;23.0.2&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [7db8f2aaac2f2e55ae8e9d487fd4d282, findElement {using=xpath, value=//select[@aria-label=&apos;select-status&apos;]}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 141.0.7390.108, chrome: {chromedriverVersion: 141.0.7390.78 (2b53b0e231fc..., userDataDir: C:\Users\admin\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:61986}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:61986/devtoo..., se:cdpVersion: 141.0.7390.108, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 7db8f2aaac2f2e55ae8e9d487fd4d282
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:190)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:545)
+	at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:165)
+	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:368)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:362)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:171)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:168)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:203)
+	... 28 more
+... Removed 28 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1211112446", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1211112446'><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //select[@aria-label=&apos;select-status&apos;] (tried for 10 second(s) with 500 milliseconds interval)
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+	at pageObjects.SearchPage.clickOnDraftAndPublishedDropdown(SearchPage.java:60)
+	at tests.Search.test_TC_SA_17_verifyDraftContentWithAllQuickFilter(Search.java:1181)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
+Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//select[@aria-label=&apos;select-status&apos;]&quot;}
+  (Session info: chrome=141.0.7390.108)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Build info: version: &apos;4.27.0&apos;, revision: &apos;d6e718d134&apos;
+System info: os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;23.0.2&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [7db8f2aaac2f2e55ae8e9d487fd4d282, findElement {using=xpath, value=//select[@aria-label=&apos;select-status&apos;]}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 141.0.7390.108, chrome: {chromedriverVersion: 141.0.7390.78 (2b53b0e231fc..., userDataDir: C:\Users\admin\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:61986}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:61986/devtoo..., se:cdpVersion: 141.0.7390.108, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 7db8f2aaac2f2e55ae8e9d487fd4d282
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:485)
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:190)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:545)
+	at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:165)
+	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:368)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:362)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:171)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:168)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:203)
+	... 28 more
+</pre></div></td>
+<td>48</td>
+<td>tests.Search@139982de</td></tr>
+</table><p>
+<table width='100%' border='1' class='invocation-passed'>
+<tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td><b>Attribute(s)</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='tests.Search.test_TC_SA_20_verifyDraftContentWithVideoQuickFilter()'><b>test_TC_SA_20_verifyDraftContentWithVideoQuickFilter</b><br>Test class: tests.Search</td>
+<td></td>
+<td>37</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_23_verifyDraftContentWithSocialPostsQuickFilter()'><b>test_TC_SA_23_verifyDraftContentWithSocialPostsQuickFilter</b><br>Test class: tests.Search</td>
+<td></td>
+<td>33</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_25_verifyDraftAndPublishedWithBookmarkQuickFilter()'><b>test_TC_SA_25_verifyDraftAndPublishedWithBookmarkQuickFilter</b><br>Test class: tests.Search</td>
+<td></td>
+<td>31</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_15_verifyPublishedContentWithSocialPostsQuickFilter()'><b>test_TC_SA_15_verifyPublishedContentWithSocialPostsQuickFilter</b><br>Test class: tests.Search</td>
+<td></td>
+<td>38</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_26_verifyDraftAndPublishedWithMicrositeQuickFilter()'><b>test_TC_SA_26_verifyDraftAndPublishedWithMicrositeQuickFilter</b><br>Test class: tests.Search</td>
+<td></td>
+<td>36</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_13_verifyPublishedContentWithBrochureQuickFilter()'><b>test_TC_SA_13_verifyPublishedContentWithBrochureQuickFilter</b><br>Test class: tests.Search</td>
+<td></td>
+<td>38</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_28_verifyDraftAndPublishedWithBrochureQuickFilter()'><b>test_TC_SA_28_verifyDraftAndPublishedWithBrochureQuickFilter</b><br>Test class: tests.Search</td>
+<td></td>
+<td>36</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_21_verifyDraftContentWithBrochureQuickFilter()'><b>test_TC_SA_21_verifyDraftContentWithBrochureQuickFilter</b><br>Test class: tests.Search</td>
+<td></td>
+<td>34</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_10_verifyPublishedContentWithBookmarkedQuickFilter()'><b>test_TC_SA_10_verifyPublishedContentWithBookmarkedQuickFilter</b><br>Test class: tests.Search</td>
+<td></td>
+<td>30</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_14_verifyPublishedContentWithBannersQuickFilter()'><b>test_TC_SA_14_verifyPublishedContentWithBannersQuickFilter</b><br>Test class: tests.Search</td>
+<td></td>
+<td>30</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_05_verifyFilteringWithBothDraftAndPublishedOption()'><b>test_TC_SA_05_verifyFilteringWithBothDraftAndPublishedOption</b><br>Test class: tests.Search</td>
+<td></td>
+<td>18</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_08_verifyFilteringWithBothPublishedAndDraftOptionsWithoutSearching()'><b>test_TC_SA_08_verifyFilteringWithBothPublishedAndDraftOptionsWithoutSearching</b><br>Test class: tests.Search</td>
+<td></td>
+<td>16</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_03_verifyFilteringWithOnlyDraftOption()'><b>test_TC_SA_03_verifyFilteringWithOnlyDraftOption</b><br>Test class: tests.Search</td>
+<td></td>
+<td>48</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_04_verifyFilteringWithOnlyPublishedOption()'><b>test_TC_SA_04_verifyFilteringWithOnlyPublishedOption</b><br>Test class: tests.Search</td>
+<td></td>
+<td>50</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_30_verifyDraftAndPublishedWithSocialPostsQuickFilter()'><b>test_TC_SA_30_verifyDraftAndPublishedWithSocialPostsQuickFilter</b><br>Test class: tests.Search</td>
+<td></td>
+<td>36</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_16_verifyPublishedContentWithEmailQuickFilter()'><b>test_TC_SA_16_verifyPublishedContentWithEmailQuickFilter</b><br>Test class: tests.Search</td>
+<td></td>
+<td>38</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_29_verifyDraftAndPublishedWithBannerQuickFilter()'><b>test_TC_SA_29_verifyDraftAndPublishedWithBannerQuickFilter</b><br>Test class: tests.Search</td>
+<td></td>
+<td>30</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_18_verifyDraftContentWithBookmarkedQuickFilter()'><b>test_TC_SA_18_verifyDraftContentWithBookmarkedQuickFilter</b><br>Test class: tests.Search</td>
+<td></td>
+<td>65</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_07_verifyFilteringWithOnlyPublishedOptionWithoutSearching()'><b>test_TC_SA_07_verifyFilteringWithOnlyPublishedOptionWithoutSearching</b><br>Test class: tests.Search</td>
+<td></td>
+<td>50</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_06_verifyFilteringWithOnlyDraftOptionWithoutSearching()'><b>test_TC_SA_06_verifyFilteringWithOnlyDraftOptionWithoutSearching</b><br>Test class: tests.Search</td>
+<td></td>
+<td>48</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_24_verifyDraftContentWithEmailQuickFilter()'><b>test_TC_SA_24_verifyDraftContentWithEmailQuickFilter</b><br>Test class: tests.Search</td>
+<td></td>
+<td>37</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_02_verifyalltheOptionsOfDropdowns()'><b>test_TC_SA_02_verifyalltheOptionsOfDropdowns</b><br>Test class: tests.Search</td>
+<td></td>
+<td>18</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_11_verifyPublishedContentWithMicrositeQuickFilter()'><b>test_TC_SA_11_verifyPublishedContentWithMicrositeQuickFilter</b><br>Test class: tests.Search</td>
+<td></td>
+<td>38</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_27_verifyDraftAndPublishedWithVideoQuickFilter()'><b>test_TC_SA_27_verifyDraftAndPublishedWithVideoQuickFilter</b><br>Test class: tests.Search</td>
+<td></td>
+<td>37</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_22_verifyDraftContentWithBannersQuickFilter()'><b>test_TC_SA_22_verifyDraftContentWithBannersQuickFilter</b><br>Test class: tests.Search</td>
+<td></td>
+<td>30</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_09_verifySearchFunctionalityWhenInvalidValueEntered()'><b>test_TC_SA_09_verifySearchFunctionalityWhenInvalidValueEntered</b><br>Test class: tests.Search</td>
+<td></td>
+<td>27</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_12_verifyPublishedContentWithVideoQuickFilter()'><b>test_TC_SA_12_verifyPublishedContentWithVideoQuickFilter</b><br>Test class: tests.Search</td>
+<td></td>
+<td>38</td>
+<td>tests.Search@139982de</td></tr>
+<tr>
+<td title='tests.Search.test_TC_SA_01_searchfunctionality()'><b>test_TC_SA_01_searchfunctionality</b><br>Test class: tests.Search</td>
+<td></td>
+<td>24</td>
+<td>tests.Search@139982de</td></tr>
+</table><p>
+</body>
+</html>

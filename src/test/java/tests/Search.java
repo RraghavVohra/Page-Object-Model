@@ -269,7 +269,9 @@ public class Search extends Base {
 	    	searchPage = new SearchPage(driver);
 	        JavascriptExecutor js = (JavascriptExecutor) driver;
 
+	        Thread.sleep(2000);
 	        searchPage.enterValueIntoSearchTextfield("Test");
+	        Thread.sleep(2000);
 	        searchPage.clickOnSearchIcon();
 
 	        Thread.sleep(3000);
@@ -1176,7 +1178,7 @@ public class Search extends Base {
 
 	        Thread.sleep(3000);
 	        js.executeScript("window.scrollBy(0,400)");
-	        Thread.sleep(2000);
+	        Thread.sleep(3000);
 
 	        searchPage.clickOnDraftAndPublishedDropdown();
 	        Thread.sleep(3000);
@@ -1258,7 +1260,7 @@ public class Search extends Base {
 
 	        Thread.sleep(3000);
 	        js.executeScript("window.scrollBy(0,400)");
-	        Thread.sleep(2000);
+	        Thread.sleep(3000);
 
 	        searchPage.clickOnDraftAndPublishedDropdown();
 	        Thread.sleep(3000);
@@ -1339,7 +1341,7 @@ public class Search extends Base {
 
 	        Thread.sleep(3000);
 	        js.executeScript("window.scrollBy(0,400)");
-	        Thread.sleep(2000);
+	        Thread.sleep(3000);
 
 	        searchPage.clickOnDraftAndPublishedDropdown();
 	        Thread.sleep(3000);
@@ -2314,7 +2316,7 @@ public class Search extends Base {
        
          Thread.sleep(3000);
          js.executeScript("window.scrollBy(0,400)");
-         Thread.sleep(2000);
+         Thread.sleep(3000);
 
          // Apply Draft & Published filter
          searchPage.clickOnDraftAndPublishedDropdown();
@@ -2323,7 +2325,8 @@ public class Search extends Base {
          js.executeScript("document.activeElement.blur();");
          Thread.sleep(3000);
          
-         
+         js.executeScript("window.scrollBy(0,200)");
+         Thread.sleep(2000);
          // Apply Bookmark quick filter
          searchPage.clickOnEmailQuickFilter();
          Thread.sleep(3000);
