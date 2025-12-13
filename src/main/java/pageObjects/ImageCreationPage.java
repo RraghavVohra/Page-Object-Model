@@ -197,7 +197,9 @@ public class ImageCreationPage  {
         public void clickOnSaveAndProceedButton() {
         	
         	saveAndProceedButtonTwo = driver.findElement(By.xpath("//button[normalize-space()='Save & Proceed']"));
-		    saveAndProceedButtonTwo.click();
+		    // saveAndProceedButtonTwo.click();
+		    JavascriptExecutor js = (JavascriptExecutor) driver;
+		    js.executeScript("arguments[0].click();", saveAndProceedButtonTwo);
 		
         }
         
@@ -209,7 +211,8 @@ public class ImageCreationPage  {
         
         public void clickOnWhatsappCheckbox() {
         	
-        	whatsAppCheckbox = driver.findElement(By.xpath("(//input[@name='wh-platform' and @type='checkbox'])[1]"));
+        	whatsAppCheckbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@name='wh-platform' and @type='checkbox'])[1]")));
+        	// whatsAppCheckbox = driver.findElement(By.xpath("(//input[@name='wh-platform' and @type='checkbox'])[1]"));
 		    whatsAppCheckbox.click();
         }
         
@@ -285,6 +288,12 @@ public class ImageCreationPage  {
         	longTextField.sendKeys("This is for testing only so let's do it now.");
         	
         	
+        }
+        
+        public void waitForSocialPostPageToLoad() {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//button[normalize-space()='Next']")
+            ));
         }
         
         

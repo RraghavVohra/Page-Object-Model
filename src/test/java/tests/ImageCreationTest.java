@@ -35,7 +35,9 @@ public class ImageCreationTest extends Base {
 	    Thread.sleep(3000);
 	    imageCreationPage.clickOnAddNewAssetButton();
 	    imageCreationPage.clickOnSocialPostButton();
-	    Thread.sleep(7000);
+	    // Wait for Social Post Page to Appear
+	    imageCreationPage.waitForSocialPostPageToLoad();
+	    // Thread.sleep(7000);
 	    
 	    JavascriptExecutor js = (JavascriptExecutor) driver;
 	    js.executeScript("window.scrollBy(0,300)");
@@ -74,21 +76,26 @@ public class ImageCreationTest extends Base {
         
         // Now we come to the Page number 2
         
-        imageCreationPage.uploadImage();
-        Thread.sleep(4000);
         
-        js.executeScript("window.scrollBy(0,400)");
+        imageCreationPage.uploadImage();
+        Thread.sleep(5000);
+        
+        js.executeScript("window.scrollBy(0,20000)");
         
         imageCreationPage.clickOnSaveAndProceedButton();
-        Thread.sleep(2000);
+        Thread.sleep(5000);
         
         // Now we are on the Publish Page
         imageCreationPage.clickOnWhatsappCheckbox();
-        Thread.sleep(2000);
+        Thread.sleep(8000);
+        
+        // Scrolling the Page so we go down
+        js.executeScript("window.scrollBy(0,400)");
+        Thread.sleep(2000);        
         imageCreationPage.selectPartnersDropdown();
-        Thread.sleep(2000);
+        Thread.sleep(5000);
         imageCreationPage.selectPartnerOption();
-        Thread.sleep(2000);
+        Thread.sleep(5000);
         
         imageCreationPage.closePartnerOptionDialogBox();
         Thread.sleep(2000);
@@ -99,6 +106,8 @@ public class ImageCreationTest extends Base {
         
         Thread.sleep(2000);
         imageCreationPage.clickOnPublishButton();
+        
+        Thread.sleep(5000);
         
         
         
