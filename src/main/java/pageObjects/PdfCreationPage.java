@@ -50,6 +50,7 @@ public class PdfCreationPage {
 	 private WebElement emailNotificationToggle;
 	 private WebElement cobrandingToggle;
 	 private WebElement publishButton;
+	 private WebElement descriptionField;
 	 
 	 
      public void clickOnAddNewAssetButton() {
@@ -66,7 +67,7 @@ public class PdfCreationPage {
      
      public void attachFile() throws Exception {
 		 
-	        attachBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[normalize-space()='Attach']")));
+	        attachBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@for='input-file-upload']//span[normalize-space()='Attach']")));
 
 	        // Scroll to element
 	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", attachBtn);
@@ -112,9 +113,16 @@ public class PdfCreationPage {
 			nameField.sendKeys(nameText);
 	    }
         
+        public void enterTextIntoDescriptionTextfield(String textForDescription) {
+        	
+        	descriptionField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//textarea[@placeholder='Description']")));
+        	descriptionField.sendKeys(textForDescription);
+        }
+        
         public void clickOnCategoryField() {
 	    	
-	    	categoriesField = driver.findElement(By.xpath("(//input[contains(@class, 'searchBox')])[1]"));
+        	categoriesField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[contains(@class, 'searchBox')])[1]")));
+	    	// categoriesField = driver.findElement(By.xpath("(//input[contains(@class, 'searchBox')])[1]"));
 			categoriesField.click();
 	    }
 	    
@@ -126,19 +134,22 @@ public class PdfCreationPage {
 	    
 	    public void clickOnCategoriesStaticText() {
 	    	
-	    	categoriesStaticText = driver.findElement(By.xpath("//label[normalize-space()='Categories']"));
+	    	categoriesStaticText = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[normalize-space()='Categories']")));
+	    	// categoriesStaticText = driver.findElement(By.xpath("//label[normalize-space()='Categories']"));
 			categoriesStaticText.click();
 	    }
 	    
         public void clickOnHashtagField() {
 	    	
-	    	hashtagField = driver.findElement(By.xpath("//input[@placeholder='Select Hashtags']"));	 
+        	hashtagField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@placeholder='Select Hashtags']")));
+	    	// hashtagField = driver.findElement(By.xpath("//input[@placeholder='Select Hashtags']"));	 
 			hashtagField.click();
 	    }
 	    
 	    public void clickOnHashtag() {
 	    	
-	    	hashtagOption = driver.findElement(By.xpath("//li[normalize-space()='what']"));
+	    	hashtagOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//li[normalize-space()='what']")));
+	    	// hashtagOption = driver.findElement(By.xpath("//li[normalize-space()='what']"));
 			hashtagOption.click();
 	    }
 	    
@@ -257,8 +268,25 @@ public class PdfCreationPage {
 		    publishButton.click();
         }
         
+        public void waitForPDFPostPageToLoad() {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//button[normalize-space()='Next']")
+            ));
+        }
         
-        
+       public void scrollToElement() {
+	    	
+	    	nameField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@placeholder='Name']")));
+	        JavascriptExecutor js = (JavascriptExecutor) driver;
+	        js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", nameField);
+	    }
+       
+       
+       public void scrollToPageBottom() {
+	    	
+	        JavascriptExecutor js = (JavascriptExecutor) driver;
+	        js.executeScript("window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});");
+	    }
         
         
         
