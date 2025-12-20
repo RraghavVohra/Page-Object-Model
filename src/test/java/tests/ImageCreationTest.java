@@ -109,6 +109,12 @@ public class ImageCreationTest extends Base {
         
         Thread.sleep(5000);
         
+     // Asset Library Page
+        imageCreationPage.clickOnProfileIconAfterPublishing();
+        imageCreationPage.clickOnLogoutOption();
+        imageCreationPage.clickOnLogoutButton();
+        
+        
         
         
         

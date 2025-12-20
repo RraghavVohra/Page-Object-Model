@@ -8,6 +8,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -51,6 +52,15 @@ public class PdfCreationPage {
 	 private WebElement cobrandingToggle;
 	 private WebElement publishButton;
 	 private WebElement descriptionField;
+	 private WebElement overlay;
+	 private WebElement profileIcon;
+	 private WebElement logOutOption;
+	 private WebElement logoutButton;
+	 private WebElement profileIconTwo;
+	 private WebElement dropdownMenuOptions;
+	 
+	 
+	 
 	 
 	 
      public void clickOnAddNewAssetButton() {
@@ -59,8 +69,10 @@ public class PdfCreationPage {
 		 addNewAssetButton.click();
 	 }
      
-     public void clickOnborchurePostButton() {
+     public void clickOnbrochurePostButton() {
 		 
+    	 // This method is defined at the bottom
+    	 // waitForOverlayToDisappear();
 		 brochurePostButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[@class='card-body'])[2]")));
 		 brochurePostButton.click();
 	 }
@@ -121,8 +133,12 @@ public class PdfCreationPage {
         
         public void clickOnCategoryField() {
 	    	
-        	categoriesField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[contains(@class, 'searchBox')])[1]")));
+        	categoriesField = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//input[contains(@class, 'searchBox')])[1]")));
 	    	// categoriesField = driver.findElement(By.xpath("(//input[contains(@class, 'searchBox')])[1]"));
+        	// Ensure element is in viewport
+            // ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", categoriesField);
+            // Wait until it is truly clickable
+            // wait.until(ExpectedConditions.elementToBeClickable(categoriesField));
 			categoriesField.click();
 	    }
 	    
@@ -214,7 +230,8 @@ public class PdfCreationPage {
        
         public void clickonMobileAppButton() {
         	
-        	mobileAppCheckbox = driver.findElement(By.xpath("//div[@class='form-check']//label[normalize-space()='Mobile App']/preceding-sibling::input"));
+        	mobileAppCheckbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[normalize-space()='Mobile App']")));       	
+        	// mobileAppCheckbox = driver.findElement(By.xpath("//div[@class='form-check']//label[normalize-space()='Mobile App']/preceding-sibling::input"));
         	mobileAppCheckbox.click();
         }
         
@@ -226,14 +243,39 @@ public class PdfCreationPage {
         
        public void selectPartnersDropdown() {
         	
-        	selectPartnersDropdown = driver.findElement(By.xpath("//span[@class='css-1v99tuv']"));
-		    selectPartnersDropdown.click();
+    	   
+    	    // 1️⃣ Locate dropdown button (exists initially)
+    	    selectPartnersDropdown =
+    	        driver.findElement(By.xpath("//span[normalize-space()='Select Partners']/ancestor::button"));
+
+    	    // 2️⃣ Ensure it is clickable
+    	    wait.until(ExpectedConditions.elementToBeClickable(selectPartnersDropdown));
+
+    	    // 3️⃣ Open dropdown (React-safe)
+    	    selectPartnersDropdown.sendKeys(Keys.ENTER);
+
+    	    // 4️⃣ NOW locate the menu (after open)
+    	    WebElement dropdownMenuOptions =
+    	        wait.until(ExpectedConditions.visibilityOf(
+    	            driver.findElement(
+    	                By.xpath("//div[contains(@id,'react-select') and contains(@class,'option')]")
+    	            )
+    	        ));
+    	    
         }
         
         public void selectPartnerOption() {
         	
-        	selectPartnerOption = driver.findElement(By.xpath("//div[contains(text(), 'Raj2024')]"));
+        	/*selectPartnerOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(text(), 'Raj2024')]")));
+        	// selectPartnerOption = driver.findElement(By.xpath("//div[contains(text(), 'Raj2024')]"));
 		    selectPartnerOption.click();
+		    */
+        	// 1️⃣ Click the option
+            selectPartnerOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[normalize-space()='Raj2024']")));
+            selectPartnerOption.click();
+
+            // 2️⃣ FINAL: wait until selection is reflected in UI
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[normalize-space()='Raj2024']")));
         }
         
         public void closePartnerOptionDialogBox() {
@@ -288,9 +330,70 @@ public class PdfCreationPage {
 	        js.executeScript("window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});");
 	    }
         
-        
-        
+       // This method is used as after clicking on the Brochure Tile an overlay used to obstruct our click
+       public void waitForOverlayToDisappear() {
+    	    overlay = driver.findElement(By.xpath("//div[contains(@class,'overlay-bg')]"));
+    	    wait.until(ExpectedConditions.invisibilityOf(overlay));
+    	}
        
+       public void waitForPublishPageToLoad() {
+
+    	    overlay = driver.findElement(By.xpath("//div[contains(@class,'overlay-bg')]"));
+    	    mobileAppCheckbox = driver.findElement(By.xpath("//label[normalize-space()='Mobile App']"));
+
+    	    wait.until(ExpectedConditions.invisibilityOf(overlay));
+    	    wait.until(ExpectedConditions.elementToBeClickable(mobileAppCheckbox));
+    	}
+       
+       public void waitForGlobalAssetDetailsPageToLoad() {
+
+   	    overlay = driver.findElement(By.xpath("//div[contains(@class,'overlay-bg')]"));
+   	    nameField = driver.findElement(By.xpath("//input[@placeholder='Name']"));
+
+   	    wait.until(ExpectedConditions.invisibilityOf(overlay));
+   	    wait.until(ExpectedConditions.elementToBeClickable(nameField));
+   	}
+        
+       public void clickonMobileAppButtonTypeTwo() {
+
+ 
+       mobileAppCheckbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@name='brochure-platform']")));
+
+       ((JavascriptExecutor) driver)
+       .executeScript("arguments[0].scrollIntoView({block:'center'});", mobileAppCheckbox);
+
+        new Actions(driver)
+    	            .moveToElement(mobileAppCheckbox)
+    	            .pause(Duration.ofMillis(700))
+    	            .click()
+    	            .perform();
+    	}
+       
+       
+       public void clickOnProfileIcon() {
+	        profileIcon = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='user-profile show dropdown']")));
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", profileIcon);
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", profileIcon);
+	    }
+	    
+	    public void clickOnLogoutOption() {
+	        logOutOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[normalize-space()='Log Out']")));
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", logOutOption);
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", logOutOption);
+	    }
+	    
+	    public void clickOnLogoutButton() {
+	        logoutButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Logout']")));
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", logoutButton);
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", logoutButton);
+	    }
+	    
+	    public void clickOnProfileIconAfterPublishing() {
+	    	
+	    	profileIconTwo = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[local-name()='svg' and contains(@class, 'bi-person-circle')]")));
+	    	profileIconTwo.click();
+	    	
+	    }
        
 	    
 	    

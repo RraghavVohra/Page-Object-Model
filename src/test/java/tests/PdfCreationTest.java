@@ -35,7 +35,7 @@ public class PdfCreationTest extends Base {
 		    Thread.sleep(3000);
 		    
 		    pdfCreationPage.clickOnAddNewAssetButton();
-		    pdfCreationPage.clickOnborchurePostButton();
+		    pdfCreationPage.clickOnbrochurePostButton();
 		    pdfCreationPage.waitForPDFPostPageToLoad();
 		    
 		    JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -47,7 +47,11 @@ public class PdfCreationTest extends Base {
 		    js.executeScript("window.scrollBy(0,200)");
 		    Thread.sleep(2000);
 		    pdfCreationPage.clickOnNextButton();
-		    Thread.sleep(9000);	
+		    	
+		    
+		    // Here we will call a method for waiting for the page to load
+		    // And we removed 9 seconds of wait time
+		    pdfCreationPage.waitForGlobalAssetDetailsPageToLoad();
 		    
 		    pdfCreationPage.enterTextIntoNameTextfield(prop.getProperty("NameText"));
 		    pdfCreationPage.scrollToElement();
@@ -69,6 +73,7 @@ public class PdfCreationTest extends Base {
 		    
 		    // Scrolling down more
 	        pdfCreationPage.scrollToPageBottom();
+	        Thread.sleep(3000);
 		    pdfCreationPage.clickOnSaveAndProceed();
 		    Thread.sleep(3000);
 		    
@@ -77,19 +82,18 @@ public class PdfCreationTest extends Base {
 		    js.executeScript("window.scrollBy(0,20000)");
 	        
 	        pdfCreationPage.clickOnSaveAndProceedButton();
-	        Thread.sleep(8000);
-	        // NEED TO FIND SOLUTION AS PAGE LOADING TIME IS QUITE LONG
+	        // Here we will call a method for waiting for the page to load
+		    // And we removed 9 seconds of wait time
+	        pdfCreationPage.waitForPublishPageToLoad();
+	        
 	        
 	        // Publish Page - Page 3
-	        
-	        pdfCreationPage.clickonMobileAppButton();
+	        js.executeScript("window.scrollBy(0,200)");
+	        pdfCreationPage.clickonMobileAppButtonTypeTwo();
 	        // Scrolling the Page so we go down
-	        js.executeScript("window.scrollBy(0,400)");
-	        Thread.sleep(2000);        
+	        js.executeScript("window.scrollBy(0,400)");      
 	        pdfCreationPage.selectPartnersDropdown();
-	        Thread.sleep(5000);
 	        pdfCreationPage.selectPartnerOption();
-	        Thread.sleep(5000);
 	        
 	        pdfCreationPage.closePartnerOptionDialogBox();
 	        Thread.sleep(2000);
@@ -102,6 +106,12 @@ public class PdfCreationTest extends Base {
 	        pdfCreationPage.clickOnPublishButton();
 		    
 	        Thread.sleep(5000);
+	        
+	        // Asset Library Page
+	        pdfCreationPage.clickOnProfileIconAfterPublishing();
+	        pdfCreationPage.clickOnLogoutOption();
+	        pdfCreationPage.clickOnLogoutButton();
+	        
 		    
 
 }}

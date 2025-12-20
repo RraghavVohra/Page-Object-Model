@@ -53,6 +53,13 @@ public class ImageCreationPage  {
 	 private WebElement hashtagOption;
 	 private WebElement hashtagsStaticText;
 	 private WebElement longTextField;
+	 private WebElement profileIcon;
+	 private WebElement logOutOption;
+	 private WebElement logoutButton;
+	 private WebElement profileIconTwo;
+	 
+	 
+	 
 	 
 	 
 	 public void clickOnAddNewAssetButton() {
@@ -274,12 +281,6 @@ public class ImageCreationPage  {
 		     
         }
         
-        public void clickOnLogoutOption() {
-        	
-        	WebElement logoutOption = driver.findElement(By.xpath("//a[@class='dropdown-item' and text()='Log Out']"));
-		    // (//a[normalize-space()='Log Out'])[1]
-		   logoutOption.click();
-        }
 
 		
         public void clickOnLongTextField() {
@@ -295,6 +296,31 @@ public class ImageCreationPage  {
                 By.xpath("//button[normalize-space()='Next']")
             ));
         }
+        
+        public void clickOnProfileIcon() {
+	        profileIcon = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='user-profile show dropdown']")));
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", profileIcon);
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", profileIcon);
+	    }
+	    
+	    public void clickOnLogoutOption() {
+	        logOutOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[normalize-space()='Log Out']")));
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", logOutOption);
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", logOutOption);
+	    }
+	    
+	    public void clickOnLogoutButton() {
+	        logoutButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Logout']")));
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", logoutButton);
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", logoutButton);
+	    }
+	    
+	    public void clickOnProfileIconAfterPublishing() {
+	    	
+	    	profileIconTwo = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[local-name()='svg' and contains(@class, 'bi-person-circle')]")));
+	    	profileIconTwo.click();
+	    	
+	    }
         
         
         
