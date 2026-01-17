@@ -32,7 +32,10 @@ public class PdfCreationTest extends Base {
 		    System.out.println("User Logged in Successfully.");
 	
 		    pdfCreationPage = new PdfCreationPage(driver);
-		    Thread.sleep(3000);
+		    // Wait for Asset Library Page to Load
+		    // We Removed wait of 3 seconds, so good one!
+		    pdfCreationPage.waitForAssetLibraryPageToLoad();
+		   
 		    
 		    pdfCreationPage.clickOnAddNewAssetButton();
 		    pdfCreationPage.clickOnbrochurePostButton();
@@ -60,9 +63,7 @@ public class PdfCreationTest extends Base {
 	        js.executeScript("window.scrollBy(0,300)");
 	        
 		    pdfCreationPage.clickOnCategoryField();
-		    Thread.sleep(2000);
 		    pdfCreationPage.clickOnCategoryOption();
-		    Thread.sleep(2000);
 		    pdfCreationPage.clickOnCategoriesStaticText();
 		    
 		    pdfCreationPage.clickOnHashtagField();
@@ -89,7 +90,9 @@ public class PdfCreationTest extends Base {
 	        
 	        // Publish Page - Page 3
 	        js.executeScript("window.scrollBy(0,200)");
-	        pdfCreationPage.clickonMobileAppButtonTypeTwo();
+	        Thread.sleep(3000);
+	        pdfCreationPage.clickonMobileAppButton();
+	        Thread.sleep(3000);
 	        // Scrolling the Page so we go down
 	        js.executeScript("window.scrollBy(0,400)");      
 	        pdfCreationPage.selectPartnersDropdown();
@@ -102,6 +105,7 @@ public class PdfCreationTest extends Base {
 	        pdfCreationPage.clickOnPushNotificationToggle();
 	        pdfCreationPage.clickOnEmailNotificationToggle();
 	        
+	       
 	        Thread.sleep(2000);
 	        pdfCreationPage.clickOnPublishButton();
 		    

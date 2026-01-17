@@ -144,8 +144,14 @@ public class PdfCreationPage {
 	    
 	    public void clickOnCategoryOption() {
 	    	
-	    	categoryOption = driver.findElement(By.xpath("//li[normalize-space()='Raghav SDET']"));
-			categoryOption.click();
+	    	// categoryOption = driver.findElement(By.xpath("//li[normalize-space()='Raghav SDET']"));
+			// categoryOption.click();
+			// 1️⃣ Wait until option is clickable
+			categoryOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//li[normalize-space()='Raghav SDET']")));
+			// 2️⃣ Click the option
+		    categoryOption.click();
+		    // 3️⃣ FINAL: wait until selection is reflected in UI
+		    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[normalize-space()='Raghav SDET']")));
 	    }
 	    
 	    public void clickOnCategoriesStaticText() {
@@ -199,7 +205,7 @@ public class PdfCreationPage {
         public void clickOnSaveAndProceed() {
 	    	
 	    	saveAndProceedButton = driver.findElement(By.xpath("//button[normalize-space()='Save & Proceed']"));
-			saveAndProceedButton.click();
+	    	wait.until(ExpectedConditions.elementToBeClickable(saveAndProceedButton)).click();
 			System.out.println("Proceed button was clicked");
 	    }
         
@@ -230,9 +236,11 @@ public class PdfCreationPage {
        
         public void clickonMobileAppButton() {
         	
-        	mobileAppCheckbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[normalize-space()='Mobile App']")));       	
+        	mobileAppCheckbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[normalize-space()='Mobile App']/preceding-sibling::input")));       	
         	// mobileAppCheckbox = driver.findElement(By.xpath("//div[@class='form-check']//label[normalize-space()='Mobile App']/preceding-sibling::input"));
-        	mobileAppCheckbox.click();
+        	((JavascriptExecutor) driver)
+            .executeScript("arguments[0].click();",mobileAppCheckbox);
+        	// mobileAppCheckbox.click();
         }
         
         public void clickOnMicrositeButton() {
@@ -316,6 +324,12 @@ public class PdfCreationPage {
             ));
         }
         
+        public void waitForAssetLibraryPageToLoad() {
+        	
+        	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[normalize-space()='Asset Library']")));
+        	wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@class='add-new-asset-btn btn btn-info']")));
+        	
+        }
        public void scrollToElement() {
 	    	
 	    	nameField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@placeholder='Name']")));
@@ -357,7 +371,7 @@ public class PdfCreationPage {
        public void clickonMobileAppButtonTypeTwo() {
 
  
-       mobileAppCheckbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@name='brochure-platform']")));
+       mobileAppCheckbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@name='brochure-platform'])[1]")));
 
        ((JavascriptExecutor) driver)
        .executeScript("arguments[0].scrollIntoView({block:'center'});", mobileAppCheckbox);
