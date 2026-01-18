@@ -74,7 +74,7 @@ public class DocumentLibraryPage {
     
    public void clickonDocumentLibrary() {
 	   
-	   documentLibrary = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[@class='dropdown-item'])[4]")));
+	   documentLibrary = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[@class='dropdown-item'])[5]")));
 	   documentLibrary.click();
    }
    

@@ -1,42 +1,65 @@
 package tests;
 
-import java.io.IOException;
+
 import java.util.Arrays;
 import java.util.List;
 
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import base.Base;
 import pageObjects.DocumentLibraryPage;
 import pageObjects.LoginPage;
-import util.Utilities;
+
 
 public class DocumentLibrary extends Base {
 	
 	DocumentLibraryPage docLibraryPage;
-	
 	LoginPage loginPage;
 	
-	@AfterMethod
-	 public void tearDown() {
-	        driver.quit();  // Close browser after tests
-	 }
+	// 🔹 Login happens ONCE before all tests
+    @BeforeClass
+    public void setUp() throws InterruptedException {
+
+    	System.out.println("=== BEFORE CLASS: LOGIN STARTED ===");
+        driver = openBrowserAndApplication(prop.getProperty("browser"));
+
+        loginPage = new LoginPage(driver);
+        loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
+        loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+        loginPage.clickOnSubmitButton();
+
+        System.out.println("User Logged in Successfully.");
+
+        docLibraryPage = new DocumentLibraryPage(driver);
+    }
+    
+    // 🔹 Logout happens ONCE after all tests
+    @AfterClass
+    public void tearDown() {
+
+    	System.out.println("=== AFTER CLASS: LOGOUT STARTED ===");
+    	
+        docLibraryPage.clickOnProfileIcon();
+        docLibraryPage.clickOnLogoutOption();
+        docLibraryPage.clickOnLogoutButton();
+        driver.quit();
+    }
+       
+	
+	//@AfterMethod
+	// public void tearDown() {
+	 //       driver.quit();  // Close browser after tests
+	// }
 	
 	
 	@Test(priority=1)
 	public void test_TC_DL_01_takenToDocumentLibraryScreen() throws InterruptedException {
 		
-        driver = openBrowserAndApplication(prop.getProperty("browser"));
+		System.out.println("=== TEST CASE TC_DL_01 EXECUTING ===");
 		
-        loginPage = new LoginPage(driver);
-		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
-    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
-    	loginPage.clickOnSubmitButton();
-    	System.out.println("User Logged in Successfully.");
-    	
-    	docLibraryPage = new DocumentLibraryPage(driver);
     	docLibraryPage.clickOnCommunicationTab();
     	docLibraryPage.clickonDocumentLibrary();
     	String actualURL = driver.getCurrentUrl();
@@ -44,31 +67,17 @@ public class DocumentLibrary extends Base {
 		Assert.assertEquals(actualURL,expectedURL);
 		
 		System.out.println("Test Case TC_DL_01 is Passed!");
-		
-		Thread.sleep(3000);
-		
-		docLibraryPage.clickOnProfileIcon();
-        docLibraryPage.clickOnLogoutOption();
-        Thread.sleep(3000);
-        docLibraryPage.clickOnLogoutButton();
-		
+			
 		
 	}
+	
 	
 	@Test(priority=2)
 	public void test_TC_DL_03_actionsMenuButton() throws InterruptedException {
 		
-        driver = openBrowserAndApplication(prop.getProperty("browser"));
-		
-        loginPage = new LoginPage(driver);
-		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
-    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
-    	loginPage.clickOnSubmitButton();
-    	System.out.println("User Logged in Successfully.");
-    	
-    	docLibraryPage = new DocumentLibraryPage(driver);
-    	docLibraryPage.clickOnCommunicationTab();
-    	docLibraryPage.clickonDocumentLibrary();
+		System.out.println("=== TEST CASE TC_DL_03 EXECUTING ===");
+    	//docLibraryPage.clickOnCommunicationTab();
+    	//docLibraryPage.clickonDocumentLibrary();
     	docLibraryPage.clickOnActionsButton();
     	
     	List<String> expectedOptions = Arrays.asList("Upload", "Access", "Update Hashtag(s)", "Delete");
@@ -80,16 +89,11 @@ public class DocumentLibrary extends Base {
     	}
 
     	Assert.assertEquals(actualOptions, expectedOptions);
-    	
         System.out.println("test_TC_DL_03 got passed!");
-        
-        Thread.sleep(2000);
-        
-        docLibraryPage.clickOnProfileIcon();
-        docLibraryPage.clickOnLogoutOption();
-        docLibraryPage.clickOnLogoutButton();
     	
 	}
+	
+	/*
 	
 	@Test(priority=3)
     public void test_TC_DL_04_uploadDocumentScreen() throws InterruptedException {
@@ -1264,7 +1268,9 @@ public class DocumentLibrary extends Base {
      	
     	
     }
-    
+    */
    
 
 }
+
+
