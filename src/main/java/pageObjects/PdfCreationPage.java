@@ -57,7 +57,7 @@ public class PdfCreationPage {
 	 private WebElement logOutOption;
 	 private WebElement logoutButton;
 	 private WebElement profileIconTwo;
-	 private WebElement dropdownMenuOptions;
+	 
 	 
 	 
 	 

@@ -3,12 +3,12 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="tests.PdfCreationTest">
+      <class name="tests.VideoCreationTest">
         <methods>
           <include name="tearDown"/>
-          <include name="test_TC_DL_01_pdfCreationThroughAssetLibrary"/>
+          <include name="test_TC_DL_01_videoCreationThroughAssetLibrary"/>
         </methods>
-      </class> <!-- tests.PdfCreationTest -->
+      </class> <!-- tests.VideoCreationTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
