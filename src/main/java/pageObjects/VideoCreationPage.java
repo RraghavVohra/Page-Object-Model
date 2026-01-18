@@ -4,6 +4,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -40,8 +41,20 @@ public class VideoCreationPage {
 	 private WebElement descriptionField;
 	 private WebElement saveAndProceedButton;
 	 private WebElement thumbnailInput;
-	 private WebElement cropAndSubmitButton;
 	 private WebElement saveAndProceedButtonTwo;
+	 private WebElement mobileAppCheckbox;
+	 private WebElement micrositeCheckbox;
+	 private WebElement selectPartnersDropdown;
+	 private WebElement selectPartnerOption;
+	 private WebElement cobrandingToggle;
+	 private WebElement pushNotificationToggle;
+	 private WebElement emailNotificationToggle;
+	 private WebElement publishButton;
+	 private WebElement overlay;
+	 private WebElement profileIcon;
+	 private WebElement logOutOption;
+	 private WebElement logoutButton;
+	 private WebElement profileIconTwo;
 	 
 	 
 	 
@@ -72,13 +85,15 @@ public class VideoCreationPage {
                            attachButtonUI);
     }
     
-    public void uploadMp4Video(String filePathForVideo) {
+    public void uploadMp4Video(String filePathForVideo) throws InterruptedException {
 
         attachBtn = driver.findElement(
             By.xpath("//div[contains(@class,'files-upload-wrapper')]//input[@type='file']")
         );
 
         attachBtn.sendKeys(filePathForVideo);
+        
+        Thread.sleep(3000);
     }
     
     
@@ -95,11 +110,6 @@ public class VideoCreationPage {
  	    
         }
     
-    public void waitForGlobalAssetDetailsPageToLoad() {
-    	
-    	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[normalize-space()='Global Fields']")));
-    	
-    }
     
     public void enterTextIntoNameTextfield(String nameText) {
     	
@@ -202,36 +212,15 @@ public class VideoCreationPage {
     
     // PAGE 2
     
-    public void uploadThumbnailImage(String imagePath) {
+    public void uploadThumbnailImage() throws InterruptedException {
 
-        thumbnailInput = driver.findElement(
-            By.xpath("//button[normalize-space()='Upload Thumbnail']")
-        );
-
-        thumbnailInput.sendKeys(imagePath);
-
-        System.out.println("Thumbnail image uploaded");
+        thumbnailInput = driver.findElement(By.xpath("(//input[@type='file' and contains(@accept,'image')])[1]"));
+        thumbnailInput.sendKeys("C:\\Users\\admin\\Downloads\\TestingImage.jpg");
+        // Wait (if required for upload processing)
+        Thread.sleep(3000);
     }
     
-    public void waitForCropSection() {
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        
-        wait.until(ExpectedConditions.presenceOfElementLocated(
-        By.cssSelector(".ReactCrop__crop-selection")));
-        //wait.until(ExpectedConditions.visibilityOfElementLocated(
-        //    By.xpath("//div[contains(@class,'crop-box')]")));
-    }
-    
-    public void clickOnCropAndSubmit() {
-
-       cropAndSubmitButton = wait.until(ExpectedConditions.elementToBeClickable(
-       By.xpath("//button[normalize-space()='Crop & Submit']")));
-
-        cropAndSubmitButton.click();
-
-        System.out.println("Crop & Submit clicked");
-    }
+   
     
     public void clickOnSaveAndProceedButton() {
     	
@@ -241,6 +230,168 @@ public class VideoCreationPage {
 	    js.executeScript("arguments[0].click();", saveAndProceedButtonTwo);
 	
     }
+    
+    public void clickonMobileAppButton() {
+    	
+    	mobileAppCheckbox = wait.until(ExpectedConditions.elementToBeClickable
+        (By.xpath("//label[normalize-space()='Mobile App']/preceding-sibling::input")));       	
+    	((JavascriptExecutor) driver)
+        .executeScript("arguments[0].click();",mobileAppCheckbox);
+    	// mobileAppCheckbox.click();
+    }
+    
+    public void clickonMobileAppButtonTypeTwo() {
+
+    	 
+        mobileAppCheckbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@name='brochure-platform'])[1]")));
+
+        ((JavascriptExecutor) driver)
+        .executeScript("arguments[0].scrollIntoView({block:'center'});", mobileAppCheckbox);
+
+         new Actions(driver)
+     	            .moveToElement(mobileAppCheckbox)
+     	            .pause(Duration.ofMillis(700))
+     	            .click()
+     	            .perform();
+     	}
+    
+    public void clickOnMicrositeButton() {
+    	
+    	micrositeCheckbox = driver.findElement(By.xpath
+    	("//div[@class='form-check']//label[normalize-space()='Microsite']/preceding-sibling::input"));
+    	micrositeCheckbox.click();
+    }
+    
+    public void selectPartnersDropdown() {
+    	
+ 	   
+	    // 1️⃣ Locate dropdown button (exists initially)
+	    selectPartnersDropdown =
+	        driver.findElement(By.xpath("//span[normalize-space()='Select Partners']/ancestor::button"));
+
+	    // 2️⃣ Ensure it is clickable
+	    wait.until(ExpectedConditions.elementToBeClickable(selectPartnersDropdown));
+
+	    // 3️⃣ Open dropdown (React-safe)
+	    selectPartnersDropdown.sendKeys(Keys.ENTER);
+
+	    // 4️⃣ NOW locate the menu (after open)
+	    WebElement dropdownMenuOptions =
+	        wait.until(ExpectedConditions.visibilityOf(
+	            driver.findElement(
+	                By.xpath("//div[contains(@id,'react-select') and contains(@class,'option')]")
+	            )
+	        ));
+	    
+    }
+    
+    public void selectPartnerOption() {
+    	
+    	// 1️⃣ Click the option
+        selectPartnerOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[normalize-space()='Raj2024']")));
+        selectPartnerOption.click();
+
+        // 2️⃣ FINAL: wait until selection is reflected in UI
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[normalize-space()='Raj2024']")));
+    }
+    
+    public void closePartnerOptionDialogBox() {
+   
+        // Use Actions class to perform the close action
+        Actions actions = new Actions(driver);
+        actions.moveToElement(selectPartnersDropdown).click().perform();
+        System.out.println("Dialog box closed using Actions!");
+    }
+    
+    public void clickOnCobrandingToggle() {
+    	
+    	cobrandingToggle = driver.findElement(By.xpath("(//input[@id='custom-switch'])[1]"));
+	    cobrandingToggle.click();
+    }
+    
+    public void clickOnPushNotificationToggle() {
+    	
+    	pushNotificationToggle = driver.findElement(By.xpath("(//input[@id='custom-switch'])[2]"));
+	    pushNotificationToggle.click();
+    }
+    
+    public void clickOnEmailNotificationToggle() {
+    	
+    	emailNotificationToggle = driver.findElement(By.xpath("(//input[@id='custom-switch'])[3]"));
+	    emailNotificationToggle.click();
+    }
+    
+    public void clickOnPublishButton() {
+    	
+    	publishButton = driver.findElement(By.xpath("//button[normalize-space()='Publish']"));
+	    publishButton.click();
+    }
+    
+    public void waitForPublishPageToLoad() {
+
+	    overlay = driver.findElement(By.xpath("//div[contains(@class,'overlay-bg')]"));
+	    mobileAppCheckbox = driver.findElement(By.xpath("//label[normalize-space()='Mobile App']"));
+
+	    wait.until(ExpectedConditions.invisibilityOf(overlay));
+	    wait.until(ExpectedConditions.elementToBeClickable(mobileAppCheckbox));
+	}
+    
+    public void waitForGlobalAssetDetailsPageToLoad() {
+
+   	    overlay = driver.findElement(By.xpath("//div[contains(@class,'overlay-bg')]"));
+   	    nameField = driver.findElement(By.xpath("//input[@placeholder='Name']"));
+   	    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[normalize-space()='Global Fields']")));
+
+   	    wait.until(ExpectedConditions.invisibilityOf(overlay));
+   	    wait.until(ExpectedConditions.elementToBeClickable(nameField));
+   	}
+    
+    public void clickOnProfileIcon() {
+        profileIcon = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='user-profile show dropdown']")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", profileIcon);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", profileIcon);
+    }
+    
+    public void clickOnLogoutOption() {
+        logOutOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[normalize-space()='Log Out']")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", logOutOption);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", logOutOption);
+    }
+    
+    public void clickOnLogoutButton() {
+        logoutButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Logout']")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", logoutButton);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", logoutButton);
+    }
+    
+    public void clickOnProfileIconAfterPublishing() {
+    	
+    	profileIconTwo = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[local-name()='svg' and contains(@class, 'bi-person-circle')]")));
+    	profileIconTwo.click();
+    	
+    }
+    
+    public void waitForAssetLibraryPageToLoad() {
+    	
+    	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[normalize-space()='Asset Library']")));
+    	wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@class='add-new-asset-btn btn btn-info']")));
+    	
+    }
+    
+    public void waitForUploadAssetPage() {
+    	
+    	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[normalize-space()='Asset Library']")));
+    	wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class,'files-upload-wrapper')]//button")));
+    	
+    }
+    
+   // This method is used as after clicking on the Brochure Tile an overlay used to obstruct our click
+    public void waitForOverlayToDisappear() {
+ 	    overlay = driver.findElement(By.xpath("//div[contains(@class,'overlay-bg')]"));
+ 	    wait.until(ExpectedConditions.invisibilityOf(overlay));
+ 	}
+    
+    
     
     
     

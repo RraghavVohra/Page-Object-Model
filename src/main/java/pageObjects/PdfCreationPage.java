@@ -236,7 +236,8 @@ public class PdfCreationPage {
        
         public void clickonMobileAppButton() {
         	
-        	mobileAppCheckbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[normalize-space()='Mobile App']/preceding-sibling::input")));       	
+        	mobileAppCheckbox = wait.until(ExpectedConditions.elementToBeClickable
+        	(By.xpath("//label[normalize-space()='Mobile App']/preceding-sibling::input")));       	
         	// mobileAppCheckbox = driver.findElement(By.xpath("//div[@class='form-check']//label[normalize-space()='Mobile App']/preceding-sibling::input"));
         	((JavascriptExecutor) driver)
             .executeScript("arguments[0].click();",mobileAppCheckbox);

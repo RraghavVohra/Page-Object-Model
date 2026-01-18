@@ -33,42 +33,35 @@ public class VideoCreationTest extends Base {
 		    System.out.println("User Logged in Successfully.");
 		    
 		    videoCreationPage = new VideoCreationPage(driver);
-		   
-		    Thread.sleep(5000);
+		    // Wait for Asset Library Page to Load
+		    // We Removed wait of 3 seconds, so good one!
+		    videoCreationPage.waitForAssetLibraryPageToLoad();
 		    
 		    videoCreationPage.clickOnAddNewAssetButton();
-		    Thread.sleep(3000);
 		    videoCreationPage.clickOnVideoPostButton();
+		    videoCreationPage.waitForOverlayToDisappear();
+		    videoCreationPage.waitForUploadAssetPage();
 		   
 		    // Upload Asset Page
 		    videoCreationPage.scrollToUploadSection();
 		    videoCreationPage.uploadMp4Video("C:\\Users\\admin\\Desktop\\ZOI PRDs\\Kuch_Nhi_Hai_99_25fps.mp4");
-	
-		    Thread.sleep(2000);
 		    videoCreationPage.clickOnNextButton();
 		    
 		    // NOW WE ARE ON GLOBAL ASSET DETAILS PAGE
 		    // Remember we have to wait and see that the page is loaded, so we need to have some signals
 		    videoCreationPage.waitForGlobalAssetDetailsPageToLoad();
 		    videoCreationPage.enterTextIntoNameTextfield(prop.getProperty("NameTextForVideo"));
-		    videoCreationPage.scrollToElement();
 		    
             Thread.sleep(2000); 
             JavascriptExecutor js = (JavascriptExecutor) driver;
 	        js.executeScript("window.scrollBy(0,300)");
 	        
 	        videoCreationPage.clickOnCategoryField();
-	        Thread.sleep(2000);
 		    videoCreationPage.clickOnCategoryOption();
-		    Thread.sleep(2000);
 		    videoCreationPage.clickOnCategoriesStaticText();
-		    
 		    videoCreationPage.clickOnHashtagField();
-		    Thread.sleep(2000);
 		    videoCreationPage.clickOnHashtag();
-		    Thread.sleep(2000);
 		    videoCreationPage.clickOnHashtagStaticText();
-		    
 		    videoCreationPage.enterTextIntoDescriptionTextfield(prop.getProperty("DescriptionText"));
 		    
 		    // Scrolling down more
@@ -80,28 +73,45 @@ public class VideoCreationTest extends Base {
 		    // PAGE 2
 		    
 		    // js.executeScript("window.scrollBy(0,200)");
-		    videoCreationPage.uploadThumbnailImage("C:\\Users\\admin\\Downloads\\TestingImage.jpg");
+		    videoCreationPage.uploadThumbnailImage();
 		    Thread.sleep(2000);
 		    js.executeScript("window.scrollBy(0,200)");
-            videoCreationPage.waitForCropSection();
             Thread.sleep(2000);
-            videoCreationPage.clickOnCropAndSubmit();
-            
-            js.executeScript("window.scrollBy(0,20000)");
+            js.executeScript("window.scrollBy(0,7000)");
             
             videoCreationPage.clickOnSaveAndProceedButton();
             Thread.sleep(5000);
             
+            // PAGE 3 : PUBLISH PAGE
+            
+            js.executeScript("window.scrollBy(0,200)");
+	        Thread.sleep(3000);
+	        videoCreationPage.clickonMobileAppButtonTypeTwo();
+	        Thread.sleep(2000);
+	        
+	        // Scrolling the Page so we go down
+	        js.executeScript("window.scrollBy(0,400)");      
+	        videoCreationPage.selectPartnersDropdown();
+	        videoCreationPage.selectPartnerOption();
+	        
+	        videoCreationPage.closePartnerOptionDialogBox();
+	        Thread.sleep(2000);
+	        
+	        videoCreationPage.clickOnCobrandingToggle();
+	        videoCreationPage.clickOnPushNotificationToggle();
+	        videoCreationPage.clickOnEmailNotificationToggle();
+	        
+	       
+	        Thread.sleep(2000);
+	        videoCreationPage.clickOnPublishButton();
+		    
+	        Thread.sleep(5000);
+	        
+	        // Asset Library Page
+	        videoCreationPage.clickOnProfileIconAfterPublishing();
+	        videoCreationPage.clickOnLogoutOption();
+	        videoCreationPage.clickOnLogoutButton();
+            
 		    
 		    
-		    
-		    
-		    
-		    
-		    
-		    
-		    
-		
-		
-
-		}}
+		   }}
