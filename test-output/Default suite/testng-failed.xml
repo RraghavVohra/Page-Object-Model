@@ -5,9 +5,9 @@
     <classes>
       <class name="tests.DocumentLibrary">
         <methods>
-          <include name="setUp"/>
           <include name="test_TC_DL_01_takenToDocumentLibraryScreen"/>
           <include name="tearDown"/>
+          <include name="test_TC_DL_03_actionsMenuButton"/>
         </methods>
       </class> <!-- tests.DocumentLibrary -->
     </classes>

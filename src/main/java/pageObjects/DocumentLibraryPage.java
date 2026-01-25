@@ -60,9 +60,10 @@ public class DocumentLibraryPage {
 	private WebElement updateAccessButton;
 	private WebElement logoutButtonTwo;
 	private WebElement contentUpdate;
-	private WebElement dateElement;
+	//private WebElement dateElement;
 	private WebElement clickOnTheSchedule;
 	private WebElement clickOnScheduleTextfield;
+	
 	
 	
     public void clickOnCommunicationTab() {
@@ -83,6 +84,8 @@ public class DocumentLibraryPage {
 	   actionsButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//*[name()='svg'])[1]")));
 	   actionsButton.click();
    }
+   
+   
    
    public List<String> getDocumentLibraryOptions() {
 	    List<String> optionsText = new ArrayList<>();
@@ -125,7 +128,7 @@ public class DocumentLibraryPage {
    
    public void clickOnLogoutButtonTwo() {
 	   
-	   logoutButtonTwo = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[normalize-space()='Yes' and contains(@class, 'btn-primary')]")));
+	   logoutButtonTwo = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[normalize-space()='Yes']")));
 	   JavascriptExecutor js = (JavascriptExecutor) driver;
 	   js.executeScript("arguments[0].click();", logoutButtonTwo);
 	  
