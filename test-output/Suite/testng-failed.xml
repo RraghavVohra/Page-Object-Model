@@ -4,16 +4,17 @@
   <listeners>
     <listener class-name="listeners.MyListeners"/>
   </listeners>
-  <test thread-count="5" name="Search Functionality Tests(failed)">
+  <test thread-count="5" name="Test(failed)">
     <classes>
-      <class name="tests.Search">
+      <class name="tests.PushNotification">
         <methods>
+          <include name="test_TC_PN_019_fillsAllTheFieldsExceptCustomLinkField"/>
+          <include name="test_TC_PN_03_clicksOnActionMenuButton"/>
           <include name="tearDown"/>
-          <include name="test_TC_SA_31_verifyDraftAndPublishedWithEmailQuickFilter"/>
-          <include name="test_TC_SA_19_verifyDraftContentWithMicrositeQuickFilter"/>
-          <include name="test_TC_SA_17_verifyDraftContentWithAllQuickFilter"/>
+          <include name="test_TC_PN_09_verifyImageUpload"/>
+          <include name="test_TC_PN_017_fillsAllTheFieldsExceptCategoryField"/>
         </methods>
-      </class> <!-- tests.Search -->
+      </class> <!-- tests.PushNotification -->
     </classes>
-  </test> <!-- Search Functionality Tests(failed) -->
+  </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

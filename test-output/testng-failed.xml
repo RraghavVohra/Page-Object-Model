@@ -3,13 +3,12 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="tests.DocumentLibrary">
+      <class name="tests.PushNotification">
         <methods>
-          <include name="test_TC_DL_01_takenToDocumentLibraryScreen"/>
           <include name="tearDown"/>
-          <include name="test_TC_DL_03_actionsMenuButton"/>
+          <include name="test_TC_PN_017_fillsAllTheFieldsExceptCategoryField"/>
         </methods>
-      </class> <!-- tests.DocumentLibrary -->
+      </class> <!-- tests.PushNotification -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

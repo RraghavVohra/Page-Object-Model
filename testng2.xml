@@ -6,7 +6,7 @@
   </listeners>
   <test thread-count="5" name="Test">
     <classes>
-      <class name="tests.Login"/>  <!-- Login first -->
+      <class name="tests.PushNotification"/>  <!-- Login first -->
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

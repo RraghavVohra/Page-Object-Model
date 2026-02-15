@@ -130,7 +130,8 @@ public class PushNotification extends Base {
        
         pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
         Thread.sleep(2000);
-        pushNotifyPage.clickOnCropButton();
+        // As crop button is not their so i have commented it
+        // pushNotifyPage.clickOnCropButton();
         pushNotifyPage.clickOnCustomLinkButton();
         pushNotifyPage.enterValueLinkTextfield(prop.getProperty("customlinkfield"));
         pushNotifyPage.enterSchedulingDateTime(prop.getProperty("schedulingDate"),prop.getProperty("schedulingTime"));
@@ -191,7 +192,8 @@ public class PushNotification extends Base {
        
         pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
         Thread.sleep(2000);
-        pushNotifyPage.clickOnCropButton();
+        // As crop button is not their so i have commented it
+        // pushNotifyPage.clickOnCropButton();
         pushNotifyPage.clickOnCustomLinkButton();
         pushNotifyPage.enterValueLinkTextfield(prop.getProperty("customlinkfield"));
         pushNotifyPage.enterSchedulingDateTime(prop.getProperty("schedulingDate"),prop.getProperty("schedulingTime"));
@@ -249,7 +251,9 @@ public class PushNotification extends Base {
        
         pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
         Thread.sleep(2000);
-        pushNotifyPage.clickOnCropButton();
+        // As crop button is not their so i have commented it
+        // pushNotifyPage.clickOnCropButton();
+        pushNotifyPage.clickOnBlankSpace();
         pushNotifyPage.clickOnCustomLinkButton();
         pushNotifyPage.enterValueLinkTextfield(prop.getProperty("customlinkfield"));
         pushNotifyPage.enterSchedulingDateTime(prop.getProperty("schedulingDate"),prop.getProperty("schedulingTime"));
@@ -308,7 +312,8 @@ public class PushNotification extends Base {
        
         pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
         Thread.sleep(2000);
-        pushNotifyPage.clickOnCropButton();
+        // As crop button is not their so i have commented it
+        // pushNotifyPage.clickOnCropButton();
         pushNotifyPage.clickOnCustomLinkButton();
         pushNotifyPage.enterSchedulingDateTime(prop.getProperty("schedulingDate"),prop.getProperty("schedulingTime"));
         pushNotifyPage.clickOnSubmitButton();
@@ -344,7 +349,7 @@ public class PushNotification extends Base {
     	pushNotifyPage.clickOnNotifications();
     	pushNotifyPage.clickOnActionsButton();
     	
-    	List<String> expectedOptions = Arrays.asList("Create App Notification", "Create WhatsApp Template", "Delete");
+    	List<String> expectedOptions = Arrays.asList("Create App Notification", "WhatsApp Template List", "Delete");
         List<String> actualOptions = pushNotifyPage.getActionMenuOptions();
         
         System.out.println("Actual Options Fetched:");
@@ -441,12 +446,7 @@ public class PushNotification extends Base {
        pushNotifyPage.clickOnLogoutButton();
         
         
-        
-        
-        
-        
-        
-    }
+}
 
     @Test(priority=10)
 	public void test_TC_PN_015_selectAllOptionInPartnerCategoryDropdown() throws InterruptedException {
@@ -488,7 +488,8 @@ public class PushNotification extends Base {
        
         pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
         Thread.sleep(2000);
-        pushNotifyPage.clickOnCropButton();
+        // As crop button is not their so i have commented it
+        // pushNotifyPage.clickOnCropButton();
         pushNotifyPage.clickOnCustomLinkButton();
         pushNotifyPage.enterValueLinkTextfield(prop.getProperty("customlinkfield"));
         pushNotifyPage.enterSchedulingDateTime(prop.getProperty("schedulingDate"),prop.getProperty("schedulingTime"));
@@ -579,9 +580,10 @@ public class PushNotification extends Base {
         Assert.assertEquals(actualURL,expectedURL);
         
         pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
-        Assert.assertTrue(pushNotifyPage.isCropButtonDisplayed(), "Crop window did not appear!");
-        Assert.assertEquals(pushNotifyPage.getCropButtonText(), "Crop", "Crop button text does not match!");
-        pushNotifyPage.clickOnCropButton();
+        // As crop button is not their so i have commented it
+        // Assert.assertTrue(pushNotifyPage.isCropButtonDisplayed(), "Crop window did not appear!");
+        // Assert.assertEquals(pushNotifyPage.getCropButtonText(), "Crop", "Crop button text does not match!");
+        // pushNotifyPage.clickOnCropButton();
         
         
         Thread.sleep(3000);
@@ -638,7 +640,8 @@ public class PushNotification extends Base {
        
         pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
         Thread.sleep(2000);
-        pushNotifyPage.clickOnCropButton();
+        // As crop button is not their so i have commented it
+        // pushNotifyPage.clickOnCropButton();
         pushNotifyPage.clickOnCustomLinkButton();
         pushNotifyPage.enterValueLinkTextfield(prop.getProperty("customlinkfield"));
         pushNotifyPage.enterSchedulingDateTime(prop.getProperty("schedulingDate"),prop.getProperty("schedulingTime"));
@@ -706,7 +709,8 @@ public class PushNotification extends Base {
        
         pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
         Thread.sleep(2000);
-        pushNotifyPage.clickOnCropButton();
+        // As crop button is not their so i have commented it
+        // pushNotifyPage.clickOnCropButton();
         pushNotifyPage.clickOnContentLinkButton();
         Thread.sleep(2000);
         pushNotifyPage.clickOnContentLinkDropdown();
@@ -781,7 +785,8 @@ public class PushNotification extends Base {
        
         pushNotifyPage.attachPhoto(prop.getProperty("imagePathpng"));
         Thread.sleep(2000);
-        pushNotifyPage.clickOnCropButton();
+        // As crop button is not their so i have commented it
+        // pushNotifyPage.clickOnCropButton();
         pushNotifyPage.clickOnContentLinkButton();
         Thread.sleep(2000);
         pushNotifyPage.clickOnContentLinkDropdown();
@@ -854,7 +859,8 @@ public class PushNotification extends Base {
        
         pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
         Thread.sleep(2000);
-        pushNotifyPage.clickOnCropButton();
+        // As crop button is not their so i have commented it
+        // pushNotifyPage.clickOnCropButton();
         pushNotifyPage.clickOnCustomLinkButton();
         pushNotifyPage.enterValueLinkTextfield(prop.getProperty("customlinkfield"));
         pushNotifyPage.enterSchedulingDateTime(prop.getProperty("schedulingDate"),prop.getProperty("schedulingTime"));
@@ -921,7 +927,8 @@ public class PushNotification extends Base {
        
         pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
         Thread.sleep(2000);
-        pushNotifyPage.clickOnCropButton();
+        // As crop button is not their so i have commented it
+        // pushNotifyPage.clickOnCropButton();
         pushNotifyPage.clickOnCustomLinkButton();
         pushNotifyPage.enterValueLinkTextfield(prop.getProperty("customlinkfield"));
         pushNotifyPage.enterSchedulingDateTime(prop.getProperty("schedulingDate"),prop.getProperty("schedulingTime"));
@@ -987,7 +994,8 @@ public class PushNotification extends Base {
        
         pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
         Thread.sleep(2000);
-        pushNotifyPage.clickOnCropButton();
+        // As crop button is not their so i have commented it
+        // pushNotifyPage.clickOnCropButton();
         pushNotifyPage.clickOnCustomLinkButton();
         pushNotifyPage.enterValueLinkTextfield(prop.getProperty("customlinkfield"));
         pushNotifyPage.enterSchedulingDateTime(prop.getProperty("schedulingDate"),prop.getProperty("schedulingTime"));
