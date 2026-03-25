@@ -437,18 +437,7 @@ public class PushNotificationPage {
  		
  	}
     
-    
-    
-    
-   
-    
-    
-    
-    
-    
-    
-    
-}
+   }
 
 
 	
