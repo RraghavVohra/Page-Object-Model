@@ -4,6 +4,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -27,15 +28,24 @@ public class LoginPage {
 	private WebElement submitButton;
 	
 	public void enterUsernameField(String usernameText) {
-		usernameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
-		usernameField.clear();
-		usernameField.sendKeys(usernameText);
+		// Retry until the value sticks — Angular may re-render the field after it first appears
+		wait.until(driver -> {
+			try {
+				WebElement usernameField = driver.findElement(By.id("username"));
+				if (!usernameField.isEnabled()) return false;
+				usernameField.clear();
+				usernameField.sendKeys(usernameText);
+				String value = usernameField.getDomProperty("value");
+				return value != null && value.equals(usernameText);
+			} catch (StaleElementReferenceException e) {
+				return false;
+			}
+		});
 	}
-	
+
 	public void enterPasswordField(String passwordText) {
-		
-		passwordField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("password")));
-		passwordField.clear();
+
+		passwordField = wait.until(ExpectedConditions.elementToBeClickable(By.id("password")));
 		passwordField.sendKeys(passwordText);
 	}
 	

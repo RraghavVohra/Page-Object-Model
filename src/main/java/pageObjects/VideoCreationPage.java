@@ -127,17 +127,27 @@ public class VideoCreationPage {
     }
     
     public void clickOnCategoryField() {
-    	
-    	categoriesField = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//input[contains(@class, 'searchBox')])[1]")));
-		categoriesField.click();
+
+    	// Old: presenceOfElementLocated only checks DOM presence, not interactability — changed to
+    	// elementToBeClickable to ensure the field is fully ready before clicking to open the dropdown.
+    	// categoriesField = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//input[contains(@class, 'searchBox')])[1]")));
+    	// Old: standard click was intermittently not opening the dropdown — switched to JS click for reliability.
+    	// categoriesField.click();
+    	categoriesField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[contains(@class, 'searchBox')])[1]")));
+    	JavascriptExecutor js = (JavascriptExecutor) driver;
+    	js.executeScript("arguments[0].click();", categoriesField);
+    	// Wait for the dropdown to confirm it actually opened before proceeding
+    	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[normalize-space()='Raghav SDET']")));
     }
-    
+
     public void clickOnCategoryOption() {
-    	
+
 		categoryOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//li[normalize-space()='Raghav SDET']")));
-		// 2️⃣ Click the option
-	    categoryOption.click();
-	    // 3️⃣ FINAL: wait until selection is reflected in UI
+		// Old: standard click caused ElementClickInterceptedException — an overlay was intercepting the click.
+		// Switched to JS click which bypasses overlay interception.
+		// categoryOption.click();
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].click();", categoryOption);
 	    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[normalize-space()='Raghav SDET']")));
     }
     
@@ -149,17 +159,25 @@ public class VideoCreationPage {
     }
     
     public void clickOnHashtagField() {
-    	
+
     	hashtagField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@placeholder='Select Hashtags']")));
-    	// hashtagField = driver.findElement(By.xpath("//input[@placeholder='Select Hashtags']"));	 
-		hashtagField.click();
+    	// hashtagField = driver.findElement(By.xpath("//input[@placeholder='Select Hashtags']"));
+    	// Old: standard click caused ElementClickInterceptedException — the category dropdown close animation
+    	// was still playing and overlaying this field. Switched to JS click to bypass the interception.
+    	// hashtagField.click();
+    	JavascriptExecutor js = (JavascriptExecutor) driver;
+    	js.executeScript("arguments[0].click();", hashtagField);
     }
-    
+
     public void clickOnHashtag() {
-    	
+
     	hashtagOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//li[normalize-space()='Hello']")));
     	// hashtagOption = driver.findElement(By.xpath("//li[normalize-space()='what']"));
-		hashtagOption.click();
+    	// Old: standard click risks ElementClickInterceptedException on dropdown list items (same as category option).
+    	// Switched to JS click for consistency and reliability.
+    	// hashtagOption.click();
+    	JavascriptExecutor js = (JavascriptExecutor) driver;
+    	js.executeScript("arguments[0].click();", hashtagOption);
     }
     
     public void centering() {
@@ -170,9 +188,12 @@ public class VideoCreationPage {
     }
     
     public void clickOnHashtagStaticText() {
-    	
-    	 hashtagsStaticText = driver.findElement(By.xpath("//label[normalize-space()='Hashtags']"));
-		 hashtagsStaticText.click();
+
+    	// Old: driver.findElement with no wait — fragile if the label isn't ready yet.
+    	// Changed to wait.until(elementToBeClickable) for reliability.
+    	// hashtagsStaticText = driver.findElement(By.xpath("//label[normalize-space()='Hashtags']"));
+    	hashtagsStaticText = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[normalize-space()='Hashtags']")));
+		hashtagsStaticText.click();
     }
     
     public void clickOnMicrositeURL() {
@@ -201,8 +222,12 @@ public class VideoCreationPage {
     
     public void clickOnSaveAndProceed() {
 
-    	saveAndProceedButton = driver.findElement(By.xpath("//button[normalize-space()='Save & Proceed']"));
-    	wait.until(ExpectedConditions.elementToBeClickable(saveAndProceedButton)).click();
+    	saveAndProceedButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[normalize-space()='Save & Proceed']")));
+    	// Old: standard click caused ElementClickInterceptedException — something was overlaying the button.
+    	// Switched to JS click to bypass the interception.
+    	// wait.until(ExpectedConditions.elementToBeClickable(saveAndProceedButton)).click();
+    	JavascriptExecutor js = (JavascriptExecutor) driver;
+    	js.executeScript("arguments[0].click();", saveAndProceedButton);
 		System.out.println("Proceed button was clicked");
 		// Wait for page 2 — thumbnail input is the signal that page has loaded
 		WaitUtils.waitForElementPresent(driver,
@@ -249,24 +274,23 @@ public class VideoCreationPage {
     
     public void clickonMobileAppButtonTypeTwo() {
 
-    	 
         mobileAppCheckbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@name='brochure-platform'])[1]")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", mobileAppCheckbox);
+        // Old: Actions.click() was not reliably toggling the checkbox — same issue as clickonMobileAppButton().
+        // Switched to JS click which directly fires the click event on the input element.
+        // new Actions(driver).moveToElement(mobileAppCheckbox).pause(Duration.ofMillis(700)).click().perform();
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", mobileAppCheckbox);
+    }
 
-        ((JavascriptExecutor) driver)
-        .executeScript("arguments[0].scrollIntoView({block:'center'});", mobileAppCheckbox);
-
-         new Actions(driver)
-     	            .moveToElement(mobileAppCheckbox)
-     	            .pause(Duration.ofMillis(700))
-     	            .click()
-     	            .perform();
-     	}
-    
     public void clickOnMicrositeButton() {
-    	
-    	micrositeCheckbox = driver.findElement(By.xpath
-    	("//div[@class='form-check']//label[normalize-space()='Microsite']/preceding-sibling::input"));
-    	micrositeCheckbox.click();
+
+    	// Old: driver.findElement with no wait — fragile if the checkbox isn't ready yet.
+    	// Changed to wait.until(elementToBeClickable) + JS click for reliability.
+    	// micrositeCheckbox = driver.findElement(By.xpath("//div[@class='form-check']//label[normalize-space()='Microsite']/preceding-sibling::input"));
+    	// micrositeCheckbox.click();
+    	micrositeCheckbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath
+    	("//div[@class='form-check']//label[normalize-space()='Microsite']/preceding-sibling::input")));
+    	((JavascriptExecutor) driver).executeScript("arguments[0].click();", micrositeCheckbox);
     }
     
     public void selectPartnersDropdown() {
@@ -293,12 +317,14 @@ public class VideoCreationPage {
     }
     
     public void selectPartnerOption() {
-    	
-    	// 1️⃣ Click the option
-        selectPartnerOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[normalize-space()='Raj2024']")));
-        selectPartnerOption.click();
 
-        // 2️⃣ FINAL: wait until selection is reflected in UI
+        selectPartnerOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[normalize-space()='Raj2024']")));
+        // Old: standard click caused ElementClickInterceptedException on this React dropdown option.
+        // Switched to JS click to bypass the interception.
+        // selectPartnerOption.click();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", selectPartnerOption);
+        // Wait until selection is reflected in UI
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[normalize-space()='Raj2024']")));
     }
     
@@ -314,49 +340,70 @@ public class VideoCreationPage {
     }
     
     public void clickOnCobrandingToggle() {
-    	
-    	cobrandingToggle = driver.findElement(By.xpath("(//input[@id='custom-switch'])[1]"));
+
+    	// Old: driver.findElement with no wait — fragile if toggles aren't ready yet.
+    	// Changed to wait.until(elementToBeClickable) for reliability.
+    	// cobrandingToggle = driver.findElement(By.xpath("(//input[@id='custom-switch'])[1]"));
+    	cobrandingToggle = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='custom-switch'])[1]")));
 	    cobrandingToggle.click();
     }
-    
+
     public void clickOnPushNotificationToggle() {
-    	
-    	pushNotificationToggle = driver.findElement(By.xpath("(//input[@id='custom-switch'])[2]"));
+
+    	// Old: driver.findElement with no wait — fragile.
+    	// Changed to wait.until(elementToBeClickable) for reliability.
+    	// pushNotificationToggle = driver.findElement(By.xpath("(//input[@id='custom-switch'])[2]"));
+    	pushNotificationToggle = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='custom-switch'])[2]")));
 	    pushNotificationToggle.click();
     }
-    
+
     public void clickOnEmailNotificationToggle() {
-    	
-    	emailNotificationToggle = driver.findElement(By.xpath("(//input[@id='custom-switch'])[3]"));
+
+    	// Old: driver.findElement with no wait — fragile.
+    	// Changed to wait.until(elementToBeClickable) for reliability.
+    	// emailNotificationToggle = driver.findElement(By.xpath("(//input[@id='custom-switch'])[3]"));
+    	emailNotificationToggle = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[@id='custom-switch'])[3]")));
 	    emailNotificationToggle.click();
     }
-    
+
     public void clickOnPublishButton() {
 
-    	publishButton = driver.findElement(By.xpath("//button[normalize-space()='Publish']"));
+    	// Old: driver.findElement with no wait — fragile if button isn't ready.
+    	// Changed to wait.until(elementToBeClickable) for reliability.
+    	// publishButton = driver.findElement(By.xpath("//button[normalize-space()='Publish']"));
+    	publishButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[normalize-space()='Publish']")));
 	    publishButton.click();
-	    // Wait for Asset Library page — signals publish was successful and page has redirected
+	    // Wait for Asset Library page header — signals redirect happened
 	    WaitUtils.waitForElementVisible(driver,
 	        By.xpath("//h3[normalize-space()='Asset Library']"));
+	    // Wait for Add New Asset button — signals the full page including content list is ready
+	    WaitUtils.waitForElementClickable(driver,
+	        By.xpath("//button[@class='add-new-asset-btn btn btn-info']"));
     }
     
     public void waitForPublishPageToLoad() {
 
-	    overlay = driver.findElement(By.xpath("//div[contains(@class,'overlay-bg')]"));
-	    mobileAppCheckbox = driver.findElement(By.xpath("//label[normalize-space()='Mobile App']"));
-
-	    wait.until(ExpectedConditions.invisibilityOf(overlay));
-	    wait.until(ExpectedConditions.elementToBeClickable(mobileAppCheckbox));
+	    // Old: driver.findElement throws NoSuchElementException if overlay is already gone.
+	    // Changed to invisibilityOfElementLocated to safely handle overlay absent from DOM.
+	    // overlay = driver.findElement(By.xpath("//div[contains(@class,'overlay-bg')]"));
+	    // mobileAppCheckbox = driver.findElement(By.xpath("//label[normalize-space()='Mobile App']"));
+	    // wait.until(ExpectedConditions.invisibilityOf(overlay));
+	    // wait.until(ExpectedConditions.elementToBeClickable(mobileAppCheckbox));
+	    wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class,'overlay-bg')]")));
+	    wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[normalize-space()='Mobile App']")));
 	}
-    
+
     public void waitForGlobalAssetDetailsPageToLoad() {
 
-   	    overlay = driver.findElement(By.xpath("//div[contains(@class,'overlay-bg')]"));
-   	    nameField = driver.findElement(By.xpath("//input[@placeholder='Name']"));
+   	    // Old: driver.findElement throws NoSuchElementException if overlay is already gone.
+   	    // Changed to invisibilityOfElementLocated to safely handle overlay absent from DOM.
+   	    // overlay = driver.findElement(By.xpath("//div[contains(@class,'overlay-bg')]"));
+   	    // nameField = driver.findElement(By.xpath("//input[@placeholder='Name']"));
+   	    // wait.until(ExpectedConditions.invisibilityOf(overlay));
+   	    // wait.until(ExpectedConditions.elementToBeClickable(nameField));
    	    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[normalize-space()='Global Fields']")));
-
-   	    wait.until(ExpectedConditions.invisibilityOf(overlay));
-   	    wait.until(ExpectedConditions.elementToBeClickable(nameField));
+   	    wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class,'overlay-bg')]")));
+   	    wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@placeholder='Name']")));
    	}
     
     public void clickOnProfileIcon() {
@@ -400,8 +447,12 @@ public class VideoCreationPage {
     
    // This method is used as after clicking on the Brochure Tile an overlay used to obstruct our click
     public void waitForOverlayToDisappear() {
- 	    overlay = driver.findElement(By.xpath("//div[contains(@class,'overlay-bg')]"));
- 	    wait.until(ExpectedConditions.invisibilityOf(overlay));
+ 	    // Old: driver.findElement throws NoSuchElementException if the overlay disappears too quickly
+ 	    // or never appears. invisibilityOfElementLocated handles both cases — returns true immediately
+ 	    // if the element is absent from the DOM.
+ 	    // overlay = driver.findElement(By.xpath("//div[contains(@class,'overlay-bg')]"));
+ 	    // wait.until(ExpectedConditions.invisibilityOf(overlay));
+ 	    wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class,'overlay-bg')]")));
  	}
     
     
