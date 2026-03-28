@@ -1,24 +1,13 @@
-[RemoteTestNG] detected TestNG version 7.9.0
-SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
-SLF4J: Defaulting to no-operation (NOP) logger implementation
-SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
-Mar 28, 2026 5:05:29 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 146
-Mar 28, 2026 5:05:30 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 146.0.7680.165. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
-User Logged in Successfully.
-Next Button was clicked
-Proceed button was clicked
-FAILED: tests.VideoCreationTest.test_TC_DL_01_videoCreationThroughAssetLibrary
-org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element is not clickable at point (394, 666)
+FAILED: tests.DocumentLibrary.test_TC_DL_22_2_UploadingDocumentInCsvFormat
+org.openqa.selenium.ElementNotInteractableException: element not interactable
   (Session info: chrome=146.0.7680.165)
 Build info: version: '4.27.0', revision: 'd6e718d134'
 System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '23.0.2'
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [e8461d9b730c65b0aa37c9bc1c21b2f4, clickElement {id=f.81F9945FF0406CBDEC52A2F6A82AE9EA.d.1688CD8A3E7BF329331F13C6145E60B2.e.4411}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.165, chrome: {chromedriverVersion: 146.0.7638.0 (9901d838e058d..., userDataDir: C:\Users\admin\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:51526}, goog:processID: 14256, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:51526/devtoo..., se:cdpVersion: 146.0.7680.165, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Element: [[ChromeDriver: chrome on windows (e8461d9b730c65b0aa37c9bc1c21b2f4)] -> xpath: //div[normalize-space()='Raj2024']]
-Session ID: e8461d9b730c65b0aa37c9bc1c21b2f4
+Command: [097a9b8af5ff6e31cd2bb0f45ab60e32, sendKeysToElement {id=f.11A8B5036B242572E29C7F4AD926C06A.d.16DAC357DFFAFE5735826AB46714C061.e.143, value=[Ljava.lang.CharSequence;@250b236d}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.165, chrome: {chromedriverVersion: 146.0.7638.0 (9901d838e058d..., userDataDir: C:\Users\admin\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:53065}, goog:processID: 7204, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:53065/devtoo..., se:cdpVersion: 146.0.7680.165, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on windows (097a9b8af5ff6e31cd2bb0f45ab60e32)] -> id: username]
+Session ID: 097a9b8af5ff6e31cd2bb0f45ab60e32
 	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
 	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501)
 	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:485)
@@ -30,9 +19,11 @@ Session ID: e8461d9b730c65b0aa37c9bc1c21b2f4
 	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
 	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:545)
 	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:223)
-	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:76)
-	at pageObjects.VideoCreationPage.selectPartnerOption(VideoCreationPage.java:323)
-	at tests.VideoCreationTest.test_TC_DL_01_videoCreationThroughAssetLibrary(VideoCreationTest.java:86)
+	at org.openqa.selenium.remote.RemoteWebElement.sendKeys(RemoteWebElement.java:110)
+	at pageObjects.LoginPage.lambda$0(LoginPage.java:37)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:203)
+	at pageObjects.LoginPage.enterUsernameField(LoginPage.java:32)
+	at tests.DocumentLibrary.test_TC_DL_22_2_UploadingDocumentInCsvFormat(DocumentLibrary.java:426)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
@@ -63,13 +54,13 @@ Session ID: e8461d9b730c65b0aa37c9bc1c21b2f4
 
 ===============================================
     Default test
-    Tests run: 1, Failures: 1, Skips: 0
+    Tests run: 3, Failures: 1, Skips: 0
 ===============================================
 
 
 ===============================================
 Default suite
-Total tests run: 1, Passes: 0, Failures: 1, Skips: 0
+Total tests run: 3, Passes: 2, Failures: 1, Skips: 0
 ===============================================
 
 

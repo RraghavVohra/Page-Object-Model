@@ -4,6 +4,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -37,7 +38,9 @@ public class LoginPage {
 				usernameField.sendKeys(usernameText);
 				String value = usernameField.getDomProperty("value");
 				return value != null && value.equals(usernameText);
-			} catch (StaleElementReferenceException e) {
+			} catch (StaleElementReferenceException | ElementNotInteractableException e) {
+				// StaleElementReferenceException: Angular re-rendered the field between find and sendKeys
+				// ElementNotInteractableException: field is in DOM but page is still loading — retry until ready
 				return false;
 			}
 		});

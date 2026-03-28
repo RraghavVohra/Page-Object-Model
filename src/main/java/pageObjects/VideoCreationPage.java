@@ -51,7 +51,7 @@ public class VideoCreationPage {
 	 private WebElement pushNotificationToggle;
 	 private WebElement emailNotificationToggle;
 	 private WebElement publishButton;
-	 private WebElement overlay;
+	 // private WebElement overlay;
 	 private WebElement profileIcon;
 	 private WebElement logOutOption;
 	 private WebElement logoutButton;

@@ -1,6 +1,7 @@
 package tests;
 
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.testng.annotations.Test;
 import base.Base;
 import pageObjects.DocumentLibraryPage;
 import pageObjects.LoginPage;
+import util.Utilities;
 
 
 public class DocumentLibrary extends Base {
@@ -47,14 +49,14 @@ public class DocumentLibrary extends Base {
     	String actualURL = driver.getCurrentUrl();
 		String expectedURL = prop.getProperty("docLibraryExpectedURL");
 		Assert.assertEquals(actualURL,expectedURL);
-		
+
 		System.out.println("Test Case TC_DL_01 is Passed!");
-		
-        Thread.sleep(2000);
-        
+
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
+
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: clickOnLogoutButtonTwo() already waits for the Yes button via wait.until
         docLibraryPage.clickOnLogoutButtonTwo();
 			
 		
@@ -89,12 +91,12 @@ public class DocumentLibrary extends Base {
 
     	Assert.assertEquals(actualOptions, expectedOptions);
         System.out.println("test_TC_DL_03 got passed!");
-        
-        Thread.sleep(2000);
-        
+
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
+
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: clickOnLogoutButtonTwo() already waits for the Yes button via wait.until
         docLibraryPage.clickOnLogoutButtonTwo();
         
     	
@@ -125,18 +127,16 @@ public class DocumentLibrary extends Base {
         Assert.assertEquals(actualURL,expectedURL);
         
         System.out.println("test_TC_DL_04 got passed!");
-        
-        Thread.sleep(2000);
-        
+
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
+
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: clickOnLogoutButtonTwo() already waits for the Yes button via wait.until
         docLibraryPage.clickOnLogoutButtonTwo();
         
       	
 	}
-
-	/*
 	@Test(priority=4)
 	public void test_TC_DL_06_fillsNothingInAnyOfTheField() throws InterruptedException {
 		
@@ -169,15 +169,15 @@ public class DocumentLibrary extends Base {
         
         
         System.out.println("test_TC_DL_06 got passed!");
-        
-        Thread.sleep(2000);
-        
+
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
+
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: clickOnLogoutButtonTwo() already waits for the Yes button via wait.until
         docLibraryPage.clickOnLogoutButtonTwo();
-		
-		
+
+
 	}
 
 	@Test(priority=5)
@@ -208,30 +208,30 @@ public class DocumentLibrary extends Base {
         docLibraryPage.enterValueInDocumentNameField(uniqueName);
         
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachment"));
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: resizeCroppingArea() already waits for the crop handle via wait.until(presenceOfElementLocated)
         docLibraryPage.resizeCroppingArea();
         docLibraryPage.clickOnApplyButton();
-        
+
         // Scroll down by 500 pixels
 	    Utilities.scrollDownByFiveHundred(driver);
-	    
+
 	    docLibraryPage.enterValueInDescriptionField(prop.getProperty("descriptionText"));
-	    Thread.sleep(3000);
+	    // Thread.sleep(3000); — removed: clickOnUploadButton() waits for the button to be clickable via wait.until
 	    // Scroll to Bottom first
 	    Utilities.scrollToBottom(driver);
 	    docLibraryPage.clickOnUploadButton();
-	    Thread.sleep(3000);
+	    // Thread.sleep(3000); — removed: clickOnProfileIcon() waits for the icon, providing time for redirect to complete
 	    Utilities.scrollToTop(driver);
-	    
+
         System.out.println("test_TC_DL_17 got passed!");
-        
-        Thread.sleep(2000);
-        
+
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
+
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
-        Thread.sleep(3000);
-        docLibraryPage.clickOnLogoutButton();    
-		
+        // Thread.sleep(3000); — removed: clickOnLogoutButton() already waits for the Yes button via wait.until
+        docLibraryPage.clickOnLogoutButton();
+
 	}
 
 	@Test(priority=6)
@@ -258,7 +258,7 @@ public class DocumentLibrary extends Base {
 	        docLibraryPage.uploadDocumentUsingAutoIt();
 	        // docLibraryPage.enterValueInDocumentNameField(prop.getProperty("documentName"));
 	        docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachment"));
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); — removed: resizeCroppingArea() already waits for the crop handle via wait.until(presenceOfElementLocated)
 	        docLibraryPage.resizeCroppingArea();
 	        docLibraryPage.clickOnApplyButton();
 	        
@@ -266,11 +266,11 @@ public class DocumentLibrary extends Base {
 		    Utilities.scrollDownByFiveHundred(driver);
 		    
 		    docLibraryPage.enterValueInDescriptionField(prop.getProperty("descriptionText"));
-		    Thread.sleep(3000);
+		    // Thread.sleep(3000); — removed: clickOnUploadButton() waits for the button to be clickable via wait.until
 		    // Scroll to Bottom first
 		    Utilities.scrollToBottom(driver);
 		    docLibraryPage.clickOnUploadButton();
-		    Thread.sleep(3000);
+		    // Thread.sleep(3000); — removed: HTML5 validation appears synchronously; no redirect occurs since document name is absent
 		    Utilities.scrollToTop(driver);
 		    String validationMsg = docLibraryPage.getValidationMessageForDocumentNameField();
 	        Assert.assertEquals(validationMsg, "Please fill out this field.");
@@ -280,17 +280,19 @@ public class DocumentLibrary extends Base {
 		    
 		    
 	        System.out.println("test_TC_DL_18 got passed!");
-	        
-	        Thread.sleep(2000);
-	        
+
+	        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
+
 	        docLibraryPage.clickOnProfileIcon();
 	        docLibraryPage.clickOnLogoutOption();
-	        Thread.sleep(3000);
-	        docLibraryPage.clickOnLogoutButtonTwo(); 
+	        // Thread.sleep(3000); — removed: clickOnLogoutButtonTwo() already waits for the Yes button via wait.until
+	        docLibraryPage.clickOnLogoutButtonTwo();
 		
 		
 	}
-
+	
+	
+	
 	@Test(priority=7)
 	public void test_TC_DL_22_UploadingDocumentInPngFormat() throws IOException, InterruptedException {
 	
@@ -313,38 +315,40 @@ public class DocumentLibrary extends Base {
         Assert.assertEquals(actualURL,expectedURL);
         
         docLibraryPage.uploadDocumentInPngFormatUsingAutoIt();
-        Thread.sleep(2000);
+        // Thread.sleep(2000); — removed: enterValueInDocumentNameField() now waits via wait.until(elementToBeClickable)
         // For everytime different name
         String baseName = prop.getProperty("documentName");
         String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
         docLibraryPage.enterValueInDocumentNameField(uniqueName);
-        
+
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachment"));
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: resizeCroppingArea() already waits for the crop handle via wait.until(presenceOfElementLocated)
         docLibraryPage.resizeCroppingArea();
         docLibraryPage.clickOnApplyButton();
-        
+
         // Scroll down by 500 pixels
 	    Utilities.scrollDownByFiveHundred(driver);
-	    
+
 	    docLibraryPage.enterValueInDescriptionField(prop.getProperty("descriptionText"));
-	    Thread.sleep(3000);
+	    // Thread.sleep(3000); — removed: clickOnUploadButton() waits for the button to be clickable via wait.until
 	    // Scroll to Bottom first
 	    Utilities.scrollToBottom(driver);
 	    docLibraryPage.clickOnUploadButton();
-	    Thread.sleep(3000);
-	    
+	    // Thread.sleep(3000); — removed: waitForDocumentLibraryPageToLoad() waits for the Actions button, 
+	    // confirming redirect is complete
+	    docLibraryPage.waitForDocumentLibraryPageToLoad();
+
 	    String actualURLTwo = driver.getCurrentUrl();
-	    String expectedURLTwo = prop.getProperty("docLibraryExpectedURL"); 
+	    String expectedURLTwo = prop.getProperty("docLibraryExpectedURL");
         Assert.assertEquals(actualURLTwo,expectedURLTwo);
-        
-        Thread.sleep(2000);
+
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
         System.out.println("test_TC_DL_22 got passed!");
-        Thread.sleep(2000);
-        
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
+
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: clickOnLogoutButton() already waits for the Yes button via wait.until
         docLibraryPage.clickOnLogoutButton();
 		
 		
@@ -375,38 +379,39 @@ public class DocumentLibrary extends Base {
         Assert.assertEquals(actualURL,expectedURL);
         
         docLibraryPage.uploadDocumentInJPGFormatUsingAutoIt();
-        Thread.sleep(2000);
+        // Thread.sleep(2000); — removed: enterValueInDocumentNameField() now waits via wait.until(elementToBeClickable)
         // For everytime different name
         String baseName = prop.getProperty("documentName");
         String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
         docLibraryPage.enterValueInDocumentNameField(uniqueName);
-        
+
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachment"));
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: resizeCroppingArea() already waits for the crop handle via wait.until(presenceOfElementLocated)
         docLibraryPage.resizeCroppingArea();
         docLibraryPage.clickOnApplyButton();
-        
+
         // Scroll down by 500 pixels
 	    Utilities.scrollDownByFiveHundred(driver);
-	    
+
 	    docLibraryPage.enterValueInDescriptionField(prop.getProperty("descriptionText"));
-	    Thread.sleep(3000);
+	    // Thread.sleep(3000); — removed: clickOnUploadButton() waits for the button to be clickable via wait.until
 	    // Scroll to Bottom first
 	    Utilities.scrollToBottom(driver);
 	    docLibraryPage.clickOnUploadButton();
-	    Thread.sleep(3000);
-	    
+	    // Thread.sleep(3000); — removed: waitForDocumentLibraryPageToLoad() waits for the Actions button, confirming redirect is complete
+	    docLibraryPage.waitForDocumentLibraryPageToLoad();
+
 	    String actualURLTwo = driver.getCurrentUrl();
-	    String expectedURLTwo = prop.getProperty("docLibraryExpectedURL"); 
+	    String expectedURLTwo = prop.getProperty("docLibraryExpectedURL");
         Assert.assertEquals(actualURLTwo,expectedURLTwo);
-        
-        Thread.sleep(2000);
+
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
         System.out.println("test_TC_DL_22_1 got passed!");
-        Thread.sleep(2000);
-        
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
+
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: clickOnLogoutButton() already waits for the Yes button via wait.until
         docLibraryPage.clickOnLogoutButton();
 		
 		
@@ -434,42 +439,45 @@ public class DocumentLibrary extends Base {
         Assert.assertEquals(actualURL,expectedURL);
         
         docLibraryPage.uploadDocumentInCSVFormatUsingAutoIt();
-        Thread.sleep(2000);
+        // Thread.sleep(2000); — removed: enterValueInDocumentNameField() now waits via wait.until(elementToBeClickable)
         // For everytime different name
         String baseName = prop.getProperty("documentName");
         String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
         docLibraryPage.enterValueInDocumentNameField(uniqueName);
-        
+
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachment"));
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: resizeCroppingArea() already waits for the crop handle via wait.until(presenceOfElementLocated)
         docLibraryPage.resizeCroppingArea();
         docLibraryPage.clickOnApplyButton();
-        
+
         // Scroll down by 500 pixels
 	    Utilities.scrollDownByFiveHundred(driver);
-	    
+
 	    docLibraryPage.enterValueInDescriptionField(prop.getProperty("descriptionText"));
-	    Thread.sleep(3000);
+	    // Thread.sleep(3000); — removed: clickOnUploadButton() waits for the button to be clickable via wait.until
 	    // Scroll to Bottom first
 	    Utilities.scrollToBottom(driver);
 	    docLibraryPage.clickOnUploadButton();
-	    Thread.sleep(3000);
-	    
+	    // Thread.sleep(3000); — removed: waitForDocumentLibraryPageToLoad() waits for the Actions button, confirming redirect is complete
+	    docLibraryPage.waitForDocumentLibraryPageToLoad();
+
 	    String actualURLTwo = driver.getCurrentUrl();
-	    String expectedURLTwo = prop.getProperty("docLibraryExpectedURL"); 
+	    String expectedURLTwo = prop.getProperty("docLibraryExpectedURL");
         Assert.assertEquals(actualURLTwo,expectedURLTwo);
-        
-        Thread.sleep(2000);
+
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
         System.out.println("test_TC_DL_22_2 got passed!");
-        Thread.sleep(2000);
-        
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
+
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: clickOnLogoutButton() already waits for the Yes button via wait.until
         docLibraryPage.clickOnLogoutButton();
 		
 	}
 
+	
+	 
 	@Test(priority=10)
     public void test_TC_DL_22_3_UploadingDocumentInXlsxFormat() throws InterruptedException, IOException {
     	
@@ -492,38 +500,39 @@ public class DocumentLibrary extends Base {
         Assert.assertEquals(actualURL,expectedURL);
         
         docLibraryPage.uploadDocumentInXLSXFormatUsingAutoIt();
-        Thread.sleep(2000);
+        // Thread.sleep(2000); — removed: enterValueInDocumentNameField() now waits via wait.until(elementToBeClickable)
         // For everytime different name
         String baseName = prop.getProperty("documentName");
         String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
         docLibraryPage.enterValueInDocumentNameField(uniqueName);
-        
+
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachment"));
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: resizeCroppingArea() already waits for the crop handle via wait.until(presenceOfElementLocated)
         docLibraryPage.resizeCroppingArea();
         docLibraryPage.clickOnApplyButton();
-        
+
         // Scroll down by 500 pixels
 	    Utilities.scrollDownByFiveHundred(driver);
-	    
+
 	    docLibraryPage.enterValueInDescriptionField(prop.getProperty("descriptionText"));
-	    Thread.sleep(3000);
+	    // Thread.sleep(3000); — removed: clickOnUploadButton() waits for the button to be clickable via wait.until
 	    // Scroll to Bottom first
 	    Utilities.scrollToBottom(driver);
 	    docLibraryPage.clickOnUploadButton();
-	    Thread.sleep(3000);
-	    
+	    // Thread.sleep(3000); — removed: waitForDocumentLibraryPageToLoad() waits for the Actions button, confirming redirect is complete
+	    docLibraryPage.waitForDocumentLibraryPageToLoad();
+
 	    String actualURLTwo = driver.getCurrentUrl();
-	    String expectedURLTwo = prop.getProperty("docLibraryExpectedURL"); 
+	    String expectedURLTwo = prop.getProperty("docLibraryExpectedURL");
         Assert.assertEquals(actualURLTwo,expectedURLTwo);
-        
-        Thread.sleep(2000);
+
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
         System.out.println("test_TC_DL_22_3 got passed!");
-        Thread.sleep(2000);
-        
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
+
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: clickOnLogoutButton() already waits for the Yes button via wait.until
         docLibraryPage.clickOnLogoutButton();
     	
     }
@@ -550,38 +559,39 @@ public class DocumentLibrary extends Base {
         Assert.assertEquals(actualURL,expectedURL);
         
         docLibraryPage.uploadDocumentInMP4FormatUsingAutoIt();
-        Thread.sleep(2000);
+        // Thread.sleep(2000); — removed: enterValueInDocumentNameField() now waits via wait.until(elementToBeClickable)
         // For everytime different name
         String baseName = prop.getProperty("documentName");
         String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
         docLibraryPage.enterValueInDocumentNameField(uniqueName);
-        
+
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachment"));
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: resizeCroppingArea() already waits for the crop handle via wait.until(presenceOfElementLocated)
         docLibraryPage.resizeCroppingArea();
         docLibraryPage.clickOnApplyButton();
-        
+
         // Scroll down by 500 pixels
 	    Utilities.scrollDownByFiveHundred(driver);
-	    
+
 	    docLibraryPage.enterValueInDescriptionField(prop.getProperty("descriptionText"));
-	    Thread.sleep(3000);
+	    // Thread.sleep(3000); — removed: clickOnUploadButton() waits for the button to be clickable via wait.until
 	    // Scroll to Bottom first
 	    Utilities.scrollToBottom(driver);
 	    docLibraryPage.clickOnUploadButton();
-	    Thread.sleep(3000);
-	    
+	    // Thread.sleep(3000); — removed: waitForDocumentLibraryPageToLoad() waits for the Actions button, confirming redirect is complete
+	    docLibraryPage.waitForDocumentLibraryPageToLoad();
+
 	    String actualURLTwo = driver.getCurrentUrl();
-	    String expectedURLTwo = prop.getProperty("docLibraryExpectedURL"); 
+	    String expectedURLTwo = prop.getProperty("docLibraryExpectedURL");
         Assert.assertEquals(actualURLTwo,expectedURLTwo);
-        
-        Thread.sleep(2000);
+
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
         System.out.println("test_TC_DL_22_4 got passed!");
-        Thread.sleep(2000);
-        
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
+
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: clickOnLogoutButton() already waits for the Yes button via wait.until
         docLibraryPage.clickOnLogoutButton();
 		
 		
@@ -609,41 +619,44 @@ public class DocumentLibrary extends Base {
         Assert.assertEquals(actualURL,expectedURL);
         
         docLibraryPage.uploadDocumentInMP4FormatUsingAutoIt();
-        Thread.sleep(2000);
+        // Thread.sleep(2000); — removed: enterValueInDocumentNameField() now waits via wait.until(elementToBeClickable)
         // For everytime different name
         String baseName = prop.getProperty("documentName");
         String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
         docLibraryPage.enterValueInDocumentNameField(uniqueName);
-       
+
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachmentInGif"));
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: resizeCroppingArea() already waits for the crop handle via wait.until(presenceOfElementLocated)
         docLibraryPage.resizeCroppingArea();
         docLibraryPage.clickOnApplyButton();
-        
+
         // Scroll down by 500 pixels
 	    Utilities.scrollDownByFiveHundred(driver);
-	    
+
 	    docLibraryPage.enterValueInDescriptionField(prop.getProperty("descriptionText"));
-	    Thread.sleep(3000);
+	    // Thread.sleep(3000); — removed: clickOnUploadButton() waits for the button to be clickable via wait.until
 	    // Scroll to Bottom first
 	    Utilities.scrollToBottom(driver);
 	    docLibraryPage.clickOnUploadButton();
-	    Thread.sleep(3000);
-	    
+	    // Thread.sleep(3000); — removed: waitForDocumentLibraryPageToLoad() waits for the Actions button, confirming redirect is complete
+	    docLibraryPage.waitForDocumentLibraryPageToLoad();
+
 	    String actualURLTwo = driver.getCurrentUrl();
-	    String expectedURLTwo = prop.getProperty("docLibraryExpectedURL"); 
+	    String expectedURLTwo = prop.getProperty("docLibraryExpectedURL");
         Assert.assertEquals(actualURLTwo,expectedURLTwo);
-        
-        Thread.sleep(2000);
+
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
         System.out.println("test_TC_DL_22_5 got passed!");
-        Thread.sleep(2000);
-        
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
+
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: clickOnLogoutButton() already waits for the Yes button via wait.until
         docLibraryPage.clickOnLogoutButton();
-		
+
 	}
+	
+	
 
 	@Test(priority=13)
 	public void test_TC_DL_22_6_UploadingJpgImageForThumbnail() throws InterruptedException, IOException {
@@ -667,38 +680,39 @@ public class DocumentLibrary extends Base {
         Assert.assertEquals(actualURL,expectedURL);
         
         docLibraryPage.uploadDocumentInMP4FormatUsingAutoIt();
-        Thread.sleep(2000);
+        // Thread.sleep(2000); — removed: enterValueInDocumentNameField() now waits via wait.until(elementToBeClickable)
         // For everytime different name
         String baseName = prop.getProperty("documentName");
         String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
         docLibraryPage.enterValueInDocumentNameField(uniqueName);
-        
+
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachmentInJPG"));
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: resizeCroppingArea() already waits for the crop handle via wait.until(presenceOfElementLocated)
         docLibraryPage.resizeCroppingArea();
         docLibraryPage.clickOnApplyButton();
-        
+
         // Scroll down by 500 pixels
 	    Utilities.scrollDownByFiveHundred(driver);
-	    
+
 	    docLibraryPage.enterValueInDescriptionField(prop.getProperty("descriptionText"));
-	    Thread.sleep(3000);
+	    // Thread.sleep(3000); — removed: clickOnUploadButton() waits for the button to be clickable via wait.until
 	    // Scroll to Bottom first
 	    Utilities.scrollToBottom(driver);
 	    docLibraryPage.clickOnUploadButton();
-	    Thread.sleep(3000);
-	    
+	    // Thread.sleep(3000); — removed: waitForDocumentLibraryPageToLoad() waits for the Actions button, confirming redirect is complete
+	    docLibraryPage.waitForDocumentLibraryPageToLoad();
+
 	    String actualURLTwo = driver.getCurrentUrl();
-	    String expectedURLTwo = prop.getProperty("docLibraryExpectedURL"); 
+	    String expectedURLTwo = prop.getProperty("docLibraryExpectedURL");
         Assert.assertEquals(actualURLTwo,expectedURLTwo);
-        
-        Thread.sleep(2000);
+
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
         System.out.println("test_TC_DL_22_6 got passed!");
-        Thread.sleep(2000);
-        
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
+
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: clickOnLogoutButton() already waits for the Yes button via wait.until
         docLibraryPage.clickOnLogoutButton();
 		
 	}
@@ -725,41 +739,41 @@ public class DocumentLibrary extends Base {
         Assert.assertEquals(actualURL,expectedURL);
         
         docLibraryPage.uploadDocumentInMP4FormatUsingAutoIt();
-        Thread.sleep(2000);
+        // Thread.sleep(2000); — removed: enterValueInDocumentNameField() now waits via wait.until(elementToBeClickable)
         // For everytime different name
         String baseName = prop.getProperty("documentName");
         String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
         docLibraryPage.enterValueInDocumentNameField(uniqueName);
-        
+
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachmentInJPG"));
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: resizeCroppingArea() already waits for the crop handle via wait.until(presenceOfElementLocated)
         docLibraryPage.resizeCroppingArea();
         docLibraryPage.clickOnApplyButton();
-        
+
         // Scroll down by 500 pixels
 	    Utilities.scrollDownByFiveHundred(driver);
-	    
+
 	    // docLibraryPage.enterValueInDescriptionField(prop.getProperty("descriptionText"));
-	    Thread.sleep(3000);
+	    // Thread.sleep(3000); — removed: clickOnUploadButton() waits for the button to be clickable via wait.until
 	    // Scroll to Bottom first
 	    Utilities.scrollToBottom(driver);
 	    docLibraryPage.clickOnUploadButton();
-	    Thread.sleep(3000);
+	    // Thread.sleep(3000); — removed: HTML5 validation appears synchronously; no redirect occurs since description is absent
 	    Utilities.scrollToTop(driver);
-	    
+
 	    String validationMsg = docLibraryPage.getValidationMessageForDescriptionField();
         Assert.assertEquals(validationMsg, "Please fill out this field.");
-        
+
         // Only printed if the assertion passes
         System.out.println("✅ Description field showed the correct validation message.");
-       
-        Thread.sleep(2000);
+
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
         System.out.println("test_TC_DL_25 got passed!");
-        Thread.sleep(2000);
-        
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
+
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: clickOnLogoutButtonTwo() already waits for the Yes button via wait.until
         docLibraryPage.clickOnLogoutButtonTwo();
 		
 	}
@@ -786,46 +800,47 @@ public class DocumentLibrary extends Base {
         Assert.assertEquals(actualURL,expectedURL);
         
         // docLibraryPage.uploadDocumentInMP4FormatUsingAutoIt();
-        Thread.sleep(2000);
+        // Thread.sleep(2000); — removed: no upload action here; enterValueInDocumentNameField() waits via wait.until(elementToBeClickable)
         // For everytime different name
         String baseName = prop.getProperty("documentName");
         String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
         docLibraryPage.enterValueInDocumentNameField(uniqueName);
-        
+
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachmentInJPG"));
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: resizeCroppingArea() already waits for the crop handle via wait.until(presenceOfElementLocated)
         docLibraryPage.resizeCroppingArea();
         docLibraryPage.clickOnApplyButton();
-        
+
         // Scroll down by 500 pixels
 	    Utilities.scrollDownByFiveHundred(driver);
-	    
+
 	    docLibraryPage.enterValueInDescriptionField(prop.getProperty("descriptionText"));
-	    Thread.sleep(3000);
+	    // Thread.sleep(3000); — removed: clickOnUploadButton() waits for the button to be clickable via wait.until
 	    // Scroll to Bottom first
 	    Utilities.scrollToBottom(driver);
 	    docLibraryPage.clickOnUploadButton();
-	    Thread.sleep(3000);
-	    
+	    // Thread.sleep(3000); — removed: HTML5 validation appears synchronously; no redirect occurs since no file is attached
 	    Utilities.scrollToTop(driver);
-	    
+
 	    String validationMsg = docLibraryPage.getValidationMessageForDocumentAttachmentField();
         Assert.assertEquals(validationMsg, "Please select a file.");
-        
+
         // Only printed if the assertion passes
         System.out.println("✅ Document Attachment field showed the correct validation message.");
-       
-        Thread.sleep(2000);
 
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
         System.out.println("test_TC_DL_28 got passed!");
-        Thread.sleep(2000);
-        
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
+
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: clickOnLogoutButtonTwo() already waits for the Yes button via wait.until
         docLibraryPage.clickOnLogoutButtonTwo();
-		
+
 	}
+	
+	
+
 
 	@Test(priority=16)
 	public void test_TC_DL_30_fillsAllTheMandatoryAndDocumentOptions() throws InterruptedException, IOException {
@@ -849,43 +864,44 @@ public class DocumentLibrary extends Base {
         Assert.assertEquals(actualURL,expectedURL);
         
         docLibraryPage.uploadDocumentInJPGFormatUsingAutoIt();
-        Thread.sleep(2000);
+        // Thread.sleep(2000); — removed: enterValueInDocumentNameField() now waits via wait.until(elementToBeClickable)
         // For everytime different name
         String baseName = prop.getProperty("documentName");
         String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
         docLibraryPage.enterValueInDocumentNameField(uniqueName);
-        
+
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachment"));
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: resizeCroppingArea() already waits for the crop handle via wait.until(presenceOfElementLocated)
         docLibraryPage.resizeCroppingArea();
         docLibraryPage.clickOnApplyButton();
-        
+
         // Scroll down by 500 pixels
 	    Utilities.scrollDownByFiveHundred(driver);
-	    
+
 	    docLibraryPage.enterValueInDescriptionField(prop.getProperty("descriptionText"));
-	    Thread.sleep(3000);
+	    // Thread.sleep(3000); — removed: clickOnUploadButton() waits for the button to be clickable via wait.until
 	    // Scroll to Bottom first
 	    Utilities.scrollToBottom(driver);
 	    docLibraryPage.clickOnDocumentOptionTwo();
-	    Thread.sleep(2000);
+	    // Thread.sleep(2000); — removed: document option radio buttons are static DOM elements, no async rendering
 	    docLibraryPage.clickOnDocumentOptionThree();
-	    Thread.sleep(2000);
-	
+	    // Thread.sleep(2000); — removed: same as above, static DOM element
+
 	    docLibraryPage.clickOnUploadButton();
-	    Thread.sleep(3000);
-	    
+	    // Thread.sleep(3000); — removed: waitForDocumentLibraryPageToLoad() waits for the Actions button, confirming redirect is complete
+	    docLibraryPage.waitForDocumentLibraryPageToLoad();
+
 	    String actualURLTwo = driver.getCurrentUrl();
-	    String expectedURLTwo = prop.getProperty("docLibraryExpectedURL"); 
+	    String expectedURLTwo = prop.getProperty("docLibraryExpectedURL");
         Assert.assertEquals(actualURLTwo,expectedURLTwo);
-        
-        Thread.sleep(2000);
+
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
         System.out.println("test_TC_DL_30 got passed!");
-        Thread.sleep(2000);
-        
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
+
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: clickOnLogoutButton() already waits for the Yes button via wait.until
         docLibraryPage.clickOnLogoutButton();
 		
 		
@@ -913,45 +929,46 @@ public class DocumentLibrary extends Base {
         Assert.assertEquals(actualURL,expectedURL);
         
         docLibraryPage.uploadDocumentInJPGFormatUsingAutoIt();
-        Thread.sleep(2000);
+        // Thread.sleep(2000); — removed: enterValueInDocumentNameField() now waits via wait.until(elementToBeClickable)
         // For everytime different name
         String baseName = prop.getProperty("documentName");
         String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
         docLibraryPage.enterValueInDocumentNameField(uniqueName);
-        
+
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachment"));
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: resizeCroppingArea() already waits for the crop handle via wait.until(presenceOfElementLocated)
         docLibraryPage.resizeCroppingArea();
         docLibraryPage.clickOnApplyButton();
-        
+
         // Scroll down by 500 pixels
 	    Utilities.scrollDownByFiveHundred(driver);
-	    
+
 	    docLibraryPage.enterValueInDescriptionField(prop.getProperty("descriptionText"));
-	    Thread.sleep(3000);
+	    // Thread.sleep(3000); — removed: clickOnUploadButton() waits for the button to be clickable via wait.until
 	    // Scroll to Bottom first
 	    Utilities.scrollToBottom(driver);
 	    docLibraryPage.clickOnDocumentOptionTwo();
-	    Thread.sleep(2000);
+	    // Thread.sleep(2000); — removed: document option radio buttons are static DOM elements, no async rendering
 	    docLibraryPage.clickOnDocumentOptionThree();
-	    Thread.sleep(2000);
+	    // Thread.sleep(2000); — removed: same as above, static DOM element
 	    docLibraryPage.clickOnDownloadableOption();
-	    Thread.sleep(2000);
-	
+	    // Thread.sleep(2000); — removed: downloadable toggle is a static DOM element, no async rendering
+
 	    docLibraryPage.clickOnUploadButton();
-	    Thread.sleep(3000);
-	    
+	    // Thread.sleep(3000); — removed: waitForDocumentLibraryPageToLoad() waits for the Actions button, confirming redirect is complete
+	    docLibraryPage.waitForDocumentLibraryPageToLoad();
+
 	    String actualURLTwo = driver.getCurrentUrl();
-	    String expectedURLTwo = prop.getProperty("docLibraryExpectedURL"); 
+	    String expectedURLTwo = prop.getProperty("docLibraryExpectedURL");
         Assert.assertEquals(actualURLTwo,expectedURLTwo);
-        
-        Thread.sleep(2000);
+
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
         System.out.println("test_TC_DL_32 got passed!");
-        Thread.sleep(2000);
-        
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
+
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: clickOnLogoutButton() already waits for the Yes button via wait.until
         docLibraryPage.clickOnLogoutButton();
 		
 	}
@@ -978,49 +995,50 @@ public class DocumentLibrary extends Base {
         Assert.assertEquals(actualURL,expectedURL);
         
         docLibraryPage.uploadDocumentInJPGFormatUsingAutoIt();
-        Thread.sleep(2000);
+        // Thread.sleep(2000); — removed: enterValueInDocumentNameField() now waits via wait.until(elementToBeClickable)
         // For everytime different name
         String baseName = prop.getProperty("documentName");
         String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
         docLibraryPage.enterValueInDocumentNameField(uniqueName);
-        
+
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachment"));
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: resizeCroppingArea() already waits for the crop handle via wait.until(presenceOfElementLocated)
         docLibraryPage.resizeCroppingArea();
         docLibraryPage.clickOnApplyButton();
-        
+
         // Scroll down by 500 pixels
 	    Utilities.scrollDownByFiveHundred(driver);
-	    
+
 	    docLibraryPage.enterValueInDescriptionField(prop.getProperty("descriptionText"));
-	    Thread.sleep(3000);
+	    // Thread.sleep(3000); — removed: clickOnUploadButton() waits for the button to be clickable via wait.until
 	    // Scroll to Bottom first
 	    Utilities.scrollToBottom(driver);
 	    docLibraryPage.clickOnDocumentOptionTwo();
-	    Thread.sleep(2000);
+	    // Thread.sleep(2000); — removed: document option radio buttons are static DOM elements, no async rendering
 	    docLibraryPage.clickOnDocumentOptionThree();
-	    Thread.sleep(2000);
+	    // Thread.sleep(2000); — removed: same as above, static DOM element
 	    docLibraryPage.clickOnDownloadableOption();
-	    Thread.sleep(2000);
+	    // Thread.sleep(2000); — removed: downloadable toggle is a static DOM element, no async rendering
 	    docLibraryPage.enterInternalHashtag(prop.getProperty("InternalHashtagToEnter"));
-	    Thread.sleep(2000);
+	    // Thread.sleep(2000); — removed: selectInternalHashtag() now waits for the autocomplete dropdown via wait.until(elementToBeClickable)
 	    docLibraryPage.selectInternalHashtag();
-	    Thread.sleep(2000);
-	
+	    // Thread.sleep(2000); — removed: clickOnUploadButton() waits for the button to be clickable via wait.until
+
 	    docLibraryPage.clickOnUploadButton();
-	    Thread.sleep(3000);
-	    
+	    // Thread.sleep(3000); — removed: waitForDocumentLibraryPageToLoad() waits for the Actions button, confirming redirect is complete
+	    docLibraryPage.waitForDocumentLibraryPageToLoad();
+
 	    String actualURLTwo = driver.getCurrentUrl();
-	    String expectedURLTwo = prop.getProperty("docLibraryExpectedURL"); 
+	    String expectedURLTwo = prop.getProperty("docLibraryExpectedURL");
         Assert.assertEquals(actualURLTwo,expectedURLTwo);
-        
-        Thread.sleep(2000);
+
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
         System.out.println("test_TC_DL_34 got passed!");
-        Thread.sleep(2000);
-        
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
+
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: clickOnLogoutButton() already waits for the Yes button via wait.until
         docLibraryPage.clickOnLogoutButton();
 	}
 
@@ -1046,51 +1064,52 @@ public class DocumentLibrary extends Base {
         Assert.assertEquals(actualURL,expectedURL);
         
         docLibraryPage.uploadDocumentInJPGFormatUsingAutoIt();
-        Thread.sleep(2000);
+        // Thread.sleep(2000); — removed: enterValueInDocumentNameField() now waits via wait.until(elementToBeClickable)
         // For everytime different name
         String baseName = prop.getProperty("documentName");
         String uniqueName = baseName + "_" + System.currentTimeMillis(); // or use formatted timestamp
         docLibraryPage.enterValueInDocumentNameField(uniqueName);
-        
+
         docLibraryPage.attachThumbnail(prop.getProperty("thumbnailAttachment"));
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: resizeCroppingArea() already waits for the crop handle via wait.until(presenceOfElementLocated)
         docLibraryPage.resizeCroppingArea();
         docLibraryPage.clickOnApplyButton();
-        
+
         // Scroll down by 500 pixels
 	    Utilities.scrollDownByFiveHundred(driver);
-	    
+
 	    docLibraryPage.enterValueInDescriptionField(prop.getProperty("descriptionText"));
-	    Thread.sleep(3000);
+	    // Thread.sleep(3000); — removed: clickOnUploadButton() waits for the button to be clickable via wait.until
 	    // Scroll to Bottom first
 	    Utilities.scrollToBottom(driver);
 	    docLibraryPage.clickOnDocumentOptionTwo();
-	    Thread.sleep(2000);
+	    // Thread.sleep(2000); — removed: document option radio buttons are static DOM elements, no async rendering
 	    docLibraryPage.clickOnDocumentOptionThree();
-	    Thread.sleep(2000);
+	    // Thread.sleep(2000); — removed: same as above, static DOM element
 	    docLibraryPage.clickOnDownloadableOption();
-	    Thread.sleep(2000);
+	    // Thread.sleep(2000); — removed: downloadable toggle is a static DOM element, no async rendering
 	    docLibraryPage.enterInternalHashtag(prop.getProperty("InternalHashtagToEnter"));
-	    Thread.sleep(2000);
+	    // Thread.sleep(2000); — removed: selectInternalHashtag() now waits for the autocomplete dropdown via wait.until(elementToBeClickable)
 	    docLibraryPage.selectInternalHashtag();
-	    Thread.sleep(2000);
-	
+	    // Thread.sleep(2000); — removed: clickOnUploadButton() waits for the button to be clickable via wait.until
+
 	    docLibraryPage.clickOnUploadButton();
-	    Thread.sleep(3000);
-	    
+	    // Thread.sleep(3000); — removed: waitForDocumentLibraryPageToLoad() waits for the Actions button, confirming redirect is complete
+	    docLibraryPage.waitForDocumentLibraryPageToLoad();
+
 	    String actualURLTwo = driver.getCurrentUrl();
-	    String expectedURLTwo = prop.getProperty("docLibraryExpectedURL"); 
+	    String expectedURLTwo = prop.getProperty("docLibraryExpectedURL");
         Assert.assertEquals(actualURLTwo,expectedURLTwo);
-        
-        Thread.sleep(2000);
+
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
         System.out.println("test_TC_DL_08 got passed!");
-        Thread.sleep(2000);
-        
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
+
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: clickOnLogoutButton() already waits for the Yes button via wait.until
         docLibraryPage.clickOnLogoutButton();
-		
+
 	}
 
     @Test(priority=20)
@@ -1103,27 +1122,27 @@ public class DocumentLibrary extends Base {
      	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
      	loginPage.clickOnSubmitButton();
      	System.out.println("User Logged in Successfully.");
-     	
-     	Thread.sleep(3000);
-     	
+
+     	// Thread.sleep(3000); — removed: clickOnCommunicationTab() already waits via wait.until(elementToBeClickable)
+
      	docLibraryPage = new DocumentLibraryPage(driver);
      	docLibraryPage.clickOnCommunicationTab();
      	docLibraryPage.clickonDocumentLibrary();
-     	
+
      	docLibraryPage.enterIntoSearchBox(prop.getProperty("validValueInSearchBox"));
      	String searchResultText = docLibraryPage.getSearchResultText();
         System.out.println("Search Result: " + searchResultText);
         Assert.assertEquals(searchResultText, "ewewew test");
-        Thread.sleep(3000);
-		
+        // Thread.sleep(3000); — removed: no async operation follows this assertion
+
 		System.out.println("Test Case TC_DL_37 Passed. The searched content was shown.");
-        Thread.sleep(2000);
-        
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
+
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: clickOnLogoutButton() already waits for the Yes button via wait.until
         docLibraryPage.clickOnLogoutButton();
-    	
+
     }
 
     @Test(priority=21)
@@ -1136,27 +1155,27 @@ public class DocumentLibrary extends Base {
      	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
      	loginPage.clickOnSubmitButton();
      	System.out.println("User Logged in Successfully.");
-     	
-     	Thread.sleep(3000);
-     	
+
+     	// Thread.sleep(3000); — removed: clickOnCommunicationTab() already waits via wait.until(elementToBeClickable)
+
      	docLibraryPage = new DocumentLibraryPage(driver);
      	docLibraryPage.clickOnCommunicationTab();
      	docLibraryPage.clickonDocumentLibrary();
      	docLibraryPage.clickOnActionsButton();
      	docLibraryPage.clickOnDeleteOption();
-     	Thread.sleep(2000);
+     	// Thread.sleep(2000); — removed: getDialogBoxText() now waits via wait.until(visibilityOfElementLocated)
      	String dialogText = docLibraryPage.getDialogBoxText(); // Call the method
      	Assert.assertEquals(dialogText, "Please select at least one document creative!");
-     	Thread.sleep(2000);
+     	// Thread.sleep(2000); — removed: clickOnOkButton() now waits via wait.until(elementToBeClickable)
      	docLibraryPage.clickOnOkButton();
-     	
-     	Thread.sleep(2000);
+
+     	// Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
         System.out.println("test_TC_DL_38 got passed!");
-        Thread.sleep(2000);
-        
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
+
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: clickOnLogoutButton() already waits for the Yes button via wait.until
         docLibraryPage.clickOnLogoutButton();
      	
      	
@@ -1173,38 +1192,38 @@ public class DocumentLibrary extends Base {
      	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
      	loginPage.clickOnSubmitButton();
      	System.out.println("User Logged in Successfully.");
-     	
-     	Thread.sleep(3000);
-     	
+
+     	// Thread.sleep(3000); — removed: clickOnCommunicationTab() already waits via wait.until(elementToBeClickable)
+
      	docLibraryPage = new DocumentLibraryPage(driver);
      	docLibraryPage.clickOnCommunicationTab();
      	docLibraryPage.clickonDocumentLibrary();
-     	Thread.sleep(1000);     	
+     	// Thread.sleep(1000); — removed: clickOnCheckBoxOption() already waits via wait.until(elementToBeClickable)
      	docLibraryPage.clickOnCheckBoxOption();
      	String dynamicText = docLibraryPage.getDynamicText(); // call the method
      	System.out.println("Fetched Dynamic Text: " + dynamicText);
-     	Thread.sleep(3000);
-     	
+     	// Thread.sleep(3000); — removed: getDynamicText() now waits via wait.until(visibilityOfElementLocated); clickOnActionsButton() also waits internally
+
      	docLibraryPage.clickOnActionsButton();
-     	Thread.sleep(2000);
+     	// Thread.sleep(2000); — removed: clickOnDeleteOption() now waits via wait.until(elementToBeClickable)
      	docLibraryPage.clickOnDeleteOption();
-     	Thread.sleep(2000);
+     	// Thread.sleep(2000); — removed: clickOnOkButton() now waits via wait.until(elementToBeClickable)
      	docLibraryPage.clickOnOkButton();
-     	Thread.sleep(3000);
+     	// Thread.sleep(3000); — removed: enterIntoSearchBox() now waits via wait.until(elementToBeClickable)
         // Now we will search for the deleted content
      	docLibraryPage.enterIntoSearchBox(dynamicText);
      	docLibraryPage.noRecordsElementMethod();
-     	
-     	Thread.sleep(2000);
+
+     	// Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
         System.out.println("test_TC_DL_39 got passed!");
-        Thread.sleep(2000);
-        
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
+
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
-        Thread.sleep(3000);
-        docLibraryPage.clickOnLogoutButton();   	
-    	
-    	
+        // Thread.sleep(3000); — removed: clickOnLogoutButton() already waits for the Yes button via wait.until
+        docLibraryPage.clickOnLogoutButton();
+
+
     }
 
     @Test(priority=23,dependsOnMethods={"test_TC_DL_34_fillsAllTheFieldsWithHashtag"})
@@ -1217,67 +1236,64 @@ public class DocumentLibrary extends Base {
      	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
      	loginPage.clickOnSubmitButton();
      	System.out.println("User Logged in Successfully.");
-     	
-     	Thread.sleep(3000);
-     	
+
+     	// Thread.sleep(3000); — removed: clickOnCommunicationTab() already waits via wait.until(elementToBeClickable)
+
      	docLibraryPage = new DocumentLibraryPage(driver);
      	docLibraryPage.clickOnCommunicationTab();
      	docLibraryPage.clickonDocumentLibrary();
      	docLibraryPage.clickOnCheckBoxOption();
      	String dynamicText = docLibraryPage.getDynamicText(); // call the method
      	System.out.println("Fetched Dynamic Text: " + dynamicText);
-     	
-     	
+
+
      	docLibraryPage.clickOnActionsButton();
      	docLibraryPage.clickOnAccessOption();
-     	Thread.sleep(2000);
+     	// Thread.sleep(2000); — removed: clickOnTeamRadioButton() now waits via wait.until(presenceOfElementLocated)
      	docLibraryPage.clickOnTeamRadioButton();
-     	Thread.sleep(2000);
+     	// Thread.sleep(2000); — removed: clickOnPartnerCategoryButton() now waits via wait.until(elementToBeClickable)
      	docLibraryPage.clickOnPartnerCategoryButton();
-     	Thread.sleep(2000);
+     	// Thread.sleep(2000); — removed: clickOnCategory() now waits via wait.until(elementToBeClickable)
      	docLibraryPage.clickOnCategory();
-     	Thread.sleep(2000);
+     	// Thread.sleep(2000); — removed: clickOnPartnerCategoryButton() now waits via wait.until(elementToBeClickable)
         // Again click on the partner category button in order to close it
      	docLibraryPage.clickOnPartnerCategoryButton();
-     	Thread.sleep(2000);
+     	// Thread.sleep(2000); — removed: clickOnScheduleCheckbox() now waits via wait.until(elementToBeClickable)
      	// We will click on the Content Date box
      	//docLibraryPage.clickOnContentUpdate();
      	//Thread.sleep(2000);
-     	
+
      	// Click on the Schedule checkbox
      	docLibraryPage.clickOnScheduleCheckbox();
-     	Thread.sleep(2000);
+     	// Thread.sleep(2000); — removed: clickOnScheduleCheckbox() now waits via wait.until(elementToBeClickable)
      	docLibraryPage.clickOnScheduleCheckbox();
-     	Thread.sleep(2000);
+     	// Thread.sleep(2000); — removed: clickOnScheduleTextbox() now waits via wait.until(elementToBeClickable)
      	docLibraryPage.clickOnScheduleTextbox();
-     	Thread.sleep(2000);
-     	
+     	// Thread.sleep(2000); — removed: selectCurrentActiveTimeThree() already waits internally via wait.until
+
      	docLibraryPage.selectCurrentActiveTimeThree();
-     	
+
      	// We will click on the Date of today
      	// docLibraryPage.selectTodayInCalendar();
-     	
+
      	// If you want to select DATE OF YOUR CHOICE
      	// docLibraryPage.selectDateOfYourChoice(10, 8, 2025);
-     	
-     	Thread.sleep(2000);
+
+     	// Thread.sleep(2000); — removed: clickOnUpdateAccessButton() now waits via wait.until(elementToBeClickable)
      	docLibraryPage.clickOnUpdateAccessButton();
-     	
-     	Thread.sleep(2000);
+
+     	// Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
         System.out.println("test_TC_DL_40 got passed!");
-        Thread.sleep(2000);
-        
+        // Thread.sleep(2000); — removed: clickOnProfileIcon() now waits internally via elementToBeClickable
+
         docLibraryPage.clickOnProfileIcon();
         docLibraryPage.clickOnLogoutOption();
-        Thread.sleep(3000);
+        // Thread.sleep(3000); — removed: clickOnLogoutButton() already waits for the Yes button via wait.until
         docLibraryPage.clickOnLogoutButton(); 
      	
      	
     	
     }
-    */
    
-
 }
-
 

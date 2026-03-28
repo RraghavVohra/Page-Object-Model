@@ -106,9 +106,14 @@ public class DocumentLibraryPage {
 	}
    
    public void clickOnProfileIcon() {
-	   
-	   profileIcon = driver.findElement(By.xpath("//i[@class='fa fa-user-circle']"));
-	   profileIcon.click();
+
+	   // Old: driver.findElement with no wait — fragile if the profile icon isn't rendered yet after a page action.
+	   // Changed to wait.until(elementToBeClickable) + JS click for reliability.
+	   // profileIcon = driver.findElement(By.xpath("//i[@class='fa fa-user-circle']"));
+	   // profileIcon.click();
+	   profileIcon = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//i[@class='fa fa-user-circle']")));
+	   JavascriptExecutor js = (JavascriptExecutor) driver;
+	   js.executeScript("arguments[0].click();", profileIcon);
    }
    
    public void clickOnLogoutOption() {
@@ -147,9 +152,19 @@ public class DocumentLibraryPage {
    }
    
    public void enterValueInDocumentNameField(String documentName) {
-	   
-	   doc_name = driver.findElement(By.xpath("//input[@id='document_name']"));  
+
+	   // Old: driver.findElement with no wait — fragile if the AutoIt dialog has just closed and the
+	   // field hasn't fully rendered yet. Changed to wait.until(elementToBeClickable) for reliability.
+	   // doc_name = driver.findElement(By.xpath("//input[@id='document_name']"));
+	   doc_name = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='document_name']")));
 	   doc_name.sendKeys(documentName);
+   }
+
+   public void waitForDocumentLibraryPageToLoad() {
+
+	   // Waits for the Actions button (SVG) to be clickable — signals redirect to Document Library page
+	   // is complete after a successful document upload.
+	   wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//*[name()='svg'])[1]")));
    }
    
    // This is a really important method. Since i am grabbing the message from the tool tip
@@ -461,41 +476,54 @@ public class DocumentLibraryPage {
     }
     
     public void selectInternalHashtag() {
-    	
-    	selectTheOptionHashtag = driver.findElement(By.xpath("//li[@class='ui-menu-item']"));
+
+    	// Old: driver.findElement with no wait — the autocomplete dropdown loads asynchronously after typing,
+    	// so the li element may not be in the DOM yet. Changed to wait.until(elementToBeClickable).
+    	// selectTheOptionHashtag = driver.findElement(By.xpath("//li[@class='ui-menu-item']"));
+    	selectTheOptionHashtag = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//li[@class='ui-menu-item']")));
 	    selectTheOptionHashtag.click();
     }
     
     public void enterIntoSearchBox(String texts) {
-    	
-    	searchBox = driver.findElement(By.xpath("//input[@type='search' and @placeholder='Search']"));
+
+    	// Old: driver.findElement with no wait — search box may not be interactable immediately after page load
+    	// searchBox = driver.findElement(By.xpath("//input[@type='search' and @placeholder='Search']"));
+    	searchBox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@type='search' and @placeholder='Search']")));
         searchBox.sendKeys(texts);
     }
-   
+
     // Method to get the search result text and THIS WILL DIFFER FOR ALL THE SERVERS
     public String getSearchResultText() {
-    	
-    	searchResult = driver.findElement(By.xpath("//td[normalize-space()='ewewew test']"));
+
+    	// Old: driver.findElement with no wait — search results load asynchronously after typing
+    	// searchResult = driver.findElement(By.xpath("//td[normalize-space()='ewewew test']"));
+    	searchResult = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[normalize-space()='ewewew test']")));
     	return searchResult.getText();
-    	
-    	
+
+
     }
     
     public void clickOnDeleteOption() {
-    	
-    	deleteOption = driver.findElement(By.id("Delete3"));
+
+    	// Old: driver.findElement with no wait — delete option appears in a dropdown that loads asynchronously
+    	// deleteOption = driver.findElement(By.id("Delete3"));
+    	deleteOption = wait.until(ExpectedConditions.elementToBeClickable(By.id("Delete3")));
     	deleteOption.click();
     }
-    
+
     public void clickOnOkButton() {
-    	
-    	clickOnOkButton = driver.findElement(By.xpath("//button[@type='button' and @class='btn btn-primary bootbox-accept' and text()='OK']"));
+
+    	// Old: driver.findElement with no wait — OK button is in a modal dialog that renders after an action
+    	// clickOnOkButton = driver.findElement(By.xpath("//button[@type='button' and @class='btn btn-primary bootbox-accept' and text()='OK']"));
+    	clickOnOkButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@type='button' and @class='btn btn-primary bootbox-accept' and text()='OK']")));
 		clickOnOkButton.click();
     }
-    
+
     // Method to grab and return the dialog text
     public String getDialogBoxText() {
-        grabTheText = driver.findElement(By.xpath("//div[@class='bootbox-body']"));
+    	// Old: driver.findElement with no wait — dialog box renders asynchronously after triggering an action
+    	// grabTheText = driver.findElement(By.xpath("//div[@class='bootbox-body']"));
+        grabTheText = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='bootbox-body']")));
         String textPresentInDialogBox = grabTheText.getText();
         System.out.println(textPresentInDialogBox); // Optional: you can print it here if you want
         return textPresentInDialogBox;
@@ -510,8 +538,10 @@ public class DocumentLibraryPage {
     
     
     public String getDynamicText() {
-    	
-    	dynamicElement = driver.findElement(By.xpath("(//td[@class='wBreak d-none d-md-table-cell' and @style='cursor: no-drop;'])[1]"));
+
+    	// Old: driver.findElement with no wait — table cell may not be rendered yet after checkbox click
+    	// dynamicElement = driver.findElement(By.xpath("(//td[@class='wBreak d-none d-md-table-cell' and @style='cursor: no-drop;'])[1]"));
+    	dynamicElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//td[@class='wBreak d-none d-md-table-cell' and @style='cursor: no-drop;'])[1]")));
         String dynamicText = dynamicElement.getText();
         System.out.println("Dynamic Text: " + dynamicText); // Optional
         return dynamicText;
@@ -526,34 +556,44 @@ public class DocumentLibraryPage {
     }
     
     public void clickOnAccessOption() {
-    	
-    	accessOption = driver.findElement(By.xpath("//a[@id='add_synd']"));
+
+    	// Old: driver.findElement with no wait — access option appears in a dropdown that loads asynchronously
+    	// accessOption = driver.findElement(By.xpath("//a[@id='add_synd']"));
+    	accessOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@id='add_synd']")));
 		accessOption.click();
     }
-    
+
     // Method to click the radio button using JavaScript Executor
     public void clickOnTeamRadioButton() {
-    	
-    	teamRadioButton = driver.findElement(By.xpath("//input[@id='partners_option']"));
+
+    	// Old: driver.findElement with no wait — access modal may still be rendering when this is called
+    	// teamRadioButton = driver.findElement(By.xpath("//input[@id='partners_option']"));
+    	teamRadioButton = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@id='partners_option']")));
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click();", teamRadioButton);
     }
-    
+
     public void clickOnPartnerCategoryButton() {
-    	
-    	partnerCategoryButton = driver.findElement(By.xpath("//button[@id='btn_ptr_category']"));
+
+    	// Old: driver.findElement with no wait — partner category button is inside the access modal
+    	// partnerCategoryButton = driver.findElement(By.xpath("//button[@id='btn_ptr_category']"));
+    	partnerCategoryButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='btn_ptr_category']")));
 		partnerCategoryButton.click();
     }
-    
+
     public void clickOnCategory() {
-    	
-    	clickOnTheCategory = driver.findElement(By.xpath("//label[@for='ms-opt-40']"));
+
+    	// Old: driver.findElement with no wait — category dropdown loads asynchronously after clicking partner category button
+    	// clickOnTheCategory = driver.findElement(By.xpath("//label[@for='ms-opt-40']"));
+    	clickOnTheCategory = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@for='ms-opt-40']")));
 		clickOnTheCategory.click();
     }
-    
+
     public void clickOnUpdateAccessButton() {
-    	
-    	updateAccessButton = driver.findElement(By.xpath("//input[@id='synd_update_id']"));
+
+    	// Old: driver.findElement with no wait — update button may not be interactable until all options are selected
+    	// updateAccessButton = driver.findElement(By.xpath("//input[@id='synd_update_id']"));
+    	updateAccessButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='synd_update_id']")));
 		updateAccessButton.click();
     }
     
@@ -694,14 +734,18 @@ public class DocumentLibraryPage {
 
     
     public void clickOnScheduleCheckbox() {
-    	
-    	clickOnTheSchedule = driver.findElement(By.xpath("//input[@id='schedule']"));
+
+    	// Old: driver.findElement with no wait — schedule checkbox is inside the access modal, needs to be interactable
+    	// clickOnTheSchedule = driver.findElement(By.xpath("//input[@id='schedule']"));
+    	clickOnTheSchedule = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='schedule']")));
 		clickOnTheSchedule.click();
     }
-    
+
     public void clickOnScheduleTextbox() {
-    	
-    	clickOnScheduleTextfield = driver.findElement(By.xpath("//input[@id='schedule_synd']"));
+
+    	// Old: driver.findElement with no wait — schedule textbox only appears after the schedule checkbox is toggled on
+    	// clickOnScheduleTextfield = driver.findElement(By.xpath("//input[@id='schedule_synd']"));
+    	clickOnScheduleTextfield = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='schedule_synd']")));
     	clickOnScheduleTextfield.click();
     }
 

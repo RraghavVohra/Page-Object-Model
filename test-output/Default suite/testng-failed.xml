@@ -3,12 +3,14 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="tests.VideoCreationTest">
+      <class name="tests.DocumentLibrary">
         <methods>
+          <include name="test_TC_DL_34_fillsAllTheFieldsWithHashtag"/>
           <include name="tearDown"/>
-          <include name="test_TC_DL_01_videoCreationThroughAssetLibrary"/>
+          <include name="test_TC_DL_39_deleteTheContentAndSearchIt"/>
+          <include name="test_TC_DL_40_updatingTheAccessOfTheContent"/>
         </methods>
-      </class> <!-- tests.VideoCreationTest -->
+      </class> <!-- tests.DocumentLibrary -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
