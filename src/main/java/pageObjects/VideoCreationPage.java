@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import util.WaitUtils;
 
 public class VideoCreationPage {
 	
@@ -85,15 +86,16 @@ public class VideoCreationPage {
                            attachButtonUI);
     }
     
-    public void uploadMp4Video(String filePathForVideo) throws InterruptedException {
+    public void uploadMp4Video(String filePathForVideo) {
 
         attachBtn = driver.findElement(
             By.xpath("//div[contains(@class,'files-upload-wrapper')]//input[@type='file']")
         );
 
         attachBtn.sendKeys(filePathForVideo);
-        
-        Thread.sleep(3000);
+        // Wait for Next button to be clickable — signals video has been processed
+        WaitUtils.waitForElementClickable(driver,
+            By.xpath("//button[@type='button' and contains(@class,'btn-info') and contains(text(),'Next')]"));
     }
     
     
@@ -198,10 +200,13 @@ public class VideoCreationPage {
     }
     
     public void clickOnSaveAndProceed() {
-    	
+
     	saveAndProceedButton = driver.findElement(By.xpath("//button[normalize-space()='Save & Proceed']"));
     	wait.until(ExpectedConditions.elementToBeClickable(saveAndProceedButton)).click();
 		System.out.println("Proceed button was clicked");
+		// Wait for page 2 — thumbnail input is the signal that page has loaded
+		WaitUtils.waitForElementPresent(driver,
+		    By.xpath("(//input[@type='file' and contains(@accept,'image')])[1]"));
     }
     
     public void scrollToPageBottom() {
@@ -212,23 +217,25 @@ public class VideoCreationPage {
     
     // PAGE 2
     
-    public void uploadThumbnailImage() throws InterruptedException {
+    public void uploadThumbnailImage() {
 
         thumbnailInput = driver.findElement(By.xpath("(//input[@type='file' and contains(@accept,'image')])[1]"));
         thumbnailInput.sendKeys("C:\\Users\\admin\\Downloads\\TestingImage.jpg");
-        // Wait (if required for upload processing)
-        Thread.sleep(3000);
+        // Wait for Save & Proceed button — signals thumbnail has been processed
+        WaitUtils.waitForElementClickable(driver,
+            By.xpath("//button[normalize-space()='Save & Proceed']"));
     }
     
    
     
     public void clickOnSaveAndProceedButton() {
-    	
+
     	saveAndProceedButtonTwo = driver.findElement(By.xpath("//button[normalize-space()='Save & Proceed']"));
-	    // saveAndProceedButtonTwo.click();
 	    JavascriptExecutor js = (JavascriptExecutor) driver;
 	    js.executeScript("arguments[0].click();", saveAndProceedButtonTwo);
-	
+	    // Wait for page 3 — mobile app checkbox is the signal that publish page has loaded
+	    WaitUtils.waitForElementClickable(driver,
+	        By.xpath("(//input[@name='brochure-platform'])[1]"));
     }
     
     public void clickonMobileAppButton() {
@@ -296,11 +303,14 @@ public class VideoCreationPage {
     }
     
     public void closePartnerOptionDialogBox() {
-   
+
         // Use Actions class to perform the close action
         Actions actions = new Actions(driver);
         actions.moveToElement(selectPartnersDropdown).click().perform();
         System.out.println("Dialog box closed using Actions!");
+        // Wait for cobranding toggle — signals dialog is fully closed
+        WaitUtils.waitForElementClickable(driver,
+            By.xpath("(//input[@id='custom-switch'])[1]"));
     }
     
     public void clickOnCobrandingToggle() {
@@ -322,9 +332,12 @@ public class VideoCreationPage {
     }
     
     public void clickOnPublishButton() {
-    	
+
     	publishButton = driver.findElement(By.xpath("//button[normalize-space()='Publish']"));
 	    publishButton.click();
+	    // Wait for Asset Library page — signals publish was successful and page has redirected
+	    WaitUtils.waitForElementVisible(driver,
+	        By.xpath("//h3[normalize-space()='Asset Library']"));
     }
     
     public void waitForPublishPageToLoad() {

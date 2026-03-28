@@ -22,7 +22,7 @@ public class VideoCreationTest extends Base {
 		
 		
 		@Test(priority=1)
-		public void test_TC_DL_01_videoCreationThroughAssetLibrary() throws Exception {
+		public void test_TC_DL_01_videoCreationThroughAssetLibrary() {
 			
 			driver = openBrowserAndApplication(prop.getProperty("browser"));
 			
@@ -51,8 +51,7 @@ public class VideoCreationTest extends Base {
 		    // Remember we have to wait and see that the page is loaded, so we need to have some signals
 		    videoCreationPage.waitForGlobalAssetDetailsPageToLoad();
 		    videoCreationPage.enterTextIntoNameTextfield(prop.getProperty("NameTextForVideo"));
-		    
-            Thread.sleep(2000); 
+
             JavascriptExecutor js = (JavascriptExecutor) driver;
 	        js.executeScript("window.scrollBy(0,300)");
 	        
@@ -66,28 +65,20 @@ public class VideoCreationTest extends Base {
 		    
 		    // Scrolling down more
 	        videoCreationPage.scrollToPageBottom();
-	        Thread.sleep(3000);
 		    videoCreationPage.clickOnSaveAndProceed();
-		    Thread.sleep(3000);
 		    
 		    // PAGE 2
 		    
 		    // js.executeScript("window.scrollBy(0,200)");
 		    videoCreationPage.uploadThumbnailImage();
-		    Thread.sleep(2000);
 		    js.executeScript("window.scrollBy(0,200)");
-            Thread.sleep(2000);
             js.executeScript("window.scrollBy(0,7000)");
-            
             videoCreationPage.clickOnSaveAndProceedButton();
-            Thread.sleep(5000);
             
             // PAGE 3 : PUBLISH PAGE
             
             js.executeScript("window.scrollBy(0,200)");
-	        Thread.sleep(3000);
 	        videoCreationPage.clickonMobileAppButtonTypeTwo();
-	        Thread.sleep(2000);
 	        
 	        // Scrolling the Page so we go down
 	        js.executeScript("window.scrollBy(0,400)");      
@@ -95,17 +86,13 @@ public class VideoCreationTest extends Base {
 	        videoCreationPage.selectPartnerOption();
 	        
 	        videoCreationPage.closePartnerOptionDialogBox();
-	        Thread.sleep(2000);
 	        
 	        videoCreationPage.clickOnCobrandingToggle();
 	        videoCreationPage.clickOnPushNotificationToggle();
 	        videoCreationPage.clickOnEmailNotificationToggle();
 	        
 	       
-	        Thread.sleep(2000);
 	        videoCreationPage.clickOnPublishButton();
-		    
-	        Thread.sleep(5000);
 	        
 	        // Asset Library Page
 	        videoCreationPage.clickOnProfileIconAfterPublishing();

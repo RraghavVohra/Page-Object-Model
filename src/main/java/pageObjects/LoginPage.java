@@ -26,9 +26,7 @@ public class LoginPage {
 	private WebElement passwordField;
 	private WebElement submitButton;
 	
-	public void enterUsernameField(String usernameText) throws InterruptedException {
-		
-		Thread.sleep(4000);
+	public void enterUsernameField(String usernameText) {
 		usernameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
 		usernameField.clear();
 		usernameField.sendKeys(usernameText);

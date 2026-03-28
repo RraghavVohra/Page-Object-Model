@@ -1,9 +1,10 @@
 package util;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 
 import org.openqa.selenium.JavascriptExecutor;
@@ -17,7 +18,7 @@ public class Utilities {
 	
 	// Earlier this method was not static, but once we made it static, then it could be accessed with the help of class name.
 	// For that to happen, we will go back to the MyListeners.java
-	
+	/*
 	public static String captureScreenshot(WebDriver driver,String testName) {
 		
 		File srcFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
@@ -30,11 +31,39 @@ public class Utilities {
 		}
 		
 		return screenshotFilePath;
-		
-		
-	}
+		}
+	*/	
 	
-	public static Properties loadPropertiesFile() {
+	// WHY: Captures screenshot and saves as PNG file.
+    // Timestamp in filename prevents overwriting previous failures with same test name.
+    // HOW: TakesScreenshot interface converts browser viewport to byte array,
+    // FileUtils copies it to disk.
+   
+   public static String captureScreenshot(WebDriver driver, String testName) {
+       String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+       String fileName = testName + "_" + timestamp + ".png";
+       String screenshotDir = System.getProperty("user.dir") + "/screenshots/";
+
+       try {
+           File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+           File destFile = new File(screenshotDir + fileName);
+           destFile.getParentFile().mkdirs(); // create folder if it doesn't exist
+           FileHandler.copy(srcFile, destFile);
+
+           // Return RELATIVE path from report location to screenshot
+           // Report is at: target/reports/ExtentReport.html
+           // Screenshot is at: screenshots/fileName.png
+           // Relative path from report to screenshot: ../../screenshots/fileName.png
+           return "../../screenshots/" + fileName;
+
+       } catch (IOException e) {
+           e.printStackTrace();
+           return null;
+       }
+   }
+	
+   /*	
+   public static Properties loadPropertiesFile() {
 		
 		Properties prop = null;
 		try {
@@ -51,6 +80,20 @@ public class Utilities {
 		
 		return prop;
 	}
+	*/
+	// WHY: Centralizes properties loading so every class doesn't need its own
+    // FileReader logic. Single point of failure = easier to fix.
+   
+   public static Properties loadPropertiesFile() {
+       Properties prop = new Properties();
+       String path = System.getProperty("user.dir") + "\\src\\test\\resources\\projectdata.properties";
+       try {
+           prop.load(new FileInputStream(path));
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
+       return prop;
+   }
 	
 	
 

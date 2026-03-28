@@ -25,9 +25,7 @@ public class Login extends Base {
 	    }
 	 
 	 @AfterMethod
-	 public void tearDown() throws InterruptedException {
-		    
-		    Thread.sleep(3000);
+	 public void tearDown() {
 	        driver.quit();  // Close browser after tests
 	 }
 	 
@@ -46,7 +44,7 @@ public class Login extends Base {
 	    
 	    // Single test method using data-driven testing 
 	    @Test(dataProvider = "loginData")
-	    public void loginWithVariousCredentials(String username, String password, String expectedResult) throws InterruptedException {
+	    public void loginWithVariousCredentials(String username, String password, String expectedResult) {
 	        
 	    
 	        loginPage.enterUsernameField(username);
