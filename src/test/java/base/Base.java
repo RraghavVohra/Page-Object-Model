@@ -41,7 +41,7 @@ public class Base {
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(35));
 		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(35));
-		driver.get(prop.getProperty("urldev"));
+		driver.get(prop.getProperty("urlprod"));
 		
 		return driver;
 	}

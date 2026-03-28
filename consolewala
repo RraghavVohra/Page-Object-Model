@@ -1,13 +1,16 @@
-FAILED: tests.DocumentLibrary.test_TC_DL_22_2_UploadingDocumentInCsvFormat
-org.openqa.selenium.ElementNotInteractableException: element not interactable
+User Logged in Successfully.
+PDF File uploaded successfully!
+Next Button was clicked
+FAILED: tests.PdfCreationTest.test_TC_DL_01_pdfCreationThroughAssetLibrary
+org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element is not clickable at point (1099, 673)
   (Session info: chrome=146.0.7680.165)
 Build info: version: '4.27.0', revision: 'd6e718d134'
 System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '23.0.2'
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [097a9b8af5ff6e31cd2bb0f45ab60e32, sendKeysToElement {id=f.11A8B5036B242572E29C7F4AD926C06A.d.16DAC357DFFAFE5735826AB46714C061.e.143, value=[Ljava.lang.CharSequence;@250b236d}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.165, chrome: {chromedriverVersion: 146.0.7638.0 (9901d838e058d..., userDataDir: C:\Users\admin\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:53065}, goog:processID: 7204, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:53065/devtoo..., se:cdpVersion: 146.0.7680.165, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Element: [[ChromeDriver: chrome on windows (097a9b8af5ff6e31cd2bb0f45ab60e32)] -> id: username]
-Session ID: 097a9b8af5ff6e31cd2bb0f45ab60e32
+Command: [7753560b32debec26cccc3e04c268f95, clickElement {id=f.55E629CB672C2BF338B7320C20414EAF.d.6442E47B83152E72A31CB4C7691441A4.e.963}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.165, chrome: {chromedriverVersion: 146.0.7638.0 (9901d838e058d..., userDataDir: C:\Users\admin\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:61164}, goog:processID: 10004, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:61164/devtoo..., se:cdpVersion: 146.0.7680.165, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on windows (7753560b32debec26cccc3e04c268f95)] -> xpath: //button[normalize-space()='Save & Proceed']]
+Session ID: 7753560b32debec26cccc3e04c268f95
 	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
 	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501)
 	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:485)
@@ -19,11 +22,9 @@ Session ID: 097a9b8af5ff6e31cd2bb0f45ab60e32
 	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
 	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:545)
 	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:223)
-	at org.openqa.selenium.remote.RemoteWebElement.sendKeys(RemoteWebElement.java:110)
-	at pageObjects.LoginPage.lambda$0(LoginPage.java:37)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:203)
-	at pageObjects.LoginPage.enterUsernameField(LoginPage.java:32)
-	at tests.DocumentLibrary.test_TC_DL_22_2_UploadingDocumentInCsvFormat(DocumentLibrary.java:426)
+	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:76)
+	at pageObjects.PdfCreationPage.clickOnSaveAndProceed(PdfCreationPage.java:244)
+	at tests.PdfCreationTest.test_TC_DL_01_pdfCreationThroughAssetLibrary(PdfCreationTest.java:78)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
@@ -54,13 +55,11 @@ Session ID: 097a9b8af5ff6e31cd2bb0f45ab60e32
 
 ===============================================
     Default test
-    Tests run: 3, Failures: 1, Skips: 0
+    Tests run: 1, Failures: 1, Skips: 0
 ===============================================
 
 
 ===============================================
 Default suite
-Total tests run: 3, Passes: 2, Failures: 1, Skips: 0
+Total tests run: 1, Passes: 0, Failures: 1, Skips: 0
 ===============================================
-
-

@@ -26,8 +26,8 @@ public class PdfCreationTest extends Base {
 			driver = openBrowserAndApplication(prop.getProperty("browser"));
 			
 		    loginPage = new LoginPage(driver);
-		    loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
-		    loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+		    loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
+		    loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
 		    loginPage.clickOnSubmitButton();
 		    System.out.println("User Logged in Successfully.");
 	
@@ -38,17 +38,17 @@ public class PdfCreationTest extends Base {
 		   
 		    
 		    pdfCreationPage.clickOnAddNewAssetButton();
-		    pdfCreationPage.clickOnbrochurePostButton();
+		    pdfCreationPage.clickOnbrochurePostButtonProd();
 		    pdfCreationPage.waitForPDFPostPageToLoad();
 		    
 		    JavascriptExecutor js = (JavascriptExecutor) driver;
 		    js.executeScript("window.scrollBy(0,300)");
-		    Thread.sleep(2000);
-		    
+		    // Thread.sleep(2000); — removed: attachFile() handles its own scroll internally via scrollIntoView(true)
+
 		    pdfCreationPage.attachFile();
-		    Thread.sleep(3000);
+		    // Thread.sleep(3000); — removed: attachFile() now waits for the Next button to be clickable before returning
 		    js.executeScript("window.scrollBy(0,200)");
-		    Thread.sleep(2000);
+		    // Thread.sleep(2000); — removed: clickOnNextButton() uses wait.until(elementToBeClickable) internally
 		    pdfCreationPage.clickOnNextButton();
 		    	
 		    
@@ -58,25 +58,25 @@ public class PdfCreationTest extends Base {
 		    
 		    pdfCreationPage.enterTextIntoNameTextfield(prop.getProperty("NameText"));
 		    pdfCreationPage.scrollToElement();
-	        Thread.sleep(2000);
-	        
+	        // Thread.sleep(2000); — removed: scrollToElement() uses scrollIntoView(true) which is instant; clickOnCategoryField() waits internally
+
 	        js.executeScript("window.scrollBy(0,300)");
 	        
 		    pdfCreationPage.clickOnCategoryField();
-		    pdfCreationPage.clickOnCategoryOption();
+		    pdfCreationPage.clickOnCategoryOptionProd();
 		    pdfCreationPage.clickOnCategoriesStaticText();
 		    
 		    pdfCreationPage.clickOnHashtagField();
-		    pdfCreationPage.clickOnHashtag();
+		    pdfCreationPage.clickOnHashtagProd();
 		    pdfCreationPage.clickOnHashtagStaticText();
 		    
 		    pdfCreationPage.enterTextIntoDescriptionTextfield(prop.getProperty("DescriptionText"));
 		    
 		    // Scrolling down more
 	        pdfCreationPage.scrollToPageBottom();
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); — removed: clickOnSaveAndProceed() uses wait.until(elementToBeClickable) internally
 		    pdfCreationPage.clickOnSaveAndProceed();
-		    Thread.sleep(3000);
+		    // Thread.sleep(3000); — removed: uploadImage() waits for the file input via wait.until(presenceOfElementLocated) before proceeding
 		    
 		    // Page 2
 		    pdfCreationPage.uploadImage();
@@ -90,26 +90,26 @@ public class PdfCreationTest extends Base {
 	        
 	        // Publish Page - Page 3
 	        js.executeScript("window.scrollBy(0,200)");
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); — removed: clickonMobileAppButton() uses wait.until(elementToBeClickable) internally
 	        pdfCreationPage.clickonMobileAppButton();
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); — removed: selectPartnersDropdown() uses wait.until(elementToBeClickable) on the dropdown
 	        // Scrolling the Page so we go down
 	        js.executeScript("window.scrollBy(0,400)");      
 	        pdfCreationPage.selectPartnersDropdown();
 	        pdfCreationPage.selectPartnerOption();
 	        
 	        pdfCreationPage.closePartnerOptionDialogBox();
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); — removed: closePartnerOptionDialogBox() now waits for dropdown to become invisible before returning
 	        
 	        pdfCreationPage.clickOnCobrandingToggle();
 	        pdfCreationPage.clickOnPushNotificationToggle();
 	        pdfCreationPage.clickOnEmailNotificationToggle();
 	        
-	       
-	        Thread.sleep(2000);
+
+	        // Thread.sleep(2000); — removed: clickOnPublishButton() now uses wait.until(elementToBeClickable) internally
 	        pdfCreationPage.clickOnPublishButton();
-		    
-	        Thread.sleep(5000);
+
+	        // Thread.sleep(5000); — removed: clickOnProfileIconAfterPublishing() uses wait.until(elementToBeClickable) on the SVG icon, covering the publish redirect time
 	        
 	        // Asset Library Page
 	        pdfCreationPage.clickOnProfileIconAfterPublishing();

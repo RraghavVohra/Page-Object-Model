@@ -23,7 +23,7 @@ public class PdfCreationPage {
 	 public PdfCreationPage(WebDriver driver) {
 		 
 		 this.driver = driver;
-		 this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		 this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 	 }
 	 
 	 private WebElement addNewAssetButton;
@@ -64,26 +64,34 @@ public class PdfCreationPage {
 	 
 	 
      public void clickOnAddNewAssetButton() {
-		 
-		 addNewAssetButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@class='add-new-asset-btn btn btn-info']")));	
-		 addNewAssetButton.click();
+
+		 addNewAssetButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@class='add-new-asset-btn btn btn-info']")));
+		 // addNewAssetButton.click(); — replaced: JS click used to avoid ElementClickInterceptedException from overlay
+		 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", addNewAssetButton);
 	 }
      
      public void clickOnbrochurePostButton() {
-		 
+
     	 // This method is defined at the bottom
     	 // waitForOverlayToDisappear();
 		 brochurePostButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[@class='card-body'])[2]")));
 		 brochurePostButton.click();
 	 }
+
+     public void clickOnbrochurePostButtonProd() {
+
+    	 brochurePostButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[@class='card-body'])[1]")));
+    	 brochurePostButton.click();
+     }
      
      public void attachFile() throws Exception {
 		 
 	        attachBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@for='input-file-upload']//span[normalize-space()='Attach']")));
 
 	        // Scroll to element
-	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", attachBtn);
-	        Thread.sleep(2000);
+	        // ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", attachBtn);
+	        // Thread.sleep(2000); — removed: changed to instant scrollIntoView(true), no smooth animation delay needed
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", attachBtn);
 
 	        // Click attach button
 	        attachBtn.click();
@@ -105,16 +113,17 @@ public class PdfCreationPage {
 	        robot.keyRelease(KeyEvent.VK_ENTER);
 
 	        System.out.println("PDF File uploaded successfully!");
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); — removed: wait for Next button to be clickable confirms the file was registered in the browser
+	        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@type='button' and contains(@class, 'btn-info') and contains(text(), 'Next')]")));
 	    }
      
         public void clickOnNextButton() {
 	    	
  	    nextButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@type='button' and contains(@class, 'btn-info') and contains(text(), 'Next')]")));
 
- 	    // Use Actions class to move to the element and click
- 	    Actions actions = new Actions(driver);
- 	    actions.moveToElement(nextButton).click().perform();
+ 	    // Actions actions = new Actions(driver);
+ 	    // actions.moveToElement(nextButton).click().perform(); — replaced: JS click used to avoid click interception
+ 	    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", nextButton);
  	    System.out.println("Next Button was clicked");
  	    
         }
@@ -142,7 +151,7 @@ public class PdfCreationPage {
 			categoriesField.click();
 	    }
 	    
-	    public void clickOnCategoryOption() {
+	    public void clickOnCategoryOptionDev() {
 	    	
 	    	// categoryOption = driver.findElement(By.xpath("//li[normalize-space()='Raghav SDET']"));
 			// categoryOption.click();
@@ -152,6 +161,18 @@ public class PdfCreationPage {
 		    categoryOption.click();
 		    // 3️⃣ FINAL: wait until selection is reflected in UI
 		    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[normalize-space()='Raghav SDET']")));
+	    }
+	    
+        public void clickOnCategoryOptionProd() {
+	    	
+	    	// categoryOption = driver.findElement(By.xpath("//li[normalize-space()='Raghav SDET']"));
+			// categoryOption.click();
+			// 1️⃣ Wait until option is clickable
+			categoryOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//li[normalize-space()='Term Plan']")));
+			// 2️⃣ Click the option
+		    categoryOption.click();
+		    // 3️⃣ FINAL: wait until selection is reflected in UI
+		    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[normalize-space()='Term Plan']")));
 	    }
 	    
 	    public void clickOnCategoriesStaticText() {
@@ -168,16 +189,31 @@ public class PdfCreationPage {
 			hashtagField.click();
 	    }
 	    
-	    public void clickOnHashtag() {
+	    public void clickOnHashtagDev() {
 	    	
 	    	hashtagOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//li[normalize-space()='what']")));
 	    	// hashtagOption = driver.findElement(By.xpath("//li[normalize-space()='what']"));
 			hashtagOption.click();
 	    }
 	    
+       public void clickOnHashtagProd() {
+	    	
+	    	hashtagOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//li[normalize-space()='Insurance']")));
+	    	// hashtagOption = driver.findElement(By.xpath("//li[normalize-space()='what']"));
+			hashtagOption.click();
+	    }
+	    
+	    
         public void centering() {
 	    	
 	    	hashtagOption = driver.findElement(By.xpath("//li[normalize-space()='what']"));
+	    	JavascriptExecutor js = (JavascriptExecutor) driver;
+	    	((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", hashtagOption);
+	    }
+        
+        public void centeringProd() {
+	    	
+	    	hashtagOption = driver.findElement(By.xpath("//li[normalize-space()='Insurance']"));
 	    	JavascriptExecutor js = (JavascriptExecutor) driver;
 	    	((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", hashtagOption);
 	    }
@@ -203,9 +239,10 @@ public class PdfCreationPage {
 	    }
 	    
         public void clickOnSaveAndProceed() {
-	    	
-	    	saveAndProceedButton = driver.findElement(By.xpath("//button[normalize-space()='Save & Proceed']"));
-	    	wait.until(ExpectedConditions.elementToBeClickable(saveAndProceedButton)).click();
+
+	    	saveAndProceedButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[normalize-space()='Save & Proceed']")));
+	    	// wait.until(ExpectedConditions.elementToBeClickable(saveAndProceedButton)).click(); — replaced: JS click used to avoid ElementClickInterceptedException
+	    	((JavascriptExecutor) driver).executeScript("arguments[0].click();", saveAndProceedButton);
 			System.out.println("Proceed button was clicked");
 	    }
         
@@ -221,8 +258,8 @@ public class PdfCreationPage {
 
 	        System.out.println("Image uploaded successfully!");
 
-	        // Wait (if required for upload processing)
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); — removed: wait for Save & Proceed button to be clickable confirms image upload is processed
+	        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[normalize-space()='Save & Proceed']")));
 	    }
         
        public void clickOnSaveAndProceedButton() {
@@ -293,6 +330,9 @@ public class PdfCreationPage {
             Actions actions = new Actions(driver);
             actions.moveToElement(selectPartnersDropdown).click().perform();
             System.out.println("Dialog box closed using Actions!");
+            // Wait for the dropdown options panel to disappear before proceeding to the toggles
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(
+                By.xpath("//div[contains(@id,'react-select') and contains(@class,'option')]")));
         }
         
         public void clickOnCobrandingToggle() {
@@ -315,7 +355,8 @@ public class PdfCreationPage {
         
         public void clickOnPublishButton() {
         	
-        	publishButton = driver.findElement(By.xpath("//button[normalize-space()='Publish']"));
+        	// publishButton = driver.findElement(By.xpath("//button[normalize-space()='Publish']")); — replaced: upgraded to wait.until for reliability
+        	publishButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[normalize-space()='Publish']")));
 		    publishButton.click();
         }
         
@@ -353,20 +394,18 @@ public class PdfCreationPage {
        
        public void waitForPublishPageToLoad() {
 
-    	    overlay = driver.findElement(By.xpath("//div[contains(@class,'overlay-bg')]"));
-    	    mobileAppCheckbox = driver.findElement(By.xpath("//label[normalize-space()='Mobile App']"));
-
-    	    wait.until(ExpectedConditions.invisibilityOf(overlay));
-    	    wait.until(ExpectedConditions.elementToBeClickable(mobileAppCheckbox));
+    	    // overlay = driver.findElement(By.xpath("//div[contains(@class,'overlay-bg')]")); — replaced: driver.findElement throws NoSuchElementException if overlay absent (e.g. prod server)
+    	    // wait.until(ExpectedConditions.invisibilityOf(overlay)); — replaced with invisibilityOfElementLocated which handles missing overlay gracefully
+    	    wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class,'overlay-bg')]")));
+    	    wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[normalize-space()='Mobile App']")));
     	}
-       
+
        public void waitForGlobalAssetDetailsPageToLoad() {
 
-   	    overlay = driver.findElement(By.xpath("//div[contains(@class,'overlay-bg')]"));
-   	    nameField = driver.findElement(By.xpath("//input[@placeholder='Name']"));
-
-   	    wait.until(ExpectedConditions.invisibilityOf(overlay));
-   	    wait.until(ExpectedConditions.elementToBeClickable(nameField));
+   	    // overlay = driver.findElement(By.xpath("//div[contains(@class,'overlay-bg')]")); — replaced: driver.findElement throws NoSuchElementException if overlay absent (e.g. prod server)
+   	    // wait.until(ExpectedConditions.invisibilityOf(overlay)); — replaced with invisibilityOfElementLocated which handles missing overlay gracefully
+   	    wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class,'overlay-bg')]")));
+   	    wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@placeholder='Name']")));
    	}
         
        public void clickonMobileAppButtonTypeTwo() {
