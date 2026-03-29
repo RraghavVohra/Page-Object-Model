@@ -3,12 +3,12 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="tests.ImageCreationTest">
+      <class name="tests.PushNotification">
         <methods>
-          <include name="test_TC_DL_01_imageCreationThroughAssetLibrary"/>
+          <include name="test_TC_PN_06_notificationChannelSelection"/>
           <include name="tearDown"/>
         </methods>
-      </class> <!-- tests.ImageCreationTest -->
+      </class> <!-- tests.PushNotification -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

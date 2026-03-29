@@ -8,6 +8,7 @@ import base.Base;
 import java.util.Arrays;
 import java.util.List;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
 
 import pageObjects.LoginPage;
@@ -26,6 +27,10 @@ public class PushNotification extends Base {
 	 
 	 @AfterMethod
 	 public void tearDown() {
+		    // Clear cookies and storage before quitting — prevents stale session tokens
+		    // from triggering an auto-login on the next run, reducing login attempts counted by the server
+		    driver.manage().deleteAllCookies();
+		    ((JavascriptExecutor) driver).executeScript("window.localStorage.clear(); window.sessionStorage.clear();");
 	        driver.quit();  // Close browser after tests
 	 }
 
@@ -38,23 +43,24 @@ public class PushNotification extends Base {
         driver = openBrowserAndApplication(prop.getProperty("browser"));
 		
         loginPage = new LoginPage(driver);
-		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
-    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+		loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
+    	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
     	loginPage.clickOnSubmitButton();
     	System.out.println("User Logged in Successfully.");
 		
     	pushNotifyPage = new PushNotificationPage(driver);
     	pushNotifyPage.clickOnCommunicationTab();
-    	Thread.sleep(5000);
-    	pushNotifyPage.clickOnNotifications();
-    	
+    	// Thread.sleep(5000); // Removed — clickOnNotificationsProd() already waits for element
+    	pushNotifyPage.clickOnNotificationsProd();
+
 		String expectedpageHeadingText = "PUSH NOTIFICATION";
 		String actualPageHeadingText = pushNotifyPage.getPageHeading();
 		Assert.assertEquals(expectedpageHeadingText,actualPageHeadingText);
 		
 		String actualURL = driver.getCurrentUrl();
+		String expectedURLProd = "https://app.technochimes.com/framework/AgencyCommunication/list";
 		String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/list";
-		Assert.assertEquals(actualURL,expectedURL);
+		Assert.assertEquals(actualURL,expectedURLProd);
 		
 		
 		System.out.println("TC_PN_001 has Passed!");
@@ -71,21 +77,22 @@ public class PushNotification extends Base {
         driver = openBrowserAndApplication(prop.getProperty("browser"));
 		
         loginPage = new LoginPage(driver);
-		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
-    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+		loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
+    	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
     	loginPage.clickOnSubmitButton();
     	System.out.println("User Logged in Successfully.");
     	
     	pushNotifyPage = new PushNotificationPage(driver);
     	pushNotifyPage.clickOnCommunicationTab();
-    	Thread.sleep(5000);
-    	pushNotifyPage.clickOnNotifications();
+    	// Thread.sleep(5000); // Removed — clickOnNotificationsProd() already waits for element
+    	pushNotifyPage.clickOnNotificationsProd();
     	pushNotifyPage.clickOnActionsButton();
     	pushNotifyPage.clickOnCreateAppNotification();
     	
     	String actualURL = driver.getCurrentUrl();
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
-        Assert.assertEquals(actualURL,expectedURL);
+        String expectedURLProd = "https://app.technochimes.com/framework/AgencyCommunication/create";
+        Assert.assertEquals(actualURL,expectedURLProd);
         
         System.out.println("TC_PN_002 has Passed!");
         
@@ -103,44 +110,45 @@ public class PushNotification extends Base {
         driver = openBrowserAndApplication(prop.getProperty("browser"));
 		
         loginPage = new LoginPage(driver);
-		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
-    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+		loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
+    	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
     	loginPage.clickOnSubmitButton();
     	System.out.println("User Logged in Successfully.");
     	
     	pushNotifyPage = new PushNotificationPage(driver);
     	pushNotifyPage.clickOnCommunicationTab();
-    	pushNotifyPage.clickOnNotifications();
+    	pushNotifyPage.clickOnNotificationsProd();
     	pushNotifyPage.clickOnActionsButton();
     	pushNotifyPage.clickOnCreateAppNotification();
     	
     	String actualURL = driver.getCurrentUrl();
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
-        Assert.assertEquals(actualURL,expectedURL);
+        String expectedURLProd = "https://app.technochimes.com/framework/AgencyCommunication/create";
+        Assert.assertEquals(actualURL,expectedURLProd);
         
         pushNotifyPage.enterNotificationMessage(prop.getProperty("notificationmessageText"));
         pushNotifyPage.clickOnCategoryDropdown();
         pushNotifyPage.scrollToCategoryDropdown();
         pushNotifyPage.enterIntoSearchTextfield();
-        Thread.sleep(2000);      
+        // Thread.sleep(2000); // Removed — wait moved into enterIntoSearchTextfield()
         pushNotifyPage.clickOnTargetCategory();
         // Clicking on Blank space after selecting the target category so that the dialog box closes
         pushNotifyPage.clickOnBlankSpace();
-        Thread.sleep(2000);
-       
+        // Thread.sleep(2000); // Removed — wait moved into clickOnBlankSpace()
+
         pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
-        Thread.sleep(2000);
+        // Thread.sleep(2000); // Removed — wait moved into attachPhoto()
         // As crop button is not their so i have commented it
         // pushNotifyPage.clickOnCropButton();
         pushNotifyPage.clickOnCustomLinkButton();
         pushNotifyPage.enterValueLinkTextfield(prop.getProperty("customlinkfield"));
         pushNotifyPage.enterSchedulingDateTime(prop.getProperty("schedulingDate"),prop.getProperty("schedulingTime"));
-        
+
         pushNotifyPage.clickOnSubmitButton();
-        
+
         // As i wanted to scroll to the top, so i defined the method in Utilities class
         Utilities.scrollToTop(driver);// You already have the driver in your test
-        
+
         String validationMsg = pushNotifyPage.getValidationMessageForNotificationName();
         Assert.assertEquals(validationMsg, "Please fill out this field.");
         // Only printed if the assertion passes
@@ -162,20 +170,21 @@ public class PushNotification extends Base {
         driver = openBrowserAndApplication(prop.getProperty("browser"));
 		
         loginPage = new LoginPage(driver);
-		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
-    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+		loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
+    	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
     	loginPage.clickOnSubmitButton();
     	System.out.println("User Logged in Successfully.");
     	
     	pushNotifyPage = new PushNotificationPage(driver);
     	pushNotifyPage.clickOnCommunicationTab();
-    	pushNotifyPage.clickOnNotifications();
+    	pushNotifyPage.clickOnNotificationsProd();
     	pushNotifyPage.clickOnActionsButton();
     	pushNotifyPage.clickOnCreateAppNotification();
     	
     	String actualURL = driver.getCurrentUrl();
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
-        Assert.assertEquals(actualURL,expectedURL);
+        String expectedURLProd = "https://app.technochimes.com/framework/AgencyCommunication/create";
+        Assert.assertEquals(actualURL,expectedURLProd);
         
         
         String dynamicNotificationName = "Push's_Notification_" + System.currentTimeMillis();
@@ -184,25 +193,25 @@ public class PushNotification extends Base {
         pushNotifyPage.clickOnCategoryDropdown();
         pushNotifyPage.scrollToCategoryDropdown();
         pushNotifyPage.enterIntoSearchTextfield();
-        Thread.sleep(2000);      
+        // Thread.sleep(2000); // Removed — wait moved into enterIntoSearchTextfield()
         pushNotifyPage.clickOnTargetCategory();
         // Clicking on Blank space after selecting the target category so that the dialog box closes
         pushNotifyPage.clickOnBlankSpace();
-        Thread.sleep(2000);
-       
+        // Thread.sleep(2000); // Removed — wait moved into clickOnBlankSpace()
+
         pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
-        Thread.sleep(2000);
+        // Thread.sleep(2000); // Removed — wait moved into attachPhoto()
         // As crop button is not their so i have commented it
         // pushNotifyPage.clickOnCropButton();
         pushNotifyPage.clickOnCustomLinkButton();
         pushNotifyPage.enterValueLinkTextfield(prop.getProperty("customlinkfield"));
         pushNotifyPage.enterSchedulingDateTime(prop.getProperty("schedulingDate"),prop.getProperty("schedulingTime"));
-        
+
         pushNotifyPage.clickOnSubmitButton();
-        
+
         // As i wanted to scroll to the top, so i defined the method in Utilities class
         Utilities.scrollToTop(driver);// You already have the driver in your test
-        
+
         String validationMsg = pushNotifyPage.getValidationMessageForNotificationMessage();
         Assert.assertEquals(validationMsg, "Please fill out this field.");
         // Only printed if the assertion passes
@@ -220,20 +229,21 @@ public class PushNotification extends Base {
         driver = openBrowserAndApplication(prop.getProperty("browser"));
 		
         loginPage = new LoginPage(driver);
-		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
-    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+		loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
+    	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
     	loginPage.clickOnSubmitButton();
     	System.out.println("User Logged in Successfully.");
     	
     	pushNotifyPage = new PushNotificationPage(driver);
     	pushNotifyPage.clickOnCommunicationTab();
-    	pushNotifyPage.clickOnNotifications();
+    	pushNotifyPage.clickOnNotificationsProd();
     	pushNotifyPage.clickOnActionsButton();
     	pushNotifyPage.clickOnCreateAppNotification();
     	
     	String actualURL = driver.getCurrentUrl();
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
-        Assert.assertEquals(actualURL,expectedURL);
+        String expectedURLProd = "https://app.technochimes.com/framework/AgencyCommunication/create";
+        Assert.assertEquals(actualURL,expectedURLProd);
         
         String dynamicNotificationName = "Push's_Notification_" + System.currentTimeMillis();
         pushNotifyPage.enterNotificationName(dynamicNotificationName);
@@ -243,14 +253,13 @@ public class PushNotification extends Base {
         pushNotifyPage.clickOnCategoryDropdown();
         // pushNotifyPage.scrollToCategoryDropdown();
         // pushNotifyPage.enterIntoSearchTextfield();
-        Thread.sleep(2000);      
+        // Thread.sleep(2000); // Removed — wait moved into clickOnCategoryDropdown()
         // pushNotifyPage.clickOnTargetCategory();
         // Clicking on Blank space after selecting the target category so that the dialog box closes
         // pushNotifyPage.clickOnBlankSpace();
-        // Thread.sleep(2000);
-       
+
         pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
-        Thread.sleep(2000);
+        // Thread.sleep(2000); // Removed — wait moved into attachPhoto()
         // As crop button is not their so i have commented it
         // pushNotifyPage.clickOnCropButton();
         pushNotifyPage.clickOnBlankSpace();
@@ -263,11 +272,11 @@ public class PushNotification extends Base {
         // As i wanted to scroll to the top, so i defined the method in Utilities class
         Utilities.scrollToTop(driver);// You already have the driver in your test
         
-        String validationMsg = pushNotifyPage.getValidationMessageForNotificationMessage();
+        String validationMsg = pushNotifyPage.getValidationMessageForParnterCategoryNotSelectedProd();
         // CURRENTLY WE DO NOT SEE THIS MESSAGE AS IT NEEDS TO BE FIXED
-        Assert.assertEquals(validationMsg, "Please fill out this field.");
+        Assert.assertEquals(validationMsg, "Please select atleast one category");
         // Only printed if the assertion passes
-        System.out.println("✅ Notification Message field showed the correct validation message.");
+        System.out.println("✅ Partner Category field showed the correct validation message.");
         
         pushNotifyPage.clickOnProfileIcon();
         pushNotifyPage.clickOnLogoutOption();
@@ -281,20 +290,21 @@ public class PushNotification extends Base {
         driver = openBrowserAndApplication(prop.getProperty("browser"));
 		
         loginPage = new LoginPage(driver);
-		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
-    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+		loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
+    	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
     	loginPage.clickOnSubmitButton();
     	System.out.println("User Logged in Successfully.");
     	
     	pushNotifyPage = new PushNotificationPage(driver);
     	pushNotifyPage.clickOnCommunicationTab();
-    	pushNotifyPage.clickOnNotifications();
+    	pushNotifyPage.clickOnNotificationsProd();
     	pushNotifyPage.clickOnActionsButton();
     	pushNotifyPage.clickOnCreateAppNotification();
     	
     	String actualURL = driver.getCurrentUrl();
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
-        Assert.assertEquals(actualURL,expectedURL);
+        String expectedURLProd = "https://app.technochimes.com/framework/AgencyCommunication/create";
+        Assert.assertEquals(actualURL,expectedURLProd);
         
         String dynamicNotificationName = "Push's_Notification_" + System.currentTimeMillis();
         pushNotifyPage.enterNotificationName(dynamicNotificationName);
@@ -304,28 +314,28 @@ public class PushNotification extends Base {
         pushNotifyPage.clickOnCategoryDropdown();
         pushNotifyPage.scrollToCategoryDropdown();
         pushNotifyPage.enterIntoSearchTextfield();
-        Thread.sleep(2000);      
+        // Thread.sleep(2000); // Removed — wait moved into enterIntoSearchTextfield()
         pushNotifyPage.clickOnTargetCategory();
         // Clicking on Blank space after selecting the target category so that the dialog box closes
         pushNotifyPage.clickOnBlankSpace();
-        Thread.sleep(2000);
-       
+        // Thread.sleep(2000); // Removed — wait moved into clickOnBlankSpace()
+
         pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
-        Thread.sleep(2000);
+        // Thread.sleep(2000); // Removed — wait moved into attachPhoto()
         // As crop button is not their so i have commented it
         // pushNotifyPage.clickOnCropButton();
         pushNotifyPage.clickOnCustomLinkButton();
         pushNotifyPage.enterSchedulingDateTime(prop.getProperty("schedulingDate"),prop.getProperty("schedulingTime"));
         pushNotifyPage.clickOnSubmitButton();
-        
-        Thread.sleep(2000);
-       
+
+        // Thread.sleep(2000); // Removed — getValidationMessageForCustomLinkTextfield() already waits for element
+
         String validationMsg = pushNotifyPage.getValidationMessageForCustomLinkTextfield();
         Assert.assertEquals(validationMsg, "Please enter Custom Link to proceed");
         // Only printed if the assertion passes
         System.out.println("✅ Custom Links field showed the correct validation message.");
-        
-        Thread.sleep(2000);
+
+        // Thread.sleep(2000); // Removed — no wait needed here before logout
         
         pushNotifyPage.clickOnProfileIcon();
         pushNotifyPage.clickOnLogoutOption();
@@ -339,14 +349,14 @@ public class PushNotification extends Base {
         driver = openBrowserAndApplication(prop.getProperty("browser"));
 		
         loginPage = new LoginPage(driver);
-		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
-    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+		loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
+    	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
     	loginPage.clickOnSubmitButton();
     	System.out.println("User Logged in Successfully.");
     	
     	pushNotifyPage = new PushNotificationPage(driver);
     	pushNotifyPage.clickOnCommunicationTab();
-    	pushNotifyPage.clickOnNotifications();
+    	pushNotifyPage.clickOnNotificationsProd();
     	pushNotifyPage.clickOnActionsButton();
     	
     	List<String> expectedOptions = Arrays.asList("Create App Notification", "WhatsApp Template List", "Delete");
@@ -358,11 +368,11 @@ public class PushNotification extends Base {
         }
 
         Assert.assertEquals(actualOptions, expectedOptions);
-        
+
         System.out.println("test_TC_PN_003 got passed!");
-        
-        Thread.sleep(2000);
-        
+
+        // Thread.sleep(2000); // Removed — no wait needed before logout
+
         pushNotifyPage.clickOnProfileIcon();
         pushNotifyPage.clickOnLogoutOption();
         pushNotifyPage.clickOnLogoutButton();
@@ -375,22 +385,23 @@ public class PushNotification extends Base {
         driver = openBrowserAndApplication(prop.getProperty("browser"));
 		
         loginPage = new LoginPage(driver);
-		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
-    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+		loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
+    	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
     	loginPage.clickOnSubmitButton();
     	System.out.println("User Logged in Successfully.");
     	
     	pushNotifyPage = new PushNotificationPage(driver);
     	pushNotifyPage.clickOnCommunicationTab();
-    	Thread.sleep(5000);
-    	pushNotifyPage.clickOnNotifications();
+    	// Thread.sleep(5000); // Removed — clickOnNotifications() already waits for element
+    	pushNotifyPage.clickOnNotificationsProd();
     	pushNotifyPage.clickOnActionsButton();
     	pushNotifyPage.clickOnCreateAppNotification();
-    	
+
     	String actualURL = driver.getCurrentUrl();
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
-        Assert.assertEquals(actualURL,expectedURL);
-        
+        String expectedURLProd = "https://app.technochimes.com/framework/AgencyCommunication/create";
+        Assert.assertEquals(actualURL,expectedURLProd);
+
         pushNotifyPage.clickOnWhatsAppRadioButton();
         Assert.assertTrue(pushNotifyPage.isWhatsAppSelected(), "WhatsApp should be selected after clicking");
         Assert.assertFalse(pushNotifyPage.isPushNotificationSelected(), "Push Notification should not be selected when WhatsApp is selected");
@@ -421,15 +432,15 @@ public class PushNotification extends Base {
     	
     	pushNotifyPage = new PushNotificationPage(driver);
     	pushNotifyPage.clickOnCommunicationTab();
-    	Thread.sleep(5000);
+    	// Thread.sleep(5000); // Removed — clickOnNotifications() already waits for element
     	pushNotifyPage.clickOnNotifications();
     	pushNotifyPage.clickOnActionsButton();
     	pushNotifyPage.clickOnCreateAppNotification();
-    	
+
     	String actualURL = driver.getCurrentUrl();
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
         Assert.assertEquals(actualURL,expectedURL);
-        
+
        // Select Upload List and verify
        pushNotifyPage.clickOnUploadListRadioButton();
        Assert.assertTrue(pushNotifyPage.isUploadListRadioButtonSelected(),"Upload List Radio Button should be selected after clicking");
@@ -476,7 +487,7 @@ public class PushNotification extends Base {
         pushNotifyPage.clickOnCategoryDropdown();
         pushNotifyPage.scrollToCategoryDropdown();
         // pushNotifyPage.enterIntoSearchTextfield();
-        Thread.sleep(2000);      
+        // Thread.sleep(2000); // Removed — wait moved into clickOnCategoryDropdown()
         pushNotifyPage.clickOnSelectAllButton();
         String totalCategoriesText = pushNotifyPage.getTotalCategoriesText();
         System.out.println("The Total Number of Categories are: " + totalCategoriesText);
@@ -484,10 +495,10 @@ public class PushNotification extends Base {
         Assert.assertNotNull("Total Categories text is null!", totalCategoriesText);
         // Clicking on Blank space after selecting the target category so that the dialog box closes
         pushNotifyPage.clickOnBlankSpace();
-        Thread.sleep(2000);
-       
+        // Thread.sleep(2000); // Removed — wait moved into clickOnBlankSpace()
+
         pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
-        Thread.sleep(2000);
+        // Thread.sleep(2000); // Removed — wait moved into attachPhoto()
         // As crop button is not their so i have commented it
         // pushNotifyPage.clickOnCropButton();
         pushNotifyPage.clickOnCustomLinkButton();
@@ -540,8 +551,8 @@ public class PushNotification extends Base {
         pushNotifyPage.clickOnCategoryDropdown();
         pushNotifyPage.scrollToCategoryDropdown();
         // pushNotifyPage.enterIntoSearchTextfield();
-        Thread.sleep(2000); 
-        
+        // Thread.sleep(2000); // Removed — wait moved into clickOnCategoryDropdown()
+
         String searchValue = "Raj2024";
         boolean searchMatched = pushNotifyPage.searchAndValidateOption(searchValue);
         assertTrue("No matching option was found for the search value!", searchMatched);
@@ -584,13 +595,12 @@ public class PushNotification extends Base {
         // Assert.assertTrue(pushNotifyPage.isCropButtonDisplayed(), "Crop window did not appear!");
         // Assert.assertEquals(pushNotifyPage.getCropButtonText(), "Crop", "Crop button text does not match!");
         // pushNotifyPage.clickOnCropButton();
-        
-        
-        Thread.sleep(3000);
-        
+
+        // Thread.sleep(3000); // Removed — wait moved into attachPhoto()
+
         pushNotifyPage.hoverOverAddPhotoButton();
-        
-        Thread.sleep(3000);
+
+        // Thread.sleep(3000); // Removed — no wait needed before logout
         
         
         System.out.println("✅ TC_PN_09 is passed.The Crop functionality is working.");
@@ -632,41 +642,38 @@ public class PushNotification extends Base {
         pushNotifyPage.clickOnCategoryDropdown();
         pushNotifyPage.scrollToCategoryDropdown();
         pushNotifyPage.enterIntoSearchTextfield();
-        Thread.sleep(2000);      
+        // Thread.sleep(2000); // Removed — wait moved into enterIntoSearchTextfield()
         pushNotifyPage.clickOnTargetCategory();
         // Clicking on Blank space after selecting the target category so that the dialog box closes
         pushNotifyPage.clickOnBlankSpace();
-        Thread.sleep(2000);
-       
+        // Thread.sleep(2000); // Removed — wait moved into clickOnBlankSpace()
+
         pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
-        Thread.sleep(2000);
+        // Thread.sleep(2000); // Removed — wait moved into attachPhoto()
         // As crop button is not their so i have commented it
         // pushNotifyPage.clickOnCropButton();
         pushNotifyPage.clickOnCustomLinkButton();
         pushNotifyPage.enterValueLinkTextfield(prop.getProperty("customlinkfield"));
         pushNotifyPage.enterSchedulingDateTime(prop.getProperty("schedulingDate"),prop.getProperty("schedulingTime"));
-        
+
         pushNotifyPage.clickOnSubmitButton();
-        
-        Thread.sleep(3000);
-        //AFTER SUBMITTING I WILL BE TAKEN TO THE NEW SCREEN
-        
+        pushNotifyPage.waitForRedirectToListPage(); // Waits for URL to contain "list" after redirect
+
         String actualURL2 = driver.getCurrentUrl();
         String expectedURL2 = prop.getProperty("redirectionURL");
         Assert.assertEquals(actualURL2,expectedURL2);
-        Thread.sleep(3000);
-        
+        // Thread.sleep(3000); // Removed — getToastMessageText() already waits for toast to be visible
+
         String actualMessage = pushNotifyPage.getToastMessageText();
         String expectedMessage = "Push Notification Saved.";
         Assert.assertEquals(actualMessage, expectedMessage, "Toast message doesn't match!");
-        
+
         // Close the toast
         pushNotifyPage.closeToastMessage();
-        
+        // Thread.sleep(3000); // Removed — closeToastMessage() waits for toast to disappear
+
         System.out.println("test_TC_PN_023 is passed");
-        
-        Thread.sleep(3000);
-        
+
         pushNotifyPage.clickOnProfileIcon();
         pushNotifyPage.clickOnLogoutOption();
         pushNotifyPage.clickOnLogoutButton();
@@ -701,52 +708,46 @@ public class PushNotification extends Base {
         pushNotifyPage.clickOnCategoryDropdown();
         pushNotifyPage.scrollToCategoryDropdown();
         pushNotifyPage.enterIntoSearchTextfield();
-        Thread.sleep(2000);      
+        // Thread.sleep(2000); // Removed — wait moved into enterIntoSearchTextfield()
         pushNotifyPage.clickOnTargetCategory();
         // Clicking on Blank space after selecting the target category so that the dialog box closes
         pushNotifyPage.clickOnBlankSpace();
-        Thread.sleep(2000);
-       
+        // Thread.sleep(2000); // Removed — wait moved into clickOnBlankSpace()
+
         pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
-        Thread.sleep(2000);
+        // Thread.sleep(2000); // Removed — wait moved into attachPhoto()
         // As crop button is not their so i have commented it
         // pushNotifyPage.clickOnCropButton();
         pushNotifyPage.clickOnContentLinkButton();
-        Thread.sleep(2000);
+        // Thread.sleep(2000); // Removed — wait moved into clickOnContentLinkButton()
         pushNotifyPage.clickOnContentLinkDropdown();
-        Thread.sleep(2000);
+        // Thread.sleep(2000); // Removed — wait moved into clickOnContentLinkDropdown()
         pushNotifyPage.clickOnContentSelection();
         pushNotifyPage.enterSchedulingDateTime(prop.getProperty("schedulingDate"),prop.getProperty("schedulingTime"));
-        
-        
-        
+
         pushNotifyPage.clickOnSubmitButton();
-        
-        Thread.sleep(3000);
-        //AFTER SUBMITTING I WILL BE TAKEN TO THE NEW SCREEN
-        
+        pushNotifyPage.waitForRedirectToListPage(); // Waits for URL to contain "list" after redirect
+
         String actualURL2 = driver.getCurrentUrl();
         String expectedURL2 = prop.getProperty("redirectionURL");
         Assert.assertEquals(actualURL2,expectedURL2);
-        Thread.sleep(3000);
-        
+        // Thread.sleep(3000); // Removed — getToastMessageText() already waits for toast to be visible
+
         String actualMessage = pushNotifyPage.getToastMessageText();
         String expectedMessage = "Push Notification Saved.";
         Assert.assertEquals(actualMessage, expectedMessage, "Toast message doesn't match!");
-        
+
         // Close the toast
         pushNotifyPage.closeToastMessage();
-        
+        // Thread.sleep(3000); // Removed — closeToastMessage() waits for toast to disappear
+
         System.out.println("test_TC_PN_020 is passed");
-        
-        Thread.sleep(3000);
-        
+
         pushNotifyPage.clickOnProfileIcon();
         pushNotifyPage.clickOnLogoutOption();
         pushNotifyPage.clickOnLogoutButton();
-        
-        
-    	
+
+
     }
 
     @Test(priority=15)
@@ -777,46 +778,42 @@ public class PushNotification extends Base {
         pushNotifyPage.clickOnCategoryDropdown();
         pushNotifyPage.scrollToCategoryDropdown();
         pushNotifyPage.enterIntoSearchTextfield();
-        Thread.sleep(2000);      
+        // Thread.sleep(2000); // Removed — wait moved into enterIntoSearchTextfield()
         pushNotifyPage.clickOnTargetCategory();
         // Clicking on Blank space after selecting the target category so that the dialog box closes
         pushNotifyPage.clickOnBlankSpace();
-        Thread.sleep(2000);
-       
+        // Thread.sleep(2000); // Removed — wait moved into clickOnBlankSpace()
+
         pushNotifyPage.attachPhoto(prop.getProperty("imagePathpng"));
-        Thread.sleep(2000);
+        // Thread.sleep(2000); // Removed — wait moved into attachPhoto()
         // As crop button is not their so i have commented it
         // pushNotifyPage.clickOnCropButton();
         pushNotifyPage.clickOnContentLinkButton();
-        Thread.sleep(2000);
+        // Thread.sleep(2000); // Removed — wait moved into clickOnContentLinkButton()
         pushNotifyPage.clickOnContentLinkDropdown();
-        Thread.sleep(2000);
+        // Thread.sleep(2000); // Removed — wait moved into clickOnContentLinkDropdown()
         pushNotifyPage.clickOnContentSelection();
         pushNotifyPage.enterSchedulingDateTime(prop.getProperty("schedulingDate"),prop.getProperty("schedulingTime"));
-        
-        
-        
+
         pushNotifyPage.clickOnSubmitButton();
         
-        Thread.sleep(3000);
-        //AFTER SUBMITTING I WILL BE TAKEN TO THE NEW SCREEN
-        
+        pushNotifyPage.waitForRedirectToListPage(); // Waits for URL to contain "list" after redirect
+
         String actualURL2 = driver.getCurrentUrl();
         String expectedURL2 = prop.getProperty("redirectionURL");
         Assert.assertEquals(actualURL2,expectedURL2);
-        Thread.sleep(3000);
-        
+        // Thread.sleep(3000); // Removed — getToastMessageText() already waits for toast to be visible
+
         String actualMessage = pushNotifyPage.getToastMessageText();
         String expectedMessage = "Push Notification Saved.";
         Assert.assertEquals(actualMessage, expectedMessage, "Toast message doesn't match!");
-        
+
         // Close the toast
         pushNotifyPage.closeToastMessage();
-        
+        // Thread.sleep(3000); // Removed — closeToastMessage() waits for toast to disappear
+
         System.out.println("TC_PN_12 is passed. User was able to upload image in png format");
-        
-        Thread.sleep(3000);
-        
+
         pushNotifyPage.clickOnProfileIcon();
         pushNotifyPage.clickOnLogoutOption();
         pushNotifyPage.clickOnLogoutButton();
@@ -851,41 +848,38 @@ public class PushNotification extends Base {
         pushNotifyPage.clickOnCategoryDropdown();
         pushNotifyPage.scrollToCategoryDropdown();
         pushNotifyPage.enterIntoSearchTextfield();
-        Thread.sleep(2000);      
+        // Thread.sleep(2000); // Removed — wait moved into enterIntoSearchTextfield()
         pushNotifyPage.clickOnTargetCategory();
         // Clicking on Blank space after selecting the target category so that the dialog box closes
         pushNotifyPage.clickOnBlankSpace();
-        Thread.sleep(2000);
-       
+        // Thread.sleep(2000); // Removed — wait moved into clickOnBlankSpace()
+
         pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
-        Thread.sleep(2000);
+        // Thread.sleep(2000); // Removed — wait moved into attachPhoto()
         // As crop button is not their so i have commented it
         // pushNotifyPage.clickOnCropButton();
         pushNotifyPage.clickOnCustomLinkButton();
         pushNotifyPage.enterValueLinkTextfield(prop.getProperty("customlinkfield"));
         pushNotifyPage.enterSchedulingDateTime(prop.getProperty("schedulingDate"),prop.getProperty("schedulingTime"));
-        
+
         pushNotifyPage.clickOnSubmitButton();
-        
-        Thread.sleep(3000);
-        //AFTER SUBMITTING I WILL BE TAKEN TO THE NEW SCREEN
-        
+        pushNotifyPage.waitForRedirectToListPage(); // Waits for URL to contain "list" after redirect
+
         String actualURL2 = driver.getCurrentUrl();
         String expectedURL2 = prop.getProperty("redirectionURL");
         Assert.assertEquals(actualURL2,expectedURL2);
-        Thread.sleep(3000);
-        
+        // Thread.sleep(3000); // Removed — getToastMessageText() already waits for toast to be visible
+
         String actualMessage = pushNotifyPage.getToastMessageText();
         String expectedMessage = "Push Notification Saved.";
         Assert.assertEquals(actualMessage, expectedMessage, "Toast message doesn't match!");
-        
+
         // Close the toast
         pushNotifyPage.closeToastMessage();
-        
+        // Thread.sleep(3000); // Removed — closeToastMessage() waits for toast to disappear
+
         System.out.println("TC_PN_49 is passed. User was able to upload with special characters");
-        
-        Thread.sleep(3000);
-        
+
         pushNotifyPage.clickOnProfileIcon();
         pushNotifyPage.clickOnLogoutOption();
         pushNotifyPage.clickOnLogoutButton();
@@ -918,42 +912,39 @@ public class PushNotification extends Base {
         // pushNotifyPage.enterNotificationName(prop.getProperty("notificationnameText"));
         pushNotifyPage.enterNotificationMessage(prop.getProperty("notificationmessageText"));
         pushNotifyPage.clickOnPartnerListRadioButton();
-        Thread.sleep(2000);
+        // Thread.sleep(2000); // Removed — clickOnPartnerListRadioButton() waits for CSV field to appear
         pushNotifyPage.uploadCsvFile(prop.getProperty("filepathcsv"));
-        Thread.sleep(5000);
-        
+        // Thread.sleep(5000); // Removed — wait moved into uploadCsvFile()
+
         pushNotifyPage.clickOnBlankSpace();
-        Thread.sleep(2000);
-       
+        // Thread.sleep(2000); // Removed — wait moved into clickOnBlankSpace()
+
         pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
-        Thread.sleep(2000);
+        // Thread.sleep(2000); // Removed — wait moved into attachPhoto()
         // As crop button is not their so i have commented it
         // pushNotifyPage.clickOnCropButton();
         pushNotifyPage.clickOnCustomLinkButton();
         pushNotifyPage.enterValueLinkTextfield(prop.getProperty("customlinkfield"));
         pushNotifyPage.enterSchedulingDateTime(prop.getProperty("schedulingDate"),prop.getProperty("schedulingTime"));
-        
+
         pushNotifyPage.clickOnSubmitButton();
-        
-        Thread.sleep(3000);
-        //AFTER SUBMITTING I WILL BE TAKEN TO THE NEW SCREEN
-        
+        pushNotifyPage.waitForRedirectToListPage(); // Waits for URL to contain "list" after redirect
+
         String actualURL2 = driver.getCurrentUrl();
         String expectedURL2 = prop.getProperty("redirectionURL");
         Assert.assertEquals(actualURL2,expectedURL2);
-        Thread.sleep(3000);
-        
+        // Thread.sleep(3000); // Removed — getToastMessageText() already waits for toast to be visible
+
         String actualMessage = pushNotifyPage.getToastMessageText();
         String expectedMessage = "Push Notification Saved.";
         Assert.assertEquals(actualMessage, expectedMessage, "Toast message doesn't match!");
-        
+
         // Close the toast
         pushNotifyPage.closeToastMessage();
-        
+        // Thread.sleep(3000); // Removed — closeToastMessage() waits for toast to disappear
+
         System.out.println("TC_PN_36 is passed. User was able to upload with the help of CSV");
-        
-        Thread.sleep(3000);
-        
+
         pushNotifyPage.clickOnProfileIcon();
         pushNotifyPage.clickOnLogoutOption();
         pushNotifyPage.clickOnLogoutButton();
@@ -987,33 +978,31 @@ public class PushNotification extends Base {
         // pushNotifyPage.enterNotificationName(prop.getProperty("notificationnameText"));
         pushNotifyPage.enterNotificationMessage(prop.getProperty("notificationmessageText"));
         pushNotifyPage.clickOnPartnerListRadioButton();
-        Thread.sleep(2000);
-        
+        // Thread.sleep(2000); // Removed — clickOnPartnerListRadioButton() waits for CSV field to appear
+
         pushNotifyPage.clickOnBlankSpace();
-        Thread.sleep(2000);
-       
+        // Thread.sleep(2000); // Removed — wait moved into clickOnBlankSpace()
+
         pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
-        Thread.sleep(2000);
+        // Thread.sleep(2000); // Removed — wait moved into attachPhoto()
         // As crop button is not their so i have commented it
         // pushNotifyPage.clickOnCropButton();
         pushNotifyPage.clickOnCustomLinkButton();
         pushNotifyPage.enterValueLinkTextfield(prop.getProperty("customlinkfield"));
         pushNotifyPage.enterSchedulingDateTime(prop.getProperty("schedulingDate"),prop.getProperty("schedulingTime"));
-        
+
         pushNotifyPage.clickOnSubmitButton();
-        
-        Thread.sleep(3000);
-        
+        // Thread.sleep(3000); // Removed — HTML5 validationMessage is set synchronously on submit
+
         String validationMsg = pushNotifyPage.getValidationMessageForUploadCSVButton();
         Assert.assertEquals(validationMsg, "Please select a file.");
         // Only printed if the assertion passes
         System.out.println("✅ Upload CSV Button showed the correct validation message.");
-        
-        
+
         System.out.println("TC_PN_50 is passed. User was not able to do it without CSV");
-        
-        Thread.sleep(3000);
-        
+
+        // Thread.sleep(3000); // Removed — no wait needed before logout
+
         pushNotifyPage.clickOnProfileIcon();
         pushNotifyPage.clickOnLogoutOption();
         pushNotifyPage.clickOnLogoutButton();

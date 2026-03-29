@@ -23,7 +23,7 @@ public class PushNotificationPage {
 		
 		this.driver = driver;
 		// BELOW CODE WAS JUST ADDED AFTERWARDS. SINCE I DID NOT INTIALIZED IT EARLIER
-		this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));  // Initialize wait
+		this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));  // Initialize wait
 	}
 	
 	private WebElement communicationTab;
@@ -74,15 +74,28 @@ public class PushNotificationPage {
 
 }
 	
-	public void clickOnNotifications() {
-		
-		
+	public void clickOnNotificationsDev() {
+
+
 		// Dev Server : //a[normalize-space()='New Push Notification']
 		// Preprod Server : //a[normalize-space()='Notification']
 		// Notifications = driver.findElement(By.xpath("//a[normalize-space()='New Push Notification']"));
 		Notifications = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[normalize-space()='New Push Notification']")));
 		Notifications.click();
 	}
+
+	// Currently running on prod — maps to prod locator
+	public void clickOnNotifications() {
+		clickOnNotificationsProd();
+	}
+	
+    public void clickOnNotificationsProd() {
+		
+		Notifications = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[normalize-space()='Push Notification']")));
+		Notifications.click();
+	}
+	
+	
 	
 	
 	public String getPageHeading() {
@@ -111,33 +124,38 @@ public class PushNotificationPage {
 	
 	public void enterNotificationMessage(String notificationmessageText) {
 		
-		notificationMessageTextfield = wait.until(ExpectedConditions.elementToBeClickable(By.id("pushnotify_msg")));
+		notificationMessageTextfield = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//textarea[@id='pushnotify_msg']")));
 		notificationMessageTextfield.sendKeys(notificationmessageText);
 	}
 	
 	public void clickOnPartnerListRadioButton() {
-		
-		partnerListRadioButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("upload_list")));
+
+		partnerListRadioButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='upload_list']")));
         partnerListRadioButton.click();
+        // Wait for CSV upload field to appear — confirms the upload list section has loaded
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='upload_csv']")));
 	}
 	
 	public void clickOnpartnerCategoryRadioButton() {
 		
-		partnerCategoryRadioButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("partner_category")));
+		partnerCategoryRadioButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='partner_category']")));
         partnerCategoryRadioButton.click();
 	}
 	
 	public void clickOnCategoryDropdown() {
-		
+
 		categoryDropdown = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='btn_ptr_category']")));
         categoryDropdown.click();
+        // Wait for search textfield to appear — confirms dropdown dialog is open
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Search']")));
 	}
 	
 	public void attachPhoto(String imagePath) {
-		
+
 		addPhotoButton = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@name='image_url']")));
         addPhotoButton.sendKeys(imagePath);
-        
+        // Wait for submit button to be clickable — confirms form is ready after photo is attached
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@type='submit']")));
 	}
 	
 	public void scrollToCategoryDropdown() {
@@ -163,6 +181,8 @@ public class PushNotificationPage {
 	public void clickOnBlankSpace() {
 	    Actions actions = new Actions(driver);
 	    actions.moveByOffset(50, 150).click().perform();
+	    // Wait for category dropdown button to be clickable — confirms dialog has closed
+	    wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='btn_ptr_category']")));
 	}
 
 	
@@ -218,9 +238,11 @@ public class PushNotificationPage {
 	}
 	
 	public void enterIntoSearchTextfield() {
-		
-		searchTextfield = driver.findElement(By.xpath("//input[@placeholder='Search']"));
+		// Wait for search textfield to be interactable
+		searchTextfield = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@placeholder='Search']")));
 		searchTextfield.sendKeys("Raj2024");
+		// Wait for checkbox results to update after typing
+		wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//input[@type='checkbox']")));
 	}
 	
 	public void clickOnProfileIcon() {
@@ -264,6 +286,13 @@ public class PushNotificationPage {
 		WebElement inputField = driver.findElement(By.id("pushnotify_msg"));
 	    JavascriptExecutor js = (JavascriptExecutor) driver;
 	    return (String) js.executeScript("return arguments[0].validationMessage;", inputField);
+	}
+	
+   public String getValidationMessageForParnterCategoryNotSelectedProd() {
+		// Wait for the category error span to appear and read its text
+		// Note: validationMessage only works on form inputs — spans need getText() instead
+		WebElement errorSpan = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@id='cat_error']")));
+	    return errorSpan.getText().trim();
 	}
 	
 	public String getValidationMessageForCustomLinkTextfield() {
@@ -337,8 +366,8 @@ public class PushNotificationPage {
     }
     
     public void clickOnSelectAllButton() {
-    	
-    	selectAllButton = driver.findElement(By.xpath("//a[@class='ms-selectall global']"));
+    	// Wait for Select All button to be clickable before clicking
+    	selectAllButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@class='ms-selectall global']")));
         selectAllButton.click();
     }
     
@@ -388,55 +417,63 @@ public class PushNotificationPage {
     
     // Method to get toast message text
     public String getToastMessageText() {
-        
-    	toastMessageLocator = driver.findElement(By.xpath("//span[@class='mssg_content']"));
+    	// Wait for toast to become visible before reading it
+    	toastMessageLocator = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='mssg_content']")));
         return toastMessageLocator.getText();
     }
-    
-    
+
+
     // Method to close the toast
     public void closeToastMessage() {
-       
-    	closeToastButtonLocator = driver.findElement(By.xpath(("//span[@onclick='close_success_mssg()']")));
+    	closeToastButtonLocator = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@onclick='close_success_mssg()']")));
     	closeToastButtonLocator.click();
+    	// Wait for toast to disappear — confirms close was successful before proceeding to logout
+    	wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//span[@class='mssg_content']")));
     }
     
     public void clickOnContentLinkButton() {
-    	
-    	contentLinkButton = driver.findElement(By.xpath("//label[@for='content-link']"));
-    	contentLinkButton.click();
-    	
+    	// Wait for element and use JS click to avoid interception
+    	contentLinkButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@for='content-link']")));
+    	((JavascriptExecutor) driver).executeScript("arguments[0].click();", contentLinkButton);
+    	// Wait for content link dropdown to become visible — confirms button click was registered
+    	wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("select2-contentLinkDropdown-container")));
     }
-    
+
     public void clickOnContentLinkDropdown() {
-    	
-    	contentLinkDropdown = driver.findElement(By.id("select2-contentLinkDropdown-container"));
+    	contentLinkDropdown = wait.until(ExpectedConditions.elementToBeClickable(By.id("select2-contentLinkDropdown-container")));
     	contentLinkDropdown.click();
+    	// Wait for dropdown options to appear
+    	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//li[@class='select2-results__option select2-results__option--selectable'])[1]")));
     }
-    
-    
+
+
     public void clickOnContentSelection() {
-    	
-    	contentSelection = driver.findElement(By.xpath("(//li[@class='select2-results__option select2-results__option--selectable'])[1]"));
-    	contentSelection.click();
+    	contentSelection = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//li[@class='select2-results__option select2-results__option--selectable'])[1]")));
+    	((JavascriptExecutor) driver).executeScript("arguments[0].click();", contentSelection);
     }
     
     public void uploadCsvFile(String filePath) {
-        
-    	uploadCsvButtonLocator = driver.findElement(By.xpath("//input[@id='upload_csv']"));
+    	uploadCsvButtonLocator = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@id='upload_csv']")));
     	uploadCsvButtonLocator.sendKeys(filePath);
+    	// Wait for submit button to remain clickable — confirms file has been processed
+    	wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@type='submit']")));
     }
     
     
     // This is a really important method. Since i am grabbing the message from the tool tip
  	public String getValidationMessageForUploadCSVButton() {
- 		
+
  		uploadCsvButtonLocator = driver.findElement(By.xpath("//input[@id='upload_csv']"));
  	    JavascriptExecutor js = (JavascriptExecutor) driver;
  	    return (String) js.executeScript("return arguments[0].validationMessage;", uploadCsvButtonLocator);
- 		
+
  	}
-    
+
+    public void waitForRedirectToListPage() {
+        // Wait for URL to contain "list" — confirms successful form submission and redirect
+        wait.until(ExpectedConditions.urlContains("list"));
+    }
+
    }
 
 

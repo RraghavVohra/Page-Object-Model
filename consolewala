@@ -1,32 +1,13 @@
 User Logged in Successfully.
-File uploaded successfully!
-Next Button was clicked
-Proceed button was clicked
-Image uploaded successfully!
-FAILED: tests.ImageCreationTest.test_TC_DL_01_imageCreationThroughAssetLibrary
-org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element <input name="wh-platform" type="checkbox" class="form-check-input"> is not clickable at point (226, 603). Other element would receive the click: <div class="overlay-bg"></div>
-  (Session info: chrome=146.0.7680.165)
-Build info: version: '4.27.0', revision: 'd6e718d134'
-System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '23.0.2'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [6fadb161319eb444270a4f28b8974075, clickElement {id=f.504C5A2DD15790CFCE0418359A10FA05.d.E483407FABEA3B0E7AE2930D06661951.e.2147}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.165, chrome: {chromedriverVersion: 146.0.7638.0 (9901d838e058d..., userDataDir: C:\Users\admin\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:63778}, goog:processID: 14068, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:63778/devtoo..., se:cdpVersion: 146.0.7680.165, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Element: [[ChromeDriver: chrome on windows (6fadb161319eb444270a4f28b8974075)] -> xpath: (//input[@name='wh-platform' and @type='checkbox'])[1]]
-Session ID: 6fadb161319eb444270a4f28b8974075
-	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:485)
-	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:190)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:545)
-	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:223)
-	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:76)
-	at pageObjects.ImageCreationPage.clickOnWhatsappCheckbox(ImageCreationPage.java:296)
-	at tests.ImageCreationTest.test_TC_DL_01_imageCreationThroughAssetLibrary(ImageCreationTest.java:93)
+FAILED: tests.PushNotification.test_TC_PN_017_fillsAllTheFieldsExceptCategoryField
+java.lang.AssertionError: expected [Please select atleast one category] but found [null]
+	at org.testng.Assert.fail(Assert.java:111)
+	at org.testng.Assert.failNotEquals(Assert.java:1578)
+	at org.testng.Assert.assertEqualsImpl(Assert.java:150)
+	at org.testng.Assert.assertEquals(Assert.java:132)
+	at org.testng.Assert.assertEquals(Assert.java:656)
+	at org.testng.Assert.assertEquals(Assert.java:666)
+	at tests.PushNotification.test_TC_PN_017_fillsAllTheFieldsExceptCategoryField(PushNotification.java:277)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
