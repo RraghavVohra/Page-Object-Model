@@ -2,20 +2,20 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-03-29T09:55:25 IST" name="Default suite" finished-at="2026-03-29T09:57:59 IST" duration-ms="154438">
+  <suite started-at="2026-03-29T12:12:08 IST" name="Default suite" finished-at="2026-03-29T12:14:38 IST" duration-ms="150232">
     <groups>
     </groups>
-    <test started-at="2026-03-29T09:55:25 IST" name="Default test" finished-at="2026-03-29T09:57:59 IST" duration-ms="154438">
-      <class name="tests.PdfCreationTest">
-        <test-method signature="test_TC_DL_01_pdfCreationThroughAssetLibrary()[pri:1, instance:tests.PdfCreationTest@229f66ed]" started-at="2026-03-29T09:55:25 IST" name="test_TC_DL_01_pdfCreationThroughAssetLibrary" finished-at="2026-03-29T09:57:58 IST" duration-ms="153684" status="PASS">
+    <test started-at="2026-03-29T12:12:08 IST" name="Default test" finished-at="2026-03-29T12:14:38 IST" duration-ms="150232">
+      <class name="tests.ImageCreationTest">
+        <test-method signature="test_TC_DL_01_imageCreationThroughAssetLibrary()[pri:1, instance:tests.ImageCreationTest@229f66ed]" started-at="2026-03-29T12:12:08 IST" name="test_TC_DL_01_imageCreationThroughAssetLibrary" finished-at="2026-03-29T12:14:37 IST" duration-ms="149542" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- test_TC_DL_01_pdfCreationThroughAssetLibrary -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.PdfCreationTest@229f66ed]" started-at="2026-03-29T09:57:58 IST" name="tearDown" finished-at="2026-03-29T09:57:59 IST" duration-ms="532" status="PASS">
+        </test-method> <!-- test_TC_DL_01_imageCreationThroughAssetLibrary -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.ImageCreationTest@229f66ed]" started-at="2026-03-29T12:14:37 IST" name="tearDown" finished-at="2026-03-29T12:14:38 IST" duration-ms="575" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-      </class> <!-- tests.PdfCreationTest -->
+      </class> <!-- tests.ImageCreationTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
