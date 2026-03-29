@@ -928,7 +928,8 @@ public class PushNotification extends Base {
         pushNotifyPage.uploadCsvFile(prop.getProperty("filepathcsv"));
         // Thread.sleep(5000); // Removed — wait moved into uploadCsvFile()
 
-        pushNotifyPage.clickOnBlankSpace();
+        // clickOnBlankSpace() removed — it waits for btn_ptr_category which doesn't exist in the Partner List (CSV) flow
+        // pushNotifyPage.clickOnBlankSpace();
         // Thread.sleep(2000); // Removed — wait moved into clickOnBlankSpace()
 
         pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
@@ -971,20 +972,22 @@ public class PushNotification extends Base {
         driver = openBrowserAndApplication(prop.getProperty("browser"));
 		
         loginPage = new LoginPage(driver);
-		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
-    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+		loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
+    	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
     	loginPage.clickOnSubmitButton();
     	System.out.println("User Logged in Successfully.");
     	
     	pushNotifyPage = new PushNotificationPage(driver);
     	pushNotifyPage.clickOnCommunicationTab();
-    	pushNotifyPage.clickOnNotifications();
+    	pushNotifyPage.clickOnNotificationsProd();
     	pushNotifyPage.clickOnActionsButton();
     	pushNotifyPage.clickOnCreateAppNotification();
     	
     	String actualURL = driver.getCurrentUrl();
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
-        Assert.assertEquals(actualURL,expectedURL);
+        // Fixed: was missing "app." subdomain
+        String expectedURLProd = "https://app.technochimes.com/framework/AgencyCommunication/create";
+        Assert.assertEquals(actualURL,expectedURLProd);
         
         String dynamicNotificationName = "Push's_Notification_" + System.currentTimeMillis();
         pushNotifyPage.enterNotificationName(dynamicNotificationName);
@@ -993,7 +996,8 @@ public class PushNotification extends Base {
         pushNotifyPage.clickOnPartnerListRadioButton();
         // Thread.sleep(2000); // Removed — clickOnPartnerListRadioButton() waits for CSV field to appear
 
-        pushNotifyPage.clickOnBlankSpace();
+        // clickOnBlankSpace() removed — it waits for btn_ptr_category which doesn't exist in the Partner List (CSV) flow
+        // pushNotifyPage.clickOnBlankSpace();
         // Thread.sleep(2000); // Removed — wait moved into clickOnBlankSpace()
 
         pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
