@@ -141,14 +141,10 @@ public class PdfCreationPage {
         }
         
         public void clickOnCategoryField() {
-	    	
-        	categoriesField = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//input[contains(@class, 'searchBox')])[1]")));
-	    	// categoriesField = driver.findElement(By.xpath("(//input[contains(@class, 'searchBox')])[1]"));
-        	// Ensure element is in viewport
-            // ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", categoriesField);
-            // Wait until it is truly clickable
-            // wait.until(ExpectedConditions.elementToBeClickable(categoriesField));
-			categoriesField.click();
+
+        	categoriesField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[contains(@class, 'searchBox')])[1]")));
+	    	// categoriesField.click(); — replaced: JS click used to avoid ElementClickInterceptedException (same interception pattern as hashtag field)
+        	((JavascriptExecutor) driver).executeScript("arguments[0].click();", categoriesField);
 	    }
 	    
 	    public void clickOnCategoryOptionDev() {
@@ -170,7 +166,8 @@ public class PdfCreationPage {
 			// 1️⃣ Wait until option is clickable
 			categoryOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//li[normalize-space()='Term Plan']")));
 			// 2️⃣ Click the option
-		    categoryOption.click();
+		    // categoryOption.click(); — replaced: JS click used to avoid ElementClickInterceptedException (same pattern as hashtag option)
+		    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", categoryOption);
 		    // 3️⃣ FINAL: wait until selection is reflected in UI
 		    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[normalize-space()='Term Plan']")));
 	    }
@@ -183,10 +180,10 @@ public class PdfCreationPage {
 	    }
 	    
         public void clickOnHashtagField() {
-	    	
+
         	hashtagField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@placeholder='Select Hashtags']")));
-	    	// hashtagField = driver.findElement(By.xpath("//input[@placeholder='Select Hashtags']"));	 
-			hashtagField.click();
+	    	// hashtagField.click(); — replaced: JS click used to avoid ElementClickInterceptedException
+        	((JavascriptExecutor) driver).executeScript("arguments[0].click();", hashtagField);
 	    }
 	    
 	    public void clickOnHashtagDev() {
@@ -197,10 +194,10 @@ public class PdfCreationPage {
 	    }
 	    
        public void clickOnHashtagProd() {
-	    	
+
 	    	hashtagOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//li[normalize-space()='Insurance']")));
-	    	// hashtagOption = driver.findElement(By.xpath("//li[normalize-space()='what']"));
-			hashtagOption.click();
+	    	// hashtagOption.click(); — replaced: JS click used to avoid ElementClickInterceptedException
+	    	((JavascriptExecutor) driver).executeScript("arguments[0].click();", hashtagOption);
 	    }
 	    
 	    
@@ -358,6 +355,10 @@ public class PdfCreationPage {
         	// publishButton = driver.findElement(By.xpath("//button[normalize-space()='Publish']")); — replaced: upgraded to wait.until for reliability
         	publishButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[normalize-space()='Publish']")));
 		    publishButton.click();
+		    // Wait for Asset Library page to load after publish redirect — same pattern as VideoCreationPage.clickOnPublishButton()
+		    // Without this, clickOnProfileIconAfterPublishing() runs on the wrong page and can't find any header elements
+		    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[normalize-space()='Asset Library']")));
+		    wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@class='add-new-asset-btn btn btn-info']")));
         }
         
         public void waitForPDFPostPageToLoad() {
@@ -425,28 +426,34 @@ public class PdfCreationPage {
        
        
        public void clickOnProfileIcon() {
-	        profileIcon = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='user-profile show dropdown']")));
+	        profileIcon = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='user-profile dropdown']//button[@id='dropdown-basic']//*[name()='svg']")));
 	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", profileIcon);
 	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", profileIcon);
 	    }
 	    
 	    public void clickOnLogoutOption() {
-	        logOutOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[normalize-space()='Log Out']")));
-	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", logOutOption);
+	    	// presenceOfElementLocated used — dropdown item may be in the hidden right side of header; JS click bypasses visibility check
+	        logOutOption = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[normalize-space()='Log Out']")));
 	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", logOutOption);
 	    }
-	    
+
 	    public void clickOnLogoutButton() {
-	        logoutButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Logout']")));
-	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", logoutButton);
+	    	// presenceOfElementLocated used — confirmation button may be in a modal off-screen; JS click bypasses visibility check
+	        logoutButton = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[text()='Logout']")));
 	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", logoutButton);
 	    }
 	    
 	    public void clickOnProfileIconAfterPublishing() {
-	    	
-	    	profileIconTwo = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[local-name()='svg' and contains(@class, 'bi-person-circle')]")));
-	    	profileIconTwo.click();
-	    	
+
+	    	// Page is already on Asset Library — clickOnPublishButton() waits for it before returning
+	    	// Scroll to top so the header is fully in view
+	    	((JavascriptExecutor) driver).executeScript("window.scrollTo(0, 0);");
+
+	    	// Target the actual dropdown trigger button (same XPath pattern confirmed in clickOnProfileIcon())
+	    	// Clicking the container div was not opening the dropdown — must click the button directly
+	    	profileIconTwo = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='dropdown-basic']")));
+	    	((JavascriptExecutor) driver).executeScript("arguments[0].click();", profileIconTwo);
+
 	    }
        
 	    

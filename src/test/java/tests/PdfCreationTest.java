@@ -56,7 +56,7 @@ public class PdfCreationTest extends Base {
 		    // And we removed 9 seconds of wait time
 		    pdfCreationPage.waitForGlobalAssetDetailsPageToLoad();
 		    
-		    pdfCreationPage.enterTextIntoNameTextfield(prop.getProperty("NameText"));
+		    pdfCreationPage.enterTextIntoNameTextfield(prop.getProperty("NameTextPdf"));
 		    pdfCreationPage.scrollToElement();
 	        // Thread.sleep(2000); — removed: scrollToElement() uses scrollIntoView(true) which is instant; clickOnCategoryField() waits internally
 
