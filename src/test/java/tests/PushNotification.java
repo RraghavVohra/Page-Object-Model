@@ -383,7 +383,6 @@ public class PushNotification extends Base {
 	public void test_TC_PN_06_notificationChannelSelection() throws InterruptedException {
 		
         driver = openBrowserAndApplication(prop.getProperty("browser"));
-		
         loginPage = new LoginPage(driver);
 		loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
     	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
@@ -425,21 +424,22 @@ public class PushNotification extends Base {
         driver = openBrowserAndApplication(prop.getProperty("browser"));
 		
         loginPage = new LoginPage(driver);
-		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
-    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+		loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
+    	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
     	loginPage.clickOnSubmitButton();
     	System.out.println("User Logged in Successfully.");
     	
     	pushNotifyPage = new PushNotificationPage(driver);
     	pushNotifyPage.clickOnCommunicationTab();
     	// Thread.sleep(5000); // Removed — clickOnNotifications() already waits for element
-    	pushNotifyPage.clickOnNotifications();
+    	pushNotifyPage.clickOnNotificationsProd();
     	pushNotifyPage.clickOnActionsButton();
     	pushNotifyPage.clickOnCreateAppNotification();
 
     	String actualURL = driver.getCurrentUrl();
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
-        Assert.assertEquals(actualURL,expectedURL);
+        String expectedURLProd = "https://app.technochimes.com/framework/AgencyCommunication/create";
+        Assert.assertEquals(actualURL,expectedURLProd);
 
        // Select Upload List and verify
        pushNotifyPage.clickOnUploadListRadioButton();
@@ -465,20 +465,21 @@ public class PushNotification extends Base {
         driver = openBrowserAndApplication(prop.getProperty("browser"));
 		
         loginPage = new LoginPage(driver);
-		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
-    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+		loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
+    	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
     	loginPage.clickOnSubmitButton();
     	System.out.println("User Logged in Successfully.");
     	
     	pushNotifyPage = new PushNotificationPage(driver);
     	pushNotifyPage.clickOnCommunicationTab();
-    	pushNotifyPage.clickOnNotifications();
+    	pushNotifyPage.clickOnNotificationsProd();
     	pushNotifyPage.clickOnActionsButton();
     	pushNotifyPage.clickOnCreateAppNotification();
     	
     	String actualURL = driver.getCurrentUrl();
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
-        Assert.assertEquals(actualURL,expectedURL);
+        String expectedURLProd = "https://app.technochimes.com/framework/AgencyCommunication/create";
+        Assert.assertEquals(actualURL,expectedURLProd);
         
         String dynamicNotificationName = "Push's_Notification_" + System.currentTimeMillis();
         pushNotifyPage.enterNotificationName(dynamicNotificationName);
@@ -529,20 +530,21 @@ public class PushNotification extends Base {
     	driver = openBrowserAndApplication(prop.getProperty("browser"));
  		
         loginPage = new LoginPage(driver);
- 		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
-     	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+ 		loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
+     	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
      	loginPage.clickOnSubmitButton();
      	System.out.println("User Logged in Successfully.");
      	
      	pushNotifyPage = new PushNotificationPage(driver);
      	pushNotifyPage.clickOnCommunicationTab();
-     	pushNotifyPage.clickOnNotifications();
+     	pushNotifyPage.clickOnNotificationsProd();
      	pushNotifyPage.clickOnActionsButton();
      	pushNotifyPage.clickOnCreateAppNotification();
      	
      	String actualURL = driver.getCurrentUrl();
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
-        Assert.assertEquals(actualURL,expectedURL);
+        String expectedURLProd = "https://app.technochimes.com/framework/AgencyCommunication/create";
+        Assert.assertEquals(actualURL,expectedURLProd);
         
         String dynamicNotificationName = "Push's_Notification_" + System.currentTimeMillis();
         pushNotifyPage.enterNotificationName(dynamicNotificationName);
@@ -575,20 +577,21 @@ public class PushNotification extends Base {
        driver = openBrowserAndApplication(prop.getProperty("browser"));
  		
         loginPage = new LoginPage(driver);
- 		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
-     	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+ 		loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
+     	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
      	loginPage.clickOnSubmitButton();
      	System.out.println("User Logged in Successfully.");
      	
      	pushNotifyPage = new PushNotificationPage(driver);
      	pushNotifyPage.clickOnCommunicationTab();
-     	pushNotifyPage.clickOnNotifications();
+     	pushNotifyPage.clickOnNotificationsProd();
      	pushNotifyPage.clickOnActionsButton();
      	pushNotifyPage.clickOnCreateAppNotification();
      	
      	String actualURL = driver.getCurrentUrl();
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
-        Assert.assertEquals(actualURL,expectedURL);
+        String expectedURLProd = "https://app.technochimes.com/framework/AgencyCommunication/create";
+        Assert.assertEquals(actualURL,expectedURLProd);
         
         pushNotifyPage.attachPhoto(prop.getProperty("imagePath"));
         // As crop button is not their so i have commented it
@@ -620,20 +623,21 @@ public class PushNotification extends Base {
         driver = openBrowserAndApplication(prop.getProperty("browser"));
 		
         loginPage = new LoginPage(driver);
-		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
-    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+		loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
+    	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
     	loginPage.clickOnSubmitButton();
     	System.out.println("User Logged in Successfully.");
     	
     	pushNotifyPage = new PushNotificationPage(driver);
     	pushNotifyPage.clickOnCommunicationTab();
-    	pushNotifyPage.clickOnNotifications();
+    	pushNotifyPage.clickOnNotificationsProd();
     	pushNotifyPage.clickOnActionsButton();
     	pushNotifyPage.clickOnCreateAppNotification();
     	
     	String actualURL = driver.getCurrentUrl();
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
-        Assert.assertEquals(actualURL,expectedURL);
+        String expectedURLProd = "https://app.technochimes.com/framework/AgencyCommunication/create";
+        Assert.assertEquals(actualURL,expectedURLProd);
         
         String dynamicNotificationName = "Push's_Notification_" + System.currentTimeMillis();
         pushNotifyPage.enterNotificationName(dynamicNotificationName);
@@ -661,7 +665,8 @@ public class PushNotification extends Base {
 
         String actualURL2 = driver.getCurrentUrl();
         String expectedURL2 = prop.getProperty("redirectionURL");
-        Assert.assertEquals(actualURL2,expectedURL2);
+        String expectedURL2Prod = prop.getProperty("redirectionURLProd");
+        Assert.assertEquals(actualURL2,expectedURL2Prod);
         // Thread.sleep(3000); // Removed — getToastMessageText() already waits for toast to be visible
 
         String actualMessage = pushNotifyPage.getToastMessageText();
@@ -686,20 +691,21 @@ public class PushNotification extends Base {
         driver = openBrowserAndApplication(prop.getProperty("browser"));
 		
         loginPage = new LoginPage(driver);
-		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
-    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+		loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
+    	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
     	loginPage.clickOnSubmitButton();
     	System.out.println("User Logged in Successfully.");
     	
     	pushNotifyPage = new PushNotificationPage(driver);
     	pushNotifyPage.clickOnCommunicationTab();
-    	pushNotifyPage.clickOnNotifications();
+    	pushNotifyPage.clickOnNotificationsProd();
     	pushNotifyPage.clickOnActionsButton();
     	pushNotifyPage.clickOnCreateAppNotification();
     	
     	String actualURL = driver.getCurrentUrl();
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
-        Assert.assertEquals(actualURL,expectedURL);
+        String expectedURLProd = "https://app.technochimes.com/framework/AgencyCommunication/create";
+        Assert.assertEquals(actualURL,expectedURLProd);
         
         String dynamicNotificationName = "Push's_Notification_" + System.currentTimeMillis();
         pushNotifyPage.enterNotificationName(dynamicNotificationName);
@@ -730,7 +736,8 @@ public class PushNotification extends Base {
 
         String actualURL2 = driver.getCurrentUrl();
         String expectedURL2 = prop.getProperty("redirectionURL");
-        Assert.assertEquals(actualURL2,expectedURL2);
+        String expectedURL2Prod = prop.getProperty("redirectionURLProd");
+        Assert.assertEquals(actualURL2,expectedURL2Prod);
         // Thread.sleep(3000); // Removed — getToastMessageText() already waits for toast to be visible
 
         String actualMessage = pushNotifyPage.getToastMessageText();
@@ -756,20 +763,21 @@ public class PushNotification extends Base {
         driver = openBrowserAndApplication(prop.getProperty("browser"));
 		
         loginPage = new LoginPage(driver);
-		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
-    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+		loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
+    	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
     	loginPage.clickOnSubmitButton();
     	System.out.println("User Logged in Successfully.");
     	
     	pushNotifyPage = new PushNotificationPage(driver);
     	pushNotifyPage.clickOnCommunicationTab();
-    	pushNotifyPage.clickOnNotifications();
+    	pushNotifyPage.clickOnNotificationsProd();
     	pushNotifyPage.clickOnActionsButton();
     	pushNotifyPage.clickOnCreateAppNotification();
     	
     	String actualURL = driver.getCurrentUrl();
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
-        Assert.assertEquals(actualURL,expectedURL);
+        String expectedURLProd = "https://app.technochimes.com/framework/AgencyCommunication/create";
+        Assert.assertEquals(actualURL,expectedURLProd);
         
         String dynamicNotificationName = "Push's_Notification_" + System.currentTimeMillis();
         pushNotifyPage.enterNotificationName(dynamicNotificationName);
@@ -801,6 +809,7 @@ public class PushNotification extends Base {
 
         String actualURL2 = driver.getCurrentUrl();
         String expectedURL2 = prop.getProperty("redirectionURL");
+        String expectedURL2Prod = prop.getProperty("redirectionURLProd");
         Assert.assertEquals(actualURL2,expectedURL2);
         // Thread.sleep(3000); // Removed — getToastMessageText() already waits for toast to be visible
 
@@ -826,20 +835,21 @@ public class PushNotification extends Base {
         driver = openBrowserAndApplication(prop.getProperty("browser"));
 		
         loginPage = new LoginPage(driver);
-		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
-    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+		loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
+    	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
     	loginPage.clickOnSubmitButton();
     	System.out.println("User Logged in Successfully.");
     	
     	pushNotifyPage = new PushNotificationPage(driver);
     	pushNotifyPage.clickOnCommunicationTab();
-    	pushNotifyPage.clickOnNotifications();
+    	pushNotifyPage.clickOnNotificationsProd();
     	pushNotifyPage.clickOnActionsButton();
     	pushNotifyPage.clickOnCreateAppNotification();
     	
     	String actualURL = driver.getCurrentUrl();
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
-        Assert.assertEquals(actualURL,expectedURL);
+        String expectedURLProd = "https://app.technochimes.com/framework/AgencyCommunication/create";
+        Assert.assertEquals(actualURL,expectedURLProd);
         
         String dynamicNotificationName = "Push's_Notification_" + System.currentTimeMillis();
         pushNotifyPage.enterNotificationName(dynamicNotificationName);
@@ -867,7 +877,8 @@ public class PushNotification extends Base {
 
         String actualURL2 = driver.getCurrentUrl();
         String expectedURL2 = prop.getProperty("redirectionURL");
-        Assert.assertEquals(actualURL2,expectedURL2);
+        String expectedURL2Prod = prop.getProperty("redirectionURLProd");
+        Assert.assertEquals(actualURL2,expectedURL2Prod);
         // Thread.sleep(3000); // Removed — getToastMessageText() already waits for toast to be visible
 
         String actualMessage = pushNotifyPage.getToastMessageText();
@@ -892,20 +903,21 @@ public class PushNotification extends Base {
         driver = openBrowserAndApplication(prop.getProperty("browser"));
 		
         loginPage = new LoginPage(driver);
-		loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
-    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+		loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
+    	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
     	loginPage.clickOnSubmitButton();
     	System.out.println("User Logged in Successfully.");
     	
     	pushNotifyPage = new PushNotificationPage(driver);
     	pushNotifyPage.clickOnCommunicationTab();
-    	pushNotifyPage.clickOnNotifications();
+    	pushNotifyPage.clickOnNotificationsProd();
     	pushNotifyPage.clickOnActionsButton();
     	pushNotifyPage.clickOnCreateAppNotification();
     	
     	String actualURL = driver.getCurrentUrl();
         String expectedURL = "https://app.spdevmfp.com/framework/AgencyCommunication/create";
-        Assert.assertEquals(actualURL,expectedURL);
+        String expectedURLProd = "https://app.technochimes.com/framework/AgencyCommunication/create";
+        Assert.assertEquals(actualURL,expectedURLProd);
         
         String dynamicNotificationName = "Push's_Notification_" + System.currentTimeMillis();
         pushNotifyPage.enterNotificationName(dynamicNotificationName);
@@ -932,7 +944,8 @@ public class PushNotification extends Base {
 
         String actualURL2 = driver.getCurrentUrl();
         String expectedURL2 = prop.getProperty("redirectionURL");
-        Assert.assertEquals(actualURL2,expectedURL2);
+        String expectedURL2Prod = prop.getProperty("redirectionURLProd");
+        Assert.assertEquals(actualURL2,expectedURL2Prod);
         // Thread.sleep(3000); // Removed — getToastMessageText() already waits for toast to be visible
 
         String actualMessage = pushNotifyPage.getToastMessageText();

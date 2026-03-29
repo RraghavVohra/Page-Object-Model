@@ -131,9 +131,18 @@ public class PushNotificationPage {
 	public void clickOnPartnerListRadioButton() {
 
 		partnerListRadioButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='upload_list']")));
-        partnerListRadioButton.click();
+		// Regular click and JS click() do not fire the bubbling change event Angular listens to
+		// partnerListRadioButton.click();
+		// ((JavascriptExecutor) driver).executeScript("arguments[0].click();", partnerListRadioButton);
+		// Manually set checked and dispatch a bubbling change event so Angular/React updates the UI
+		((JavascriptExecutor) driver).executeScript(
+		    "arguments[0].checked = true; arguments[0].dispatchEvent(new Event('change', {bubbles: true}));",
+		    partnerListRadioButton
+		);
         // Wait for CSV upload field to appear — confirms the upload list section has loaded
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='upload_csv']")));
+        // visibilityOfElementLocated too strict — element may be in DOM but hidden; presenceOfElementLocated is sufficient
+        // wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='upload_csv']")));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@id='upload_csv']")));
 	}
 	
 	public void clickOnpartnerCategoryRadioButton() {
@@ -440,16 +449,21 @@ public class PushNotificationPage {
     }
 
     public void clickOnContentLinkDropdown() {
-    	contentLinkDropdown = wait.until(ExpectedConditions.elementToBeClickable(By.id("select2-contentLinkDropdown-container")));
+    	// contentLinkDropdown = wait.until(ExpectedConditions.elementToBeClickable(By.id("select2-contentLinkDropdown-container")));
+    	contentLinkDropdown = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@id='select2-contentLinkDropdown-container']/parent::span")));
     	contentLinkDropdown.click();
     	// Wait for dropdown options to appear
     	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//li[@class='select2-results__option select2-results__option--selectable'])[1]")));
     }
+    
+    // //span[@id='select2-contentLinkDropdown-container']/parent::span
 
 
     public void clickOnContentSelection() {
     	contentSelection = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//li[@class='select2-results__option select2-results__option--selectable'])[1]")));
-    	((JavascriptExecutor) driver).executeScript("arguments[0].click();", contentSelection);
+    	// JS click does not fire mousedown/mouseup, so Select2 does not register the selection — use Actions instead
+    	// ((JavascriptExecutor) driver).executeScript("arguments[0].click();", contentSelection);
+    	new Actions(driver).click(contentSelection).perform();
     }
     
     public void uploadCsvFile(String filePath) {
