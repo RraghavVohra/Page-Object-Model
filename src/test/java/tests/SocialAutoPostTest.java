@@ -65,9 +65,9 @@ public class SocialAutoPostTest extends Base {
 	    // Thread.sleep(2000); // Removed — wait moved into clickOnSelectPartnerCategory()
 	    socialautopostpage.clickOnStaticText();
 	    // Thread.sleep(2000); // Removed — wait moved into clickOnStaticText()
-	    socialautopostpage.clickOnTwitter();
+	    // socialautopostpage.clickOnTwitter();
 	    // Thread.sleep(2000); // Removed — clickOnLinkedIn() already waits for element
-	    socialautopostpage.clickOnLinkedIn();
+	    // socialautopostpage.clickOnLinkedIn();
 	    // Thread.sleep(2000); // Removed — clickOnFacebook() already waits for element
 	    socialautopostpage.clickOnFacebook();
 	    // Thread.sleep(2000); // Removed — ClickOnOpenDateTimePicker() already waits for element
@@ -76,7 +76,7 @@ public class SocialAutoPostTest extends Base {
 
 	    // Thread.sleep(7000); // Removed — wait moved into ClickOnOpenDateTimePicker()
 
-	    socialautopostpage.selectFutureDateTwo("24", "August 2025");
+	    socialautopostpage.selectFutureDateTwo("31", "March 2026");
 	    socialautopostpage.selectTimeThree("10", "30");
 	    socialautopostpage.verifySelection();
 

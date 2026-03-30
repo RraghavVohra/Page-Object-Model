@@ -35,8 +35,8 @@ public class SocialAutoPostPage {
 	private WebElement titleTextfield;
 	private WebElement descriptionTextfield;
 	private WebElement parnterCategoryButton;
-	private WebElement selectPartnerCategory;
-	private WebElement staticText;
+	// private WebElement selectPartnerCategory;
+	// private WebElement staticText;
 	private WebElement dateTimeButton;
 	private WebElement dateInput;
 	private WebElement schedulePostButton;
@@ -228,51 +228,65 @@ public class SocialAutoPostPage {
 
 	public void clickOnPartnerCategoryButton() {
 
-		// Upgraded to elementToBeClickable — multiselect may not be ready immediately
-		parnterCategoryButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[@class='multiselect-wrapper']//div[contains(@class,'multiselect')])[1]")));
+		// Click the multiselect display div to open the partner category dropdown
+		// Old locator was wrong — corrected to actual id of the dropdown toggle
+		// Old approach commented out: parnterCategoryButton = wait.until(elementToBeClickable(By.xpath("(//div[@class='multiselect-wrapper']//div[contains(@class,'multiselect')])[1]")));
+		parnterCategoryButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id='multiSelectDisplay']")));
 		parnterCategoryButton.click();
-		// Post-wait: confirm dropdown options appeared before selecting
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[normalize-space()='Raj2024']")));
+		// Post-wait: search box appears — confirms dropdown is open and ready for input
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='searchBox']")));
 	}
 
 	public void clickOnSelectPartnerCategory() {
 
-		// Upgraded to elementToBeClickable — option must be visible in dropdown
-		selectPartnerCategory = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[normalize-space()='Raj2024']")));
-		// Actions click — fires full event chain (mousedown + mouseup + click)
-		new Actions(driver).click(selectPartnerCategory).perform();
-		// Removed post-wait for multiselect-selected-text span — span is hidden while dropdown stays open (multi-select does not auto-close)
-		// clickOnStaticText() handles closing the dropdown
+		// Type "raj" in the search box to filter options, then click the Raj2024 checkbox directly
+		// Old approach (clicking label with Actions/native click) was wrong — the actual toggle is the checkbox input (value='584')
+		// Old approach commented out: selectPartnerCategory = wait.until(elementToBeClickable(By.xpath("//label[normalize-space()='Raj2024']"))); selectPartnerCategory.click();
+		WebElement searchBox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='searchBox']")));
+		searchBox.sendKeys("raj");
+		// Wait for and click the Raj2024 checkbox — value='584' is the actual checkbox input for this option
+		WebElement raj2024Checkbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@value='584']")));
+		raj2024Checkbox.click();
 	}
 
 	public void clickOnStaticText() {
 
-		// Switched to Escape key to close the multiselect dropdown — document.body.click() did not trigger the dropdown's outside-click handler
-		// Old approach commented out: js.executeScript("document.body.click()");
-		// Old approach commented out: staticText = wait.until(visibilityOfElementLocated(//span[@class='multiselect-selected-text'])); js.executeScript("arguments[0].click()", staticText);
-		new Actions(driver).sendKeys(Keys.ESCAPE).perform();
-		// Post-wait: Twitter checkbox clickable — confirms dropdown is closed and form is ready
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[input[@value='twitter']]")));
+		// Click the multiSelectDisplay div again to close the dropdown — it is outside the dropdown panel so it triggers the outside-click handler
+		// Old approaches all failed: ESC without target, ESC on multiselect input, Actions click on title field (out of viewport after scroll)
+		// Old approach commented out: new Actions(driver).sendKeys(Keys.ESCAPE).perform();
+		// Old approach commented out: new Actions(driver).sendKeys(multiselectInput, Keys.ESCAPE).perform();
+		// Old approach commented out: new Actions(driver).click(titleField).perform();
+		parnterCategoryButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id='multiSelectDisplay']")));
+		parnterCategoryButton.click();
+		// Post-wait: Twitter label clickable — confirms dropdown is closed and social checkboxes are ready
+		// Old XPath was wrong: //label[input[@value='twitter']] — corrected to actual label text
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[normalize-space()='Twitter']")));
 	}
 
 	public void clickOnTwitter() {
 
-		// Upgraded to elementToBeClickable
-		twitterCheckbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[input[@value='twitter']]")));
+		// Corrected XPath — old value-based locator was wrong, actual label text is 'Twitter'
+		// Old approach commented out: twitterCheckbox = wait.until(elementToBeClickable(By.xpath("//label[input[@value='twitter']]")));
+		twitterCheckbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[normalize-space()='Twitter']")));
 		twitterCheckbox.click();
 	}
 
 	public void clickOnLinkedIn() {
 
-		// Upgraded to elementToBeClickable
-		linkedinCheckbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[input[@value='linkedin']]")));
+		// Corrected XPath — aligned with same label-text pattern as Twitter
+		// Old approach commented out: linkedinCheckbox = wait.until(elementToBeClickable(By.xpath("//label[input[@value='linkedin']]")));
+		linkedinCheckbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[normalize-space()='LinkedIn']")));
 		linkedinCheckbox.click();
 	}
 
 	public void clickOnFacebook() {
 
-		// Upgraded to elementToBeClickable
-		FacebookCheckbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[input[@value='facebook']]")));
+		// Corrected XPath — aligned with same label-text pattern as Twitter
+		// Old approach commented out: FacebookCheckbox = wait.until(elementToBeClickable(By.xpath("//label[input[@value='facebook']]")));
+		FacebookCheckbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[normalize-space()='Facebook']")));
+		// Scroll into view — Facebook checkbox sits lower than LinkedIn and may be below the viewport after scrollDownByFiveHundred
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].scrollIntoView(true);", FacebookCheckbox);
 		FacebookCheckbox.click();
 	}
 
@@ -392,7 +406,10 @@ public class SocialAutoPostPage {
 
 		// Upgraded to elementToBeClickable — button must be ready before submission
 		schedulePostButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='share_button']")));
-		schedulePostButton.click();
+		// Scroll into view + JS click — button may be below viewport or intercepted by overlay after date/time picker interaction
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].scrollIntoView(true);", schedulePostButton);
+		js.executeScript("arguments[0].click();", schedulePostButton);
 	}
 
 
