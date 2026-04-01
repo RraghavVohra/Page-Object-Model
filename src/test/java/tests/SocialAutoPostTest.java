@@ -76,7 +76,7 @@ public class SocialAutoPostTest extends Base {
 
 	    // Thread.sleep(7000); // Removed — wait moved into ClickOnOpenDateTimePicker()
 
-	    socialautopostpage.selectFutureDateTwo("31", "March 2026");
+	    socialautopostpage.selectFutureDateTwo("15", "April 2026");
 	    socialautopostpage.selectTimeThree("10", "30");
 	    socialautopostpage.verifySelection();
 
@@ -139,10 +139,9 @@ public class SocialAutoPostTest extends Base {
 	    // Thread.sleep(2000); // Removed — wait moved into clickOnSelectPartnerCategory()
 	    socialautopostpage.clickOnStaticText();
 	    // Thread.sleep(2000); // Removed — wait moved into clickOnStaticText()
-	    socialautopostpage.clickOnTwitter();
-	    // Thread.sleep(2000); // Removed — clickOnLinkedIn() already waits for element
-	    socialautopostpage.clickOnLinkedIn();
-	    // Thread.sleep(2000); // Removed — clickOnFacebook() already waits for element
+	    // Co-branding is enabled — only Facebook checkbox is shown, Twitter and LinkedIn are not rendered
+	    // socialautopostpage.clickOnTwitter();
+	    // socialautopostpage.clickOnLinkedIn();
 	    socialautopostpage.clickOnFacebook();
 	    // Thread.sleep(2000); // Removed — ClickOnOpenDateTimePicker() already waits for element
 	    Utilities.scrollDownByTwoHundred(driver);
@@ -150,7 +149,7 @@ public class SocialAutoPostTest extends Base {
 
 	    // Thread.sleep(7000); // Removed — wait moved into ClickOnOpenDateTimePicker()
 
-	    socialautopostpage.selectFutureDateTwo("24", "August 2025");
+	    socialautopostpage.selectFutureDateTwo("24", "April 2026");
 	    socialautopostpage.selectTimeThree("10", "30");
 	    socialautopostpage.verifySelection();
 
@@ -283,10 +282,9 @@ public class SocialAutoPostTest extends Base {
 	    // Thread.sleep(2000); // Removed — wait moved into clickOnSelectPartnerCategory()
 	    socialautopostpage.clickOnStaticText();
 	    // Thread.sleep(2000); // Removed — wait moved into clickOnStaticText()
-	    socialautopostpage.clickOnTwitter();
-	    // Thread.sleep(2000); // Removed — clickOnLinkedIn() already waits for element
-	    socialautopostpage.clickOnLinkedIn();
-	    // Thread.sleep(2000); // Removed — clickOnFacebook() already waits for element
+	    // Co-branding is enabled — only Facebook checkbox is shown, Twitter and LinkedIn are not rendered
+	    // socialautopostpage.clickOnTwitter();
+	    // socialautopostpage.clickOnLinkedIn();
 	    socialautopostpage.clickOnFacebook();
 	    // Thread.sleep(2000); // Removed — ClickOnOpenDateTimePicker() already waits for element
 	    Utilities.scrollDownByTwoHundred(driver);
@@ -294,7 +292,7 @@ public class SocialAutoPostTest extends Base {
 
 	    // Thread.sleep(7000); // Removed — wait moved into ClickOnOpenDateTimePicker()
 
-	    socialautopostpage.selectFutureDateTwo("24", "August 2025");
+	    socialautopostpage.selectFutureDateTwo("24", "April 2026");
 	    socialautopostpage.selectTimeThree("10", "30");
 	    socialautopostpage.verifySelection();
 
@@ -360,11 +358,9 @@ public class SocialAutoPostTest extends Base {
 	    socialautopostpage.clickOnCustomURLRadioButton();
 	    // Thread.sleep(2000); // Removed — enterCustomURL() already waits for element
 	    socialautopostpage.enterCustomURL();
-	    // Thread.sleep(2000); // Removed — clickOnTwitter() already waits for element
-	    socialautopostpage.clickOnTwitter();
-	    // Thread.sleep(2000); // Removed — clickOnLinkedIn() already waits for element
-	    socialautopostpage.clickOnLinkedIn();
-	    // Thread.sleep(2000); // Removed — clickOnFacebook() already waits for element
+	    // Co-branding is enabled — only Facebook checkbox is shown, Twitter and LinkedIn are not rendered
+	    // socialautopostpage.clickOnTwitter();
+	    // socialautopostpage.clickOnLinkedIn();
 	    socialautopostpage.clickOnFacebook();
 	    // Thread.sleep(2000); // Removed — ClickOnOpenDateTimePicker() already waits for element
 	    Utilities.scrollDownByTwoHundred(driver);
@@ -372,7 +368,7 @@ public class SocialAutoPostTest extends Base {
 
 	    // Thread.sleep(7000); // Removed — wait moved into ClickOnOpenDateTimePicker()
 
-	    socialautopostpage.selectFutureDateTwo("24", "August 2025");
+	    socialautopostpage.selectFutureDateTwo("24", "April 2026");
 	    socialautopostpage.selectTimeThree("10", "30");
 	    socialautopostpage.verifySelection();
 
@@ -437,11 +433,9 @@ public class SocialAutoPostTest extends Base {
 	    socialautopostpage.clickOnStaticText();
 	    // Thread.sleep(2000); // Removed — wait moved into clickOnStaticText()
 	    socialautopostpage.clickOnNoneRadioButton();
-	    // Thread.sleep(2000); // Removed — clickOnTwitter() already waits for element
-	    socialautopostpage.clickOnTwitter();
-	    // Thread.sleep(2000); // Removed — clickOnLinkedIn() already waits for element
-	    socialautopostpage.clickOnLinkedIn();
-	    // Thread.sleep(2000); // Removed — clickOnFacebook() already waits for element
+	    // Co-branding is enabled — only Facebook checkbox is shown, Twitter and LinkedIn are not rendered
+	    // socialautopostpage.clickOnTwitter();
+	    // socialautopostpage.clickOnLinkedIn();
 	    socialautopostpage.clickOnFacebook();
 	    // Thread.sleep(2000); // Removed — ClickOnOpenDateTimePicker() already waits for element
 	    Utilities.scrollDownByTwoHundred(driver);
@@ -449,7 +443,7 @@ public class SocialAutoPostTest extends Base {
 
 	    // Thread.sleep(7000); // Removed — wait moved into ClickOnOpenDateTimePicker()
 
-	    socialautopostpage.selectFutureDateTwo("24", "August 2025");
+	    socialautopostpage.selectFutureDateTwo("24", "April 2026");
 	    socialautopostpage.selectTimeThree("10", "30");
 	    socialautopostpage.verifySelection();
 
@@ -514,10 +508,9 @@ public class SocialAutoPostTest extends Base {
 	    // Thread.sleep(2000); // Removed — wait moved into clickOnSelectPartnerCategory()
 	    socialautopostpage.clickOnStaticText();
 	    // Thread.sleep(2000); // Removed — wait moved into clickOnStaticText()
-	    socialautopostpage.clickOnTwitter();
-	    // Thread.sleep(2000); // Removed — clickOnLinkedIn() already waits for element
-	    socialautopostpage.clickOnLinkedIn();
-	    // Thread.sleep(2000); // Removed — clickOnFacebook() already waits for element
+	    // Co-branding is enabled — only Facebook checkbox is shown, Twitter and LinkedIn are not rendered
+	    // socialautopostpage.clickOnTwitter();
+	    // socialautopostpage.clickOnLinkedIn();
 	    socialautopostpage.clickOnFacebook();
 	    // Thread.sleep(2000); // Removed — ClickOnOpenDateTimePicker() already waits for element
 	    Utilities.scrollDownByTwoHundred(driver);
@@ -525,7 +518,7 @@ public class SocialAutoPostTest extends Base {
 
 	    // Thread.sleep(7000); // Removed — wait moved into ClickOnOpenDateTimePicker()
 
-	    socialautopostpage.selectFutureDateTwo("31", "August 2025");
+	    socialautopostpage.selectFutureDateTwo("30", "April 2026");
 	    socialautopostpage.selectTimeThree("17", "30");
 	    socialautopostpage.verifySelection();
 

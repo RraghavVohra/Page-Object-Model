@@ -21,7 +21,8 @@ public class LoginPage {
 		
 		this.driver = driver;
 		// Below line of code was added as in some test cases, selenium was not able to find the element
-		this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+		// Increased from 15s to 30s — slow server days caused the submit-button lambda to time out before login completed
+		this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 	}
 	
 	private WebElement usernameField;
@@ -48,20 +49,62 @@ public class LoginPage {
 
 	public void enterPasswordField(String passwordText) {
 
-		passwordField = wait.until(ExpectedConditions.elementToBeClickable(By.id("password")));
-		passwordField.sendKeys(passwordText);
+		// Retry until the value sticks — same pattern as enterUsernameField()
+		// Angular may re-render the form after username is entered, clearing the password field too
+		// Old approach commented out (no retry — value could be cleared before submit):
+		// passwordField = wait.until(ExpectedConditions.elementToBeClickable(By.id("password")));
+		// passwordField.sendKeys(passwordText);
+		wait.until(driver -> {
+			try {
+				WebElement passwordEl = driver.findElement(By.id("password"));
+				if (!passwordEl.isEnabled()) return false;
+				passwordEl.clear();
+				passwordEl.sendKeys(passwordText);
+				String value = passwordEl.getDomProperty("value");
+				return value != null && value.equals(passwordText);
+			} catch (StaleElementReferenceException | ElementNotInteractableException e) {
+				return false;
+			}
+		});
 	}
 	
 	public void clickOnSubmitButton() {
-		
-		// submitButton = driver.findElement(By.xpath("(//button[@type='submit'])[1]"));
-		submitButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[@type='submit'])[1]")));
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		// Scroll into view to ensure no overlays are blocking it
-		js.executeScript("arguments[0].scrollIntoView(true);", submitButton);
 
-		submitButton.click();
-		
+		// Retry loop to handle Angular re-rendering the submit button between find and click (StaleElementReferenceException)
+		// Field values are guaranteed by enterUsernameField() and enterPasswordField() retry loops — no need to re-check here
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		// Removed isEnabled() check — Angular may disable the button temporarily during re-render even when fields are filled,
+		// causing the lambda to keep returning false and time out. Just find and JS-click; the 30s urlContains wait below catches failure.
+		// Old approach commented out:
+		// wait.until(driver -> {
+		//     try {
+		//         WebElement btn = driver.findElement(By.xpath("(//button[@type='submit'])[1]"));
+		//         if (!btn.isDisplayed() || !btn.isEnabled()) return false;
+		//         js.executeScript("arguments[0].scrollIntoView(true);", btn);
+		//         js.executeScript("arguments[0].click();", btn);
+		//         return true;
+		//     } catch (StaleElementReferenceException e) {
+		//         return false;
+		//     }
+		// });
+		wait.until(driver -> {
+			try {
+				WebElement btn = driver.findElement(By.xpath("(//button[@type='submit'])[1]"));
+				js.executeScript("arguments[0].scrollIntoView(true);", btn);
+				js.executeScript("arguments[0].click();", btn);
+				return true;
+			} catch (StaleElementReferenceException e) {
+				// Angular re-rendered the form between find and click — retry
+				return false;
+			}
+		});
+
+		// Post-wait: wait for URL to contain "AssetLibrary" — confirms login succeeded and redirect completed
+		// Login page URL is app.technochimes.com/home — it never contains "login", so urlContains("login") fired instantly and was useless
+		// AssetLibrary is the landing page after successful login: app.technochimes.com/home/AssetLibrary
+		// Using a separate 30s wait — the 15s form interaction wait is too tight for slow server days
+		new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.urlContains("AssetLibrary"));
+
 	}
 	
 }

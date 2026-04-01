@@ -53,7 +53,8 @@ public class SocialAutoPostPage {
 
 	public void clickOnAutomationTab() {
 
-		automationTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Automation']")));
+		// Changed text()= to normalize-space()= — text()= fails if the span has any surrounding whitespace in the DOM
+		automationTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[normalize-space()='Automation']")));
 		automationTab.click();
 	}
 
@@ -251,16 +252,28 @@ public class SocialAutoPostPage {
 
 	public void clickOnStaticText() {
 
-		// Click the multiSelectDisplay div again to close the dropdown — it is outside the dropdown panel so it triggers the outside-click handler
-		// Old approaches all failed: ESC without target, ESC on multiselect input, Actions click on title field (out of viewport after scroll)
-		// Old approach commented out: new Actions(driver).sendKeys(Keys.ESCAPE).perform();
-		// Old approach commented out: new Actions(driver).sendKeys(multiselectInput, Keys.ESCAPE).perform();
-		// Old approach commented out: new Actions(driver).click(titleField).perform();
-		parnterCategoryButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id='multiSelectDisplay']")));
-		parnterCategoryButton.click();
-		// Post-wait: Twitter label clickable — confirms dropdown is closed and social checkboxes are ready
-		// Old XPath was wrong: //label[input[@value='twitter']] — corrected to actual label text
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[normalize-space()='Twitter']")));
+		// The partner category dropdown sometimes auto-closes after checkbox selection, sometimes stays open.
+		// If we blindly click multiSelectDisplay when already closed, we RE-OPEN it — covering the social checkboxes.
+		// Fix: check if searchBox (inside dropdown) is still visible before deciding to click.
+		// Old approach commented out (always clicked regardless of state):
+		// parnterCategoryButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id='multiSelectDisplay']")));
+		// parnterCategoryButton.click();
+		try {
+			WebElement searchBox = driver.findElement(By.xpath("//input[@id='searchBox']"));
+			if (searchBox.isDisplayed()) {
+				// Dropdown still open — click multiSelectDisplay to close it
+				parnterCategoryButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id='multiSelectDisplay']")));
+				parnterCategoryButton.click();
+				// Wait for searchBox to disappear — confirms dropdown actually closed
+				wait.until(ExpectedConditions.invisibilityOf(searchBox));
+			}
+			// else: dropdown already auto-closed — nothing to do
+		} catch (Exception e) {
+			// searchBox not in DOM — dropdown is definitely already closed
+		}
+		// Post-wait: Facebook label clickable — Facebook is always shown after closing the dropdown.
+		// Old wait was for Twitter label — but when co-branding is enabled only Facebook checkbox is shown, so Twitter never appears.
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[normalize-space()='Facebook']")));
 	}
 
 	public void clickOnTwitter() {
