@@ -2,20 +2,20 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-04-01T22:28:39 IST" name="Default suite" finished-at="2026-04-01T22:29:18 IST" duration-ms="39006">
+  <suite started-at="2026-04-03T12:12:28 IST" name="Default suite" finished-at="2026-04-03T12:12:44 IST" duration-ms="15890">
     <groups>
     </groups>
-    <test started-at="2026-04-01T22:28:39 IST" name="Default test" finished-at="2026-04-01T22:29:18 IST" duration-ms="39006">
-      <class name="tests.SocialAutoPostTest">
-        <test-method signature="test_TC_PN_01_whenPostedWithPngImageWithCobranding()[pri:1, instance:tests.SocialAutoPostTest@77c2494c]" started-at="2026-04-01T22:28:39 IST" name="test_TC_PN_01_whenPostedWithPngImageWithCobranding" finished-at="2026-04-01T22:29:17 IST" duration-ms="38087" status="PASS">
+    <test started-at="2026-04-03T12:12:28 IST" name="Default test" finished-at="2026-04-03T12:12:44 IST" duration-ms="15890">
+      <class name="tests.Search">
+        <test-method signature="test_TC_SA_01_searchfunctionality()[pri:1, instance:tests.Search@3c9754d8]" started-at="2026-04-03T12:12:28 IST" name="test_TC_SA_01_searchfunctionality" finished-at="2026-04-03T12:12:43 IST" duration-ms="15149" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- test_TC_PN_01_whenPostedWithPngImageWithCobranding -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.SocialAutoPostTest@77c2494c]" started-at="2026-04-01T22:29:17 IST" name="tearDown" finished-at="2026-04-01T22:29:18 IST" duration-ms="819" status="PASS">
+        </test-method> <!-- test_TC_SA_01_searchfunctionality -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.Search@3c9754d8]" started-at="2026-04-03T12:12:43 IST" name="tearDown" finished-at="2026-04-03T12:12:44 IST" duration-ms="569" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-      </class> <!-- tests.SocialAutoPostTest -->
+      </class> <!-- tests.Search -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

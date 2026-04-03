@@ -39,14 +39,15 @@ public class Search extends Base {
 	        searchPage = new SearchPage(driver);
 	        searchPage.enterValueIntoSearchTextfield(prop.getProperty("enterValueInSearchTextfield"));
 	        searchPage.clickOnSearchIcon();
-
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnSearchIcon()
 
 	        JavascriptExecutor js = (JavascriptExecutor) driver;
 	        js.executeScript("window.scrollBy(0,400)");
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
-	        String actualSearch = "Lacoste's 1980";
+	        // Replaced hardcoded value with prop — both search input and assertion now use the same source of truth
+            // String actualSearch = "Test's VIDEO Rraghav 1996";
+            String actualSearch = prop.getProperty("enterValueInSearchTextfield");
 	        // ✅ Safe check: don't throw if element not found
 	        // Here we had an apostrophe so we wrote the below xpath like that i.e. \"" + actualSearch + "\"
 	        List<WebElement> resultElements = driver.findElements(By.xpath("//a/p[contains(text(), \"" + actualSearch + "\")]"));
@@ -61,10 +62,10 @@ public class Search extends Base {
 	        }
 	        
 	        js.executeScript("window.scrollTo(0, 0);");
-	        Thread.sleep(1000);
-	        
+	        // Thread.sleep(1000); // Removed — scrollTo is synchronous, no wait needed
+
 	        searchPage.clickOnProfileIconAfterSearch();
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 	        searchPage.clickOnLogoutOption();
 	        searchPage.clickOnLogoutButton();
 	        
@@ -100,10 +101,10 @@ public class Search extends Base {
 	        Assert.assertEquals(optionThree, "Published", "Third option mismatch!");
 
 	        System.out.println("All Options exists.Test Case TC_SA_02 got passed");
-	        Thread.sleep(3000);
-	        
+	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
+
 	        searchPage.clickOnProfileIconAfterSearch();
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 	        searchPage.clickOnLogoutOption();
 	        searchPage.clickOnLogoutButton();
 	        
@@ -129,18 +130,18 @@ public class Search extends Base {
 	        //searchPage.enterValueIntoSearchTextfield(prop.getProperty("enterValueTwoInSearchTextfield"));
 	        //searchPage.clickOnSearchIcon();
 
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnDraftAndPublishedDropdown() already waits for element
 	        js.executeScript("window.scrollBy(0,300)");
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
 	        searchPage.clickOnDraftAndPublishedDropdown();
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftButton()
 	        searchPage.clickOnDraftButton();
-	        
+
 	        js.executeScript("document.activeElement.blur();");
-	        
+
 	        List<WebElement> assetCards = searchPage.getAssetCards();
-	        
+
 	        // STEP 1 : First we will count how many Assets are shown
 			// STEP 2 : Verify that each asset contains a "Publish" button.
 			// Ensure the number of assets matches the expected count (e.g., 20).
@@ -158,7 +159,7 @@ public class Search extends Base {
 	        boolean allHavePublishButton = true;
 	        for (WebElement asset : assetCards) {
 	            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", asset);
-	            Thread.sleep(1000);
+	            Thread.sleep(300); // Reduced from 1000ms — smooth scroll animation wait
 	            List<WebElement> publishButtons = searchPage.getPublishButtonsInAsset(asset);
 	            if (publishButtons.isEmpty()) {
 	                allHavePublishButton = false;
@@ -174,10 +175,10 @@ public class Search extends Base {
 	        }
 
 	        System.out.println("Test Case TC_SA_03 got passed");
-	        Thread.sleep(3000);
-	        
+	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
+
 	        searchPage.clickOnProfileIconAfterSearch();
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 	        searchPage.clickOnLogoutOption();
 	        searchPage.clickOnLogoutButton();
 	        
@@ -200,20 +201,22 @@ public class Search extends Base {
 	        searchPage = new SearchPage(driver);
 	        JavascriptExecutor js = (JavascriptExecutor) driver;
 
-	        searchPage.enterValueIntoSearchTextfield("Test");
+	        // Replaced hardcoded value with prop — search input now uses the same source of truth as the properties file
+	        // searchPage.enterValueIntoSearchTextfield("Test");
+	        searchPage.enterValueIntoSearchTextfield(prop.getProperty("enterValueTwoInSearchTextfield"));
 	        searchPage.clickOnSearchIcon();
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnSearchIcon()
 
-	        Thread.sleep(3000);
 	        js.executeScript("window.scrollBy(0,400)");
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
 	        searchPage.clickOnDraftAndPublishedDropdown();
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnPublishedButton()
 	        searchPage.clickOnPublishedButton();
 	        js.executeScript("document.activeElement.blur();");
 
-            List<WebElement> assetCards = searchPage.getAssetCardsWithPublishedButtons();
-	        
+	        List<WebElement> assetCards = searchPage.getAssetCardsWithPublishedButtons();
+
 	        // STEP 1 : First we will count how many Assets are shown
 			// STEP 2 : Verify that each asset contains a "Published" button.
 			// Ensure the number of assets matches the expected count (e.g., 20).
@@ -231,7 +234,7 @@ public class Search extends Base {
 	        boolean allHavePublishedButton = true;
 	        for (WebElement asset : assetCards) {
 	            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", asset);
-	            Thread.sleep(1000);
+	            Thread.sleep(300); // Reduced from 1000ms — smooth scroll animation wait
 	            List<WebElement> publishedButtons = searchPage.getPublishedButtonsInAsset(asset);
 	            if (publishedButtons.isEmpty()) {
 	                allHavePublishedButton = false;
@@ -247,13 +250,13 @@ public class Search extends Base {
 	        }
 
 	        System.out.println("Test Case TC_SA_04 got passed");
-	        Thread.sleep(3000);
-	        
+	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
+
 	        searchPage.clickOnProfileIconAfterSearch();
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 	        searchPage.clickOnLogoutOption();
 	        searchPage.clickOnLogoutButton();
-	     
+
 	    }
 	    
 	 @Test(priority = 5)
@@ -269,14 +272,16 @@ public class Search extends Base {
 	    	searchPage = new SearchPage(driver);
 	        JavascriptExecutor js = (JavascriptExecutor) driver;
 
-	        Thread.sleep(2000);
-	        searchPage.enterValueIntoSearchTextfield("Test");
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — enterValueIntoSearchTextfield() already waits for element
+	        // Replaced hardcoded value with prop — search input now uses the same source of truth as the properties file
+	        // searchPage.enterValueIntoSearchTextfield("Test");
+	        searchPage.enterValueIntoSearchTextfield(prop.getProperty("enterValueTwoInSearchTextfield"));
+	        // Thread.sleep(2000); // Removed — clickOnSearchIcon() already waits for element
 	        searchPage.clickOnSearchIcon();
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnSearchIcon()
 
-	        Thread.sleep(3000);
 	        js.executeScript("window.scrollBy(0,400)");
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
 	        List<WebElement> assetCards = searchPage.getAssetCards();
 	        List<WebElement> assetCardsTwo = searchPage.getAssetCardsWithPublishedButtons();
@@ -328,13 +333,13 @@ public class Search extends Base {
 	        }
 
 	        System.out.println("Test Case TC_SA_05 got passed");
-	        Thread.sleep(3000);
-	        
+	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
+
 	        searchPage.clickOnProfileIconAfterSearch();
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 	        searchPage.clickOnLogoutOption();
 	        searchPage.clickOnLogoutButton();
-	        
+
 	    }
 	 
 	 @Test(priority=6)
@@ -352,18 +357,18 @@ public class Search extends Base {
 	        searchPage = new SearchPage(driver);
 	        JavascriptExecutor js = (JavascriptExecutor) driver;
 
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnDraftAndPublishedDropdown() already waits for element
 	        js.executeScript("window.scrollBy(0,300)");
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
 	        searchPage.clickOnDraftAndPublishedDropdown();
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftButton()
 	        searchPage.clickOnDraftButton();
-	        
+
 	        js.executeScript("document.activeElement.blur();");
-	        
+
 	        List<WebElement> assetCards = searchPage.getAssetCards();
-	        
+
 	        // STEP 1 : First we will count how many Assets are shown
 			// STEP 2 : Verify that each asset contains a "Publish" button.
 			// Ensure the number of assets matches the expected count (e.g., 20).
@@ -381,7 +386,7 @@ public class Search extends Base {
 	        boolean allHavePublishButton = true;
 	        for (WebElement asset : assetCards) {
 	            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", asset);
-	            Thread.sleep(1000);
+	            Thread.sleep(300); // Reduced from 1000ms — smooth scroll animation wait
 	            List<WebElement> publishButtons = searchPage.getPublishButtonsInAsset(asset);
 	            if (publishButtons.isEmpty()) {
 	                allHavePublishButton = false;
@@ -397,10 +402,10 @@ public class Search extends Base {
 	        }
 
 	        System.out.println("Test Case TC_SA_06 got passed");
-	        Thread.sleep(3000);
-	        
+	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
+
 	        searchPage.clickOnProfileIconAfterSearch();
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 	        searchPage.clickOnLogoutOption();
 	        searchPage.clickOnLogoutButton();
 	 }
@@ -420,17 +425,17 @@ public class Search extends Base {
 	        JavascriptExecutor js = (JavascriptExecutor) driver;
 
 
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnDraftAndPublishedDropdown() already waits for element
 	        js.executeScript("window.scrollBy(0,400)");
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
 	        searchPage.clickOnDraftAndPublishedDropdown();
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnPublishedButton()
 	        searchPage.clickOnPublishedButton();
 	        js.executeScript("document.activeElement.blur();");
 
-            List<WebElement> assetCards = searchPage.getAssetCardsWithPublishedButtons();
-	        
+	        List<WebElement> assetCards = searchPage.getAssetCardsWithPublishedButtons();
+
 	        // STEP 1 : First we will count how many Assets are shown
 			// STEP 2 : Verify that each asset contains a "Published" button.
 			// Ensure the number of assets matches the expected count (e.g., 20).
@@ -448,7 +453,7 @@ public class Search extends Base {
 	        boolean allHavePublishedButton = true;
 	        for (WebElement asset : assetCards) {
 	            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", asset);
-	            Thread.sleep(1000);
+	            Thread.sleep(300); // Reduced from 1000ms — smooth scroll animation wait
 	            List<WebElement> publishedButtons = searchPage.getPublishedButtonsInAsset(asset);
 	            if (publishedButtons.isEmpty()) {
 	                allHavePublishedButton = false;
@@ -464,14 +469,13 @@ public class Search extends Base {
 	        }
 
 	        System.out.println("Test Case TC_SA_07 got passed");
-	        Thread.sleep(3000);
-	        
+	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
+
 	        searchPage.clickOnProfileIconAfterSearch();
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 	        searchPage.clickOnLogoutOption();
 	        searchPage.clickOnLogoutButton();
 
-		 
 	 }
 	 
 	 @Test(priority=8)
@@ -488,9 +492,9 @@ public class Search extends Base {
 	        JavascriptExecutor js = (JavascriptExecutor) driver;
 
 
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — getAssetCards() targets elements already in DOM after login
 	        js.executeScript("window.scrollBy(0,400)");
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
 	        List<WebElement> assetCards = searchPage.getAssetCards();
 	        List<WebElement> assetCardsTwo = searchPage.getAssetCardsWithPublishedButtons();
@@ -542,10 +546,10 @@ public class Search extends Base {
 	        }
 
 	        System.out.println("Test Case TC_SA_08 got passed");
-	        Thread.sleep(3000);
-	        
+	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
+
 	        searchPage.clickOnProfileIconAfterSearch();
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 	        searchPage.clickOnLogoutOption();
 	        searchPage.clickOnLogoutButton();
 
@@ -569,15 +573,12 @@ public class Search extends Base {
 
 	        searchPage.enterValueIntoSearchTextfield(prop.getProperty("enterInvalidValueInSearchTextfield"));
 	        searchPage.clickOnSearchIcon();
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnSearchIcon()
 
-	        Thread.sleep(3000);
 	        js.executeScript("window.scrollBy(0,300)");
-	        Thread.sleep(2000);
-	        
-	        Thread.sleep(2000);
-	        
-	        searchPage.getTextFromNoDataElement();
-		    
+	        // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
+	        // Thread.sleep(2000); // Removed — getTextFromNoDataElement() already waits for element
+
 	        String noDataText = searchPage.getTextFromNoDataElement();
 
 	        if (noDataText.contains("No Data")) {
@@ -585,12 +586,12 @@ public class Search extends Base {
 	        } else {
 	            System.out.println("❌ 'No Data' message not found.");
 	        }
-	       
+
 	        System.out.println("Test Case TC_SA_09 got passed");
-	        Thread.sleep(3000);
-	        
+	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
+
 	        searchPage.clickOnProfileIconAfterSearch();
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 	        searchPage.clickOnLogoutOption();
 	        searchPage.clickOnLogoutButton();
 	        
@@ -612,16 +613,16 @@ public class Search extends Base {
 	        JavascriptExecutor js = (JavascriptExecutor) driver;
 
 
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnDraftAndPublishedDropdown() already waits for element
 	        js.executeScript("window.scrollBy(0,400)");
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
 	        searchPage.clickOnDraftAndPublishedDropdown();
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnPublishedButton()
 	        searchPage.clickOnPublishedButton();
 	        js.executeScript("document.activeElement.blur();");
-	        
-	        Thread.sleep(3000);
+
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnBookmarkedFilter()
 	        searchPage.clickOnBookmarkedFilter();
 	        
 	        // Step 3: Get all asset cards
@@ -667,10 +668,10 @@ public class Search extends Base {
 	        }
 	        
 	        System.out.println("Test Case TC_SA_12 got passed");
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
 
 	        // Step 6: Logout
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 	        searchPage.clickOnProfileIconAfterSearch();
 	        searchPage.clickOnLogoutOption();
 	        searchPage.clickOnLogoutButton();
@@ -692,16 +693,16 @@ public class Search extends Base {
 	        JavascriptExecutor js = (JavascriptExecutor) driver;
 
 
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnDraftAndPublishedDropdown() already waits for element
 	        js.executeScript("window.scrollBy(0,400)");
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
 	        searchPage.clickOnDraftAndPublishedDropdown();
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnPublishedButton()
 	        searchPage.clickOnPublishedButton();
 	        js.executeScript("document.activeElement.blur();");
-	        
-	        Thread.sleep(3000);
+
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnMicrositeFilter()
 	        searchPage.clickOnMicrositeFilter();
 	        
 	        // Step 3: Get all asset cards
@@ -747,10 +748,10 @@ public class Search extends Base {
 	        }
 	        
 	        System.out.println("Test Case TC_SA_11 got passed");
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
 
 	        // Step 6: Logout
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 	        searchPage.clickOnProfileIconAfterSearch();
 	        searchPage.clickOnLogoutOption();
 	        searchPage.clickOnLogoutButton();
@@ -772,16 +773,16 @@ public class Search extends Base {
 	        JavascriptExecutor js = (JavascriptExecutor) driver;
 
 
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnDraftAndPublishedDropdown() already waits for element
 	        js.executeScript("window.scrollBy(0,400)");
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
 	        searchPage.clickOnDraftAndPublishedDropdown();
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnPublishedButton()
 	        searchPage.clickOnPublishedButton();
 	        js.executeScript("document.activeElement.blur();");
-	        
-	        Thread.sleep(3000);
+
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnVideoFilter()
 	        searchPage.clickOnVideoFilter();
 	        
 	        
@@ -828,10 +829,10 @@ public class Search extends Base {
 	        }
 	        
 	        System.out.println("Test Case TC_SA_12 got passed");
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
 
 	        // Step 6: Logout
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 	        searchPage.clickOnProfileIconAfterSearch();
 	        searchPage.clickOnLogoutOption();
 	        searchPage.clickOnLogoutButton();
@@ -853,16 +854,16 @@ public class Search extends Base {
 	        JavascriptExecutor js = (JavascriptExecutor) driver;
 
 
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnDraftAndPublishedDropdown() already waits for element
 	        js.executeScript("window.scrollBy(0,400)");
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
 	        searchPage.clickOnDraftAndPublishedDropdown();
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnPublishedButton()
 	        searchPage.clickOnPublishedButton();
 	        js.executeScript("document.activeElement.blur();");
-	        
-	        Thread.sleep(3000);
+
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnBrochureFilter()
 	        searchPage.clickOnBrochureFilter();
 	        
 	        
@@ -909,10 +910,10 @@ public class Search extends Base {
 	        }
 	        
 	        System.out.println("Test Case TC_SA_13 got passed");
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
 
 	        // Step 6: Logout
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 	        searchPage.clickOnProfileIconAfterSearch();
 	        searchPage.clickOnLogoutOption();
 	        searchPage.clickOnLogoutButton();
@@ -935,16 +936,16 @@ public class Search extends Base {
 	        JavascriptExecutor js = (JavascriptExecutor) driver;
 
 
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnDraftAndPublishedDropdown() already waits for element
 	        js.executeScript("window.scrollBy(0,400)");
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
 	        searchPage.clickOnDraftAndPublishedDropdown();
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnPublishedButton()
 	        searchPage.clickOnPublishedButton();
 	        js.executeScript("document.activeElement.blur();");
-	        
-	        Thread.sleep(3000);
+
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnBannerFilter()
 	        searchPage.clickOnBannerFilter();	        
 	        
 	        // Step 3: Get all asset cards
@@ -990,10 +991,10 @@ public class Search extends Base {
 	        }
 	        
 	        System.out.println("Test Case TC_SA_14 got passed");
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
 
 	        // Step 6: Logout
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 	        searchPage.clickOnProfileIconAfterSearch();
 	        searchPage.clickOnLogoutOption();
 	        searchPage.clickOnLogoutButton();
@@ -1015,16 +1016,16 @@ public class Search extends Base {
 	        JavascriptExecutor js = (JavascriptExecutor) driver;
 
 
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnDraftAndPublishedDropdown() already waits for element
 	        js.executeScript("window.scrollBy(0,400)");
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
 	        searchPage.clickOnDraftAndPublishedDropdown();
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnPublishedButton()
 	        searchPage.clickOnPublishedButton();
 	        js.executeScript("document.activeElement.blur();");
-	        
-	        Thread.sleep(3000);
+
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnSocialPostsFilter()
 	        searchPage.clickOnSocialPostsFilter();       
 	        
 	        // Step 3: Get all asset cards
@@ -1071,10 +1072,10 @@ public class Search extends Base {
 	        }
 	        
 	        System.out.println("Test Case TC_SA_15 got passed");
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
 
 	        // Step 6: Logout
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 	        searchPage.clickOnProfileIconAfterSearch();
 	        searchPage.clickOnLogoutOption();
 	        searchPage.clickOnLogoutButton();
@@ -1096,16 +1097,16 @@ public class Search extends Base {
 	        JavascriptExecutor js = (JavascriptExecutor) driver;
 
 
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnDraftAndPublishedDropdown() already waits for element
 	        js.executeScript("window.scrollBy(0,400)");
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
 	        searchPage.clickOnDraftAndPublishedDropdown();
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnPublishedButton()
 	        searchPage.clickOnPublishedButton();
 	        js.executeScript("document.activeElement.blur();");
-	        
-	        Thread.sleep(3000);
+
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnEmailQuickFilter()
 	        searchPage.clickOnEmailQuickFilter();	        
 	        
 	        // Step 3: Get all asset cards
@@ -1151,10 +1152,10 @@ public class Search extends Base {
 	        }
 	        
 	        System.out.println("Test Case TC_SA_16 got passed");
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
 
 	        // Step 6: Logout
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 	        searchPage.clickOnProfileIconAfterSearch();
 	        searchPage.clickOnLogoutOption();
 	        searchPage.clickOnLogoutButton();
@@ -1176,16 +1177,16 @@ public class Search extends Base {
 	        JavascriptExecutor js = (JavascriptExecutor) driver;
 
 
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnDraftAndPublishedDropdown() already waits for element
 	        js.executeScript("window.scrollBy(0,400)");
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — scrollBy is synchronous, no wait needed
 
 	        searchPage.clickOnDraftAndPublishedDropdown();
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftButton()
 	        searchPage.clickOnDraftButton();
 	        js.executeScript("document.activeElement.blur();");
-	        
-	        Thread.sleep(3000);
+
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnAllQuickFilter()
 	        searchPage.clickOnAllQuickFilter();       
 	        
 	        // Step 3: Get all asset cards
@@ -1231,10 +1232,10 @@ public class Search extends Base {
 	        }
 	        
 	        System.out.println("Test Case TC_SA_17 got passed");
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
 
 	        // Step 6: Logout
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 	        searchPage.clickOnProfileIconAfterSearch();
 	        searchPage.clickOnLogoutOption();
 	        searchPage.clickOnLogoutButton();
@@ -1258,16 +1259,16 @@ public class Search extends Base {
 	        JavascriptExecutor js = (JavascriptExecutor) driver;
 
 
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnDraftAndPublishedDropdown() already waits for element
 	        js.executeScript("window.scrollBy(0,400)");
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — scrollBy is synchronous, no wait needed
 
 	        searchPage.clickOnDraftAndPublishedDropdown();
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftButton()
 	        searchPage.clickOnDraftButton();
 	        js.executeScript("document.activeElement.blur();");
-	        
-	        Thread.sleep(3000);
+
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnBookmarkedFilter()
 	        searchPage.clickOnBookmarkedFilter();      
 	        
 	        // Step 3: Get all asset cards
@@ -1314,10 +1315,10 @@ public class Search extends Base {
 	        }
 	        
 	        System.out.println("Test Case TC_SA_18 got passed");
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
 
 	        // Step 6: Logout
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 	        searchPage.clickOnProfileIconAfterSearch();
 	        searchPage.clickOnLogoutOption();
 	        searchPage.clickOnLogoutButton();
@@ -1339,16 +1340,16 @@ public class Search extends Base {
 	        JavascriptExecutor js = (JavascriptExecutor) driver;
 
 
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnDraftAndPublishedDropdown() already waits for element
 	        js.executeScript("window.scrollBy(0,400)");
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — scrollBy is synchronous, no wait needed
 
 	        searchPage.clickOnDraftAndPublishedDropdown();
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftButton()
 	        searchPage.clickOnDraftButton();
 	        js.executeScript("document.activeElement.blur();");
-	        
-	        Thread.sleep(3000);
+
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnMicrositeFilter()
 	        searchPage.clickOnMicrositeFilter();  
 	        
 	        // Step 3: Get all asset cards
@@ -1395,10 +1396,10 @@ public class Search extends Base {
 	        }
 	        
 	        System.out.println("Test Case TC_SA_19 got passed");
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
 
 	        // Step 6: Logout
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 	        searchPage.clickOnProfileIconAfterSearch();
 	        searchPage.clickOnLogoutOption();
 	        searchPage.clickOnLogoutButton();
@@ -1420,16 +1421,16 @@ public class Search extends Base {
 	        JavascriptExecutor js = (JavascriptExecutor) driver;
 
 
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnDraftAndPublishedDropdown() already waits for element
 	        js.executeScript("window.scrollBy(0,400)");
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
 	        searchPage.clickOnDraftAndPublishedDropdown();
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftButton()
 	        searchPage.clickOnDraftButton();
 	        js.executeScript("document.activeElement.blur();");
-	        
-	        Thread.sleep(3000);
+
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnVideoFilter()
 	        searchPage.clickOnVideoFilter();        
 	        // Step 3: Get all asset cards
 	        List<WebElement> assetCards = searchPage.getAssetCardsWithPublishButtons();
@@ -1474,10 +1475,10 @@ public class Search extends Base {
 	        }
 	        
 	        System.out.println("Test Case TC_SA_20 got passed");
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
 
 	        // Step 6: Logout
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 	        searchPage.clickOnProfileIconAfterSearch();
 	        searchPage.clickOnLogoutOption();
 	        searchPage.clickOnLogoutButton();
@@ -1498,16 +1499,16 @@ public class Search extends Base {
 	        JavascriptExecutor js = (JavascriptExecutor) driver;
 
 
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnDraftAndPublishedDropdown() already waits for element
 	        js.executeScript("window.scrollBy(0,400)");
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
 	        searchPage.clickOnDraftAndPublishedDropdown();
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftButton()
 	        searchPage.clickOnDraftButton();
 	        js.executeScript("document.activeElement.blur();");
-	        
-	        Thread.sleep(3000);
+
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnBrochureFilter()
 	        searchPage.clickOnBrochureFilter();        
 	        // Step 3: Get all asset cards
 	        List<WebElement> assetCards = searchPage.getAssetCardsWithPublishButtons();
@@ -1552,10 +1553,10 @@ public class Search extends Base {
 	        }
 	        
 	        System.out.println("Test Case TC_SA_21 got passed");
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
 
 	        // Step 6: Logout
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 	        searchPage.clickOnProfileIconAfterSearch();
 	        searchPage.clickOnLogoutOption();
 	        searchPage.clickOnLogoutButton();
@@ -1576,16 +1577,16 @@ public class Search extends Base {
 	        JavascriptExecutor js = (JavascriptExecutor) driver;
 
 
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnDraftAndPublishedDropdown() already waits for element
 	        js.executeScript("window.scrollBy(0,400)");
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
 	        searchPage.clickOnDraftAndPublishedDropdown();
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftButton()
 	        searchPage.clickOnDraftButton();
 	        js.executeScript("document.activeElement.blur();");
-	        
-	        Thread.sleep(3000);
+
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnBannerFilter()
 	        searchPage.clickOnBannerFilter();       
 	        // Step 3: Get all asset cards
 	        List<WebElement> assetCards = searchPage.getAssetCardsWithPublishButtons();
@@ -1630,10 +1631,10 @@ public class Search extends Base {
 	        }
 	        
 	        System.out.println("Test Case TC_SA_22 got passed");
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
 
 	        // Step 6: Logout
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 	        searchPage.clickOnProfileIconAfterSearch();
 	        searchPage.clickOnLogoutOption();
 	        searchPage.clickOnLogoutButton();
@@ -1655,16 +1656,16 @@ public class Search extends Base {
 	        JavascriptExecutor js = (JavascriptExecutor) driver;
 
 
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnDraftAndPublishedDropdown() already waits for element
 	        js.executeScript("window.scrollBy(0,400)");
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
 	        searchPage.clickOnDraftAndPublishedDropdown();
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftButton()
 	        searchPage.clickOnDraftButton();
 	        js.executeScript("document.activeElement.blur();");
-	        
-	        Thread.sleep(3000);
+
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnSocialPostsFilter()
 	        searchPage.clickOnSocialPostsFilter();       
 	        // Step 3: Get all asset cards
 	        List<WebElement> assetCards = searchPage.getAssetCardsWithPublishButtons();
@@ -1710,10 +1711,10 @@ public class Search extends Base {
 	        }
 	        
 	        System.out.println("Test Case TC_SA_23 got passed");
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
 
 	        // Step 6: Logout
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 	        searchPage.clickOnProfileIconAfterSearch();
 	        searchPage.clickOnLogoutOption();
 	        searchPage.clickOnLogoutButton();
@@ -1735,16 +1736,16 @@ public class Search extends Base {
 	        JavascriptExecutor js = (JavascriptExecutor) driver;
 
 
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnDraftAndPublishedDropdown() already waits for element
 	        js.executeScript("window.scrollBy(0,400)");
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
 	        searchPage.clickOnDraftAndPublishedDropdown();
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftButton()
 	        searchPage.clickOnDraftButton();
 	        js.executeScript("document.activeElement.blur();");
-	        
-	        Thread.sleep(3000);
+
+	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnEmailQuickFilter()
 	        searchPage.clickOnEmailQuickFilter();       
 	        // Step 3: Get all asset cards
 	        List<WebElement> assetCards = searchPage.getAssetCardsWithPublishButtons();
@@ -1789,10 +1790,10 @@ public class Search extends Base {
 	        }
 	        
 	        System.out.println("Test Case TC_SA_24 got passed");
-	        Thread.sleep(3000);
+	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
 
 	        // Step 6: Logout
-	        Thread.sleep(2000);
+	        // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 	        searchPage.clickOnProfileIconAfterSearch();
 	        searchPage.clickOnLogoutOption();
 	        searchPage.clickOnLogoutButton();
@@ -1814,21 +1815,21 @@ public class Search extends Base {
          searchPage = new SearchPage(driver);
          JavascriptExecutor js = (JavascriptExecutor) driver;
        
-         Thread.sleep(3000);
+         // Thread.sleep(3000); // Removed — clickOnDraftAndPublishedDropdown() already waits for element
          js.executeScript("window.scrollBy(0,400)");
-         Thread.sleep(2000);
+         // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
          // Apply Draft & Published filter
          searchPage.clickOnDraftAndPublishedDropdown();
-         Thread.sleep(3000);
+         // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftAndPublishedOption()
          searchPage.clickOnDraftAndPublishedOption();
          js.executeScript("document.activeElement.blur();");
-         Thread.sleep(3000);
-         
+         // Thread.sleep(3000); // Removed — filter has post-wait
+
          js.executeScript("window.scrollBy(0,200)");
-         // Apply Email quick filter
+         // Apply Bookmarked quick filter
          searchPage.clickOnBookmarkedFilter();
-         Thread.sleep(3000);
+         // Thread.sleep(3000); // Removed — post-wait moved into clickOnBookmarkedFilter()
 
          // Fetch all cards having either Publish OR Published button
          List<WebElement> assetCards = searchPage.getAssetCardsWithPublishOrPublishedButtons();
@@ -1875,7 +1876,7 @@ public class Search extends Base {
          }
 
          System.out.println("Test Case TC_SA_25 got passed");
-         Thread.sleep(2000);
+         // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 
          // Logout
          searchPage.clickOnProfileIconAfterSearch();
@@ -1898,21 +1899,20 @@ public class Search extends Base {
      searchPage = new SearchPage(driver);
      JavascriptExecutor js = (JavascriptExecutor) driver;
    
-     Thread.sleep(3000);
+     // Thread.sleep(3000); // Removed — clickOnDraftAndPublishedDropdown() already waits for element
      js.executeScript("window.scrollBy(0,400)");
-     Thread.sleep(2000);
+     // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
      // Apply Draft & Published filter
      searchPage.clickOnDraftAndPublishedDropdown();
-     Thread.sleep(3000);
+     // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftAndPublishedOption()
      searchPage.clickOnDraftAndPublishedOption();
      js.executeScript("document.activeElement.blur();");
-     Thread.sleep(3000);
-     
-   
+     // Thread.sleep(3000); // Removed — filter has post-wait
+
      // Apply Microsite quick filter
      searchPage.clickOnMicrositeFilter();
-     Thread.sleep(3000);
+     // Thread.sleep(3000); // Removed — post-wait moved into clickOnMicrositeFilter()
 
      // Fetch all cards having either Publish OR Published button
      List<WebElement> assetCards = searchPage.getAssetCardsWithPublishOrPublishedButtons();
@@ -1959,7 +1959,7 @@ public class Search extends Base {
      }
 
      System.out.println("Test Case TC_SA_26 got passed");
-     Thread.sleep(2000);
+     // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 
      // Logout
      searchPage.clickOnProfileIconAfterSearch();
@@ -1981,21 +1981,20 @@ public class Search extends Base {
          searchPage = new SearchPage(driver);
          JavascriptExecutor js = (JavascriptExecutor) driver;
        
-         Thread.sleep(3000);
+         // Thread.sleep(3000); // Removed — clickOnDraftAndPublishedDropdown() already waits for element
          js.executeScript("window.scrollBy(0,400)");
-         Thread.sleep(2000);
+         // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
          // Apply Draft & Published filter
          searchPage.clickOnDraftAndPublishedDropdown();
-         Thread.sleep(3000);
+         // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftAndPublishedOption()
          searchPage.clickOnDraftAndPublishedOption();
          js.executeScript("document.activeElement.blur();");
-         Thread.sleep(3000);
-         
-       
+         // Thread.sleep(3000); // Removed — filter has post-wait
+
          // Apply Video quick filter
          searchPage.clickOnVideoFilter();
-         Thread.sleep(3000);
+         // Thread.sleep(3000); // Removed — post-wait moved into clickOnVideoFilter()
 
          // Fetch all cards having either Publish OR Published button
          List<WebElement> assetCards = searchPage.getAssetCardsWithPublishOrPublishedButtons();
@@ -2042,7 +2041,7 @@ public class Search extends Base {
          }
 
          System.out.println("Test Case TC_SA_27 got passed");
-         Thread.sleep(2000);
+         // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 
          // Logout
          searchPage.clickOnProfileIconAfterSearch();
@@ -2064,21 +2063,20 @@ public class Search extends Base {
          searchPage = new SearchPage(driver);
          JavascriptExecutor js = (JavascriptExecutor) driver;
        
-         Thread.sleep(3000);
+         // Thread.sleep(3000); // Removed — clickOnDraftAndPublishedDropdown() already waits for element
          js.executeScript("window.scrollBy(0,400)");
-         Thread.sleep(2000);
+         // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
          // Apply Draft & Published filter
          searchPage.clickOnDraftAndPublishedDropdown();
-         Thread.sleep(3000);
+         // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftAndPublishedOption()
          searchPage.clickOnDraftAndPublishedOption();
          js.executeScript("document.activeElement.blur();");
-         Thread.sleep(3000);
-         
-       
+         // Thread.sleep(3000); // Removed — filter has post-wait
+
          // Apply Brochure quick filter
          searchPage.clickOnBrochureFilter();
-         Thread.sleep(3000);
+         // Thread.sleep(3000); // Removed — post-wait moved into clickOnBrochureFilter()
 
          // Fetch all cards having either Publish OR Published button
          List<WebElement> assetCards = searchPage.getAssetCardsWithPublishOrPublishedButtons();
@@ -2125,7 +2123,7 @@ public class Search extends Base {
          }
 
          System.out.println("Test Case TC_SA_28 got passed");
-         Thread.sleep(2000);
+         // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 
          // Logout
          searchPage.clickOnProfileIconAfterSearch();
@@ -2147,21 +2145,20 @@ public class Search extends Base {
          searchPage = new SearchPage(driver);
          JavascriptExecutor js = (JavascriptExecutor) driver;
        
-         Thread.sleep(3000);
+         // Thread.sleep(3000); // Removed — clickOnDraftAndPublishedDropdown() already waits for element
          js.executeScript("window.scrollBy(0,400)");
-         Thread.sleep(2000);
+         // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
          // Apply Draft & Published filter
          searchPage.clickOnDraftAndPublishedDropdown();
-         Thread.sleep(3000);
+         // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftAndPublishedOption()
          searchPage.clickOnDraftAndPublishedOption();
          js.executeScript("document.activeElement.blur();");
-         Thread.sleep(3000);
-         
-       
+         // Thread.sleep(3000); // Removed — filter has post-wait
+
          // Apply Banner quick filter
          searchPage.clickOnBannerFilter();
-         Thread.sleep(3000);
+         // Thread.sleep(3000); // Removed — post-wait moved into clickOnBannerFilter()
 
          // Fetch all cards having either Publish OR Published button
          List<WebElement> assetCards = searchPage.getAssetCardsWithPublishOrPublishedButtons();
@@ -2208,7 +2205,7 @@ public class Search extends Base {
          }
 
          System.out.println("Test Case TC_SA_29 got passed");
-         Thread.sleep(2000);
+         // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 
          // Logout
          searchPage.clickOnProfileIconAfterSearch();
@@ -2230,21 +2227,20 @@ public class Search extends Base {
          searchPage = new SearchPage(driver);
          JavascriptExecutor js = (JavascriptExecutor) driver;
        
-         Thread.sleep(3000);
+         // Thread.sleep(3000); // Removed — clickOnDraftAndPublishedDropdown() already waits for element
          js.executeScript("window.scrollBy(0,400)");
-         Thread.sleep(2000);
+         // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
          // Apply Draft & Published filter
          searchPage.clickOnDraftAndPublishedDropdown();
-         Thread.sleep(3000);
+         // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftAndPublishedOption()
          searchPage.clickOnDraftAndPublishedOption();
          js.executeScript("document.activeElement.blur();");
-         Thread.sleep(3000);
-         
-       
+         // Thread.sleep(3000); // Removed — filter has post-wait
+
          // Apply Social quick filter
          searchPage.clickOnSocialPostsFilter();
-         Thread.sleep(3000);
+         // Thread.sleep(3000); // Removed — post-wait moved into clickOnSocialPostsFilter()
 
          // Fetch all cards having either Publish OR Published button
          List<WebElement> assetCards = searchPage.getAssetCardsWithPublishOrPublishedButtons();
@@ -2292,7 +2288,7 @@ public class Search extends Base {
          }
 
          System.out.println("Test Case TC_SA_30 got passed");
-         Thread.sleep(2000);
+         // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 
          // Logout
          searchPage.clickOnProfileIconAfterSearch();
@@ -2314,22 +2310,22 @@ public class Search extends Base {
          searchPage = new SearchPage(driver);
          JavascriptExecutor js = (JavascriptExecutor) driver;
        
-         Thread.sleep(3000);
+         // Thread.sleep(3000); // Removed — clickOnDraftAndPublishedDropdown() already waits for element
          js.executeScript("window.scrollBy(0,400)");
-         Thread.sleep(3000);
+         // Thread.sleep(3000); // Removed — scrollBy is synchronous, no wait needed
 
          // Apply Draft & Published filter
          searchPage.clickOnDraftAndPublishedDropdown();
-         Thread.sleep(3000);
+         // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftAndPublishedOption()
          searchPage.clickOnDraftAndPublishedOption();
          js.executeScript("document.activeElement.blur();");
-         Thread.sleep(3000);
-         
+         // Thread.sleep(3000); // Removed — filter has post-wait
+
          js.executeScript("window.scrollBy(0,200)");
-         Thread.sleep(2000);
-         // Apply Bookmark quick filter
+         // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
+         // Apply Email quick filter
          searchPage.clickOnEmailQuickFilter();
-         Thread.sleep(3000);
+         // Thread.sleep(3000); // Removed — post-wait moved into clickOnEmailQuickFilter()
 
          // Fetch all cards having either Publish OR Published button
          List<WebElement> assetCards = searchPage.getAssetCardsWithPublishOrPublishedButtons();
@@ -2376,7 +2372,7 @@ public class Search extends Base {
          }
 
          System.out.println("Test Case TC_SA_31 got passed");
-         Thread.sleep(2000);
+         // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
 
          // Logout
          searchPage.clickOnProfileIconAfterSearch();

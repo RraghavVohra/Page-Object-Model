@@ -339,7 +339,7 @@ public class SocialAutoPostTest extends Base {
 
         // Thread.sleep(2000); // Removed — wait moved into uploadFileInJPGUsingAutoIt()
     	Utilities.scrollDownByTwoHundred(driver);
-    	socialautopostpage.clickOnEnableCobrandingButton();
+    	// socialautopostpage.clickOnEnableCobrandingButton();
     	// For Everytime different Name
     	String baseName = prop.getProperty("Titletextfield");
         String uniqueName = baseName + "_" + System.currentTimeMillis();
@@ -359,8 +359,8 @@ public class SocialAutoPostTest extends Base {
 	    // Thread.sleep(2000); // Removed — enterCustomURL() already waits for element
 	    socialautopostpage.enterCustomURL();
 	    // Co-branding is enabled — only Facebook checkbox is shown, Twitter and LinkedIn are not rendered
-	    // socialautopostpage.clickOnTwitter();
-	    // socialautopostpage.clickOnLinkedIn();
+	    socialautopostpage.clickOnTwitter();
+	    socialautopostpage.clickOnLinkedIn();
 	    socialautopostpage.clickOnFacebook();
 	    // Thread.sleep(2000); // Removed — ClickOnOpenDateTimePicker() already waits for element
 	    Utilities.scrollDownByTwoHundred(driver);
@@ -416,7 +416,8 @@ public class SocialAutoPostTest extends Base {
 
         // Thread.sleep(2000); // Removed — wait moved into uploadFileInJPGUsingAutoIt()
     	Utilities.scrollDownByTwoHundred(driver);
-    	socialautopostpage.clickOnEnableCobrandingButton();
+    	// Co-branding must be OFF when clicking all social media icons — Twitter and LinkedIn only appear without co-branding
+    	// socialautopostpage.clickOnEnableCobrandingButton();
     	// For Everytime different Name
     	String baseName = prop.getProperty("Titletextfield");
         String uniqueName = baseName + "_" + System.currentTimeMillis();
@@ -433,9 +434,9 @@ public class SocialAutoPostTest extends Base {
 	    socialautopostpage.clickOnStaticText();
 	    // Thread.sleep(2000); // Removed — wait moved into clickOnStaticText()
 	    socialautopostpage.clickOnNoneRadioButton();
-	    // Co-branding is enabled — only Facebook checkbox is shown, Twitter and LinkedIn are not rendered
-	    // socialautopostpage.clickOnTwitter();
-	    // socialautopostpage.clickOnLinkedIn();
+	    // Co-branding is OFF — all three social media checkboxes are visible
+	    socialautopostpage.clickOnTwitter();
+	    socialautopostpage.clickOnLinkedIn();
 	    socialautopostpage.clickOnFacebook();
 	    // Thread.sleep(2000); // Removed — ClickOnOpenDateTimePicker() already waits for element
 	    Utilities.scrollDownByTwoHundred(driver);
@@ -492,7 +493,7 @@ public class SocialAutoPostTest extends Base {
 
         // Thread.sleep(2000); // Removed — wait moved into uploadFileInJPGUsingAutoIt()
     	Utilities.scrollDownByTwoHundred(driver);
-    	socialautopostpage.clickOnEnableCobrandingButton();
+    	// socialautopostpage.clickOnEnableCobrandingButton();
     	// For Everytime different Name
     	String baseName = prop.getProperty("Titletextfield");
         String uniqueName = baseName + "_" + System.currentTimeMillis();
@@ -509,8 +510,8 @@ public class SocialAutoPostTest extends Base {
 	    socialautopostpage.clickOnStaticText();
 	    // Thread.sleep(2000); // Removed — wait moved into clickOnStaticText()
 	    // Co-branding is enabled — only Facebook checkbox is shown, Twitter and LinkedIn are not rendered
-	    // socialautopostpage.clickOnTwitter();
-	    // socialautopostpage.clickOnLinkedIn();
+	    socialautopostpage.clickOnTwitter();
+	    socialautopostpage.clickOnLinkedIn();
 	    socialautopostpage.clickOnFacebook();
 	    // Thread.sleep(2000); // Removed — ClickOnOpenDateTimePicker() already waits for element
 	    Utilities.scrollDownByTwoHundred(driver);

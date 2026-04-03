@@ -20,7 +20,8 @@ public class SearchPage {
 	 public SearchPage(WebDriver driver) {
 			
 			this.driver=driver;
-			this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+			// Increased from 10s to 20s to handle slower responses
+		this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		}
 	 
 	 
@@ -47,91 +48,129 @@ public class SearchPage {
 	
 	 
 	 public void enterValueIntoSearchTextfield(String contentName) {
-	        searchTextfield = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@placeholder='Search library']")));
+		 	// Upgraded to elementToBeClickable — field must be ready for input
+	        // searchTextfield = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@placeholder='Search library']")));
+	        searchTextfield = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@placeholder='Search library']")));
 	        searchTextfield.sendKeys(contentName);
 	    }
 
 	    public void clickOnSearchIcon() {
-	        searchIcon = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='search-icon']")));
+	    	// Upgraded to elementToBeClickable — icon must be interactive before clicking; added post-wait for results to load
+	        // searchIcon = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='search-icon']")));
+	        searchIcon = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='search-icon']")));
 	        searchIcon.click();
+	        // Post-wait: results loaded — either asset cards or No Data message is visible
+	        wait.until(d -> !d.findElements(By.xpath("//div[contains(@class,'asset-card')]")).isEmpty()
+	            || !d.findElements(By.xpath("//div[@class='no-data asset']")).isEmpty());
 	    }
 
 	    public void clickOnDraftAndPublishedDropdown() {
-	        draftAndPublishedDropdown = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//select[@aria-label='select-status']")));
+	    	// Upgraded to elementToBeClickable — dropdown must be interactive before clicking
+	        // draftAndPublishedDropdown = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//select[@aria-label='select-status']")));
+	        draftAndPublishedDropdown = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//select[@aria-label='select-status']")));
 	        draftAndPublishedDropdown.click();
 	    }
-	    
+
 	    public void clickOnDraftAndPublishedOption() {
-	    	
-	    	draftAndPublishedOption = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//option[@value='null' and text()='Draft & Published']")));
+	    	// Upgraded to elementToBeClickable — option must be selectable; added post-wait for results to load
+	    	// draftAndPublishedOption = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//option[@value='null' and text()='Draft & Published']")));
+	    	draftAndPublishedOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//option[@value='null' and text()='Draft & Published']")));
 	        draftAndPublishedOption.click();
-	    	
+	        // Post-wait: results loaded — either asset cards or No Data message is visible
+	        wait.until(d -> !d.findElements(By.xpath("//div[contains(@class,'asset-card')]")).isEmpty()
+	            || !d.findElements(By.xpath("//div[@class='no-data asset']")).isEmpty());
 	    }
 	    
 	    public void clickOnAllQuickFilter() {
-	    	
 	    	AllFilter = wait.until(ExpectedConditions.elementToBeClickable
 			(By.xpath("(//a[@data-rr-ui-event-key='#' and contains(text(), 'All')])[1]")));
 			AllFilter.click();
+			// Post-wait: results loaded — either asset cards or No Data message is visible
+			wait.until(d -> !d.findElements(By.xpath("//div[contains(@class,'asset-card')]")).isEmpty()
+			    || !d.findElements(By.xpath("//div[@class='no-data asset']")).isEmpty());
 	    }
-	    
+
 	    public void clickOnBookmarkedFilter() {
-	    	
 	    	bookmarkedFilter = wait.until(ExpectedConditions.elementToBeClickable
 			(By.xpath("(//a[@data-rr-ui-event-key='bookmarked' and contains(text(), 'bookmarked')])[1]")));
 			bookmarkedFilter.click();
+			// Post-wait: results loaded — either asset cards or No Data message is visible
+			wait.until(d -> !d.findElements(By.xpath("//div[contains(@class,'asset-card')]")).isEmpty()
+			    || !d.findElements(By.xpath("//div[@class='no-data asset']")).isEmpty());
 	    }
-	    
+
 	    public void clickOnMicrositeFilter() {
-	    	
 	    	micrositeFilter = wait.until(ExpectedConditions.elementToBeClickable
 	    	(By.xpath("(//a[@data-rr-ui-event-key='microsite' and contains(text(), 'Microsite')])[1]")));
 	    	micrositeFilter.click();
+	    	// Post-wait: results loaded — either asset cards or No Data message is visible
+	    	wait.until(d -> !d.findElements(By.xpath("//div[contains(@class,'asset-card')]")).isEmpty()
+	    	    || !d.findElements(By.xpath("//div[@class='no-data asset']")).isEmpty());
 	    }
-	    
+
 	    public void clickOnVideoFilter() {
-	    	
 	    	videoFilter = wait.until(ExpectedConditions.elementToBeClickable
 			(By.xpath("(//a[@data-rr-ui-event-key='1' and contains(text(), 'Video')])[1]")));
 			videoFilter.click();
+			// Post-wait: results loaded — either asset cards or No Data message is visible
+			wait.until(d -> !d.findElements(By.xpath("//div[contains(@class,'asset-card')]")).isEmpty()
+			    || !d.findElements(By.xpath("//div[@class='no-data asset']")).isEmpty());
 	    }
-	    
+
 	    public void clickOnBrochureFilter() {
-	    	
-	    	 brochureFilter = wait.until(ExpectedConditions.elementToBeClickable
-	 		 (By.xpath("(//a[@data-rr-ui-event-key='21' and contains(text(), 'Brochure')])[1]")));
-	 		 brochureFilter.click();
+	    	brochureFilter = wait.until(ExpectedConditions.elementToBeClickable
+	 		(By.xpath("(//a[@data-rr-ui-event-key='21' and contains(text(), 'Brochure')])[1]")));
+	 		brochureFilter.click();
+	 		// Post-wait: results loaded — either asset cards or No Data message is visible
+	 		wait.until(d -> !d.findElements(By.xpath("//div[contains(@class,'asset-card')]")).isEmpty()
+	 		    || !d.findElements(By.xpath("//div[@class='no-data asset']")).isEmpty());
 	    }
-	    
+
 	    public void clickOnBannerFilter() {
-	    	
 	    	bannersFilter = wait.until(ExpectedConditions.elementToBeClickable
 		    (By.xpath("(//a[@data-rr-ui-event-key='34' and contains(text(), 'Banners')])[1]")));
 			bannersFilter.click();
+			// Post-wait: results loaded — either asset cards or No Data message is visible
+			wait.until(d -> !d.findElements(By.xpath("//div[contains(@class,'asset-card')]")).isEmpty()
+			    || !d.findElements(By.xpath("//div[@class='no-data asset']")).isEmpty());
 	    }
-	    
+
 	    public void clickOnSocialPostsFilter() {
-	    	
 	    	socialPostsFilter = wait.until(ExpectedConditions.elementToBeClickable
 			(By.xpath("(//a[@data-rr-ui-event-key='15' and contains(text(), 'Social Posts')])[1]")));
 			socialPostsFilter.click();
+			// Post-wait: results loaded — either asset cards or No Data message is visible
+			wait.until(d -> !d.findElements(By.xpath("//div[contains(@class,'asset-card')]")).isEmpty()
+			    || !d.findElements(By.xpath("//div[@class='no-data asset']")).isEmpty());
 	    }
-	    
+
 	    public void clickOnEmailQuickFilter() {
-	    	
 	    	EmailFilter = wait.until(ExpectedConditions.elementToBeClickable
 			(By.xpath("(//a[@data-rr-ui-event-key='42' and contains(text(), 'Email')])[1]")));
 			EmailFilter.click();
+			// Post-wait: results loaded — either asset cards or No Data message is visible
+			wait.until(d -> !d.findElements(By.xpath("//div[contains(@class,'asset-card')]")).isEmpty()
+			    || !d.findElements(By.xpath("//div[@class='no-data asset']")).isEmpty());
 	    }
 
 	    public void clickOnDraftButton() {
-	        draftButton = driver.findElement(By.xpath("//option[@value='0' and text()='Draft']"));
+	    	// Upgraded to elementToBeClickable — option must be selectable after dropdown opens
+	    	// Old approach: draftButton = driver.findElement(By.xpath("//option[@value='0' and text()='Draft']"));
+	        draftButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//option[@value='0' and text()='Draft']")));
 	        draftButton.click();
+	        // Post-wait: results loaded — either asset cards or No Data message is visible
+	        wait.until(d -> !d.findElements(By.xpath("//div[contains(@class,'asset-card')]")).isEmpty()
+	            || !d.findElements(By.xpath("//div[@class='no-data asset']")).isEmpty());
 	    }
 
 	    public void clickOnPublishedButton() {
-	        publishedButton = driver.findElement(By.xpath("//option[@value='1' and text()='Published']"));
+	    	// Upgraded to elementToBeClickable — option must be selectable after dropdown opens
+	    	// Old approach: publishedButton = driver.findElement(By.xpath("//option[@value='1' and text()='Published']"));
+	        publishedButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//option[@value='1' and text()='Published']")));
 	        publishedButton.click();
+	        // Post-wait: results loaded — either asset cards or No Data message is visible
+	        wait.until(d -> !d.findElements(By.xpath("//div[contains(@class,'asset-card')]")).isEmpty()
+	            || !d.findElements(By.xpath("//div[@class='no-data asset']")).isEmpty());
 	    }
 
 	    public List<WebElement> getDropdownOptions() {
@@ -189,10 +228,10 @@ public class SearchPage {
 	    }
 	    
 	    public String getTextFromNoDataElement() {
-	    	
-	    	noDataElement = driver.findElement(By.xpath("//div[@class='no-data asset']"));
+	    	// Upgraded to visibilityOfElementLocated — No Data message may take time to appear after search
+	    	// Old approach: noDataElement = driver.findElement(By.xpath("//div[@class='no-data asset']"));
+	    	noDataElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='no-data asset']")));
 	    	return noDataElement.getText();
-		    
 	    }
 	    
 	    public List<WebElement> getBookmarkIconInAsset(WebElement asset) {
