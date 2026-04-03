@@ -37,6 +37,12 @@ public class Base {
 			// so the full navigation bar including profile icon fits within the viewport.
 			options.addArguments("--force-device-scale-factor=0.8");
 
+			// Fix: "Timed out receiving message from renderer" — Chrome renderer process hangs on some page loads.
+			// --disable-gpu prevents GPU-related renderer crashes on Windows.
+			// --no-sandbox removes the sandbox restriction that can cause renderer timeouts in some environments.
+			options.addArguments("--disable-gpu");
+			options.addArguments("--no-sandbox");
+
 			// Fix: Chrome shows two password-related dialogs after login:
 			// (a) the "Save password?" bubble — disabled by credentials_enable_service + password_manager_enabled
 			// (b) the "Check your saved passwords — found in a data breach" modal — disabled by leak_detection pref + feature flag
@@ -60,7 +66,8 @@ public class Base {
 		
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(35));
-		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(35));
+		// Increased from 35s to 60s — renderer timeout was hitting at ~33s, leaving no margin
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
 		driver.get(prop.getProperty("urldev"));
 		
 		return driver;

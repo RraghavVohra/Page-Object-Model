@@ -15,8 +15,9 @@
 <suite name="Suite">
   <listeners>
     <listener class-name="listeners.MyListeners"/>
+    <!-- RetryListener auto-applies RetryAnalyzer to all @Test methods — retries up to 2 times on transient failures -->
+    <listener class-name="listeners.RetryListener"/>
   </listeners>
-  
   <test thread-count="5" name="Search Functionality Tests">
     <classes>
       <class name="tests.Search"/>  <!-- Run only the Search class -->

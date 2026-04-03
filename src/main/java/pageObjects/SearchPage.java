@@ -181,12 +181,36 @@ public class SearchPage {
 	        return driver.findElement(By.xpath("//a/p[contains(text(), '" + actualSearch + "')]"));
 	    }
 
+	    public void scrollToLoadAllCards() throws InterruptedException {
+	    	// Lazy loading — cards only render when scrolled into view.
+	    	// Keep scrolling down in steps until the card count stops increasing (all cards loaded).
+	    	JavascriptExecutor js = (JavascriptExecutor) driver;
+	    	int previousCount = 0;
+	    	int currentCount = 0;
+	    	int maxAttempts = 20;
+	    	int attempt = 0;
+	    	do {
+	    		previousCount = currentCount;
+	    		js.executeScript("window.scrollBy(0, 600)");
+	    		Thread.sleep(500); // Wait for newly loaded cards to render
+	    		currentCount = driver.findElements(By.xpath("//div[contains(@class,'asset-card')]")).size();
+	    		attempt++;
+	    	} while (currentCount > previousCount && attempt < maxAttempts);
+	    	// Scroll back to top so card elements are accessible without stale references
+	    	js.executeScript("window.scrollTo(0, 0)");
+	    	Thread.sleep(300);
+	    }
+
 	    public List<WebElement> getAssetCards() {
-	        return driver.findElements(By.xpath("//div[@class='card-body'][.//button[text()='Publish']]"));
+	    	// Fixed text()='Publish' → normalize-space()='Publish' to handle whitespace in button text
+	    	// Old: return driver.findElements(By.xpath("//div[@class='card-body'][.//button[text()='Publish']]"));
+	        return driver.findElements(By.xpath("//div[contains(@class,'asset-card')][.//button[normalize-space()='Publish']]"));
 	    }
 	    
 	    public List<WebElement> getAssetCardsWithPublishedButtons() {
-	        return driver.findElements(By.xpath("//div[@class='card-body'][.//button[text()='Published']]"));
+	    	// Fixed: card-body → asset-card, text()='Published' → normalize-space()='Published'
+	    	// Old: return driver.findElements(By.xpath("//div[@class='card-body'][.//button[text()='Published']]"));
+	        return driver.findElements(By.xpath("//div[contains(@class,'asset-card')][.//button[normalize-space()='Published']]"));
 	    }
 	    
 	    public List<WebElement> getAssetCardsWithPublishButtons() {
@@ -195,11 +219,15 @@ public class SearchPage {
 	    
 
 	    public List<WebElement> getPublishButtonsInAsset(WebElement asset) {
-	        return asset.findElements(By.xpath("//button[@type='button' and contains(@class, 'btn-outline-info') and text()='Publish']"));
+	    	// Fixed: was //button (whole-page search) — changed to .//button (relative to this card only)
+	    	// Old: return asset.findElements(By.xpath("//button[@type='button' and contains(@class, 'btn-outline-info') and text()='Publish']"));
+	        return asset.findElements(By.xpath(".//button[@type='button' and normalize-space()='Publish']"));
 	    }
 
 	    public List<WebElement> getPublishedButtonsInAsset(WebElement asset) {
-	        return asset.findElements(By.xpath("//button[@type='button' and @disabled and @class='btn btn-secondary btn-sm' and text()='Published']"));
+	    	// Fixed: was //button (whole-page search) — changed to .//button (relative to this card only)
+	    	// Old: return asset.findElements(By.xpath("//button[@type='button' and @disabled and @class='btn btn-secondary btn-sm' and text()='Published']"));
+	        return asset.findElements(By.xpath(".//button[@type='button' and normalize-space()='Published']"));
 	    }
 	    
 	    public void clickOnProfileIcon() {

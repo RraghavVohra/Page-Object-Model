@@ -73,6 +73,7 @@ public class Search extends Base {
 	        }
 	 
 	 
+	 
 	 @Test(priority = 2)
 	 public void test_TC_SA_02_verifyalltheOptionsOfDropdowns() throws InterruptedException {
 	    	
@@ -111,7 +112,9 @@ public class Search extends Base {
 	        
 	       
 	    }
-	    
+	 
+	 
+	 
 	 @Test(priority = 3)
 	 public void test_TC_SA_03_verifyFilteringWithOnlyDraftOption() throws InterruptedException {
 		 
@@ -140,21 +143,25 @@ public class Search extends Base {
 
 	        js.executeScript("document.activeElement.blur();");
 
+	        // Scroll down to trigger lazy loading — cards only render when scrolled into view
+	        searchPage.scrollToLoadAllCards();
+
 	        List<WebElement> assetCards = searchPage.getAssetCards();
 
-	        // STEP 1 : First we will count how many Assets are shown
-			// STEP 2 : Verify that each asset contains a "Publish" button.
-			// Ensure the number of assets matches the expected count (e.g., 20).
-
+	        // STEP 1: Assert at least one draft card exists
+	        // STEP 2: Verify every card shown has a "Publish" button
+	        // Old approach: hardcoded count check of 20, returned early on mismatch — test silently passed even when count was wrong
+	        // int actualCount = assetCards.size();
+	        // int expectedCount = 20;
+	        // if (actualCount == expectedCount) {
+	        //     System.out.println("✅ Asset count matched. Found " + actualCount + " assets.");
+	        // } else {
+	        //     System.out.println("❌ Asset count mismatch. Expected: " + expectedCount + ", Found: " + actualCount);
+	        //     return;
+	        // }
 	        int actualCount = assetCards.size();
-	        int expectedCount = 20;
-
-	        if (actualCount == expectedCount) {
-	            System.out.println("✅ Asset count matched. Found " + actualCount + " assets.");
-	        } else {
-	            System.out.println("❌ Asset count mismatch. Expected: " + expectedCount + ", Found: " + actualCount);
-	            return;
-	        }
+	        Assert.assertTrue(actualCount > 0, "❌ No draft asset cards found after applying Draft filter.");
+	        System.out.println("✅ Found " + actualCount + " draft asset card(s).");
 
 	        boolean allHavePublishButton = true;
 	        for (WebElement asset : assetCards) {
@@ -168,11 +175,14 @@ public class Search extends Base {
 	            }
 	        }
 
-	        if (allHavePublishButton) {
-	            System.out.println("✅ All 20 assets have 'Publish' buttons.");
-	        } else {
-	            System.out.println("❌ Test failed: Some assets are missing 'Publish' button.");
-	        }
+	        // Old approach: if/else print only — never actually failed the test
+	        // if (allHavePublishButton) {
+	        //     System.out.println("✅ All 20 assets have 'Publish' buttons.");
+	        // } else {
+	        //     System.out.println("❌ Test failed: Some assets are missing 'Publish' button.");
+	        // }
+	        Assert.assertTrue(allHavePublishButton, "❌ Some assets are missing 'Publish' button.");
+	        System.out.println("✅ All " + actualCount + " draft assets have 'Publish' buttons.");
 
 	        System.out.println("Test Case TC_SA_03 got passed");
 	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
@@ -215,21 +225,20 @@ public class Search extends Base {
 	        searchPage.clickOnPublishedButton();
 	        js.executeScript("document.activeElement.blur();");
 
+	        // Scroll down to trigger lazy loading — cards only render when scrolled into view
+	        searchPage.scrollToLoadAllCards();
+
 	        List<WebElement> assetCards = searchPage.getAssetCardsWithPublishedButtons();
 
-	        // STEP 1 : First we will count how many Assets are shown
-			// STEP 2 : Verify that each asset contains a "Published" button.
-			// Ensure the number of assets matches the expected count (e.g., 20).
-
+	        // STEP 1: Assert at least one published card exists
+	        // STEP 2: Verify every card shown has a "Published" button
+	        // Old approach: hardcoded count check of 20, returned early on mismatch — test silently passed even when count was wrong
+	        // int actualCount = assetCards.size();
+	        // int expectedCount = 20;
+	        // if (actualCount == expectedCount) { ... } else { return; }
 	        int actualCount = assetCards.size();
-	        int expectedCount = 20;
-
-	        if (actualCount == expectedCount) {
-	            System.out.println("✅ Asset count matched. Found " + actualCount + " assets.");
-	        } else {
-	            System.out.println("❌ Asset count mismatch. Expected: " + expectedCount + ", Found: " + actualCount);
-	            return;
-	        }
+	        Assert.assertTrue(actualCount > 0, "❌ No published asset cards found after applying Published filter.");
+	        System.out.println("✅ Found " + actualCount + " published asset card(s).");
 
 	        boolean allHavePublishedButton = true;
 	        for (WebElement asset : assetCards) {
@@ -243,11 +252,10 @@ public class Search extends Base {
 	            }
 	        }
 
-	        if (allHavePublishedButton) {
-	            System.out.println("✅ All 20 assets have 'Published' buttons.");
-	        } else {
-	            System.out.println("❌ One of the assets is missing 'Published'.");
-	        }
+	        // Old approach: if/else print only — never actually failed the test
+	        // if (allHavePublishedButton) { ... } else { ... }
+	        Assert.assertTrue(allHavePublishedButton, "❌ Some assets are missing 'Published' button.");
+	        System.out.println("✅ All " + actualCount + " published assets have 'Published' buttons.");
 
 	        System.out.println("Test Case TC_SA_04 got passed");
 	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
@@ -283,23 +291,22 @@ public class Search extends Base {
 	        js.executeScript("window.scrollBy(0,400)");
 	        // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
+	        // Scroll down to trigger lazy loading — cards only render when scrolled into view
+	        searchPage.scrollToLoadAllCards();
+
 	        List<WebElement> assetCards = searchPage.getAssetCards();
 	        List<WebElement> assetCardsTwo = searchPage.getAssetCardsWithPublishedButtons();
-	        
+
+	        // STEP 1: Assert at least one card exists across both groups
+	        // STEP 2: Verify each Draft card has Publish, each Published card has Published
+	        // Old approach: hardcoded combined count of 20, returned early on mismatch
+	        // int expectedCount = 20; int combinedCount = actualCount + actualCountTwo; if (...) { return; }
 	        int actualCount = assetCards.size();
 	        int actualCountTwo = assetCardsTwo.size();
-	        int expectedCount = 20;
-	        
 	        int combinedCount = actualCount + actualCountTwo;
+	        Assert.assertTrue(combinedCount > 0, "❌ No asset cards found after applying Draft & Published filter.");
+	        System.out.println("✅ Found " + combinedCount + " asset card(s) — " + actualCount + " Draft, " + actualCountTwo + " Published.");
 
-	        if (combinedCount == expectedCount) {
-	            System.out.println("✅ Asset count matched. Found " + combinedCount + " assets.");
-	        } else {
-	            System.out.println("❌ Asset count mismatch. Expected: " + expectedCount + ", Found: " + combinedCount);
-	            return;
-	        }
-
-	        
 	        boolean allAssetsValid = true;
 	        int index = 1;
 
@@ -325,12 +332,10 @@ public class Search extends Base {
 	            index++;
 	        }
 
-
-	        if (allAssetsValid) {
-	            System.out.println("✅ All assets correctly show either 'Publish' or 'Published'.");
-	        } else {
-	            System.out.println("❌ Test failed: Some assets are missing both markers.");
-	        }
+	        // Old approach: if/else print only — never actually failed the test
+	        // if (allAssetsValid) { ... } else { ... }
+	        Assert.assertTrue(allAssetsValid, "❌ Some assets are missing their expected button.");
+	        System.out.println("✅ All " + combinedCount + " assets correctly show either 'Publish' or 'Published'.");
 
 	        System.out.println("Test Case TC_SA_05 got passed");
 	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
@@ -367,21 +372,18 @@ public class Search extends Base {
 
 	        js.executeScript("document.activeElement.blur();");
 
+	        // Scroll down to trigger lazy loading — cards only render when scrolled into view
+	        searchPage.scrollToLoadAllCards();
+
 	        List<WebElement> assetCards = searchPage.getAssetCards();
 
-	        // STEP 1 : First we will count how many Assets are shown
-			// STEP 2 : Verify that each asset contains a "Publish" button.
-			// Ensure the number of assets matches the expected count (e.g., 20).
-
+	        // STEP 1: Assert at least one draft card exists
+	        // STEP 2: Verify every card shown has a "Publish" button
+	        // Old approach: hardcoded count check of 20, returned early on mismatch
+	        // int expectedCount = 20; if (actualCount == expectedCount) { ... } else { return; }
 	        int actualCount = assetCards.size();
-	        int expectedCount = 20;
-
-	        if (actualCount == expectedCount) {
-	            System.out.println("✅ Asset count matched. Found " + actualCount + " assets.");
-	        } else {
-	            System.out.println("❌ Asset count mismatch. Expected: " + expectedCount + ", Found: " + actualCount);
-	            return;
-	        }
+	        Assert.assertTrue(actualCount > 0, "❌ No draft asset cards found after applying Draft filter.");
+	        System.out.println("✅ Found " + actualCount + " draft asset card(s).");
 
 	        boolean allHavePublishButton = true;
 	        for (WebElement asset : assetCards) {
@@ -395,11 +397,10 @@ public class Search extends Base {
 	            }
 	        }
 
-	        if (allHavePublishButton) {
-	            System.out.println("✅ All 20 assets have 'Publish' buttons.");
-	        } else {
-	            System.out.println("❌ Test failed: Some assets are missing 'Publish' button.");
-	        }
+	        // Old approach: if/else print only — never actually failed the test
+	        // if (allHavePublishButton) { ... } else { ... }
+	        Assert.assertTrue(allHavePublishButton, "❌ Some assets are missing 'Publish' button.");
+	        System.out.println("✅ All " + actualCount + " draft assets have 'Publish' buttons.");
 
 	        System.out.println("Test Case TC_SA_06 got passed");
 	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
@@ -434,21 +435,18 @@ public class Search extends Base {
 	        searchPage.clickOnPublishedButton();
 	        js.executeScript("document.activeElement.blur();");
 
+	        // Scroll down to trigger lazy loading — cards only render when scrolled into view
+	        searchPage.scrollToLoadAllCards();
+
 	        List<WebElement> assetCards = searchPage.getAssetCardsWithPublishedButtons();
 
-	        // STEP 1 : First we will count how many Assets are shown
-			// STEP 2 : Verify that each asset contains a "Published" button.
-			// Ensure the number of assets matches the expected count (e.g., 20).
-
+	        // STEP 1: Assert at least one published card exists
+	        // STEP 2: Verify every card shown has a "Published" button
+	        // Old approach: hardcoded count check of 20, returned early on mismatch
+	        // int expectedCount = 20; if (actualCount == expectedCount) { ... } else { return; }
 	        int actualCount = assetCards.size();
-	        int expectedCount = 20;
-
-	        if (actualCount == expectedCount) {
-	            System.out.println("✅ Asset count matched. Found " + actualCount + " assets.");
-	        } else {
-	            System.out.println("❌ Asset count mismatch. Expected: " + expectedCount + ", Found: " + actualCount);
-	            return;
-	        }
+	        Assert.assertTrue(actualCount > 0, "❌ No published asset cards found after applying Published filter.");
+	        System.out.println("✅ Found " + actualCount + " published asset card(s).");
 
 	        boolean allHavePublishedButton = true;
 	        for (WebElement asset : assetCards) {
@@ -462,11 +460,10 @@ public class Search extends Base {
 	            }
 	        }
 
-	        if (allHavePublishedButton) {
-	            System.out.println("✅ All 20 assets have 'Published' buttons.");
-	        } else {
-	            System.out.println("❌ One of the assets is missing 'Published'.");
-	        }
+	        // Old approach: if/else print only — never actually failed the test
+	        // if (allHavePublishedButton) { ... } else { ... }
+	        Assert.assertTrue(allHavePublishedButton, "❌ Some assets are missing 'Published' button.");
+	        System.out.println("✅ All " + actualCount + " published assets have 'Published' buttons.");
 
 	        System.out.println("Test Case TC_SA_07 got passed");
 	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
@@ -496,23 +493,22 @@ public class Search extends Base {
 	        js.executeScript("window.scrollBy(0,400)");
 	        // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
+	        // Scroll down to trigger lazy loading — cards only render when scrolled into view
+	        searchPage.scrollToLoadAllCards();
+
 	        List<WebElement> assetCards = searchPage.getAssetCards();
 	        List<WebElement> assetCardsTwo = searchPage.getAssetCardsWithPublishedButtons();
-	        
+
+	        // STEP 1: Assert at least one card exists across both groups
+	        // STEP 2: Verify each Draft card has Publish, each Published card has Published
+	        // Old approach: hardcoded combined count of 20, returned early on mismatch
+	        // int expectedCount = 20; if (combinedCount == expectedCount) { ... } else { return; }
 	        int actualCount = assetCards.size();
 	        int actualCountTwo = assetCardsTwo.size();
-	        int expectedCount = 20;
-	        
 	        int combinedCount = actualCount + actualCountTwo;
+	        Assert.assertTrue(combinedCount > 0, "❌ No asset cards found on the page.");
+	        System.out.println("✅ Found " + combinedCount + " asset card(s) — " + actualCount + " Draft, " + actualCountTwo + " Published.");
 
-	        if (combinedCount == expectedCount) {
-	            System.out.println("✅ Asset count matched. Found " + combinedCount + " assets.");
-	        } else {
-	            System.out.println("❌ Asset count mismatch. Expected: " + expectedCount + ", Found: " + combinedCount);
-	            return;
-	        }
-
-	        
 	        boolean allAssetsValid = true;
 	        int index = 1;
 
@@ -538,12 +534,10 @@ public class Search extends Base {
 	            index++;
 	        }
 
-
-	        if (allAssetsValid) {
-	            System.out.println("✅ All assets correctly show either 'Publish' or 'Published'.");
-	        } else {
-	            System.out.println("❌ Test failed: Some assets are missing both markers.");
-	        }
+	        // Old approach: if/else print only — never actually failed the test
+	        // if (allAssetsValid) { ... } else { ... }
+	        Assert.assertTrue(allAssetsValid, "❌ Some assets are missing their expected button.");
+	        System.out.println("✅ All " + combinedCount + " assets correctly show either 'Publish' or 'Published'.");
 
 	        System.out.println("Test Case TC_SA_08 got passed");
 	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element

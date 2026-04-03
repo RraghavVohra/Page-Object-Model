@@ -2,16 +2,16 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-04-03T12:12:28 IST" name="Default suite" finished-at="2026-04-03T12:12:44 IST" duration-ms="15890">
+  <suite started-at="2026-04-03T13:46:34 IST" name="Default suite" finished-at="2026-04-03T13:46:59 IST" duration-ms="24942">
     <groups>
     </groups>
-    <test started-at="2026-04-03T12:12:28 IST" name="Default test" finished-at="2026-04-03T12:12:44 IST" duration-ms="15890">
+    <test started-at="2026-04-03T13:46:34 IST" name="Default test" finished-at="2026-04-03T13:46:59 IST" duration-ms="24942">
       <class name="tests.Search">
-        <test-method signature="test_TC_SA_01_searchfunctionality()[pri:1, instance:tests.Search@3c9754d8]" started-at="2026-04-03T12:12:28 IST" name="test_TC_SA_01_searchfunctionality" finished-at="2026-04-03T12:12:43 IST" duration-ms="15149" status="PASS">
+        <test-method signature="test_TC_SA_03_verifyFilteringWithOnlyDraftOption()[pri:3, instance:tests.Search@3c9754d8]" started-at="2026-04-03T13:46:34 IST" name="test_TC_SA_03_verifyFilteringWithOnlyDraftOption" finished-at="2026-04-03T13:46:59 IST" duration-ms="24298" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- test_TC_SA_01_searchfunctionality -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.Search@3c9754d8]" started-at="2026-04-03T12:12:43 IST" name="tearDown" finished-at="2026-04-03T12:12:44 IST" duration-ms="569" status="PASS">
+        </test-method> <!-- test_TC_SA_03_verifyFilteringWithOnlyDraftOption -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.Search@3c9754d8]" started-at="2026-04-03T13:46:59 IST" name="tearDown" finished-at="2026-04-03T13:46:59 IST" duration-ms="512" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
