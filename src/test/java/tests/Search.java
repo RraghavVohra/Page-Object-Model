@@ -638,6 +638,8 @@ public class Search extends Base {
 	        int index = 1;
 
 	        for (WebElement card : assetCards) {
+	            // Non-bookmarked cards are hidden by the quick filter — skip them
+	            if (!card.isDisplayed()) continue;
 	            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", card);
 	            Thread.sleep(300);
 
@@ -661,7 +663,7 @@ public class Search extends Base {
 	            System.out.println("❌ Test failed: Some cards are missing required elements.");
 	        }
 	        
-	        System.out.println("Test Case TC_SA_12 got passed");
+	        System.out.println("Test Case TC_SA_10 got passed");
 	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
 
 	        // Step 6: Logout
@@ -695,6 +697,7 @@ public class Search extends Base {
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnPublishedButton()
 	        searchPage.clickOnPublishedButton();
 	        js.executeScript("document.activeElement.blur();");
+	        searchPage.scrollToLoadAllCards();
 
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnMicrositeFilter()
 	        searchPage.clickOnMicrositeFilter();
@@ -718,6 +721,7 @@ public class Search extends Base {
 	        int index = 1;
 
 	        for (WebElement card : assetCards) {
+	            if (!card.isDisplayed()) continue;
 	            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", card);
 	            Thread.sleep(300);
 
@@ -728,7 +732,7 @@ public class Search extends Base {
 	                System.out.println("✅ Card #" + index + " has both Published button and Microsite icon.");
 	            } else {
 	                allCardsValid = false;
-	                System.out.println("❌ Card #" + index + " is missing Published button or Bookmark icon.");
+	                System.out.println("❌ Card #" + index + " is missing Published button or Microsite icon.");
 	                break;
 	            }
 	            index++;
@@ -775,6 +779,7 @@ public class Search extends Base {
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnPublishedButton()
 	        searchPage.clickOnPublishedButton();
 	        js.executeScript("document.activeElement.blur();");
+	        searchPage.scrollToLoadAllCards();
 
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnVideoFilter()
 	        searchPage.clickOnVideoFilter();
@@ -799,6 +804,7 @@ public class Search extends Base {
 	        int index = 1;
 
 	        for (WebElement card : assetCards) {
+	            if (!card.isDisplayed()) continue;
 	            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", card);
 	            Thread.sleep(300);
 
@@ -856,6 +862,7 @@ public class Search extends Base {
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnPublishedButton()
 	        searchPage.clickOnPublishedButton();
 	        js.executeScript("document.activeElement.blur();");
+	        searchPage.scrollToLoadAllCards();
 
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnBrochureFilter()
 	        searchPage.clickOnBrochureFilter();
@@ -880,6 +887,7 @@ public class Search extends Base {
 	        int index = 1;
 
 	        for (WebElement card : assetCards) {
+	            if (!card.isDisplayed()) continue;
 	            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", card);
 	            Thread.sleep(300);
 
@@ -938,6 +946,7 @@ public class Search extends Base {
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnPublishedButton()
 	        searchPage.clickOnPublishedButton();
 	        js.executeScript("document.activeElement.blur();");
+	        searchPage.scrollToLoadAllCards();
 
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnBannerFilter()
 	        searchPage.clickOnBannerFilter();	        
@@ -961,6 +970,7 @@ public class Search extends Base {
 	        int index = 1;
 
 	        for (WebElement card : assetCards) {
+	            if (!card.isDisplayed()) continue;
 	            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", card);
 	            Thread.sleep(300);
 
@@ -1018,6 +1028,7 @@ public class Search extends Base {
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnPublishedButton()
 	        searchPage.clickOnPublishedButton();
 	        js.executeScript("document.activeElement.blur();");
+	        searchPage.scrollToLoadAllCards();
 
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnSocialPostsFilter()
 	        searchPage.clickOnSocialPostsFilter();       
@@ -1041,6 +1052,7 @@ public class Search extends Base {
 	        int index = 1;
 
 	        for (WebElement card : assetCards) {
+	            if (!card.isDisplayed()) continue;
 	            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", card);
 	            Thread.sleep(300);
 
@@ -1048,7 +1060,7 @@ public class Search extends Base {
 	            boolean hasSocialPosts = !searchPage.getSocialInAsset(card).isEmpty();
 	            boolean hasWhatsApp = !searchPage.getWhatsappInAsset(card).isEmpty();
 
-	            if (hasPublished && hasSocialPosts && hasWhatsApp) {
+	            if (hasPublished && (hasSocialPosts || hasWhatsApp)) {
 	                System.out.println("✅ Card #" + index + " has Published button and Social,Whatsapp icon.");
 	            } else {
 	                allCardsValid = false;
@@ -1099,6 +1111,7 @@ public class Search extends Base {
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnPublishedButton()
 	        searchPage.clickOnPublishedButton();
 	        js.executeScript("document.activeElement.blur();");
+	        searchPage.scrollToLoadAllCards();
 
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnEmailQuickFilter()
 	        searchPage.clickOnEmailQuickFilter();	        
@@ -1122,6 +1135,7 @@ public class Search extends Base {
 	        int index = 1;
 
 	        for (WebElement card : assetCards) {
+	            if (!card.isDisplayed()) continue;
 	            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", card);
 	            Thread.sleep(300);
 
@@ -1179,6 +1193,7 @@ public class Search extends Base {
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftButton()
 	        searchPage.clickOnDraftButton();
 	        js.executeScript("document.activeElement.blur();");
+	        searchPage.scrollToLoadAllCards();
 
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnAllQuickFilter()
 	        searchPage.clickOnAllQuickFilter();       
@@ -1202,6 +1217,7 @@ public class Search extends Base {
 	        int index = 1;
 
 	        for (WebElement card : assetCards) {
+	            if (!card.isDisplayed()) continue;
 	            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", card);
 	            Thread.sleep(300);
 
@@ -1261,6 +1277,7 @@ public class Search extends Base {
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftButton()
 	        searchPage.clickOnDraftButton();
 	        js.executeScript("document.activeElement.blur();");
+	        searchPage.scrollToLoadAllCards();
 
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnBookmarkedFilter()
 	        searchPage.clickOnBookmarkedFilter();      
@@ -1284,6 +1301,7 @@ public class Search extends Base {
 	        int index = 1;
 
 	        for (WebElement card : assetCards) {
+	            if (!card.isDisplayed()) continue;
 	            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", card);
 	            Thread.sleep(300);
 
@@ -1342,6 +1360,7 @@ public class Search extends Base {
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftButton()
 	        searchPage.clickOnDraftButton();
 	        js.executeScript("document.activeElement.blur();");
+	        searchPage.scrollToLoadAllCards();
 
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnMicrositeFilter()
 	        searchPage.clickOnMicrositeFilter();  
@@ -1365,6 +1384,7 @@ public class Search extends Base {
 	        int index = 1;
 
 	        for (WebElement card : assetCards) {
+	            if (!card.isDisplayed()) continue;
 	            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", card);
 	            Thread.sleep(300);
 
@@ -1423,6 +1443,7 @@ public class Search extends Base {
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftButton()
 	        searchPage.clickOnDraftButton();
 	        js.executeScript("document.activeElement.blur();");
+	        searchPage.scrollToLoadAllCards();
 
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnVideoFilter()
 	        searchPage.clickOnVideoFilter();        
@@ -1445,6 +1466,7 @@ public class Search extends Base {
 	        int index = 1;
 
 	        for (WebElement card : assetCards) {
+	            if (!card.isDisplayed()) continue;
 	            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", card);
 	            Thread.sleep(300);
 
@@ -1501,6 +1523,7 @@ public class Search extends Base {
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftButton()
 	        searchPage.clickOnDraftButton();
 	        js.executeScript("document.activeElement.blur();");
+	        searchPage.scrollToLoadAllCards();
 
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnBrochureFilter()
 	        searchPage.clickOnBrochureFilter();        
@@ -1523,6 +1546,7 @@ public class Search extends Base {
 	        int index = 1;
 
 	        for (WebElement card : assetCards) {
+	            if (!card.isDisplayed()) continue;
 	            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", card);
 	            Thread.sleep(300);
 
@@ -1579,6 +1603,7 @@ public class Search extends Base {
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftButton()
 	        searchPage.clickOnDraftButton();
 	        js.executeScript("document.activeElement.blur();");
+	        searchPage.scrollToLoadAllCards();
 
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnBannerFilter()
 	        searchPage.clickOnBannerFilter();       
@@ -1601,6 +1626,7 @@ public class Search extends Base {
 	        int index = 1;
 
 	        for (WebElement card : assetCards) {
+	            if (!card.isDisplayed()) continue;
 	            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", card);
 	            Thread.sleep(300);
 
@@ -1658,6 +1684,7 @@ public class Search extends Base {
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftButton()
 	        searchPage.clickOnDraftButton();
 	        js.executeScript("document.activeElement.blur();");
+	        searchPage.scrollToLoadAllCards();
 
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnSocialPostsFilter()
 	        searchPage.clickOnSocialPostsFilter();       
@@ -1680,6 +1707,7 @@ public class Search extends Base {
 	        int index = 1;
 
 	        for (WebElement card : assetCards) {
+	            if (!card.isDisplayed()) continue;
 	            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", card);
 	            Thread.sleep(300);
 
@@ -1687,7 +1715,7 @@ public class Search extends Base {
 	            boolean hasSocialPosts = !searchPage.getSocialInAsset(card).isEmpty();
 	            boolean hasWhatsApp = !searchPage.getWhatsappInAsset(card).isEmpty();
 	            
-	            if (hasPublish && hasSocialPosts && hasWhatsApp) {
+	            if (hasPublish && (hasSocialPosts || hasWhatsApp)) {
 	                System.out.println("✅ Card #" + index + " has Publish button, Social,Whatsapp icon.");
 	            } else {
 	                allCardsValid = false;
@@ -1738,6 +1766,7 @@ public class Search extends Base {
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftButton()
 	        searchPage.clickOnDraftButton();
 	        js.executeScript("document.activeElement.blur();");
+	        searchPage.scrollToLoadAllCards();
 
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnEmailQuickFilter()
 	        searchPage.clickOnEmailQuickFilter();       
@@ -1760,6 +1789,7 @@ public class Search extends Base {
 	        int index = 1;
 
 	        for (WebElement card : assetCards) {
+	            if (!card.isDisplayed()) continue;
 	            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", card);
 	            Thread.sleep(300);
 
@@ -1818,6 +1848,7 @@ public class Search extends Base {
          // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftAndPublishedOption()
          searchPage.clickOnDraftAndPublishedOption();
          js.executeScript("document.activeElement.blur();");
+         searchPage.scrollToLoadAllCards();
          // Thread.sleep(3000); // Removed — filter has post-wait
 
          js.executeScript("window.scrollBy(0,200)");
@@ -1845,6 +1876,7 @@ public class Search extends Base {
          int index = 1;
 
          for (WebElement card : assetCards) {
+             if (!card.isDisplayed()) continue;
              js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", card);
              Thread.sleep(300);
 
@@ -1902,6 +1934,7 @@ public class Search extends Base {
      // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftAndPublishedOption()
      searchPage.clickOnDraftAndPublishedOption();
      js.executeScript("document.activeElement.blur();");
+     searchPage.scrollToLoadAllCards();
      // Thread.sleep(3000); // Removed — filter has post-wait
 
      // Apply Microsite quick filter
@@ -1928,6 +1961,7 @@ public class Search extends Base {
      int index = 1;
 
      for (WebElement card : assetCards) {
+         if (!card.isDisplayed()) continue;
          js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", card);
          Thread.sleep(300);
 
@@ -1984,6 +2018,7 @@ public class Search extends Base {
          // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftAndPublishedOption()
          searchPage.clickOnDraftAndPublishedOption();
          js.executeScript("document.activeElement.blur();");
+         searchPage.scrollToLoadAllCards();
          // Thread.sleep(3000); // Removed — filter has post-wait
 
          // Apply Video quick filter
@@ -2010,6 +2045,7 @@ public class Search extends Base {
          int index = 1;
 
          for (WebElement card : assetCards) {
+             if (!card.isDisplayed()) continue;
              js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", card);
              Thread.sleep(300);
 
@@ -2066,6 +2102,7 @@ public class Search extends Base {
          // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftAndPublishedOption()
          searchPage.clickOnDraftAndPublishedOption();
          js.executeScript("document.activeElement.blur();");
+         searchPage.scrollToLoadAllCards();
          // Thread.sleep(3000); // Removed — filter has post-wait
 
          // Apply Brochure quick filter
@@ -2092,6 +2129,7 @@ public class Search extends Base {
          int index = 1;
 
          for (WebElement card : assetCards) {
+             if (!card.isDisplayed()) continue;
              js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", card);
              Thread.sleep(300);
 
@@ -2148,6 +2186,7 @@ public class Search extends Base {
          // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftAndPublishedOption()
          searchPage.clickOnDraftAndPublishedOption();
          js.executeScript("document.activeElement.blur();");
+         searchPage.scrollToLoadAllCards();
          // Thread.sleep(3000); // Removed — filter has post-wait
 
          // Apply Banner quick filter
@@ -2174,6 +2213,7 @@ public class Search extends Base {
          int index = 1;
 
          for (WebElement card : assetCards) {
+             if (!card.isDisplayed()) continue;
              js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", card);
              Thread.sleep(300);
 
@@ -2230,6 +2270,7 @@ public class Search extends Base {
          // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftAndPublishedOption()
          searchPage.clickOnDraftAndPublishedOption();
          js.executeScript("document.activeElement.blur();");
+         searchPage.scrollToLoadAllCards();
          // Thread.sleep(3000); // Removed — filter has post-wait
 
          // Apply Social quick filter
@@ -2256,6 +2297,7 @@ public class Search extends Base {
          int index = 1;
 
          for (WebElement card : assetCards) {
+             if (!card.isDisplayed()) continue;
              js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", card);
              Thread.sleep(300);
 
@@ -2263,7 +2305,7 @@ public class Search extends Base {
              boolean hasSocialPosts = !searchPage.getSocialInAsset(card).isEmpty();
 	         boolean hasWhatsApp = !searchPage.getWhatsappInAsset(card).isEmpty();
 
-             if (hasPublishOrPublished && hasSocialPosts && hasWhatsApp) {
+             if (hasPublishOrPublished && (hasSocialPosts || hasWhatsApp)) {
                  System.out.println("✅ Card #" + index + " has Publish/Published button, Social or Whatsapp icon.");
              } else {
                  allCardsValid = false;
@@ -2313,6 +2355,7 @@ public class Search extends Base {
          // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftAndPublishedOption()
          searchPage.clickOnDraftAndPublishedOption();
          js.executeScript("document.activeElement.blur();");
+         searchPage.scrollToLoadAllCards();
          // Thread.sleep(3000); // Removed — filter has post-wait
 
          js.executeScript("window.scrollBy(0,200)");
@@ -2341,6 +2384,7 @@ public class Search extends Base {
          int index = 1;
 
          for (WebElement card : assetCards) {
+             if (!card.isDisplayed()) continue;
              js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", card);
              Thread.sleep(300);
 

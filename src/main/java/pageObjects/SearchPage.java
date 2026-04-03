@@ -7,25 +7,26 @@ import java.util.NoSuchElementException;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SearchPage {
-	
+
 	 private WebDriver driver;
 	 private WebDriverWait wait;
-	 
+
 	 public SearchPage(WebDriver driver) {
-			
+
 			this.driver=driver;
 			// Increased from 10s to 20s to handle slower responses
 		this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		}
-	 
-	 
-	 
+
+
+
 	 private WebElement searchTextfield;
 	 private WebElement searchIcon;
 	 private WebElement draftAndPublishedDropdown;
@@ -45,8 +46,8 @@ public class SearchPage {
 	 private WebElement EmailFilter;
 	 private WebElement AllFilter;
 	 private WebElement draftAndPublishedOption;
-	
-	 
+
+
 	 public void enterValueIntoSearchTextfield(String contentName) {
 		 	// Upgraded to elementToBeClickable — field must be ready for input
 	        // searchTextfield = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@placeholder='Search library']")));
@@ -80,77 +81,69 @@ public class SearchPage {
 	        wait.until(d -> !d.findElements(By.xpath("//div[contains(@class,'asset-card')]")).isEmpty()
 	            || !d.findElements(By.xpath("//div[@class='no-data asset']")).isEmpty());
 	    }
-	    
-	    public void clickOnAllQuickFilter() {
+
+	    public void clickOnAllQuickFilter() throws InterruptedException {
 	    	AllFilter = wait.until(ExpectedConditions.elementToBeClickable
-			(By.xpath("(//a[@data-rr-ui-event-key='#' and contains(text(), 'All')])[1]")));
-			AllFilter.click();
-			// Post-wait: results loaded — either asset cards or No Data message is visible
-			wait.until(d -> !d.findElements(By.xpath("//div[contains(@class,'asset-card')]")).isEmpty()
-			    || !d.findElements(By.xpath("//div[@class='no-data asset']")).isEmpty());
+	    	(By.xpath("(//a[@data-rr-ui-event-key='#' and contains(text(), 'All')])[1]")));
+	    	AllFilter.click();
+	    	// Fixed wait — count-change approach timed out when all cards matched this filter type
+	    	Thread.sleep(1500);
 	    }
 
-	    public void clickOnBookmarkedFilter() {
+	    public void clickOnBookmarkedFilter() throws InterruptedException {
 	    	bookmarkedFilter = wait.until(ExpectedConditions.elementToBeClickable
-			(By.xpath("(//a[@data-rr-ui-event-key='bookmarked' and contains(text(), 'bookmarked')])[1]")));
-			bookmarkedFilter.click();
-			// Post-wait: results loaded — either asset cards or No Data message is visible
-			wait.until(d -> !d.findElements(By.xpath("//div[contains(@class,'asset-card')]")).isEmpty()
-			    || !d.findElements(By.xpath("//div[@class='no-data asset']")).isEmpty());
+	    	(By.xpath("(//a[@data-rr-ui-event-key='bookmarked' and contains(text(), 'bookmarked')])[1]")));
+	    	bookmarkedFilter.click();
+	    	// Fixed wait — count-change approach timed out when all cards matched this filter type
+	    	Thread.sleep(1500);
 	    }
 
-	    public void clickOnMicrositeFilter() {
+	    public void clickOnMicrositeFilter() throws InterruptedException {
 	    	micrositeFilter = wait.until(ExpectedConditions.elementToBeClickable
 	    	(By.xpath("(//a[@data-rr-ui-event-key='microsite' and contains(text(), 'Microsite')])[1]")));
 	    	micrositeFilter.click();
-	    	// Post-wait: results loaded — either asset cards or No Data message is visible
-	    	wait.until(d -> !d.findElements(By.xpath("//div[contains(@class,'asset-card')]")).isEmpty()
-	    	    || !d.findElements(By.xpath("//div[@class='no-data asset']")).isEmpty());
+	    	// Fixed wait — count-change approach timed out when all cards matched this filter type
+	    	Thread.sleep(1500);
 	    }
 
-	    public void clickOnVideoFilter() {
+	    public void clickOnVideoFilter() throws InterruptedException {
 	    	videoFilter = wait.until(ExpectedConditions.elementToBeClickable
-			(By.xpath("(//a[@data-rr-ui-event-key='1' and contains(text(), 'Video')])[1]")));
-			videoFilter.click();
-			// Post-wait: results loaded — either asset cards or No Data message is visible
-			wait.until(d -> !d.findElements(By.xpath("//div[contains(@class,'asset-card')]")).isEmpty()
-			    || !d.findElements(By.xpath("//div[@class='no-data asset']")).isEmpty());
+	    	(By.xpath("(//a[@data-rr-ui-event-key='1' and contains(text(), 'Video')])[1]")));
+	    	videoFilter.click();
+	    	// Fixed wait — count-change approach timed out when all cards matched this filter type
+	    	Thread.sleep(1500);
 	    }
 
-	    public void clickOnBrochureFilter() {
+	    public void clickOnBrochureFilter() throws InterruptedException {
 	    	brochureFilter = wait.until(ExpectedConditions.elementToBeClickable
-	 		(By.xpath("(//a[@data-rr-ui-event-key='21' and contains(text(), 'Brochure')])[1]")));
-	 		brochureFilter.click();
-	 		// Post-wait: results loaded — either asset cards or No Data message is visible
-	 		wait.until(d -> !d.findElements(By.xpath("//div[contains(@class,'asset-card')]")).isEmpty()
-	 		    || !d.findElements(By.xpath("//div[@class='no-data asset']")).isEmpty());
+	    	(By.xpath("(//a[@data-rr-ui-event-key='21' and contains(text(), 'Brochure')])[1]")));
+	    	brochureFilter.click();
+	    	// Fixed wait — count-change approach timed out when all cards matched this filter type
+	    	Thread.sleep(1500);
 	    }
 
-	    public void clickOnBannerFilter() {
+	    public void clickOnBannerFilter() throws InterruptedException {
 	    	bannersFilter = wait.until(ExpectedConditions.elementToBeClickable
-		    (By.xpath("(//a[@data-rr-ui-event-key='34' and contains(text(), 'Banners')])[1]")));
-			bannersFilter.click();
-			// Post-wait: results loaded — either asset cards or No Data message is visible
-			wait.until(d -> !d.findElements(By.xpath("//div[contains(@class,'asset-card')]")).isEmpty()
-			    || !d.findElements(By.xpath("//div[@class='no-data asset']")).isEmpty());
+	    	(By.xpath("(//a[@data-rr-ui-event-key='34' and contains(text(), 'Banners')])[1]")));
+	    	bannersFilter.click();
+	    	// Fixed wait — count-change approach timed out when all cards matched this filter type
+	    	Thread.sleep(1500);
 	    }
 
-	    public void clickOnSocialPostsFilter() {
+	    public void clickOnSocialPostsFilter() throws InterruptedException {
 	    	socialPostsFilter = wait.until(ExpectedConditions.elementToBeClickable
-			(By.xpath("(//a[@data-rr-ui-event-key='15' and contains(text(), 'Social Posts')])[1]")));
-			socialPostsFilter.click();
-			// Post-wait: results loaded — either asset cards or No Data message is visible
-			wait.until(d -> !d.findElements(By.xpath("//div[contains(@class,'asset-card')]")).isEmpty()
-			    || !d.findElements(By.xpath("//div[@class='no-data asset']")).isEmpty());
+	    	(By.xpath("(//a[@data-rr-ui-event-key='15' and contains(text(), 'Social Posts')])[1]")));
+	    	socialPostsFilter.click();
+	    	// Fixed wait — count-change approach timed out when all cards matched this filter type
+	    	Thread.sleep(1500);
 	    }
 
-	    public void clickOnEmailQuickFilter() {
+	    public void clickOnEmailQuickFilter() throws InterruptedException {
 	    	EmailFilter = wait.until(ExpectedConditions.elementToBeClickable
-			(By.xpath("(//a[@data-rr-ui-event-key='42' and contains(text(), 'Email')])[1]")));
-			EmailFilter.click();
-			// Post-wait: results loaded — either asset cards or No Data message is visible
-			wait.until(d -> !d.findElements(By.xpath("//div[contains(@class,'asset-card')]")).isEmpty()
-			    || !d.findElements(By.xpath("//div[@class='no-data asset']")).isEmpty());
+	    	(By.xpath("(//a[@data-rr-ui-event-key='42' and contains(text(), 'Email')])[1]")));
+	    	EmailFilter.click();
+	    	// Fixed wait — count-change approach timed out when all cards matched this filter type
+	    	Thread.sleep(1500);
 	    }
 
 	    public void clickOnDraftButton() {
@@ -191,8 +184,8 @@ public class SearchPage {
 	    	int attempt = 0;
 	    	do {
 	    		previousCount = currentCount;
-	    		js.executeScript("window.scrollBy(0, 600)");
-	    		Thread.sleep(500); // Wait for newly loaded cards to render
+	    		js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+	    		Thread.sleep(1000); // Wait for newly loaded cards to render
 	    		currentCount = driver.findElements(By.xpath("//div[contains(@class,'asset-card')]")).size();
 	    		attempt++;
 	    	} while (currentCount > previousCount && attempt < maxAttempts);
@@ -206,17 +199,17 @@ public class SearchPage {
 	    	// Old: return driver.findElements(By.xpath("//div[@class='card-body'][.//button[text()='Publish']]"));
 	        return driver.findElements(By.xpath("//div[contains(@class,'asset-card')][.//button[normalize-space()='Publish']]"));
 	    }
-	    
+
 	    public List<WebElement> getAssetCardsWithPublishedButtons() {
 	    	// Fixed: card-body → asset-card, text()='Published' → normalize-space()='Published'
 	    	// Old: return driver.findElements(By.xpath("//div[@class='card-body'][.//button[text()='Published']]"));
 	        return driver.findElements(By.xpath("//div[contains(@class,'asset-card')][.//button[normalize-space()='Published']]"));
 	    }
-	    
+
 	    public List<WebElement> getAssetCardsWithPublishButtons() {
 	        return driver.findElements(By.xpath("(//button[@type='button'][normalize-space()='Publish'])"));
 	    }
-	    
+
 
 	    public List<WebElement> getPublishButtonsInAsset(WebElement asset) {
 	    	// Fixed: was //button (whole-page search) — changed to .//button (relative to this card only)
@@ -229,88 +222,88 @@ public class SearchPage {
 	    	// Old: return asset.findElements(By.xpath("//button[@type='button' and @disabled and @class='btn btn-secondary btn-sm' and text()='Published']"));
 	        return asset.findElements(By.xpath(".//button[@type='button' and normalize-space()='Published']"));
 	    }
-	    
+
 	    public void clickOnProfileIcon() {
 	        profileIcon = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='user-profile show dropdown']")));
 	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", profileIcon);
 	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", profileIcon);
 	    }
-	    
+
 	    public void clickOnLogoutOption() {
 	        logOutOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[normalize-space()='Log Out']")));
 	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", logOutOption);
 	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", logOutOption);
 	    }
-	    
+
 	    public void clickOnLogoutButton() {
 	        logoutButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Logout']")));
 	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", logoutButton);
 	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", logoutButton);
 	    }
-	    
+
 	    public void clickOnProfileIconAfterSearch() {
-	    	
+
 	    	profileIconTwo = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[local-name()='svg' and contains(@class, 'bi-person-circle')]")));
 	    	profileIconTwo.click();
-	    	
+
 	    }
-	    
+
 	    public String getTextFromNoDataElement() {
 	    	// Upgraded to visibilityOfElementLocated — No Data message may take time to appear after search
 	    	// Old approach: noDataElement = driver.findElement(By.xpath("//div[@class='no-data asset']"));
 	    	noDataElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='no-data asset']")));
 	    	return noDataElement.getText();
 	    }
-	    
+
 	    public List<WebElement> getBookmarkIconInAsset(WebElement asset) {
 	        return asset.findElements(By.xpath(".//*[local-name()='svg' and contains(@class, 'bi-bookmark-check-fill')]"));
 	    }
-	    
+
 	    public List<WebElement> getBookmarkIconInAssetTwo(WebElement asset) {
 	        return asset.findElements(By.xpath(".//*[name()='svg' and contains(@class, 'asset-bookmark')]"));
 	    }
-	    
+
 	    public List<WebElement> getAllBookmarkIconsOnPage() {
 	        return driver.findElements(By.xpath(".//*[name()='svg' and contains(@class, 'asset-bookmark')]"));
 	    }
-	    
-	    
-	    
+
+
+
 	    public List<WebElement> getMicrositeInAsset(WebElement asset){
-	    	
-	    	return asset.findElements(By.xpath("(//div[contains(text(),'Microsite')])"));
+
+	    	return asset.findElements(By.xpath("(.//div[contains(text(),'Microsite')])"));
 	    }
-	    
+
         public List<WebElement> getVideoInAsset(WebElement asset){
-	    	
-	    	return asset.findElements(By.xpath("(//div[contains(text(),'Video')])"));
+
+	    	return asset.findElements(By.xpath("(.//div[contains(text(),'Video')])"));
 	    }
-        
+
        public List<WebElement> getBrochureInAsset(WebElement asset){
-	    	
-	    	return asset.findElements(By.xpath("(//div[contains(text(),'pdf')])"));
+
+	    	return asset.findElements(By.xpath("(.//div[contains(text(),'pdf')])"));
 	    }
-       
+
        public List<WebElement> getBannerInAsset(WebElement asset){
-	    	
-	    	return asset.findElements(By.xpath("(//div[contains(text(),'Banner')])"));
+
+	    	return asset.findElements(By.xpath("(.//div[contains(text(),'Banner')])"));
 	    }
-       
+
         public List<WebElement> getSocialInAsset(WebElement asset){
-	    	
-	    	return asset.findElements(By.xpath("(//div[contains(text(),'Social')])"));
+
+	    	return asset.findElements(By.xpath("(.//div[contains(text(),'Social')])"));
 	    }
-        
+
         public List<WebElement> getWhatsappInAsset(WebElement asset){
-	    	
-	    	return asset.findElements(By.xpath("(//div[contains(text(),'Whatsapp')])"));
+
+	    	return asset.findElements(By.xpath("(.//div[contains(text(),'Whatsapp')])"));
 	    }
-       
+
         public List<WebElement> getEmailInAsset(WebElement asset){
-	    	
-	    	return asset.findElements(By.xpath("(//div[contains(text(),'Emailer')])"));
+
+	    	return asset.findElements(By.xpath("(.//div[contains(text(),'Emailer')])"));
 	    }
-        
+
         public List<WebElement> getPublishOrPublishedButtons(WebElement card) {
             List<WebElement> buttons = new ArrayList<>();
             try {
@@ -321,7 +314,7 @@ public class SearchPage {
             } catch (NoSuchElementException ignored) {}
             return buttons;
         }
-        
+
         public List<WebElement> getPublishOrPublishedButtonsTwo(WebElement card) {
             List<WebElement> buttons = new ArrayList<>();
 
@@ -335,7 +328,7 @@ public class SearchPage {
 
             return buttons;
         }
-        
+
         public List<WebElement> getPublishOrPublishedButtonsThree(WebElement card) {
             return card.findElements(By.xpath(
                 ".//button[@type='button' and " +
@@ -344,12 +337,12 @@ public class SearchPage {
             ));
         }
 
-        
-        
-	    
-	    
-	    
-	    
+
+
+
+
+
+
 	    public String getNoDataText() {
 	        try {
 	            WebElement noDataElement = driver.findElement(By.xpath("//div[@class='no-data asset']"));
@@ -358,7 +351,7 @@ public class SearchPage {
 	            return "";  // Safely return empty if "No Data" message is not present
 	        }
 	    }
-	    
+
 	    /*public List<WebElement> getAssetCardsWithPublishOrPublishedButtons() {
 	        List<WebElement> allCards = driver.findElements(By.xpath("//div[contains(@class,'asset-card')]"));
 	        List<WebElement> matchingCards = new ArrayList<>();
@@ -388,8 +381,8 @@ public class SearchPage {
 	        return matchingCards;
 	    }
 	    */
-	    
-	    
+
+
 	    public List<WebElement> getAssetCardsWithPublishOrPublishedButtons() {
 	        // Directly locate only those asset cards that contain Publish or Published buttons
 	        List<WebElement> matchingCards = driver.findElements(By.xpath(
@@ -398,27 +391,25 @@ public class SearchPage {
 	        ));
 	        return matchingCards;
 	    }
-	    
-	    
-	    
-	    
-	    
-	    
-	   
-	
-	
-	
-	
-	
-	 
-	 
-	
-	 
-	 
-	 
-	 
-	 
-	 
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
