@@ -47,6 +47,8 @@ public class SocialAutoPostPage {
 	private WebElement FacebookCheckbox;
 	private WebElement customUrl;
 	private WebElement customlink;
+	private WebElement socialAutoPostOption;
+	private WebElement communicationTab;
 
 
 	public void clickOnAutomationTab() {
@@ -55,11 +57,30 @@ public class SocialAutoPostPage {
 		automationTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[normalize-space()='Automation']")));
 		automationTab.click();
 	}
+	
+	public void clickOnCommunicationTabPreprod() {
+		// Using contains() to handle minor text variations between environments (e.g. "Communication" vs "Communications")
+		// Also trying parent anchor tag in case the span is not directly clickable
+		try {
+			communicationTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(normalize-space(), 'Communication')]")));
+			((JavascriptExecutor) driver).executeScript("arguments[0].click();", communicationTab);
+		} catch (Exception e) {
+			// Fallback: try clicking the anchor wrapping the span
+			communicationTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[.//span[contains(normalize-space(), 'Communication')]]")));
+			((JavascriptExecutor) driver).executeScript("arguments[0].click();", communicationTab);
+		}
+	}
 
 	public void clickOnSocialOption() {
 
 		socialOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[normalize-space()='Social']")));
 		socialOption.click();
+	}
+	
+	public void clickOnSocialAutoPostOptionPreprod() {
+		
+		socialAutoPostOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[normalize-space()='Social Auto Post']")));
+		socialAutoPostOption.click();
 	}
 
 	public void clickOnAutoPostTab() {
@@ -85,8 +106,7 @@ public class SocialAutoPostPage {
 
 	public void clickOnCustomURLRadioButton() {
 
-		// Upgraded to elementToBeClickable — radio button may not be interactive immediately
-		customUrl = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@type='radio' and @id='C']")));
+		customUrl = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@type='radio' and @id='C']")));
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].click();", customUrl);
 	}
@@ -244,7 +264,7 @@ public class SocialAutoPostPage {
 		WebElement searchBox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='searchBox']")));
 		searchBox.sendKeys("raj");
 		// Wait for and click the Raj2024 checkbox — value='584' is the actual checkbox input for this option
-		WebElement raj2024Checkbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@value='584']")));
+		WebElement raj2024Checkbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@value='287']")));
 		raj2024Checkbox.click();
 	}
 
@@ -303,8 +323,7 @@ public class SocialAutoPostPage {
 
 	public void clickOnNoneRadioButton() {
 
-		// Upgraded to elementToBeClickable
-		customUrl = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@type='radio' and @id='N']")));
+		customUrl = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@type='radio' and @id='N']")));
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].click();", customUrl);
 	}
@@ -391,8 +410,9 @@ public class SocialAutoPostPage {
 			WebElement timeElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
 
 			js.executeScript("arguments[0].scrollIntoView(true);", timeElement);
-
-			wait.until(ExpectedConditions.elementToBeClickable(timeElement)).click();
+			// xdsoft time picker clips elements inside its scroll container — elementToBeClickable fails
+			// even after scrollIntoView because of overflow. JS click bypasses that.
+			js.executeScript("arguments[0].click();", timeElement);
 
 		} catch (Exception e) {
 			throw new RuntimeException("Could not find or select the time: " + hour + ":" + minute, e);

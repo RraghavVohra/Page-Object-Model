@@ -4,6 +4,7 @@ import java.util.Properties;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
 
 public class ExtentReporter {
 	
@@ -17,6 +18,7 @@ public class ExtentReporter {
 		ExtentSparkReporter sparkReporter = new ExtentSparkReporter(extentReportFilePath);
 		sparkReporter.config().setReportName("Extent Report - 01");
 		sparkReporter.config().setDocumentTitle("Extent Report - Salespanda");
+		sparkReporter.config().setTheme(Theme.DARK);
 		extentReport.attachReporter(sparkReporter);
 		
 		return extentReport;

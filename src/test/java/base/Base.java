@@ -65,10 +65,13 @@ public class Base {
 		}
 		
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(35));
+		// Removed 35s implicit wait — mixing implicit + explicit waits causes unpredictable behavior.
+		// All page objects already use explicit WebDriverWait, so implicit wait is unnecessary.
+		// driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(35));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
 		// Increased from 35s to 60s — renderer timeout was hitting at ~33s, leaving no margin
 		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
-		driver.get(prop.getProperty("urldev"));
+		driver.get(prop.getProperty("urlpreprod"));
 		
 		return driver;
 	}

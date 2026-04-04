@@ -929,8 +929,8 @@ public class Search extends Base {
     	    driver = openBrowserAndApplication(prop.getProperty("browser"));
 			
 	        loginPage = new LoginPage(driver);
-			loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
-	    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+			loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
+	    	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
 	    	loginPage.clickOnSubmitButton();
 	    	System.out.println("User Logged in Successfully.");
 
@@ -1011,8 +1011,8 @@ public class Search extends Base {
     	    driver = openBrowserAndApplication(prop.getProperty("browser"));
 			
 	        loginPage = new LoginPage(driver);
-			loginPage.enterUsernameField(prop.getProperty("validusernamedev"));
-	    	loginPage.enterPasswordField(prop.getProperty("validpassworddev"));
+			loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
+	    	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
 	    	loginPage.clickOnSubmitButton();
 	    	System.out.println("User Logged in Successfully.");
 
@@ -1024,15 +1024,17 @@ public class Search extends Base {
 	        js.executeScript("window.scrollBy(0,400)");
 	        // Thread.sleep(2000); // Removed — scrollBy is synchronous, no wait needed
 
-	        searchPage.clickOnDraftAndPublishedDropdown();
+	        // Removed — clicking the <select> opens the native OS dropdown which interferes with Select class inside clickOnPublishedButton()
+	        // searchPage.clickOnDraftAndPublishedDropdown();
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnPublishedButton()
 	        searchPage.clickOnPublishedButton();
 	        js.executeScript("document.activeElement.blur();");
-	        searchPage.scrollToLoadAllCards();
 
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnSocialPostsFilter()
-	        searchPage.clickOnSocialPostsFilter();       
-	        
+	        searchPage.clickOnSocialPostsFilter();
+	        // Scroll to lazy-load all filtered cards — without this only the first ~10 visible cards are returned
+	        searchPage.scrollToLoadVisibleCards();
+
 	        // Step 3: Get all asset cards
 	        List<WebElement> assetCards = searchPage.getAssetCardsWithPublishedButtons();
 	        System.out.println("Total asset cards found: " + assetCards.size());
@@ -1047,21 +1049,23 @@ public class Search extends Base {
 	            return;
 	        }
 
-	        // Step 4: Validate each card for Published button and Bookmark icon
+	        // Step 4: Validate each card for Published button and Social/WhatsApp icon
 	        boolean allCardsValid = true;
 	        int index = 1;
 
 	        for (WebElement card : assetCards) {
 	            if (!card.isDisplayed()) continue;
-	            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", card);
-	            Thread.sleep(300);
+	            // Changed smooth → instant and removed Thread.sleep(300) — smooth scroll + 300ms wait per card was too slow (5-6 min for 20 cards)
+	            // js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", card);
+	            // Thread.sleep(300);
+	            js.executeScript("arguments[0].scrollIntoView({behavior: 'instant', block: 'center'});", card);
 
 	            boolean hasPublished = !searchPage.getPublishedButtonsInAsset(card).isEmpty();
 	            boolean hasSocialPosts = !searchPage.getSocialInAsset(card).isEmpty();
 	            boolean hasWhatsApp = !searchPage.getWhatsappInAsset(card).isEmpty();
 
 	            if (hasPublished && (hasSocialPosts || hasWhatsApp)) {
-	                System.out.println("✅ Card #" + index + " has Published button and Social,Whatsapp icon.");
+	                System.out.println("✅ Card #" + index + " has Published button and Social/Whatsapp icon.");
 	            } else {
 	                allCardsValid = false;
 	                System.out.println("❌ Card #" + index + " is missing Published button or Social or Whatsapp icon.");
@@ -1076,13 +1080,13 @@ public class Search extends Base {
 	        } else {
 	            System.out.println("❌ Test failed: Some cards are missing required elements.");
 	        }
-	        
+
 	        System.out.println("Test Case TC_SA_15 got passed");
 	        // Thread.sleep(3000); // Removed — clickOnProfileIconAfterSearch() already waits for element
 
 	        // Step 6: Logout
 	        // Thread.sleep(2000); // Removed — clickOnLogoutOption() already waits for element
-	        searchPage.clickOnProfileIconAfterSearch();
+	        searchPage.clickOnProfileIconAfterSearchProd();
 	        searchPage.clickOnLogoutOption();
 	        searchPage.clickOnLogoutButton();
     	 
@@ -1111,11 +1115,10 @@ public class Search extends Base {
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnPublishedButton()
 	        searchPage.clickOnPublishedButton();
 	        js.executeScript("document.activeElement.blur();");
-	        searchPage.scrollToLoadAllCards();
 
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnEmailQuickFilter()
-	        searchPage.clickOnEmailQuickFilter();	        
-	        
+	        searchPage.clickOnEmailQuickFilter();
+
 	        // Step 3: Get all asset cards
 	        List<WebElement> assetCards = searchPage.getAssetCardsWithPublishedButtons();
 	        System.out.println("Total asset cards found: " + assetCards.size());
@@ -1193,11 +1196,10 @@ public class Search extends Base {
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftButton()
 	        searchPage.clickOnDraftButton();
 	        js.executeScript("document.activeElement.blur();");
-	        searchPage.scrollToLoadAllCards();
 
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnAllQuickFilter()
-	        searchPage.clickOnAllQuickFilter();       
-	        
+	        searchPage.clickOnAllQuickFilter();
+
 	        // Step 3: Get all asset cards
 	        List<WebElement> assetCards = searchPage.getAssetCardsWithPublishButtons();
 	        System.out.println("Total asset cards found: " + assetCards.size());
@@ -1277,11 +1279,11 @@ public class Search extends Base {
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftButton()
 	        searchPage.clickOnDraftButton();
 	        js.executeScript("document.activeElement.blur();");
-	        searchPage.scrollToLoadAllCards();
+	        
 
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnBookmarkedFilter()
-	        searchPage.clickOnBookmarkedFilter();      
-	        
+	        searchPage.clickOnBookmarkedFilter();
+
 	        // Step 3: Get all asset cards
 	        List<WebElement> assetCards = searchPage.getAssetCardsWithPublishButtons();
 	        System.out.println("Total asset cards found: " + assetCards.size());
@@ -1360,11 +1362,11 @@ public class Search extends Base {
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftButton()
 	        searchPage.clickOnDraftButton();
 	        js.executeScript("document.activeElement.blur();");
-	        searchPage.scrollToLoadAllCards();
+	        
 
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnMicrositeFilter()
-	        searchPage.clickOnMicrositeFilter();  
-	        
+	        searchPage.clickOnMicrositeFilter();
+
 	        // Step 3: Get all asset cards
 	        List<WebElement> assetCards = searchPage.getAssetCardsWithPublishButtons();
 	        System.out.println("Total asset cards found: " + assetCards.size());
@@ -1443,10 +1445,11 @@ public class Search extends Base {
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftButton()
 	        searchPage.clickOnDraftButton();
 	        js.executeScript("document.activeElement.blur();");
-	        searchPage.scrollToLoadAllCards();
+	        
 
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnVideoFilter()
-	        searchPage.clickOnVideoFilter();        
+	        searchPage.clickOnVideoFilter();
+
 	        // Step 3: Get all asset cards
 	        List<WebElement> assetCards = searchPage.getAssetCardsWithPublishButtons();
 	        System.out.println("Total asset cards found: " + assetCards.size());
@@ -1523,10 +1526,11 @@ public class Search extends Base {
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftButton()
 	        searchPage.clickOnDraftButton();
 	        js.executeScript("document.activeElement.blur();");
-	        searchPage.scrollToLoadAllCards();
+	        
 
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnBrochureFilter()
-	        searchPage.clickOnBrochureFilter();        
+	        searchPage.clickOnBrochureFilter();
+
 	        // Step 3: Get all asset cards
 	        List<WebElement> assetCards = searchPage.getAssetCardsWithPublishButtons();
 	        System.out.println("Total asset cards found: " + assetCards.size());
@@ -1603,10 +1607,11 @@ public class Search extends Base {
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftButton()
 	        searchPage.clickOnDraftButton();
 	        js.executeScript("document.activeElement.blur();");
-	        searchPage.scrollToLoadAllCards();
+	        
 
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnBannerFilter()
-	        searchPage.clickOnBannerFilter();       
+	        searchPage.clickOnBannerFilter();
+
 	        // Step 3: Get all asset cards
 	        List<WebElement> assetCards = searchPage.getAssetCardsWithPublishButtons();
 	        System.out.println("Total asset cards found: " + assetCards.size());
@@ -1684,10 +1689,11 @@ public class Search extends Base {
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftButton()
 	        searchPage.clickOnDraftButton();
 	        js.executeScript("document.activeElement.blur();");
-	        searchPage.scrollToLoadAllCards();
+	        
 
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnSocialPostsFilter()
-	        searchPage.clickOnSocialPostsFilter();       
+	        searchPage.clickOnSocialPostsFilter();
+
 	        // Step 3: Get all asset cards
 	        List<WebElement> assetCards = searchPage.getAssetCardsWithPublishButtons();
 	        System.out.println("Total asset cards found: " + assetCards.size());
@@ -1766,10 +1772,11 @@ public class Search extends Base {
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftButton()
 	        searchPage.clickOnDraftButton();
 	        js.executeScript("document.activeElement.blur();");
-	        searchPage.scrollToLoadAllCards();
+	        
 
 	        // Thread.sleep(3000); // Removed — post-wait moved into clickOnEmailQuickFilter()
-	        searchPage.clickOnEmailQuickFilter();       
+	        searchPage.clickOnEmailQuickFilter();
+
 	        // Step 3: Get all asset cards
 	        List<WebElement> assetCards = searchPage.getAssetCardsWithPublishButtons();
 	        System.out.println("Total asset cards found: " + assetCards.size());
@@ -1848,7 +1855,7 @@ public class Search extends Base {
          // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftAndPublishedOption()
          searchPage.clickOnDraftAndPublishedOption();
          js.executeScript("document.activeElement.blur();");
-         searchPage.scrollToLoadAllCards();
+         
          // Thread.sleep(3000); // Removed — filter has post-wait
 
          js.executeScript("window.scrollBy(0,200)");
@@ -1934,7 +1941,7 @@ public class Search extends Base {
      // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftAndPublishedOption()
      searchPage.clickOnDraftAndPublishedOption();
      js.executeScript("document.activeElement.blur();");
-     searchPage.scrollToLoadAllCards();
+     
      // Thread.sleep(3000); // Removed — filter has post-wait
 
      // Apply Microsite quick filter
@@ -2018,7 +2025,7 @@ public class Search extends Base {
          // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftAndPublishedOption()
          searchPage.clickOnDraftAndPublishedOption();
          js.executeScript("document.activeElement.blur();");
-         searchPage.scrollToLoadAllCards();
+         
          // Thread.sleep(3000); // Removed — filter has post-wait
 
          // Apply Video quick filter
@@ -2102,7 +2109,7 @@ public class Search extends Base {
          // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftAndPublishedOption()
          searchPage.clickOnDraftAndPublishedOption();
          js.executeScript("document.activeElement.blur();");
-         searchPage.scrollToLoadAllCards();
+         
          // Thread.sleep(3000); // Removed — filter has post-wait
 
          // Apply Brochure quick filter
@@ -2186,7 +2193,7 @@ public class Search extends Base {
          // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftAndPublishedOption()
          searchPage.clickOnDraftAndPublishedOption();
          js.executeScript("document.activeElement.blur();");
-         searchPage.scrollToLoadAllCards();
+         
          // Thread.sleep(3000); // Removed — filter has post-wait
 
          // Apply Banner quick filter
@@ -2270,7 +2277,7 @@ public class Search extends Base {
          // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftAndPublishedOption()
          searchPage.clickOnDraftAndPublishedOption();
          js.executeScript("document.activeElement.blur();");
-         searchPage.scrollToLoadAllCards();
+         
          // Thread.sleep(3000); // Removed — filter has post-wait
 
          // Apply Social quick filter
@@ -2355,7 +2362,7 @@ public class Search extends Base {
          // Thread.sleep(3000); // Removed — post-wait moved into clickOnDraftAndPublishedOption()
          searchPage.clickOnDraftAndPublishedOption();
          js.executeScript("document.activeElement.blur();");
-         searchPage.scrollToLoadAllCards();
+         
          // Thread.sleep(3000); // Removed — filter has post-wait
 
          js.executeScript("window.scrollBy(0,200)");

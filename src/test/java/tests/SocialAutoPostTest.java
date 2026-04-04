@@ -30,15 +30,21 @@ public class SocialAutoPostTest extends Base {
 
         loginPage = new LoginPage(driver);
         // Thread.sleep(2000); // Removed — clickOnAutomationTab() already waits for element
-		loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
-    	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
+		loginPage.enterUsernameField(prop.getProperty("validusernamepreprod"));
+    	loginPage.enterPasswordField(prop.getProperty("validpasswordpreprod"));
     	loginPage.clickOnSubmitButton();
     	System.out.println("User Logged in Successfully.");
 
     	socialautopostpage =  new SocialAutoPostPage(driver);
-    	socialautopostpage.clickOnAutomationTab();
-    	socialautopostpage.clickOnSocialOption();
-    	socialautopostpage.clickOnAutoPostTab();
+    	// FOR PREPROD WE HAVE TO CLICK ON COMMUNICATION TAB
+    	socialautopostpage.clickOnCommunicationTabPreprod();
+    	
+    	// socialautopostpage.clickOnAutomationTab();
+    	// socialautopostpage.clickOnSocialOption();
+    	socialautopostpage.clickOnSocialAutoPostOptionPreprod();
+    	
+    	// USE IT ON PROD AND DEV
+    	// socialautopostpage.clickOnAutoPostTab();
 
     	// Thread.sleep(2000); // Removed — clickOnActionsButton() already waits for element
 
@@ -104,15 +110,20 @@ public class SocialAutoPostTest extends Base {
 
         loginPage = new LoginPage(driver);
         // Thread.sleep(2000); // Removed — clickOnAutomationTab() already waits for element
-		loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
-    	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
+		loginPage.enterUsernameField(prop.getProperty("validusernamepreprod"));
+    	loginPage.enterPasswordField(prop.getProperty("validpasswordpreprod"));
     	loginPage.clickOnSubmitButton();
     	System.out.println("User Logged in Successfully.");
 
     	socialautopostpage =  new SocialAutoPostPage(driver);
-    	socialautopostpage.clickOnAutomationTab();
-    	socialautopostpage.clickOnSocialOption();
-    	socialautopostpage.clickOnAutoPostTab();
+    	// FOR PREPROD WE HAVE TO CLICK ON COMMUNICATION TAB
+    	socialautopostpage.clickOnCommunicationTabPreprod();
+    	// AUTOMATION TAB IS FOR DEV AND PROD
+    	// socialautopostpage.clickOnAutomationTab();
+    	socialautopostpage.clickOnSocialAutoPostOptionPreprod();
+    	
+    	//socialautopostpage.clickOnSocialOption();
+    	//socialautopostpage.clickOnAutoPostTab();
 
     	// Thread.sleep(2000); // Removed — clickOnActionsButton() already waits for element
 
@@ -175,15 +186,19 @@ public class SocialAutoPostTest extends Base {
 
         loginPage = new LoginPage(driver);
         // Thread.sleep(2000); // Removed — clickOnAutomationTab() already waits for element
-		loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
-    	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
+		loginPage.enterUsernameField(prop.getProperty("validusernamepreprod"));
+    	loginPage.enterPasswordField(prop.getProperty("validpasswordpreprod"));
     	loginPage.clickOnSubmitButton();
     	System.out.println("User Logged in Successfully.");
 
     	socialautopostpage =  new SocialAutoPostPage(driver);
-    	socialautopostpage.clickOnAutomationTab();
-    	socialautopostpage.clickOnSocialOption();
-    	socialautopostpage.clickOnAutoPostTab();
+    	// FOR PREPROD WE HAVE TO CLICK ON COMMUNICATION TAB
+    	socialautopostpage.clickOnCommunicationTabPreprod();
+    	// AUTOMATION TAB IS FOR DEV AND PROD
+    	// socialautopostpage.clickOnAutomationTab();
+    	socialautopostpage.clickOnSocialAutoPostOptionPreprod();
+    	// socialautopostpage.clickOnSocialOption();
+    	// socialautopostpage.clickOnAutoPostTab();
 
     	// Thread.sleep(2000); // Removed — clickOnActionsButton() already waits for element
 
@@ -247,15 +262,22 @@ public class SocialAutoPostTest extends Base {
 
         loginPage = new LoginPage(driver);
         // Thread.sleep(2000); // Removed — clickOnAutomationTab() already waits for element
-		loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
-    	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
+		loginPage.enterUsernameField(prop.getProperty("validusernamepreprod"));
+    	loginPage.enterPasswordField(prop.getProperty("validpasswordpreprod"));
     	loginPage.clickOnSubmitButton();
     	System.out.println("User Logged in Successfully.");
 
     	socialautopostpage =  new SocialAutoPostPage(driver);
-    	socialautopostpage.clickOnAutomationTab();
-    	socialautopostpage.clickOnSocialOption();
-    	socialautopostpage.clickOnAutoPostTab();
+    	// FOR PREPROD WE HAVE TO CLICK ON COMMUNICATION TAB
+    	socialautopostpage.clickOnCommunicationTabPreprod();
+    	// AUTOMATION TAB IS FOR DEV AND PROD
+    	// socialautopostpage.clickOnAutomationTab();
+    	socialautopostpage.clickOnSocialAutoPostOptionPreprod();
+    	// socialautopostpage.clickOnSocialOption();
+    	// socialautopostpage.clickOnAutoPostTab();
+    
+    	//socialautopostpage.clickOnSocialOption();
+    	//socialautopostpage.clickOnAutoPostTab();
 
     	// Thread.sleep(2000); // Removed — clickOnActionsButton() already waits for element
 
@@ -320,15 +342,21 @@ public class SocialAutoPostTest extends Base {
 
         loginPage = new LoginPage(driver);
         // Thread.sleep(2000); // Removed — clickOnAutomationTab() already waits for element
-		loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
-    	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
+		loginPage.enterUsernameField(prop.getProperty("validusernamepreprod"));
+    	loginPage.enterPasswordField(prop.getProperty("validpasswordpreprod"));
     	loginPage.clickOnSubmitButton();
     	System.out.println("User Logged in Successfully.");
 
     	socialautopostpage =  new SocialAutoPostPage(driver);
-    	socialautopostpage.clickOnAutomationTab();
-    	socialautopostpage.clickOnSocialOption();
-    	socialautopostpage.clickOnAutoPostTab();
+    	
+    	// FOR PREPROD WE HAVE TO CLICK ON COMMUNICATION TAB
+    	socialautopostpage.clickOnCommunicationTabPreprod();
+    	// AUTOMATION TAB IS FOR DEV AND PROD
+    	// socialautopostpage.clickOnAutomationTab();
+    	socialautopostpage.clickOnSocialAutoPostOptionPreprod();
+    	// socialautopostpage.clickOnSocialOption();
+    	// socialautopostpage.clickOnAutoPostTab();
+    	
 
     	// Thread.sleep(2000); // Removed — clickOnActionsButton() already waits for element
 
@@ -397,16 +425,21 @@ public class SocialAutoPostTest extends Base {
 
         loginPage = new LoginPage(driver);
         // Thread.sleep(2000); // Removed — clickOnAutomationTab() already waits for element
-		loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
-    	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
+		loginPage.enterUsernameField(prop.getProperty("validusernamepreprod"));
+    	loginPage.enterPasswordField(prop.getProperty("validpasswordpreprod"));
     	loginPage.clickOnSubmitButton();
     	System.out.println("User Logged in Successfully.");
 
     	socialautopostpage =  new SocialAutoPostPage(driver);
-    	socialautopostpage.clickOnAutomationTab();
-    	socialautopostpage.clickOnSocialOption();
-    	socialautopostpage.clickOnAutoPostTab();
-
+    	// FOR PREPROD WE HAVE TO CLICK ON COMMUNICATION TAB
+    	socialautopostpage.clickOnCommunicationTabPreprod();
+    	// AUTOMATION TAB IS FOR DEV AND PROD
+    	// socialautopostpage.clickOnAutomationTab();
+    	socialautopostpage.clickOnSocialAutoPostOptionPreprod();
+    	// socialautopostpage.clickOnSocialOption();
+    	// socialautopostpage.clickOnAutoPostTab();
+    	
+    	
     	// Thread.sleep(2000); // Removed — clickOnActionsButton() already waits for element
 
     	socialautopostpage.clickOnActionsButton();
@@ -474,15 +507,20 @@ public class SocialAutoPostTest extends Base {
 
         loginPage = new LoginPage(driver);
         // Thread.sleep(2000); // Removed — clickOnAutomationTab() already waits for element
-		loginPage.enterUsernameField(prop.getProperty("validusernameprod"));
-    	loginPage.enterPasswordField(prop.getProperty("validpasswordprod"));
+		loginPage.enterUsernameField(prop.getProperty("validusernamepreprod"));
+    	loginPage.enterPasswordField(prop.getProperty("validpasswordpreprod"));
     	loginPage.clickOnSubmitButton();
     	System.out.println("User Logged in Successfully.");
 
     	socialautopostpage =  new SocialAutoPostPage(driver);
-    	socialautopostpage.clickOnAutomationTab();
-    	socialautopostpage.clickOnSocialOption();
-    	socialautopostpage.clickOnAutoPostTab();
+    	// FOR PREPROD WE HAVE TO CLICK ON COMMUNICATION TAB
+    	socialautopostpage.clickOnCommunicationTabPreprod();
+    	// AUTOMATION TAB IS FOR DEV AND PROD
+    	// socialautopostpage.clickOnAutomationTab();
+    	socialautopostpage.clickOnSocialAutoPostOptionPreprod();
+    	// socialautopostpage.clickOnSocialOption();
+    	// socialautopostpage.clickOnAutoPostTab();
+    
 
     	// Thread.sleep(2000); // Removed — clickOnActionsButton() already waits for element
 

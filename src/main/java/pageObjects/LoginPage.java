@@ -26,6 +26,7 @@ public class LoginPage {
 	}
 	
 	private WebElement usernameField;
+	private WebElement userIdField;
 	private WebElement passwordField;
 	private WebElement submitButton;
 	
@@ -39,6 +40,24 @@ public class LoginPage {
 				usernameField.sendKeys(usernameText);
 				String value = usernameField.getDomProperty("value");
 				return value != null && value.equals(usernameText);
+			} catch (StaleElementReferenceException | ElementNotInteractableException e) {
+				// StaleElementReferenceException: Angular re-rendered the field between find and sendKeys
+				// ElementNotInteractableException: field is in DOM but page is still loading — retry until ready
+				return false;
+			}
+		});
+	}
+	
+	public void enterUserIdField(String usernameIdText) {
+		// Retry until the value sticks — Angular may re-render the field after it first appears
+		wait.until(driver -> {
+			try {
+				WebElement usernameField = driver.findElement(By.id("username"));
+				if (!usernameField.isEnabled()) return false;
+				usernameField.clear();
+				usernameField.sendKeys(usernameIdText);
+				String value = usernameField.getDomProperty("value");
+				return value != null && value.equals(usernameIdText);
 			} catch (StaleElementReferenceException | ElementNotInteractableException e) {
 				// StaleElementReferenceException: Angular re-rendered the field between find and sendKeys
 				// ElementNotInteractableException: field is in DOM but page is still loading — retry until ready

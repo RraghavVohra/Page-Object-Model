@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Social Auto Post Suite">
+  <listeners>
+    <listener class-name="listeners.MyListeners"/>
+    <listener class-name="listeners.RetryListener"/>
+  </listeners>
+  <test name="Social Auto Post Tests">
+    <classes>
+      <class name="tests.SocialAutoPostTest"/>
+    </classes>
+  </test>
+</suite>

@@ -76,6 +76,13 @@
     <artifactId>json</artifactId>
     <version>20250107</version>
 </dependency>
+<!-- WHY: Auto-downloads the correct ChromeDriver/GeckoDriver matching your installed browser version.
+     Prevents "ChromeDriver version mismatch" errors after Chrome auto-updates. -->
+<dependency>
+    <groupId>io.github.bonigarcia</groupId>
+    <artifactId>webdrivermanager</artifactId>
+    <version>5.9.2</version>
+</dependency>
   </dependencies>
 
   <build>

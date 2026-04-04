@@ -94,6 +94,12 @@ public class PushNotificationPage {
 		Notifications = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[normalize-space()='Push Notification']")));
 		Notifications.click();
 	}
+    
+   public void clickOnNotificationsPreprod() {
+		
+		Notifications = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[normalize-space()='Push Notification']")));
+		Notifications.click();
+	}
 	
 	
 	

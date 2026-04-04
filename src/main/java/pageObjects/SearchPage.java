@@ -11,6 +11,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SearchPage {
@@ -46,6 +47,7 @@ public class SearchPage {
 	 private WebElement EmailFilter;
 	 private WebElement AllFilter;
 	 private WebElement draftAndPublishedOption;
+	 private WebElement profileIconThree;
 
 
 	 public void enterValueIntoSearchTextfield(String contentName) {
@@ -84,7 +86,7 @@ public class SearchPage {
 
 	    public void clickOnAllQuickFilter() throws InterruptedException {
 	    	AllFilter = wait.until(ExpectedConditions.elementToBeClickable
-	    	(By.xpath("(//a[@data-rr-ui-event-key='#' and contains(text(), 'All')])[1]")));
+	    	(By.xpath("//div[@class='col']//a[@role='button'][normalize-space()='All']")));
 	    	AllFilter.click();
 	    	// Fixed wait — count-change approach timed out when all cards matched this filter type
 	    	Thread.sleep(1500);
@@ -92,7 +94,7 @@ public class SearchPage {
 
 	    public void clickOnBookmarkedFilter() throws InterruptedException {
 	    	bookmarkedFilter = wait.until(ExpectedConditions.elementToBeClickable
-	    	(By.xpath("(//a[@data-rr-ui-event-key='bookmarked' and contains(text(), 'bookmarked')])[1]")));
+	    	(By.xpath("//div[@class='col']//a[@role='button'][normalize-space()='bookmarked']")));
 	    	bookmarkedFilter.click();
 	    	// Fixed wait — count-change approach timed out when all cards matched this filter type
 	    	Thread.sleep(1500);
@@ -100,7 +102,7 @@ public class SearchPage {
 
 	    public void clickOnMicrositeFilter() throws InterruptedException {
 	    	micrositeFilter = wait.until(ExpectedConditions.elementToBeClickable
-	    	(By.xpath("(//a[@data-rr-ui-event-key='microsite' and contains(text(), 'Microsite')])[1]")));
+	    	(By.xpath("//div[@class='col']//a[@role='button'][normalize-space()='Microsite']")));
 	    	micrositeFilter.click();
 	    	// Fixed wait — count-change approach timed out when all cards matched this filter type
 	    	Thread.sleep(1500);
@@ -108,7 +110,7 @@ public class SearchPage {
 
 	    public void clickOnVideoFilter() throws InterruptedException {
 	    	videoFilter = wait.until(ExpectedConditions.elementToBeClickable
-	    	(By.xpath("(//a[@data-rr-ui-event-key='1' and contains(text(), 'Video')])[1]")));
+	    	(By.xpath("//div[@class='col']//a[@role='button'][normalize-space()='Video']")));
 	    	videoFilter.click();
 	    	// Fixed wait — count-change approach timed out when all cards matched this filter type
 	    	Thread.sleep(1500);
@@ -116,7 +118,7 @@ public class SearchPage {
 
 	    public void clickOnBrochureFilter() throws InterruptedException {
 	    	brochureFilter = wait.until(ExpectedConditions.elementToBeClickable
-	    	(By.xpath("(//a[@data-rr-ui-event-key='21' and contains(text(), 'Brochure')])[1]")));
+	    	(By.xpath("//div[@class='col']//a[@role='button'][normalize-space()='Brochure']")));
 	    	brochureFilter.click();
 	    	// Fixed wait — count-change approach timed out when all cards matched this filter type
 	    	Thread.sleep(1500);
@@ -124,7 +126,7 @@ public class SearchPage {
 
 	    public void clickOnBannerFilter() throws InterruptedException {
 	    	bannersFilter = wait.until(ExpectedConditions.elementToBeClickable
-	    	(By.xpath("(//a[@data-rr-ui-event-key='34' and contains(text(), 'Banners')])[1]")));
+	    	(By.xpath("//div[@class='col']//a[@role='button'][normalize-space()='Banner']")));
 	    	bannersFilter.click();
 	    	// Fixed wait — count-change approach timed out when all cards matched this filter type
 	    	Thread.sleep(1500);
@@ -132,7 +134,7 @@ public class SearchPage {
 
 	    public void clickOnSocialPostsFilter() throws InterruptedException {
 	    	socialPostsFilter = wait.until(ExpectedConditions.elementToBeClickable
-	    	(By.xpath("(//a[@data-rr-ui-event-key='15' and contains(text(), 'Social Posts')])[1]")));
+	    	(By.xpath("//div[@class='col']//a[@role='button'][normalize-space()='Social Post']")));
 	    	socialPostsFilter.click();
 	    	// Fixed wait — count-change approach timed out when all cards matched this filter type
 	    	Thread.sleep(1500);
@@ -140,7 +142,7 @@ public class SearchPage {
 
 	    public void clickOnEmailQuickFilter() throws InterruptedException {
 	    	EmailFilter = wait.until(ExpectedConditions.elementToBeClickable
-	    	(By.xpath("(//a[@data-rr-ui-event-key='42' and contains(text(), 'Email')])[1]")));
+	    	(By.xpath("//div[@class='col']//a[@role='button'][normalize-space()='Email']")));
 	    	EmailFilter.click();
 	    	// Fixed wait — count-change approach timed out when all cards matched this filter type
 	    	Thread.sleep(1500);
@@ -157,10 +159,15 @@ public class SearchPage {
 	    }
 
 	    public void clickOnPublishedButton() {
-	    	// Upgraded to elementToBeClickable — option must be selectable after dropdown opens
-	    	// Old approach: publishedButton = driver.findElement(By.xpath("//option[@value='1' and text()='Published']"));
-	        publishedButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//option[@value='1' and text()='Published']")));
-	        publishedButton.click();
+	    	// Clicking <option> directly is unreliable on prod — Angular ignores programmatic Select class changes too
+	    	// Old approach: publishedButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//option[@value='1' and text()='Published']")));
+	    	// Old approach: publishedButton.click();
+	    	// Arrow key sendKeys fires native browser events — Angular always picks these up unlike programmatic selection
+	    	// "Draft & Published" is index 0, "Draft" is index 1, "Published" is index 2 → two ARROW_DOWN presses
+	        WebElement selectEl = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//select[@aria-label='select-status']")));
+	        selectEl.click();
+	        selectEl.sendKeys(org.openqa.selenium.Keys.ARROW_DOWN);
+	        selectEl.sendKeys(org.openqa.selenium.Keys.ARROW_DOWN);
 	        // Post-wait: results loaded — either asset cards or No Data message is visible
 	        wait.until(d -> !d.findElements(By.xpath("//div[contains(@class,'asset-card')]")).isEmpty()
 	            || !d.findElements(By.xpath("//div[@class='no-data asset']")).isEmpty());
@@ -190,6 +197,36 @@ public class SearchPage {
 	    		attempt++;
 	    	} while (currentCount > previousCount && attempt < maxAttempts);
 	    	// Scroll back to top so card elements are accessible without stale references
+	    	js.executeScript("window.scrollTo(0, 0)");
+	    	Thread.sleep(300);
+	    }
+
+	    public void scrollToLoadVisibleCards() throws InterruptedException {
+	    	// Use after applying a quick filter — filter hides non-matching cards with display:none but keeps them in DOM.
+	    	// scrollToLoadAllCards() counts ALL cards and over-scrolls loading every card type, causing slowness.
+	    	// This method counts only VISIBLE cards via JS (single fast call per iteration) so it stops as soon
+	    	// as the filtered subset is fully loaded.
+	    	JavascriptExecutor js = (JavascriptExecutor) driver;
+	    	int previousCount = 0;
+	    	int currentCount = 0;
+	    	int maxAttempts = 20;
+	    	int attempt = 0;
+	    	do {
+	    		previousCount = currentCount;
+	    		js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+	    		// Reduced from 1000ms — 500ms is enough for lazy-loaded cards to render on a normal connection
+	    		// Thread.sleep(1000);
+	    		Thread.sleep(500);
+	    		// JS counts only visible cards — offsetParent === null means hidden (display:none)
+	    		currentCount = ((Long) js.executeScript(
+	    			"var cards = document.querySelectorAll('div[class*=\"asset-card\"]');" +
+	    			"var n = 0;" +
+	    			"for(var i = 0; i < cards.length; i++) { if(cards[i].offsetParent !== null) n++; }" +
+	    			"return n;"
+	    		)).intValue();
+	    		attempt++;
+	    	} while (currentCount > previousCount && attempt < maxAttempts);
+	    	// Scroll back to top
 	    	js.executeScript("window.scrollTo(0, 0)");
 	    	Thread.sleep(300);
 	    }
@@ -246,6 +283,12 @@ public class SearchPage {
 	    	profileIconTwo = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[local-name()='svg' and contains(@class, 'bi-person-circle')]")));
 	    	profileIconTwo.click();
 
+	    }
+	    
+	    public void clickOnProfileIconAfterSearchProd() {
+	    	
+	    	profileIconThree = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='user-profile dropdown']//button[@id='dropdown-basic']//*[name()='svg']")));
+	    	profileIconThree.click();
 	    }
 
 	    public String getTextFromNoDataElement() {
